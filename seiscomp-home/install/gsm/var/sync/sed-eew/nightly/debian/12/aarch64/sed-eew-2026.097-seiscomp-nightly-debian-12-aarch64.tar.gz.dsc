@@ -1,0 +1,16 @@
+pkgname=sed-eew
+pkgver=2026.097
+pkgrel=nightly
+pkgdesc=('Earthquake early warning modules by SED (public)')
+pkgkeywords=('sed eew')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('a08373c316dae29ecf8087065924f5c17561ad88e3b5196fc7f9b930bec6d748')
+pkgsize=('11154712')
+pkginstallsize=('33712087')
+filename=('sed-eew-2026.097-seiscomp-nightly-debian-12-aarch64.tar.gz')
+builddate=('2026-05-07 02:52:56')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

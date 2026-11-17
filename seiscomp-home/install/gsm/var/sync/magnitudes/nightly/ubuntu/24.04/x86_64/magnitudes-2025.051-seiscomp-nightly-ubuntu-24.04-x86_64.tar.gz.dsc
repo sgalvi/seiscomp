@@ -1,0 +1,17 @@
+pkgname=magnitudes
+pkgver=2025.051
+pkgrel=nightly
+pkgdesc=('Plugins providing magnitudes and yield estimates (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('1c64afc336c8c582e25cbaf15ba2a850180acec2d5652104a8587c7b88f40869')
+pkgsize=('18702')
+pkginstallsize=('101464')
+pkgfilecount=('3')
+filename=('magnitudes-2025.051-seiscomp-nightly-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-11-16 21:14:05')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

@@ -1,0 +1,16 @@
+pkgname=lambda
+pkgver=2026.231
+pkgrel=6
+pkgdesc=('Seismic and infrasound array analysis (commercial)')
+pkgkeywords=('array earthquake monitoring induced earthquake infrasound local monitoring microseismic monitoring teleseismic monitoring')
+pkgchangelog=('share/doc/lambda/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('2c7731bfad86624a3465ba40f474fe9defd3bf129ea4c4752aaf9843df2f5858')
+pkgsize=('56740955')
+pkginstallsize=('65871371')
+filename=('lambda-2026.231-seiscomp-6-debian-13-x86_64.tar.gz')
+builddate=('2026-08-31 22:24:45')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

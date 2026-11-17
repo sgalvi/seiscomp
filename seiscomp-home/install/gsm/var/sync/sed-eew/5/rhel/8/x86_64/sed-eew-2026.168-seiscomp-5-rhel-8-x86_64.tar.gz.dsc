@@ -1,0 +1,16 @@
+pkgname=sed-eew
+pkgver=2026.168
+pkgrel=5
+pkgdesc=('Earthquake early warning modules by SED (public)')
+pkgkeywords=('sed eew')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('48d4e41f8b24d199d4c4dbfcacf5bfae0e592b1c01f873e41c479f397529c057')
+pkgsize=('11171670')
+pkginstallsize=('33547043')
+filename=('sed-eew-2026.168-seiscomp-5-rhel-8-x86_64.tar.gz')
+builddate=('2026-06-26 23:09:43')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

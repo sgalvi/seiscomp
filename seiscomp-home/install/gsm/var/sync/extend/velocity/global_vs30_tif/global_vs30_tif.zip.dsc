@@ -1,0 +1,1 @@
+../../../global_vs30_tif/noarch/global_vs30_tif.zip.dsc

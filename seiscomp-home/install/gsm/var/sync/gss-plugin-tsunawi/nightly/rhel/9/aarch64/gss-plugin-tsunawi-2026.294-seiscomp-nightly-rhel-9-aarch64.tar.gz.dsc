@@ -1,0 +1,17 @@
+pkgname=gss-plugin-tsunawi
+pkgver=2026.294
+pkgrel=nightly
+pkgdesc=('Tsunami simulation plugin for TOAST that gets data from precalculated database provided by AWI (commercial)')
+pkgkeywords=('decision support multi-sensor TEW tide gauge tsunami observation tsunami simulation')
+pkgchangelog=('share/doc/simtsunawi/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('5ba2d43e16a542bd4d1d2377c467fb435bd444c1f21e0e4f00afd6d6d872555e')
+pkgsize=('3148394')
+pkginstallsize=('9430676')
+filename=('gss-plugin-tsunawi-2026.294-seiscomp-nightly-rhel-9-aarch64.tar.gz')
+builddate=('2026-10-30 23:32:39')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')
+conflicts=('tsunawi')

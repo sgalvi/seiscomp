@@ -1,0 +1,1047 @@
+.\" Man page generated from reStructuredText.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "SCMVX" "1" "Sep 04, 2026" "7.4.0" "SeisComP"
+.SH NAME
+scmvx \- SeisComP Documentation
+.sp
+\fBMap view showing maps with stations and events. Issues related to
+configuration of stations are indicated.\fP
+.SH DESCRIPTION
+.INDENT 0.0
+.INDENT 2.5
+[image: scmvx events tab]
+[image]
+Events tab.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image: scmvx network tab]
+[image]
+Network tab.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image: scmvx ground motion tab]
+[image]
+Ground motion tab.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image: scmvx quality control tab]
+[image]
+Quality control tab.UNINDENT
+.UNINDENT
+.sp
+scmvx (SeisComP map view extended) provides maps that visualize information of
+stations, events and phase picks at stations. Events are
+received and updated in real time or loaded from a \fISeisComP\fP database. Stations
+are loaded from inventory independent of bindings but compared with bindings.
+Station information include:
+.INDENT 0.0
+.IP \(bu 2
+Location (not sensor location) along with network, station and full
+stream code. The latter is defined by global bindings.
+.IP \(bu 2
+Current ground motion.
+.IP \(bu 2
+Current station quality.
+.IP \(bu 2
+Current trigger status.
+.IP \(bu 2
+Instantaneous waveforms.
+.IP \(bu 2
+Station inventory and bindings configuration issues.
+.UNINDENT
+.sp
+The maps can be customized by global \fBscheme.map\fP parameters and
+additional layers can be added as outlined in the
+\fI\%GUI documentation\fP\&.
+.sp
+\fBscmvx\fP shows all information in tabes which are outlined in section
+\fI\%Tabs\fP\&. More applications and use cases are described in section
+\fI\%Use Cases\fP\&.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+scmvx is the next generation of \fI\%scmv\fP which is deprecated but shipped
+along with the \fISeisComP\fP package for maintaining backwards compatibility.
+.UNINDENT
+.UNINDENT
+.SH TABS
+.sp
+scmvx provides multiple \fI\%tabs\fP for visualizing stations
+along with station parameters or issues and for showing events updated in
+real time or read from the \fISeisComP\fP database:
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Network\fP: Map showing events and network
+information including station configuration and inventory issues.
+.IP \(bu 2
+\fI\%Ground motion\fP: Map with events and stations. The
+color of stations symbols represents recent ground motion calculated by scmvx
+in a configurable time window.
+.IP \(bu 2
+\fI\%Quality control\fP: Map with events and stations. The
+color of stations symbols represents recent waveform quality control
+parameters calculated by \fI\%scqc\fP\&.
+.IP \(bu 2
+\fI\%Events\fP: Event list updated in real time and
+allowing to filter events and to load historic events from database.
+.UNINDENT
+.sp
+Stations with recent phase picks are blinking with red triangles.
+When a new event arrives, the details are shown and updated in the latest event
+field. Yellow and blue circles indicate the predicted wavefronts of P and S
+phases, respectively. The wavefronts fade out and disappear depending on
+magnitude.
+.sp
+Any tab can be shown in full\-screen mode (\fBF11\fP) where it is detached
+from the main window and shown without any frame.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+The following figures show maps which are optimized for file size (134 MByte)
+and coloring and made available by \fIgempa GmbH\fP [\fI\%32\fP]:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+cd Downloads
+wget \-O /tmp/maps.tar \(dqhttps://data.gempa.de/packages/Public/maps/gempa\-minimal/gempa\-minimal.tar\(dq
+cd $SEISCOMP_ROOT/..
+tar \-xvf /tmp/maps.tar
+rm /tmp/maps.tar
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+You may add the maps to your global configuration
+(\fB$SEISCOMP_ROOT/etc/global.cfg\fP):
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+map.location = @DATADIR@/maps/world%s.png
+map.format = mercator
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.SS Network
+.sp
+The network tab shows all stations available with the loaded inventory.
+Station symbols (triangles) and event (circles) are color\-coded according to
+network code and source depth, respectively. Activate the legend (right\-click
+on map) for the color\-coding. Stations having issues in global bindings or
+inventory are highlighted by error symbols.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Network tab showing stations and events. Two events were received
+recently. The yellow and blue circles indicate the predicted wavefronts of
+P and S phases, respectively, with their degrees of epicentral distance shown
+next to the circles..UNINDENT
+.UNINDENT
+.sp
+Clicking on a station opens the details view showing stations details and
+waveforms. Issues are explained.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Network tab explaining a conflict of a station binding configuration with
+loaded inventory. Click on the corresponding station symbol for opening the
+details view..UNINDENT
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Network tab indicating a station with missing global bindings..UNINDENT
+.UNINDENT
+.SS Ground motion
+.sp
+The ground motion tab shows the current ground motion situation at a station.
+Station symbols (triangles) and event (circles) are color\-coded according to
+recent ground motion and source depth, respectively.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Ground motion tab with stations (triangles) and events..UNINDENT
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Ground motion tab. Clicking on an event symbol (circle) opens the object
+inspector in which the event details can be read..UNINDENT
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Ground motion tab. Clicking on a station symbol (triangle) opens the details
+view in which station details and waveforms can be read..UNINDENT
+.UNINDENT
+.SS Quality control
+.sp
+The quality control tab shows current waveform QC parameters as computed by
+\fI\%scqc\fP which must be running for showing the values.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Quality control (QC) tab. The QC parameter type may be selected in the View
+menu. Here, the maps are greyed out interactively (\fBG\fP)..UNINDENT
+.UNINDENT
+.SS Events
+.sp
+Events are shown as they arrive in real time and may be interactively loaded
+from database and filtered thereafter in the Events tab.
+During startup events from within a period of time are loaded and shown
+according the configuration of \fI\%readEventsNotOlderThan\fP\&.
+More events are added in real time as they arrive.
+Historic events can be loaded from database for time spans and other filter
+criteria.
+The loaded events can be sorted interactively by clicking on the table header.
+Events out of scope can be hidden based on region, event type or agency ID.
+In contrast to other event lists, e.g. in \fI\%scolv\fP or \fI\%scesv\fP, this
+event list only gives access to parameter of the preferred but no other origins
+of events.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Events tab with events loaded from database and updated in real time..UNINDENT
+.UNINDENT
+.SS Hotkeys
+.TS
+center;
+|l|l|.
+_
+T{
+Hotkey
+T}	T{
+Description
+T}
+_
+T{
+C
+T}	T{
+Center map around latest event upon event update
+T}
+_
+T{
+G
+T}	T{
+Show map base layer in gray scale
+T}
+_
+T{
+\fBF1\fP
+T}	T{
+Open SeisComP documentation in default browser
+T}
+_
+T{
+\fBShift + F1\fP
+T}	T{
+Open scmvx documentation in default browser
+T}
+_
+T{
+\fBF2\fP
+T}	T{
+Open dialog for connecting to database and messaging
+T}
+_
+T{
+\fBF6\fP
+T}	T{
+Toggle latest event information on map
+T}
+_
+T{
+\fBF7\fP
+T}	T{
+Toggle legend
+T}
+_
+T{
+\fBF8\fP
+T}	T{
+Toggle station issues in Network tab
+T}
+_
+T{
+\fBShift + F8\fP
+T}	T{
+Toggle stations without global bindings
+T}
+_
+T{
+\fBF9\fP
+T}	T{
+Toggle station annotation
+T}
+_
+T{
+\fBF10\fP
+T}	T{
+Switch to event list (Events tab)
+T}
+_
+T{
+\fBF11\fP
+T}	T{
+Toggle full screen mode
+T}
+_
+T{
+\fBCtrl + F\fP
+T}	T{
+Search station
+T}
+_
+T{
+\fBCtrl + N\fP
+T}	T{
+Reset view to default
+T}
+_
+T{
+\fBCtrl + O\fP
+T}	T{
+Open event parameter XML file
+T}
+_
+T{
+\fBCtrl + Q\fP
+T}	T{
+Quit scmvx
+T}
+_
+T{
+\fBleft\fP, \fBright\fP, \fBup\fP, \fBdown\fP
+T}	T{
+Move focus of map left, right, up, down
+T}
+_
+T{
+Double mouse click
+T}	T{
+Center map
+T}
+_
+T{
+Mouse wheel
+T}	T{
+Zoom in or out in map
+T}
+_
+T{
+\fB+\fP
+T}	T{
+Zoom in into map around current center
+T}
+_
+T{
+\fB\-\fP
+T}	T{
+Zoom out in map around current center
+T}
+_
+T{
+\fBShift\fP + Hold left mouse button + Drag
+T}	T{
+Select a map area and zoom into it
+T}
+_
+T{
+Right mouse button
+T}	T{
+Open context menu
+T}
+_
+.TE
+.SH USE CASES
+.SS Identify networks
+.sp
+Application:
+.INDENT 0.0
+.IP \(bu 2
+Identify a network on map.
+.UNINDENT
+.sp
+Procedure:
+.INDENT 0.0
+.IP 1. 3
+Navigate to the \fI\%Network tab\fP\&.
+.IP 2. 3
+Activate the legend: Right\-click on map, select \fIShow legend(s)\fP\&.
+.IP 3. 3
+Identify all stations by the color of the corresponding network.
+.UNINDENT
+.SS Search stations
+.sp
+Application:
+.INDENT 0.0
+.IP \(bu 2
+Identify a station on map.
+.UNINDENT
+.sp
+Procedure:
+.INDENT 0.0
+.IP 1. 3
+Press \fBCTRL + F\fP to open the search window.
+.IP 2. 3
+Type any string from a station and/or network name in the input field or just
+select a station from the list.
+.IP 3. 3
+Double click in a station in the list to center the map at this location.
+.UNINDENT
+.SS Get station information, detail issues
+.sp
+Application:
+.INDENT 0.0
+.IP \(bu 2
+Read station information.
+.IP \(bu 2
+Identify and read station inventory and bindings configuration issues (in
+\fI\%Network tab\fP).
+.IP \(bu 2
+View instantaneous waveforms.
+.UNINDENT
+.sp
+Procedure:
+.INDENT 0.0
+.IP 1. 3
+Navigate to the \fI\%Network tab\fP\&.
+.IP 2. 3
+Position the mouse above a triangle representing a station. The selected
+station is highlighted. Zoom in if stations are overlapping.
+.IP 3. 3
+Click your left mouse button for opening the station info widget.
+Data and potential configuration issues are shown.
+.UNINDENT
+.SS Search for and show an event
+.sp
+Application:
+.INDENT 0.0
+.IP \(bu 2
+Browse event catalogs in \fISeisComP\fP database.
+.IP \(bu 2
+Search the list of loaded events.
+.UNINDENT
+.sp
+Procedure:
+.INDENT 0.0
+.IP 1. 3
+Navigate to the \fI\%Events tab\fP load events from
+database in a relevant time range. You may narrow down the database search
+through the filter button. After events are loaded the list may be limited by
+hiding irrelevant events and you may change the sorting of the event table by
+clicking on the header.
+.IP 2. 3
+Identify the event and double\-click on the event line to load the parameters.
+You will immediately switch to a map centered around the selected event.
+.UNINDENT
+.SS Get event information
+.sp
+Application:
+.INDENT 0.0
+.IP \(bu 2
+View event details.
+.IP \(bu 2
+Send origin information to other applications, e.g., \fI\%scolv\fP for further
+processing.
+.UNINDENT
+.sp
+Procedure:
+.INDENT 0.0
+.IP 1. 3
+Position the mouse above a circle representing the location of an event.
+Zoom in if events are overlapping.
+.IP 2. 3
+Click the left mouse button for opening the event object inspector.
+.IP 3. 3
+Click on \fBShow details\fP for sending the origin to the messaging for further
+processing, e.g., by \fI\%scolv\fP\&.
+.UNINDENT
+.SS Set artificial origin
+.sp
+Application:
+.INDENT 0.0
+.IP \(bu 2
+Identify an event of interest, e.g., by blinking stations.
+.IP \(bu 2
+Send origin information to other applications, e.g. \fI\%scolv\fP for further
+processing from scratch.
+.UNINDENT
+.sp
+Procedure:
+.INDENT 0.0
+.IP 1. 3
+Position the mouse in the map.
+.IP 2. 3
+Press the middle mouse button.
+.IP 3. 3
+Set date & time and latitude, longitude & depth.
+.IP 4. 3
+Press \(dqCreate\(dq to open the origin in another GUI, e.g., \fI\%scolv\fP which
+must be running already.
+.UNINDENT
+.SH COMMAND-LINE EXAMPLES
+.INDENT 0.0
+.IP \(bu 2
+Real\-time view of events and stations on a local server
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scmvx \-H localhost \-I slink://localhost \-\-debug
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Offline view of event parameters given in an XML file. Inventory is read from
+database.
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scmvx \-d localhost \-i events.xml \-\-debug
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.SH MODULE CONFIGURATION
+.nf
+\fBetc/defaults/global.cfg\fP
+\fBetc/defaults/scmvx.cfg\fP
+\fBetc/global.cfg\fP
+\fBetc/scmvx.cfg\fP
+\fB~/.seiscomp/global.cfg\fP
+\fB~/.seiscomp/scmvx.cfg\fP
+.fi
+.sp
+.sp
+scmvx inherits \fI\%global options\fP\&.
+.INDENT 0.0
+.TP
+.B displaymode
+Default: \fBnetwork\fP
+.sp
+Type: \fIstring\fP
+.sp
+Values: \fBgroundmotion,network,qualitycontrol\fP
+.sp
+Set one of the available display modes used during startup for
+defining which tab is shown. When empty, the Network tab is
+shown.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B readEventsNotOlderThan
+Default: \fB86400\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+Sets the time span before current time to read events initially
+from database.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B centerOrigins
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If a new origin/event is set/selected, this option defines if
+the map is centered or not at the origin location.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B annotations
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Enables/disabled drawing of station annotations at startup.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B annotationsWithChannels
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Show full stream codes with station annotations including
+location and channel codes as NET.STA.LOC.CHA.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B showUnboundStations
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Enable/disable drawing of stations which are not bound with
+global bindings.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B mapLegendPosition
+Default: \fBtopright\fP
+.sp
+Type: \fIstring\fP
+.sp
+Values: \fBtopleft,topright,bottomright,bottomleft\fP
+.sp
+The legend location for station symbols (network, QC, ground motion).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventLegendPosition
+Default: \fBbottomleft\fP
+.sp
+Type: \fIstring\fP
+.sp
+Values: \fBtopleft,topright,bottomright,bottomleft\fP
+.sp
+The legend location for event symbols.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBdisplay.*\fP
+\fIThe initial rectangular region for the map. The eventual region\fP
+\fIis also scaled to the dimension of the opened map widget.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B display.latmin
+Default: \fB\-90.0\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIdeg\fP
+.sp
+Range: \fB\-90..90\fP
+.sp
+Minimum latitude in degrees.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B display.lonmin
+Default: \fB\-180.0\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIdeg\fP
+.sp
+Range: \fB\-360..360\fP
+.sp
+Minimum longitude in degrees.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B display.latmax
+Default: \fB90.0\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIdeg\fP
+.sp
+Range: \fB\-90..90\fP
+.sp
+Maximum latitude in degrees.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B display.lonmax
+Default: \fB180.0\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIdeg\fP
+.sp
+Range: \fB\-360..360\fP
+.sp
+Maximum longitude in degrees.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBevents.*\fP
+\fIThe initial configuration for events. The visibiliy of events\fP
+\fIcan be set by configuration of the global parameter\fP
+\fI\(dqmap.layers.events.visible\(dq.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B events.showLatestEventWidget
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Show the latest event widget. The widget can
+be toggelt interactively by the View menu.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B stations.amplitudeTimeSpan
+Default: \fB10\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+Time span for forming the maximum value as envelope to the
+traces in the trace window for a station.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B stations.groundMotionRecordLifeSpan
+Default: \fB600\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+Time to keep waveform data in memory.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B stations.triggerTimeout
+Default: \fB900\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+Time span to show phase picks of a station by a blinking
+triangle.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B stations.triggerFrameSize
+Default: \fB3\fP
+.sp
+Type: \fIint\fP
+.sp
+Unit: \fIpx\fP
+.sp
+The size of the frame of a station symbol if in trigger mode.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B stations.groundMotionFilter
+Default: \fBITAPER(60)>>BW_HP(4,0.5)\fP
+.sp
+Type: \fIstring\fP
+.sp
+Sets the filter applied to determine ground motion.
+.UNINDENT
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBscmvx [options]\fP
+.SS Verbosity
+.INDENT 0.0
+.TP
+.B \-\-verbosity arg
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-v, \-\-v
+Increase verbosity level (may be repeated, e.g., \-vv).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-q, \-\-quiet
+Quiet mode: no logging output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-component arg
+Limit the logging to a certain component. This option can
+be given more than once.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-s, \-\-syslog
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-l, \-\-lockfile arg
+Path to lock file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-console arg
+Send log output to stdout.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-debug
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-log\-file arg
+Use alternative log file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-print\-component arg
+For each log entry print the component right after the
+log level. By default the component output is enabled
+for file output but disabled for console output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-trace
+Execute in trace mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
+\-\-print\-context=1 .
+.UNINDENT
+.SS Generic
+.INDENT 0.0
+.TP
+.B \-h, \-\-help
+Show help message.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-V, \-\-version
+Show version information.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config\-file file
+The alternative module configuration file. When this option
+is used, the module configuration is only read from the
+given file and no other configuration stage is considered.
+Therefore, all configuration including the definition of
+plugins must be contained in that file or given along with
+other command\-line options such as \-\-plugins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-plugins arg
+Load given plugins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-auto\-shutdown arg
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with
+\-\-start\-stop\-msg for the master module).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-shutdown\-master\-module arg
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-shutdown\-master\-username arg
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
+given as well, this parameter is ignored.
+.UNINDENT
+.SS Messaging
+.INDENT 0.0
+.TP
+.B \-u, \-\-user arg
+Overrides configuration parameter \fI\%connection.username\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-H, \-\-host arg
+Overrides configuration parameter \fI\%connection.server\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-t, \-\-timeout arg
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-g, \-\-primary\-group arg
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-S, \-\-subscribe\-group arg
+A group to subscribe to.
+This option can be given more than once.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-content\-type arg
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
+.sp
+Default: \fBbinary\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-start\-stop\-msg arg
+Default: \fB0\fP
+.sp
+Set sending of a start and a stop message.
+.UNINDENT
+.SS Database
+.INDENT 0.0
+.TP
+.B \-\-db\-driver\-list
+List all supported database drivers.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-d, \-\-database arg
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config\-module arg
+The config module to use.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-inventory\-db arg
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-db\-disable
+Do not use the database at all.
+.UNINDENT
+.SS Records
+.INDENT 0.0
+.TP
+.B \-\-record\-driver\-list
+List all supported record stream drivers.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-I, \-\-record\-url arg
+The RecordStream source URL. Format:
+[\fI\%service://\fP]location[#type].
+\(dqservice\(dq is the name of the RecordStream driver
+which can be queried with \(dq\-\-record\-driver\-list\(dq.
+If \(dqservice\(dq is not given, \(dq\fI\%file://\fP\(dq is
+used and simply the name of a miniSEED file can be given.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-record\-file arg
+Specify a file as record source.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-record\-type arg
+Specify a type for the records being read.
+.UNINDENT
+.SS Cities
+.INDENT 0.0
+.TP
+.B \-\-city\-xml arg
+Type: \fIfile\fP
+.sp
+The path to the cities XML file. This overrides the default
+paths. Compare with the global parameter \(dqcitiesXML\(dq.
+.UNINDENT
+.SS User interface
+.INDENT 0.0
+.TP
+.B \-F, \-\-full\-screen
+Start the application filling the entire screen.
+This only works with GUI applications.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-N, \-\-non\-interactive
+Use non\-interactive presentation mode. This only works with
+GUI applications.
+.UNINDENT
+.SS MapviewX
+.INDENT 0.0
+.TP
+.B \-\-display\-mode arg
+Overrides configuration parameter \fI\%displaymode\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-i, \-\-input\-file file
+Load events in given XML file during startup and switch to
+offline mode.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-offline
+Do not connect to a messaging server and do not subscribe
+channel data.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-with\-legend
+Show the map legends.
+.UNINDENT
+.SH AUTHOR
+gempa GmbH, GFZ Potsdam
+.SH COPYRIGHT
+gempa GmbH, GFZ Potsdam
+.\" Generated by docutils manpage writer.
+.

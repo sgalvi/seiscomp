@@ -1,0 +1,17 @@
+pkgname=gss-plugin-geowarettt
+pkgver=2026.294
+pkgrel=nightly
+pkgdesc=('Geoware tsunami travel time calculation simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simgeowarettt/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('893a00415f8d292d0fed8bcc1700c65cf78270cbb51ccf62f4ca41285815b1bd')
+pkgsize=('4646053')
+pkginstallsize=('11759601')
+filename=('gss-plugin-geowarettt-2026.294-seiscomp-nightly-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-10-30 21:17:50')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')
+conflicts=('geowarettt')

@@ -1,0 +1,16 @@
+pkgname=rsamtrig
+pkgver=2026.203
+pkgrel=6
+pkgdesc=('RecordStreams providing Real-time Seismic Amplitude Measurement (RSAM) (commercial)')
+pkgkeywords=('RSAM volcano monitoring')
+pkgchangelog=('share/doc/rsamtrig/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('cdacf996649c21d360dd8632894d9377d1c13a894e88078059ccf17e1030d4ae')
+pkgsize=('2245400')
+pkginstallsize=('4162099')
+filename=('rsamtrig-2026.203-seiscomp-6-debian-12-x86_64.tar.gz')
+builddate=('2026-08-18 22:24:44')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

@@ -1,0 +1,16 @@
+pkgname=caps-plugins-bernese
+pkgver=2024.178
+pkgrel=7
+pkgdesc=('Bernese plugin for CAPS (commercial)')
+pkgkeywords=('data acquisition GNSS')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('ee31dacac5d3039c3dbbbdf2ca8d2e9ac152bdb65e39648ffddb27e3a1454d96')
+pkgsize=('255918')
+pkginstallsize=('747765')
+filename=('caps-plugins-bernese-2024.178-seiscomp-7-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-05-01 22:56:40')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

@@ -1,0 +1,17 @@
+pkgname=texnet-addons
+pkgver=2024.043
+pkgrel=nightly
+pkgdesc=('Custom package used by TexNet (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('04c60ce1626cafc1f8c9291f5fb900b633a5df2459d23cb101115b07ec26354a')
+pkgsize=('855235')
+pkginstallsize=('2400517')
+filename=('texnet-addons-2024.043-nightly-nightly-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2024-10-18 23:13:36')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

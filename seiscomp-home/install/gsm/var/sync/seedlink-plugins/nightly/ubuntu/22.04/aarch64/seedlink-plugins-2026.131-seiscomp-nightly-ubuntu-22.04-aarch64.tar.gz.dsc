@@ -1,0 +1,16 @@
+pkgname=seedlink-plugins
+pkgver=2026.131
+pkgrel=nightly
+pkgdesc=('seedlink-plugins')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('92d8896cae42cf3148e93e26a9b0ae00c7f80a13b8bdfe623dde6f244f5af055')
+pkgsize=('650582')
+pkginstallsize=('1956449')
+filename=('seedlink-plugins-2026.131-seiscomp-nightly-ubuntu-22.04-aarch64.tar.gz')
+builddate=('2026-07-21 23:46:21')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

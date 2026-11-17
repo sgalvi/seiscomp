@@ -1,0 +1,17 @@
+pkgname=mhras
+pkgver=2022.161
+pkgrel=5
+pkgdesc=('mhras')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('3e0b968932316aed4d41dc5cb4706544667609e316d47d430125bdbca5fce188')
+pkgsize=('2458042')
+pkginstallsize=('7285418')
+filename=('mhras-2022.161-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2022-06-14 23:40:54')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

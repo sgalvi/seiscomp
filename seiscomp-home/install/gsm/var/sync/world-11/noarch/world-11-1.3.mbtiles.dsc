@@ -1,0 +1,16 @@
+pkgname=world-11
+pkgver=1.3
+pkgdesc=('gempa map tiles in Pseudo-Mercator projection up to zoom level 11 (76 m/pixel, 46.6 GiB) (commercial)')
+pkgkeywords=('map world-11.mbtiles')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('1b2419b197f17dd68027ef7342395b32523e912af54f0d0c0937c9287df084ab')
+pkgsize=('50031386624')
+pkginstallsize=('50031386624')
+filename=('world-11-1.3.mbtiles')
+pkgfilepath=('maps/world-11')
+builddate=('2021-08-12 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

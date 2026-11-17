@@ -1,0 +1,17 @@
+pkgname=kappa
+pkgver=2026.306
+pkgrel=5
+pkgdesc=('Event classification GUI (commercial)')
+pkgkeywords=('decision support earthquake monitoring induced earthquake local monitoring microseismic monitoring moment tensor origin evaluation teleseismic monitoring volcano monitoring discrimination')
+pkgchangelog=('share/doc/kappa/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('be03fa367acfbce779e7694f3f7329d0bf28c07e4c96e0efd4f278e4cb83ad9b')
+pkgsize=('15985885')
+pkginstallsize=('26456840')
+pkgfilecount=('211')
+filename=('kappa-2026.306-seiscomp-5-rhel-8-x86_64.tar.gz')
+builddate=('2026-11-16 21:48:17')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

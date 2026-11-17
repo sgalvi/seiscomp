@@ -1,0 +1,16 @@
+pkgname=gnsthreat
+pkgver=2025.063
+pkgrel=6
+pkgdesc=('GNS Science threat model database simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simgnsthreat/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('481cd217c3d66f91d7a42ebd98842e49fd5bb6a8dec61258255d93e027581005')
+pkgsize=('3910221')
+pkginstallsize=('8825530')
+filename=('gnsthreat-2025.063-seiscomp-6-rhel-8-x86_64.tar.gz')
+builddate=('2025-03-21 22:54:50')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

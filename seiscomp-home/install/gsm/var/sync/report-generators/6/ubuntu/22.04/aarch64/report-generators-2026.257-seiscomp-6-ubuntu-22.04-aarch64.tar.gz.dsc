@@ -1,0 +1,17 @@
+pkgname=report-generators
+pkgver=2026.257
+pkgrel=6
+pkgdesc=('Report generators (commercial)')
+pkgkeywords=('report shard sigma')
+pkgchangelog=('share/doc/rgsm/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('456aaf77ef9465fd062da199018012d2b9d7c8e16adc861e7420b7fe2ee70919')
+pkgsize=('13022541')
+pkginstallsize=('14696099')
+filename=('report-generators-2026.257-seiscomp-6-ubuntu-22.04-aarch64.tar.gz')
+builddate=('2026-10-08 00:50:46')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')
+osinstallscripts=('install-report-generators.sh')

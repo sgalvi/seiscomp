@@ -1,0 +1,17 @@
+pkgname=gdisp
+pkgver=2022.335
+pkgrel=nightly
+pkgdesc=('Get events from messaging and compute GNSS displacements.')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('47bbdccbb4d3f01d5be0d540691e6278a842b443955b74e19dad04d45b56422a')
+pkgsize=('9315')
+pkginstallsize=('40244')
+filename=('gdisp-2022.335-nightly-nightly-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2022-12-05 21:04:38')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

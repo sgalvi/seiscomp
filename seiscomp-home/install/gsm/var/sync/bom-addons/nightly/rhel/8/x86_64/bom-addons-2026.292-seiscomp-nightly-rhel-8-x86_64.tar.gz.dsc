@@ -1,0 +1,17 @@
+pkgname=bom-addons
+pkgver=2026.292
+pkgrel=nightly
+pkgdesc=('Custom package used by BOM (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('aefaba085b06ef799cdd0b13ce6a04593fc77e29d7b5cbcdbb7076c48a783e24')
+pkgsize=('4607603')
+pkginstallsize=('7720463')
+pkgfilecount=('338')
+filename=('bom-addons-2026.292-seiscomp-nightly-rhel-8-x86_64.tar.gz')
+builddate=('2026-11-16 21:19:53')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

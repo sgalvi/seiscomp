@@ -1,0 +1,1 @@
+../../../qseis_ak135f_continental/noarch/qseis_ak135f_continental.tar.dsc

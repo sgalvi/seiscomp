@@ -1,0 +1,17 @@
+pkgname=imo-addons
+pkgver=2025.309
+pkgrel=7
+pkgdesc=('Icelandic Meteorological Office (IMO) specific modules and plugins (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('9aebdbcd7a1e4b7a09c823d81cc77c90c97e783f78e6245f9f4592af32c84ac3')
+pkgsize=('24724')
+pkginstallsize=('88620')
+pkgfilecount=('2')
+filename=('imo-addons-2025.309-seiscomp-7-rhel-10-x86_64.tar.gz')
+builddate=('2026-11-17 00:01:56')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

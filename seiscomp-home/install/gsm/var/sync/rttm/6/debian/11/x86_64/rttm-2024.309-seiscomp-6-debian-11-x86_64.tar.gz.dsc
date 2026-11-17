@@ -1,0 +1,17 @@
+pkgname=rttm
+pkgver=2024.309
+pkgrel=6
+pkgdesc=('GNS Science simulation plugin for Rapid Tsunami Threat Map (RTTM) generation by W.L. Power (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simrttm/CHANGELOG')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('acbb5e77c87fa3cf223dd8fd661d91f1ad948a2a7c40815b75c3ac6cd923798f')
+pkgsize=('3699856')
+pkginstallsize=('6698258')
+filename=('rttm-2024.309-seiscomp-6-debian-11-x86_64.tar.gz')
+builddate=('2024-11-14 22:24:50')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

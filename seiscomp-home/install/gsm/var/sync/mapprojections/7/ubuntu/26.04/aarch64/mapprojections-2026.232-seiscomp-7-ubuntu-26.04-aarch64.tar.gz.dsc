@@ -1,0 +1,16 @@
+pkgname=mapprojections
+pkgver=2026.232
+pkgrel=7
+pkgdesc=('Plugins for enhancing maps: different map projections, access to high resolution maps, dynamic grid overlays (commercial)')
+pkgkeywords=('induced earthquake local monitoring maps microseismic monitoring')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('11ca60361a4ccb29b6ae7bef8d0fb3347e1eac3b8347286d491c3ab7e3c2332d')
+pkgsize=('2499718')
+pkginstallsize=('6468350')
+filename=('mapprojections-2026.232-seiscomp-7-ubuntu-26.04-aarch64.tar.gz')
+builddate=('2026-10-30 23:52:04')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

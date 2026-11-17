@@ -1,0 +1,17 @@
+pkgname=gss-plugin-most
+pkgver=2026.231
+pkgrel=7
+pkgdesc=('Most tsunami travel time calculation simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simbommost/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('2858661824aab0d6a3c819e471fa6aee704e9ca9d1480d514e96fbf2544022be')
+pkgsize=('4579225')
+pkginstallsize=('11499495')
+filename=('gss-plugin-most-2026.231-seiscomp-7-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-10-20 22:12:54')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')
+osinstallscripts=('install-simbommost.sh')

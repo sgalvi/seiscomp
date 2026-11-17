@@ -1,0 +1,16 @@
+pkgname=picker-plugins
+pkgver=2026.133
+pkgrel=nightly
+pkgdesc=('Package for different picker plugins, e.g., polarity picker (commercial)')
+pkgkeywords=('picker polarity paic p-aic aic p-fx pfx')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('74c6d474e3f6549c4bdca9526015516df60c1daab30c42859a9d4cc9e20ef3a7')
+pkgsize=('10291329')
+pkginstallsize=('11924299')
+filename=('picker-plugins-2026.133-seiscomp-nightly-rhel-8-aarch64.tar.gz')
+builddate=('2026-06-09 01:24:26')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

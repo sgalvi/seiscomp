@@ -1,0 +1,16 @@
+pkgname=lambda
+pkgver=2026.231
+pkgrel=6
+pkgdesc=('Seismic and infrasound array analysis (commercial)')
+pkgkeywords=('array earthquake monitoring induced earthquake infrasound local monitoring microseismic monitoring teleseismic monitoring')
+pkgchangelog=('share/doc/lambda/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('6fc66e854197dc191a39a67560cb36d6d2661f335cf6cc3ddf4a5f0f52e1b88d')
+pkgsize=('56681973')
+pkginstallsize=('65924363')
+filename=('lambda-2026.231-seiscomp-6-ubuntu-22.04-aarch64.tar.gz')
+builddate=('2026-09-01 01:34:42')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

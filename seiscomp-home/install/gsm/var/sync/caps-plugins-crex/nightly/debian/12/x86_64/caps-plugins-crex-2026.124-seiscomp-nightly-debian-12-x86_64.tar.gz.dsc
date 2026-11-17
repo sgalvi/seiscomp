@@ -1,0 +1,17 @@
+pkgname=caps-plugins-crex
+pkgver=2026.124
+pkgrel=nightly
+pkgdesc=('CAPS plugin for CREX data import (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('92c67b918d49135c0024c8d826d2e86cfa440055dad0c568acc5d1fe4bef7f9d')
+pkgsize=('865073')
+pkginstallsize=('7138197')
+pkgfilecount=('43')
+filename=('caps-plugins-crex-2026.124-seiscomp-nightly-debian-12-x86_64.tar.gz')
+builddate=('2026-11-16 21:11:48')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

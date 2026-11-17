@@ -1,0 +1,19 @@
+pkgname=seiscomp
+pkgver=6.4.4
+pkgrel=6
+pkgdesc=('SeisComP including data acquisition, processing, distribution and interactive analysis, version >=4.0.0 (public)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/seiscomp/CHANGELOG')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('919bd1a5fe27d4346f5b9eefe1807da868a1ae00f4fd76e3ec58212ef6bae5d4')
+pkgsize=('65240272')
+pkginstallsize=('205123293')
+filename=('seiscomp-6.4.4-debian-12-x86_64.tar.gz')
+builddate=('2024-07-18 08:09:22')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')
+conflicts=('seiscomp-headless' 'seiscomp-acqui' 'seiscomp-debug')
+osinstallscripts=('install-base.sh' 'install-fdsnws.sh' 'install-gui.sh' 'install-mariadb-server.sh' 'install-postgresql-server.sh')

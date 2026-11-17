@@ -1,0 +1,17 @@
+pkgname=gds
+pkgver=2024.298
+pkgrel=5
+pkgdesc=('Modular expandable dissemination and publication server (commercial)')
+pkgkeywords=('decision support dissemination EEW induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('share/doc/gds/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+depends=('')
+sha256=('8ca64ecfaff487c77769cf2f8ba6bc4d024a989ddb0748ec616606c0929db91e')
+pkgsize=('17171085')
+pkginstallsize=('23424296')
+filename=('gds-2024.298-seiscomp-5-debian-11-x86_64.tar.gz')
+builddate=('2024-11-14 22:13:12')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

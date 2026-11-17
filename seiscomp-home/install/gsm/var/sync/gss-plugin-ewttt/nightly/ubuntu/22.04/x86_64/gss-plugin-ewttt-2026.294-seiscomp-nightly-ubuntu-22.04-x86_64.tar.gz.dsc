@@ -1,0 +1,16 @@
+pkgname=gss-plugin-ewttt
+pkgver=2026.294
+pkgrel=nightly
+pkgdesc=('EW tsunami travel time calculation simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simewttt/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('4418276ea67a413facff2285d451793edbc74dc64da2d36444b817c63d439db4')
+pkgsize=('4688211')
+pkginstallsize=('11806780')
+filename=('gss-plugin-ewttt-2026.294-seiscomp-nightly-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-10-30 21:20:11')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

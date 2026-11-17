@@ -1,0 +1,17 @@
+pkgname=gsm
+pkgver=1.7.2
+pkgrel=gsm-gsm
+pkgdesc=('gempa Software Management tool (public)')
+pkgkeywords=('[]')
+pkgchangelog=('gsm/share/doc/CHANGELOG')
+arch=('noarch')
+license=('None')
+sha256=('f52f520342567623398f073425b4c358e7ffaf8a33abdcfb61552ef2fa90f82c')
+pkgsize=('87769')
+pkginstallsize=('403361')
+pkgfilepath=('gsm')
+filename=('gsm-1.7.2.tar.gz')
+builddate=('2026-08-04 09:53:50')
+pkgos=('any')
+pkgosversion=('')
+pkgfileversion=('0.1')

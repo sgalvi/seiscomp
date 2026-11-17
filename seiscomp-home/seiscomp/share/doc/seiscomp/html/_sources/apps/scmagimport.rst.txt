@@ -1,0 +1,231 @@
+.. highlight:: rst
+
+.. _scmagimport:
+
+###########
+scmagimport
+###########
+
+**Imports a foreign magnitude from a SCML event file into SeisComP.**
+
+
+Description
+===========
+
+scmagimport imports a foreign :ref:`api-python-datamodel-magnitude` from a
+:term:`SCML` :ref:`api-python-datamodel-event` file into |scname|.
+
+Processing steps performed:
+
+#. Extract the preferred :ref:`api-python-datamodel-origin` and magnitude from
+   the SCML event file.
+#. Check if the foreign magnitude is of a specific type, e.g., M(USGS).
+#. Use :ref:`scevent` to associate the origin to an SeisComP event. In this step
+   the foreign origin is send via HTTP POST to the :ref:`scevent` REST API
+   `/api/1/try-to-associate` which responds with an event ID if the association
+   was successful.
+#. Retrieve the event and the preferred origin from the local |scname| system.
+#. Copy the foreign magnitude to the preferred origin.
+#. Send the magnitude copy via a notifier message to :ref:`scmaster`.
+#. Let :ref:`scevent` decide whether the new magnitude becomes preferred.
+
+Examples:
+
+* Read preferred origin and magnitude from :term:`SCML` file
+
+  .. code-block:: sh
+
+     scmagimport -i /path/to/seiscomp_event.xml
+
+* Use xalan and a XSLT file to convert :term:`QuakeML` file to :term:`SCML` and
+  pass it to the importer on stdin
+
+  .. code-block:: sh
+
+     xalan -in /path/to/quakeml_event.xml -xsl $SEISCOMP_ROOT/share/xml/0.14/quakeml__scml_0.14.xsl | scmagimport -i -
+
+
+
+Command-Line Options
+====================
+
+.. program:: scmagimport
+
+:program:`scmagimport [OPTIONS] source`
+
+
+Generic
+-------
+
+.. option:: -h, --help
+
+   Show help message.
+
+.. option:: -V, --version
+
+   Show version information.
+
+.. option:: --config-file file
+
+   The alternative module configuration file. When this option
+   is used, the module configuration is only read from the
+   given file and no other configuration stage is considered.
+   Therefore, all configuration including the definition of
+   plugins must be contained in that file or given along with
+   other command\-line options such as \-\-plugins.
+
+.. option:: --plugins arg
+
+   Load given plugins.
+
+.. option:: -D, --daemon
+
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
+
+
+Verbosity
+---------
+
+.. option:: --verbosity arg
+
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
+
+.. option:: -v, --v
+
+   Increase verbosity level \(may be repeated, e.g., \-vv\).
+
+.. option:: -q, --quiet
+
+   Quiet mode: no logging output.
+
+.. option:: --print-component arg
+
+   For each log entry print the component right after the
+   log level. By default the component output is enabled
+   for file output but disabled for console output.
+
+.. option:: --component arg
+
+   Limit the logging to a certain component. This option can
+   be given more than once.
+
+.. option:: -s, --syslog
+
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
+
+.. option:: -l, --lockfile arg
+
+   Path to lock file.
+
+.. option:: --console arg
+
+   Send log output to stdout.
+
+.. option:: --debug
+
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
+
+.. option:: --trace
+
+   Execute in trace mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1
+   \-\-print\-context\=1 .
+
+.. option:: --log-file arg
+
+   Use alternative log file.
+
+
+Messaging
+---------
+
+.. option:: -u, --user arg
+
+   Overrides configuration parameter :confval:`connection.username`.
+
+
+.. option:: -H, --host arg
+
+   Overrides configuration parameter :confval:`connection.server`.
+
+
+.. option:: -t, --timeout arg
+
+   Overrides configuration parameter :confval:`connection.timeout`.
+
+
+.. option:: -g, --primary-group arg
+
+   Overrides configuration parameter :confval:`connection.primaryGroup`.
+
+
+.. option:: -S, --subscribe-group arg
+
+   A group to subscribe to.
+   This option can be given more than once.
+
+.. option:: --start-stop-msg arg
+
+   Default: ``0``
+
+   Set sending of a start and a stop message.
+
+
+Database
+--------
+
+.. option:: --db-driver-list
+
+   List all supported database drivers.
+
+.. option:: -d, --database arg
+
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
+
+.. option:: --config-module arg
+
+   The config module to use.
+
+.. option:: --inventory-db arg
+
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
+
+.. option:: --db-disable
+
+   Do not use the database at all.
+
+
+Processing
+----------
+
+.. option:: -i, --input arg
+
+   Type: *file*
+
+   SeisComP XML file containing an event with a preferred origin and
+   magnitude to import. Use '\-' to read from stdin instead of file.
+
+.. option:: -a, --associate-api arg
+
+   Default: ``http://localhost:18182/api/1/try-to-associate``
+
+   Type: *string*
+
+   scevent API URL for event association.
+
+.. option:: --mag-type arg
+
+   Default: ``M(USGS)``
+
+   Type: *string*
+
+   Magnitude type to use for the imported magnitude.
+

@@ -1,0 +1,17 @@
+pkgname=caps-plugins-crex
+pkgver=2026.124
+pkgrel=nightly
+pkgdesc=('CAPS plugin for CREX data import (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('cd5b88967dffab928ca7b5e8c843445018095632b5e1437aae42ff79e40c2161')
+pkgsize=('968829')
+pkginstallsize=('7413637')
+pkgfilecount=('43')
+filename=('caps-plugins-crex-2026.124-seiscomp-nightly-rhel-10-aarch64.tar.gz')
+builddate=('2026-11-17 00:46:28')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

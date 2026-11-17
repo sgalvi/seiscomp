@@ -1,0 +1,17 @@
+pkgname=gss-plugin-mhras
+pkgver=2026.294
+pkgrel=nightly
+pkgdesc=('MHRAS tsunami simulation backend (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('7d728d214f070f2d6723360bcbb9de6a4f031672244b7ed7e68625f55f61994b')
+pkgsize=('3261782')
+pkginstallsize=('9640327')
+filename=('gss-plugin-mhras-2026.294-seiscomp-nightly-ubuntu-26.04-x86_64.tar.gz')
+builddate=('2026-10-30 21:24:25')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')
+conflicts=('mhras')

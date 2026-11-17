@@ -1,0 +1,17 @@
+pkgname=scrtdd
+pkgver=2026.287
+pkgrel=nightly
+pkgdesc=('Software package provided for ETH Zurich (https://www.seismo.ethz.ch) (public)')
+pkgkeywords=('scrtdd')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('195ff05572ec1c31d447ede47378147b51f357019e26d5fb82dee72d92ab556c')
+pkgsize=('8210038')
+pkginstallsize=('10813207')
+pkgfilecount=('84')
+filename=('scrtdd-2026.287-seiscomp-nightly-rhel-10-x86_64.tar.gz')
+builddate=('2026-11-05 22:55:59')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

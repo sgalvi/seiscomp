@@ -1,0 +1,17 @@
+pkgname=gss-plugin-gnsthreat
+pkgver=2026.306
+pkgrel=nightly
+pkgdesc=('GNS Science threat model database simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simgnsthreat/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('2983ff3f263c17ab3922f58b82899cfe0b6454116b7e979ddfded1c80db6572e')
+pkgsize=('4021719')
+pkginstallsize=('9456555')
+pkgfilecount=('107')
+filename=('gss-plugin-gnsthreat-2026.306-seiscomp-nightly-ubuntu-26.04-x86_64.tar.gz')
+builddate=('2026-11-16 21:30:35')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

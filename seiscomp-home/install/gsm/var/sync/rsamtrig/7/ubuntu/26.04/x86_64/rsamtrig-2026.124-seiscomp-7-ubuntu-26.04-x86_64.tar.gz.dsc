@@ -1,0 +1,16 @@
+pkgname=rsamtrig
+pkgver=2026.124
+pkgrel=7
+pkgdesc=('RecordStreams providing Real-time Seismic Amplitude Measurement (RSAM) (commercial)')
+pkgkeywords=('RSAM volcano monitoring')
+pkgchangelog=('share/doc/rsamtrig/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('36b10560835eeec785dcdf18f952140b284fb61994fbbae75a569907e2f10179')
+pkgsize=('2250707')
+pkginstallsize=('4191619')
+filename=('rsamtrig-2026.124-seiscomp-7-ubuntu-26.04-x86_64.tar.gz')
+builddate=('2026-07-21 21:35:22')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

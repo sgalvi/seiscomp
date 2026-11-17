@@ -1,0 +1,16 @@
+pkgname=gss-plugin-gnsthreat
+pkgver=2026.231
+pkgrel=nightly
+pkgdesc=('GNS Science threat model database simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simgnsthreat/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('0df1a7ba4b4dbf03ff76518cfa29a5d1d75d99e6b834fa8cce62bd492231054e')
+pkgsize=('4299143')
+pkginstallsize=('9678043')
+filename=('gss-plugin-gnsthreat-2026.231-seiscomp-nightly-rhel-8-x86_64.tar.gz')
+builddate=('2026-10-30 21:27:51')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

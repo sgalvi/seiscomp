@@ -1,0 +1,17 @@
+pkgname=report-generators
+pkgver=2026.252
+pkgrel=6
+pkgdesc=('Report generators (commercial)')
+pkgkeywords=('report shard sigma')
+pkgchangelog=('share/doc/rgsm/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('aefb43e82c7061d1bdceafd34383a461ab1c3196fa7100dfabcb625ed5bdf723')
+pkgsize=('13032582')
+pkginstallsize=('14696101')
+filename=('report-generators-2026.252-seiscomp-6-rhel-8-x86_64.tar.gz')
+builddate=('2026-09-11 22:29:26')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')
+osinstallscripts=('install-report-generators.sh')

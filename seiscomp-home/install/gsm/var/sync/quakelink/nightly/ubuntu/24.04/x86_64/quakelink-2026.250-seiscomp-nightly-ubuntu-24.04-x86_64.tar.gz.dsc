@@ -1,0 +1,16 @@
+pkgname=quakelink
+pkgver=2026.250
+pkgrel=nightly
+pkgdesc=('Real-time streaming of event information and inventory (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/quakelink/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('36c8f8a7c91418416d9369cc290dfffd1eee1f35d1fb8b0fc6e0a8be4df9f7c7')
+pkgsize=('16453040')
+pkginstallsize=('28365584')
+filename=('quakelink-2026.250-seiscomp-nightly-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-10-14 21:07:11')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

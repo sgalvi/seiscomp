@@ -1,0 +1,17 @@
+pkgname=recordstream
+pkgver=2026.231
+pkgrel=nightly
+pkgdesc=('Plugins providing RecordStreams for routing and failover (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('923e5eac636733f7a35279071da16c752ce2a404ea28e39023e9f33bd7556eb3')
+pkgsize=('838505')
+pkginstallsize=('2711340')
+pkgfilecount=('11')
+filename=('recordstream-2026.231-seiscomp-nightly-debian-12-x86_64.tar.gz')
+builddate=('2026-11-16 21:11:19')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

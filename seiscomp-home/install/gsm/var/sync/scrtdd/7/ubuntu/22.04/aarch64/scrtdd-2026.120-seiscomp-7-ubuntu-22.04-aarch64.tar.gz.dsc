@@ -1,0 +1,16 @@
+pkgname=scrtdd
+pkgver=2026.120
+pkgrel=7
+pkgdesc=('A module for real-time double difference relocation of events (public)')
+pkgkeywords=('scrtdd')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('7eb2599354ab4fd1d6a3b1fa60ff81c305dadf0a9ac210bed61bc180410ac2f6')
+pkgsize=('8169517')
+pkginstallsize=('10736597')
+filename=('scrtdd-2026.120-seiscomp-7-ubuntu-22.04-aarch64.tar.gz')
+builddate=('2026-05-07 01:44:41')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

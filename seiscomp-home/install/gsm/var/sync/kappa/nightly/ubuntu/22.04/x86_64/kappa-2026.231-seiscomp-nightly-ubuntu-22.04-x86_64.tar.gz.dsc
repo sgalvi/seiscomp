@@ -1,0 +1,16 @@
+pkgname=kappa
+pkgver=2026.231
+pkgrel=nightly
+pkgdesc=('Event classification GUI (commercial)')
+pkgkeywords=('decision support earthquake monitoring induced earthquake local monitoring microseismic monitoring moment tensor origin evaluation teleseismic monitoring volcano monitoring discrimination')
+pkgchangelog=('share/doc/kappa/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('66534f3ff24cfd3631949c58fe4bcd87d7861006e9b08f8bbeee58142331de1e')
+pkgsize=('16319828')
+pkginstallsize=('27338239')
+filename=('kappa-2026.231-seiscomp-nightly-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-09-16 21:18:54')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

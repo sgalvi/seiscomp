@@ -1,0 +1,17 @@
+pkgname=gss-plugin-mhras
+pkgver=2026.294
+pkgrel=7
+pkgdesc=('MHRAS tsunami simulation backend (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('dd03aac901b65cee7c0c0a03f6147c8e47424a2ad1826f39885bdca76562e321')
+pkgsize=('3142396')
+pkginstallsize=('9587031')
+filename=('gss-plugin-mhras-2026.294-seiscomp-7-rhel-10-aarch64.tar.gz')
+builddate=('2026-10-31 00:02:23')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')
+conflicts=('mhras')

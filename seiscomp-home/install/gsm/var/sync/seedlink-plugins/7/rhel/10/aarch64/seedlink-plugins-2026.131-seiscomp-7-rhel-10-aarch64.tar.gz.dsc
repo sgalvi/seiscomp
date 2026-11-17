@@ -1,0 +1,16 @@
+pkgname=seedlink-plugins
+pkgver=2026.131
+pkgrel=7
+pkgdesc=('seedlink-plugins')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('31ddf6e6e689feac9be69ad9178f2654e5d5d40c5497f011b22538b2a13a7720')
+pkgsize=('614980')
+pkginstallsize=('1931489')
+filename=('seedlink-plugins-2026.131-seiscomp-7-rhel-10-aarch64.tar.gz')
+builddate=('2026-07-22 00:13:18')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

@@ -1,0 +1,16 @@
+pkgname=gis
+pkgver=2026.175
+pkgrel=nightly
+pkgdesc=('Web-based image generation of SeisComP maps, traces and spectrograms (commercial)')
+pkgkeywords=('dissemination EEW maps shake map web')
+pkgchangelog=('share/doc/gis/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('df7c36de3a57f27b4e7ee10d107df61f7d98b1ee1e5af4ae2d1ea51edabfceb3')
+pkgsize=('13980796')
+pkginstallsize=('18333098')
+filename=('gis-2026.175-seiscomp-nightly-rhel-8-x86_64.tar.gz')
+builddate=('2026-10-30 21:07:06')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

@@ -1,0 +1,16 @@
+pkgname=nrcan-addons
+pkgver=2026.055
+pkgrel=7
+pkgdesc=('Custom package used by NRCan (commercial)')
+pkgkeywords=('scevent score plugin')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('72f7773a8e107551f9a7641f38ed816599603e0022a51612121b7e7659632c10')
+pkgsize=('19528')
+pkginstallsize=('79980')
+filename=('nrcan-addons-2026.055-seiscomp-7-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-02-24 08:38:59')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

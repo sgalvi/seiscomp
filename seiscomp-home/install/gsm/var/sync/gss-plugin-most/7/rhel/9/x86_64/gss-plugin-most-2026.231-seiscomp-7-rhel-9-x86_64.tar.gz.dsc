@@ -1,0 +1,17 @@
+pkgname=gss-plugin-most
+pkgver=2026.231
+pkgrel=7
+pkgdesc=('Most tsunami travel time calculation simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simbommost/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('1b1eb2c5606343882db3aee7b34f1d0835629ad1d6f694ba72f50b760550715e')
+pkgsize=('4616703')
+pkginstallsize=('11519623')
+filename=('gss-plugin-most-2026.231-seiscomp-7-rhel-9-x86_64.tar.gz')
+builddate=('2026-10-20 21:59:32')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')
+osinstallscripts=('install-simbommost.sh')

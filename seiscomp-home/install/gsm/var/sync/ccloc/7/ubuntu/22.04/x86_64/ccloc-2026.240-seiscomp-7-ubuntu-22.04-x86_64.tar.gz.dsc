@@ -1,0 +1,16 @@
+pkgname=ccloc
+pkgver=2026.240
+pkgrel=7
+pkgdesc=('Event detector based on cross-correlation with template waveforms (commercial)')
+pkgkeywords=('Cross-correlation earthquake monitoring induced earthquake infrasound local monitoring microseismic monitoring teleseismic monitoring volcano monitoring')
+pkgchangelog=('share/doc/ccloc/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('7b16904e6d316dc817e952174b2073043c3218b9686d66088a90137b7aed052c')
+pkgsize=('13762569')
+pkginstallsize=('19008900')
+filename=('ccloc-2026.240-seiscomp-7-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-09-02 21:57:04')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

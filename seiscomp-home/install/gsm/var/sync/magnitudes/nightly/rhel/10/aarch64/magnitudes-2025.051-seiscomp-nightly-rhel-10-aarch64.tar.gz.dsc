@@ -1,0 +1,17 @@
+pkgname=magnitudes
+pkgver=2025.051
+pkgrel=nightly
+pkgdesc=('Plugins providing magnitudes and yield estimates (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('4d37b1ce5fd75463066c365110df9838bbdf3d4cd6a9c4c3c3939a42bf406093')
+pkgsize=('27614')
+pkginstallsize=('237880')
+pkgfilecount=('3')
+filename=('magnitudes-2025.051-seiscomp-nightly-rhel-10-aarch64.tar.gz')
+builddate=('2026-11-17 00:47:58')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

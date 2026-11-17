@@ -1,0 +1,16 @@
+pkgname=quakelink
+pkgver=2026.250
+pkgrel=6
+pkgdesc=('Real-time streaming of event information and inventory (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/quakelink/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('e289784b25dec9998a4c47f09ec4745b3af2633cabead8fa02bc5948c1d22c9c')
+pkgsize=('16222277')
+pkginstallsize=('27840293')
+filename=('quakelink-2026.250-seiscomp-6-rhel-9-aarch64.tar.gz')
+builddate=('2026-10-15 01:07:57')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

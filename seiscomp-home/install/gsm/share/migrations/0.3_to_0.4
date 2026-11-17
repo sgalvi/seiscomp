@@ -1,0 +1,227 @@
+#!/usr/bin/env python3
+
+############################################################################
+# Copyright (C) 2025 by gempa GmbH                                         #
+#                                                                          #
+# All Rights Reserved.                                                     #
+#                                                                          #
+# NOTICE: All information contained herein is, and remains                 #
+# the property of gempa GmbH and its suppliers, if any. The intellectual   #
+# and technical concepts contained herein are proprietary to gempa GmbH    #
+# and its suppliers.                                                       #
+# Dissemination of this information or reproduction of this material       #
+# is strictly forbidden unless prior written permission is obtained        #
+# from gempa GmbH.                                                         #
+############################################################################
+
+
+import os
+import sys
+import signal
+import subprocess
+
+gsmBaseDir, _ = os.path.split(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(os.path.dirname(gsmBaseDir))
+
+from lib import config
+
+from lib.const import VAR_DIR, SHARE_DIR
+
+# Packages that must never be removed because the virtual environment and the
+# dependency installation in the gsm launcher rely on them.
+PROTECTED = {"pip", "setuptools", "wheel"}
+
+# Program executed *inside* the target virtual environment. It computes the
+# full dependency closure of share/venv/requirements.txt (the required
+# packages plus all of their transitive dependencies) and prints every
+# installed distribution that is not part of that closure, i.e. the packages
+# that are no longer needed. Running it with the venv interpreter guarantees
+# that the package metadata and the 'packaging' library reflect exactly the
+# environment that is being cleaned up.
+CLOSURE_PROGRAM = r"""
+import sys
+from importlib import metadata
+
+try:
+    from packaging.requirements import Requirement
+    from packaging.utils import canonicalize_name
+except Exception:
+    # Without 'packaging' the closure cannot be computed safely; signal the
+    # caller to skip the cleanup rather than risk removing required packages.
+    sys.exit(2)
+
+reqFile = sys.argv[1]
+protected = {"pip", "setuptools", "wheel"}
+
+dists = {}
+for dist in metadata.distributions():
+    name = dist.metadata["Name"]
+    if name:
+        dists[canonicalize_name(name)] = dist
+
+def depsOf(cname):
+    dist = dists.get(cname)
+    result = []
+    for raw in (dist.requires or []) if dist else []:
+        try:
+            req = Requirement(raw)
+        except Exception:
+            continue
+        if req.marker is not None:
+            try:
+                # Evaluate environment markers (python_version, platform, ...)
+                # without requesting any extra, so optional dependencies guarded
+                # by 'extra == ...' are correctly skipped.
+                if not req.marker.evaluate({"extra": ""}):
+                    continue
+            except Exception:
+                # If a marker cannot be evaluated, keep the dependency.
+                pass
+        result.append(canonicalize_name(req.name))
+    return result
+
+seeds = []
+with open(reqFile) as fh:
+    for line in fh:
+        line = line.strip()
+        if not line or line.startswith("#") or line.startswith("-"):
+            continue
+        try:
+            seeds.append(canonicalize_name(Requirement(line).name))
+        except Exception:
+            continue
+
+keep = set(protected)
+queue = list(seeds)
+while queue:
+    cname = queue.pop()
+    if cname in keep:
+        continue
+    keep.add(cname)
+    for dep in depsOf(cname):
+        if dep not in keep:
+            queue.append(dep)
+
+for name in sorted(set(dists) - keep):
+    print(name)
+"""
+
+
+class App(object):
+
+    def __init__(self, argc, argv):
+        self.argv = argv
+        self.argc = argc
+
+        self.command = None
+
+        baseDir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        # Config defaults fileName to <baseDir>/etc/gsm.conf (GSM_CONFIG_FILE),
+        # which is the correct location from release 0.3 onwards.
+        self.config = config.Config(os.path.dirname(baseDir))
+
+    def init(self):
+        # configuration file exists
+        if os.path.isfile(self.config.fileName):
+            self.config.read()
+        else:
+            print(f"Configuration file {self.config.fileName} not found. Please run " \
+                  "'./gsm setup' to create an initial configuration")
+        return True
+
+    def venvDir(self):
+        return os.path.join(self.config.baseDir, VAR_DIR, "venv")
+
+    def venvPython(self):
+        return os.path.join(self.venvDir(), "bin", "python")
+
+    def requirementsFile(self):
+        return os.path.join(
+            self.config.baseDir, SHARE_DIR, "venv", "requirements.txt"
+        )
+
+    def packagesToPrune(self, venvPython, reqFile):
+        # Returns the list of obsolete package names, or None if the set could
+        # not be determined (in which case nothing is removed).
+        try:
+            result = subprocess.run(
+                [venvPython, "-c", CLOSURE_PROGRAM, reqFile],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+        except (subprocess.CalledProcessError, OSError):
+            return None
+
+        names = []
+        for line in result.stdout.splitlines():
+            name = line.strip()
+            if name and name not in PROTECTED:
+                names.append(name)
+        return names
+
+    def pruneVenv(self):
+        venvPython = self.venvPython()
+        reqFile = self.requirementsFile()
+
+        if not os.path.isfile(venvPython):
+            print(
+                f"* No virtual environment found at {self.venvDir()}, "
+                "nothing to clean up"
+            )
+            return
+
+        if not os.path.isfile(reqFile):
+            print(
+                f"* Requirements file {reqFile} not found, "
+                "skipping virtual environment cleanup"
+            )
+            return
+
+        toRemove = self.packagesToPrune(venvPython, reqFile)
+        if toRemove is None:
+            print(
+                "* Could not determine obsolete packages, "
+                "skipping virtual environment cleanup"
+            )
+            return
+
+        if not toRemove:
+            print("* Virtual environment already contains only required packages")
+            return
+
+        print(
+            "* Removing packages no longer required from the virtual "
+            f"environment: {', '.join(toRemove)}"
+        )
+        try:
+            subprocess.run(
+                [venvPython, "-m", "pip", "uninstall", "-y", *toRemove],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.STDOUT,
+            )
+            print(f"* Removed: {', '.join(toRemove)}")
+        except (subprocess.CalledProcessError, OSError) as e:
+            # Best effort: a failed cleanup must not abort the upgrade.
+            print(f"Could not remove obsolete packages: {e}")
+
+    def handleCommand(self):
+        self.pruneVenv()
+        return True
+
+    def run(self):
+        return self.init() and self.handleCommand()
+
+
+def main():
+    app = App(len(sys.argv), sys.argv)
+    return not app.run()
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except KeyboardInterrupt:
+        print("Interrupted (Ctrl+C)")
+        sys.exit(signal.SIGINT)

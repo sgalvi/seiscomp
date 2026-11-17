@@ -1,0 +1,16 @@
+pkgname=cea-addons
+pkgver=2026.120
+pkgrel=7
+pkgdesc=('Custom package used by CEA (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('ce624b0f30e6edf76e47804eb52e282fe0bd66b53af3709547e7a6e679547045')
+pkgsize=('10399789')
+pkginstallsize=('29973062')
+filename=('cea-addons-2026.120-seiscomp-7-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-05-02 01:40:44')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

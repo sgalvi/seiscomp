@@ -1,0 +1,17 @@
+pkgname=gds-plugins-gts
+pkgver=2026.231
+pkgrel=6
+pkgdesc=('GDS GTS message importer (commercial)')
+pkgkeywords=('decision support dissemination EEW web')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('d15abc7d6644af4178d300bce55ccf5e75fe1994b1fca18652f9c02b0defdfd9')
+pkgsize=('579805')
+pkginstallsize=('1832771')
+pkgfilecount=('5')
+filename=('gds-plugins-gts-2026.231-seiscomp-6-ubuntu-22.04-aarch64.tar.gz')
+builddate=('2026-11-17 01:50:33')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

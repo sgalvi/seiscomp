@@ -1,0 +1,17 @@
+pkgname=sed-eew
+pkgver=2026.180
+pkgrel=5
+pkgdesc=('Software package provided for ETH Zurich (https://www.seismo.ethz.ch) (public)')
+pkgkeywords=('sed eew')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('d8629d10f916c284e7f04be3729c3ef013f98703a13c06f01e2f1adc873681f8')
+pkgsize=('11210551')
+pkginstallsize=('33651848')
+pkgfilecount=('146')
+filename=('sed-eew-2026.180-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-17 00:02:08')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

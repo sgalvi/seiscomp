@@ -1,0 +1,17 @@
+pkgname=kappa
+pkgver=2026.306
+pkgrel=6
+pkgdesc=('Event classification GUI (commercial)')
+pkgkeywords=('decision support earthquake monitoring induced earthquake local monitoring microseismic monitoring moment tensor origin evaluation teleseismic monitoring volcano monitoring discrimination')
+pkgchangelog=('share/doc/kappa/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('fa9666a15f05fad39c9f759ac548e6f9d5318395f034d7b7d17a3849d7edf616')
+pkgsize=('16086601')
+pkginstallsize=('27749395')
+pkgfilecount=('211')
+filename=('kappa-2026.306-seiscomp-6-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-11-17 02:03:21')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

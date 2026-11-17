@@ -1,0 +1,16 @@
+pkgname=eqevents
+pkgver=2026.233
+pkgrel=7
+pkgdesc=('Static websites showing events information, maps and images (commercial)')
+pkgkeywords=('dissemination earthquake monitoring induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('410faab4d17905b2ff1fcccdde235cde8d1cfc1a414f38ac4f3debfa24a0b6fa')
+pkgsize=('4390000')
+pkginstallsize=('5893747')
+filename=('eqevents-2026.233-seiscomp-7-rhel-8-x86_64.tar.gz')
+builddate=('2026-08-27 21:56:23')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

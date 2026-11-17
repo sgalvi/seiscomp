@@ -1,0 +1,17 @@
+pkgname=gss-plugin-mhras
+pkgver=2026.231
+pkgrel=6
+pkgdesc=('MHRAS tsunami simulation backend (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('808458fe29d95b866574a0779cf28db6e1a2a948f3186c6b50bbf2a307c0f675')
+pkgsize=('3284040')
+pkginstallsize=('9696919')
+filename=('gss-plugin-mhras-2026.231-seiscomp-6-debian-12-x86_64.tar.gz')
+builddate=('2026-10-20 22:53:05')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')
+conflicts=('mhras')

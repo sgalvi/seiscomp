@@ -1,0 +1,1963 @@
+.\" Man page generated from reStructuredText.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "SCEVENT" "1" "Sep 04, 2026" "7.4.0" "SeisComP"
+.SH NAME
+scevent \- SeisComP Documentation
+.sp
+\fBAssociate an Origin to an Event or form a new Event if no match is found.
+Select the preferred origin, magnitude and focal mechanism.\fP
+.SH DESCRIPTION
+.sp
+As a consequence of a real\-time system the \fISeisComP\fP modules creates several
+\fI\%origins\fP (results of localization processes) for one earthquake
+or other seismic events because as time
+goes by more seismic phases are available. scevent receives these origins and
+associates the origins to \fI\%events\fP\&. It is also possible to import
+and associate origins from other agencies.
+.sp
+The main tasks of scevent are:
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Create new events or associate origins\fP to existing events.
+.IP \(bu 2
+Set the \fI\%ID of events\fP\&.
+.IP \(bu 2
+Set the \fI\%preferred origin\fP from all available origins.
+.IP \(bu 2
+Set the \fI\%preferred magnitude\fP from all available magnitudes.
+.IP \(bu 2
+Set the \fI\%preferred focal mechanism\fP from all available focal mechanisms.
+.IP \(bu 2
+\fIOptional:\fP Set the event type of automatic origins by plugins:
+.INDENT 2.0
+.IP \(bu 2
+\fI\%evrc\fP: Type based on hypocenter,
+.IP \(bu 2
+\fI\%evtype\fP: Type based on comments added to picks,
+e.g., by \fI\%scautopick\fP\&.
+.UNINDENT
+.UNINDENT
+.SH ORIGIN ASSOCIATION
+.sp
+scevent associates origins to event objects by searching for the best match of the new
+(incoming) origin to other origins for existing events:
+.INDENT 0.0
+.IP \(bu 2
+Create new \fISeisComP\fP events for origins which cannot be associated to an
+existing event object and associate the origin to this new event.
+.IP \(bu 2
+Associate origins to existing event objects: Origins belonging to \fBthe same seismic
+event\fP shall be associated to the same event object.
+.UNINDENT
+.sp
+Origins can be filtered/ignored based on
+.INDENT 0.0
+.IP \(bu 2
+ID of agency which has created the origin:
+\fI\%processing.blacklist.agencies\fP,
+\fI\%processing.whitelist.agencies\fP (global parameters),
+.IP \(bu 2
+Hypocenter parameters: \fI\%eventAssociation.region.rect\fP,
+\fI\%eventAssociation.region.minDepth\fP,
+\fI\%eventAssociation.region.maxDepth\fP\&.
+.UNINDENT
+.SS Origin match
+.sp
+The new origin is matched to existing origins by comparing differences in epicenter,
+origin time, and \fI\%arrivals\fP (associated picks).
+The new origin is matched to an existing origin which has the highest rank in
+the following three groups (1, 2, 3):
+.INDENT 0.0
+.IP 1. 3
+Location and Time (lowest)
+.sp
+The difference in horizontal location is less than
+\fI\%eventAssociation.maximumDistance\fP (degrees)
+and the difference in origin times is less than
+\fI\%eventAssociation.maximumTimeSpan\fP\&.
+.IP 2. 3
+Picks
+.sp
+The two origins have more than \fI\%eventAssociation.minimumMatchingArrivals\fP
+matching picks. Picks are matched either by ID or by time depending
+on \fI\%eventAssociation.maximumMatchingArrivalTimeDiff\fP\&.
+.IP 3. 3
+Picks and Location and Time (highest)
+.sp
+This is the best match, for which both the location\-and\-time and picks
+criteria above are satisfied.
+.UNINDENT
+.sp
+If more than one origin is found in the highest ranking class, then the first
+one of them is chosen.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+For efficiency events in the cache are scanned first and if no matches are found,
+the database is scanned for the time window \fI\%eventAssociation.eventTimeBefore\fP \-
+\fI\%eventAssociation.eventTimeAfter\fP
+around the incoming Origin time. The cached events are ordered by eventID and
+thus in time.
+.UNINDENT
+.UNINDENT
+.SS No origin match
+.sp
+If no event with an origin that matches the incoming origin is found, then a
+new event is formed and the origin is associated to that event. The following
+criteria are applied to allow the creation of the new event:
+.INDENT 0.0
+.IP \(bu 2
+The agency for the origin is not black listed (\fI\%processing.blacklist.agencies\fP).
+.IP \(bu 2
+The origin is automatic and it has more than \fI\%eventAssociation.minimumDefiningPhases\fP
+\fI\%arrivals\fP (associated picks).
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image: alternate association of an origin by matching picks.]
+[image]
+Association of an origin to an event by matching picks..UNINDENT
+.UNINDENT
+.SH PREFERRED ORIGIN
+.sp
+The preferred origin is set by ranking of all associated origins. The ranking
+is controlled by \fI\%eventAssociation.priorities\fP and related configuration
+parameters.
+.SH PREFERRED MAGNITUDE
+.sp
+The preferred magnitude is set by ranking of the
+\fI\%summary magnitude\fP and all \fI\%network magnitudes\fP
+of the preferred origin. The ranking is mainly controlled by
+\fI\%eventAssociation.magTypes\fP and \fI\%eventAssociation.minimumMagnitudes\fP
+and related configuration parameters.
+.sp
+Magnitudes where the evaluation mode is \(aqrejected\(aq are ignored.
+.SH PREFERRED FOCAL MECHANISM
+.sp
+The most recent manual focal mechanism or, if no manual ones are unavailable, the
+most recent automatic focal mechnisms becomes preferred.
+.SH ID OF EVENTS
+.sp
+The ID of an event or eventID uniquely identifies an event. The ID is derived from
+the time of occurrence of the event within a year. As configured by \fI\%eventIDPattern\fP
+it typically consists of a prefix configured by \fI\%eventIDPrefix\fP and a
+string containing the year and a set of characters or numbers defining the time.
+.SH DISTRIBUTED EVENT ID ALLOCATION
+.sp
+When several \fBscevent\fP instances process origins in parallel, each instance
+independently sees origins arriving from its processing pipeline and would, without
+coordination, pick its own event ID for the same earthquake. Event IDs are
+derived from origin times with finite resolution of time slots. The length and the
+number of available time slots are defined by \fI\%eventIDPattern\fP and
+\fI\%eventIDLookupMargin\fP\&. Due to differences in configuration but also in
+seismicity, two \fBscevent\fP instances starting from the same origin time can
+quickly diverge to different event IDs which shall be avoided by distributed allocation
+of event IDs.
+.sp
+This concept affects two kinds of \fISeisComP\fP system deployments:
+.INDENT 0.0
+.IP \(bu 2
+\fBRedundant systems:\fP Two or more instances run \fIthe same configuration\fP for high
+availability, and must agree on one event ID so that a failover is transparent to
+downstream consumers.
+.IP \(bu 2
+\fBDistributed systems:\fP Instances run \fIdifferent configurations\fP with different
+detection goals or focus (for example a global network alongside a dense regional
+network, or a fast automatic system alongside a more thorough one). The systems
+observe
+.INDENT 2.0
+.IP \(bu 2
+the same earthquakes but with slightly different origin parameters due to their
+differences in configuration. Both systems should still assign a single, globally
+unique event ID to that earthquake rather than minting a separate ID on each system.
+.IP \(bu 2
+different earthquakes within the same time slot. Mutually unique IDs shall be given
+by the systems.
+.UNINDENT
+.UNINDENT
+.sp
+To achieve this, one instance is designated the \fBmain\fP instance and the others act as
+\fBsecondary instances\fP\&. Each secondary instance asks the main instance, over the REST
+API, which event ID to use for a new origin; the main instance either returns the ID of
+an event it has already formed or reserves a fresh ID and keeps it cached for a
+configurable amount of time. The main instance does not create an event for an incoming
+secondary\-instance request — it only reserves the ID. When the main instance\(aqs own
+processing later sees a matching local origin, it picks up the cached ID and creates its
+event with that same ID. The two instances therefore converge on the same event ID
+without any explicit coordination between their messaging buses.
+.INDENT 0.0
+.INDENT 2.5
+[image: Main and secondary scevent instances exchanging event IDs over the REST API]
+[image]
+Two \fBscevent\fP instances synchronizing event IDs. The secondary instance
+posts each incoming origin to the main instance\(aqs
+\fB/api/1/try\-to\-associate?allocate\fP endpoint and uses the returned event ID for its
+local event creation..UNINDENT
+.UNINDENT
+.sp
+If the main instance cannot be reached, or does not respond in time, the secondary
+instance falls back to local event ID allocation. This preserves availability at the
+cost of a possible (and recoverable) ID divergence during the outage.
+.sp
+The behavior is controlled by the parameters in the \fBeventIDSync\fP group:
+.INDENT 0.0
+.IP \(bu 2
+\fI\%eventIDSync.main\fP — URL of the main instance\(aqs REST API. Leave empty on the
+main instance (or on a standalone instance); set on each secondary instance.
+.IP \(bu 2
+\fI\%eventIDSync.mainTimeout\fP — how long a secondary instance waits for the main
+instance\(aqs response before falling back to local allocation (default: 5 s).
+.IP \(bu 2
+\fI\%eventIDSync.cacheRetention\fP — how long the main instance keeps a reserved ID
+and the associated foreign origin in its in\-memory cache so that a matching local
+origin can reuse it (default: 1800 s).
+.IP \(bu 2
+\fI\%eventIDSync.db\fP — optional path to an SQLite database file. When set, the
+main instance persists every reserved event ID (together with the origin time, origin
+public ID and the origin/picks as SCML) so that reservations survive a restart and can
+cover a much larger set than the in\-memory cache. Leave empty to keep the
+in\-memory\-only behavior.
+.IP \(bu 2
+\fI\%eventIDSync.databaseRetention\fP — how long persisted reservations are kept,
+by origin time. A negative value (the default) keeps them indefinitely; a positive
+value should be at least as large as \fI\%eventIDSync.cacheRetention\fP\&.
+.UNINDENT
+.sp
+When \fI\%eventIDSync.db\fP is set, a try\-to\-associate request that does not match an
+in\-memory reservation additionally consults the database. The lookup first tries a
+direct match on the incoming origin\(aqs public ID (a fast path that immediately reuses the
+stored event ID), and otherwise loads all stored origins whose time lies between
+\fI\%eventAssociation.eventTimeBefore\fP before and
+\fI\%eventAssociation.eventTimeAfter\fP after the incoming origin time and compares
+them by epicenter and shared picks — the same strategy scevent uses against the SeisComP
+database.
+.sp
+The matching criteria used to decide whether a local origin \(dqis\(dq the same earthquake as
+a cached foreign origin are the same as those used for ordinary event association:
+origin time difference within \fI\%eventAssociation.maximumTimeSpan\fP, epicenter
+distance within \fI\%eventAssociation.maximumDistance\fP and, if pick information is
+available on both sides, at least \fI\%eventAssociation.minimumMatchingArrivals\fP
+matching picks.
+.SS Roles and configuration
+.TS
+center;
+|l|l|.
+_
+T{
+Role
+T}	T{
+Configuration
+T}
+_
+T{
+\fBStandalone\fP
+T}	T{
+\fI\%eventIDSync.main\fP empty, \fI\%restAPI\fP unset. Local ID
+allocation only. This is the historical behavior and the default.
+T}
+_
+T{
+\fBMain\fP
+T}	T{
+\fI\%eventIDSync.main\fP empty, \fI\%restAPI\fP set. Allocates IDs
+locally and additionally serves \fB/api/1/try\-to\-associate?allocate\fP
+and \fB/api/1/allocate\fP requests from secondary instances. Read also
+section \fI\%REST API\fP\&.
+T}
+_
+T{
+\fBSecondary\fP
+T}	T{
+\fI\%eventIDSync.main\fP set to the main instance\(aqs REST URL.
+Queries the main instance for each new event and falls back to local
+allocation on failure. Read also section \fI\%REST API\fP\&.
+T}
+_
+.TE
+.SS Example deployment
+.sp
+For a two\-host redundant deployment with hosts \fBhost\-a\fP (running the main instance)
+and \fBhost\-b\fP (running a secondary instance):
+.sp
+On the main instance:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+# /etc/seiscomp/scevent.cfg on \(aqhost\-a\(aq
+restAPI = 18182
+eventIDSync.cacheRetention = 1800
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+On the secondary instance:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+# /etc/seiscomp/scevent.cfg on \(aqhost\-b\(aq
+eventIDSync.main = http://host\-a:18182
+eventIDSync.mainTimeout = 5
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+At startup each instance logs its role; for example, the secondary
+instance prints:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+eventID synchronization: secondary mode, main=http://host\-a:18182, main timeout=5s
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+and the main instance prints:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+eventID synchronization: main mode (allocations cached for 1800s)
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH JOURNALS
+.sp
+scevent can be commanded by journals to do a certain action. Journal entries are being
+received via the messaging bus to any of the subscribed groups. A journal entry
+contains an action, a subject (a publicID of an object) and optional parameters.
+Journals can be interactively sent to the messaging by \fI\%scsendjournal\fP\&.
+.sp
+If scevent has handled an action, it will send a reply journal entry with
+an action formed from the origin action name plus \fBOK\fP or \fBFailed\fP\&. The
+parameters of the journal entry contain a possible reason.
+.sp
+The following actions are supported by scevent:
+.INDENT 0.0
+.TP
+.B EvGrabOrg(objectID, parameters)
+Grabs an origin and associates it to the given event. If the origin is
+already associated with another event then its reference to this event
+will be removed.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event
+.IP \(bu 2
+\fBparameters\fP \-\- The ID of the origin to be grabbed
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvMerge(objectID, parameters)
+Merges an event (source) into another event (target). After successful
+completion the source event will be deleted.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event (target)
+.IP \(bu 2
+\fBparameters\fP \-\- The ID of an existing event (source)
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvName(objectID, parameters)
+Adds or updates the event description with type \(dqearthquake name\(dq.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event
+.IP \(bu 2
+\fBparameters\fP \-\- An event name
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvFeltReport(objectID, parameters)
+Adds or updates the event description with type \(dqfelt report\(dq.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event
+.IP \(bu 2
+\fBparameters\fP \-\- A felt report
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvNewEvent(objectID, parameters)
+Creates a new event based on a given origin. The origin must not yet be
+associated with another event.
+.sp
+On a secondary instance (\fI\%eventIDSync.main\fP set) the event ID for
+the new event is obtained from the main instance through its
+\fI\%/api/1/allocate\fP endpoint, so that main and
+secondary instances stay synchronized; on failure the secondary falls back to
+local allocation.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The origin publicID of the origin which will be used to
+create the new event.
+.IP \(bu 2
+\fBparameters\fP \-\- Unused
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvOpComment(objectID, parameters)
+Adds or updates the event comment text with id \(dqOperator\(dq.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event
+.IP \(bu 2
+\fBparameters\fP \-\- The comment text
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvPrefFocMecID(objectID, parameters)
+Sets the preferred focal mechanism ID of an event. If a focal mechanism ID
+is passed then it will be fixed as preferred solution for this event and
+any subsequent focal mechanism associations will not cause a change of the
+preferred focal mechanism.
+.sp
+If an empty focal mechanism ID is passed then this is considered as \(dqunfix\(dq
+and scevent will switch back to automatic preferred selection mode.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event
+.IP \(bu 2
+\fBparameters\fP \-\- The focal mechanism ID which will become preferred or empty.
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvPrefMagType(objectID, parameters)
+Set the preferred magnitude of the event matching the requested magnitude
+type.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event
+.IP \(bu 2
+\fBparameters\fP \-\- The desired preferred magnitude type
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvPrefMw(objectID, parameters)
+Sets the moment magnitude (Mw) of the preferred focal mechanism as
+preferred magnitude of the event.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event
+.IP \(bu 2
+\fBparameters\fP \-\- Boolean flag, either \(dqtrue\(dq or \(dqfalse\(dq
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvPrefOrgAutomatic(objectID, parameters)
+Releases the fixed origin constraint. This call is equal to \fBEvPrefOrgID(eventID, \(aq\(aq)\fP\&.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event
+.IP \(bu 2
+\fBparameters\fP \-\- Unused
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvPrefOrgEvalMode(objectID, parameters)
+Sets the preferred origin based on an evaluation mode. The configured
+priorities are still valid. If an empty evaluation mode is passed then
+scevent releases this constraint.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event
+.IP \(bu 2
+\fBparameters\fP \-\- The evaluation mode (\(dqautomatic\(dq, \(dqmanual\(dq) or empty
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvPrefOrgID(objectID, parameters)
+Sets the preferred origin ID of an event. If an origin ID is passed then
+it will be fixed as preferred solution for this event and any subsequent
+origin associations will not cause a change of the preferred origin.
+.sp
+If an empty origin ID is passed then this is considered as \(dqunfix\(dq and
+scevent will switch back to automatic preferred selection mode.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event
+.IP \(bu 2
+\fBparameters\fP \-\- The origin ID which will become preferred or empty.
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvRefresh(objectID, parameters)
+Refreshes the event information. This operation can be useful if the
+configured fep region files have changed on disc and scevent should
+update the region information. Changed plugin parameters can be another
+reason to refresh the event status.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event
+.IP \(bu 2
+\fBparameters\fP \-\- Unused
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvSplitOrg(objectID, parameters)
+Remove an origin reference from an event and create a new event for
+this origin.
+.sp
+On a secondary instance (\fI\%eventIDSync.main\fP set) the event ID for
+the new event is obtained from the main instance through its
+\fI\%/api/1/allocate\fP endpoint, so that main and
+secondary instances stay synchronized; on failure the secondary falls back to
+local allocation.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event holding a reference to the
+given origin ID.
+.IP \(bu 2
+\fBparameters\fP \-\- The ID of the origin to be split
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvType(objectID, parameters)
+Sets the event type to the passed value.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event
+.IP \(bu 2
+\fBparameters\fP \-\- The event type
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B EvTypeCertainty(objectID, parameters)
+Sets the event type certainty to the passed value.
+.INDENT 7.0
+.TP
+.B Parameters
+.INDENT 7.0
+.IP \(bu 2
+\fBobjectID\fP \-\- The ID of an existing event
+.IP \(bu 2
+\fBparameters\fP \-\- The event type certainty
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.SH REST API
+.sp
+For generating unique event IDs across multiple \fISeisComP\fP systems (read section
+\fI\%Distributed Event ID Allocation\fP) \fBscevent\fP provides a HTTP REST API which may be
+enabled by defining a bind address under \fI\%restAPI\fP\&. The available endpoints are
+listed below.
+.SS try\-to\-associate
+.sp
+Query the ID of the event a provided origin can be associated to. An event ID is
+returned if a matching event is found. By default no event is ever created and no event
+ID is allocated. When the optional query parameter \fBallocate\fP is given and no existing
+event matches the supplied origin, the receiving \fBscevent\fP instance reserves a
+new event ID on behalf of the caller; this mode is used internally by secondary
+instances to obtain an event ID from a main instance.
+.TS
+center;
+|l|l|.
+_
+T{
+Request/Response
+T}	T{
+Description
+T}
+_
+T{
+\fBLocation\fP
+T}	T{
+\fB/api/1/try\-to\-associate\fP (lookup only) or
+\fB/api/1/try\-to\-associate?allocate\fP (lookup and reserve if no
+match)
+T}
+_
+T{
+\fBHTTP Methods\fP
+T}	T{
+POST
+T}
+_
+T{
+\fBRequest data\fP
+T}	T{
+\fI\%SCML\fP containing an \fI\%EventParameters\fP element with one and only
+one \fI\%Origin\fP\&. \fI\%Pick\fP objects associated with the origin\(aqs
+arrivals may be included so that the receiver can match by pick IDs
+in addition to time and location.
+T}
+_
+T{
+\fBRequest header\fP
+T}	T{
+\fBContent\-Type: text/xml\fP (no subtype allowed)
+T}
+_
+T{
+\fBResponse data\fP
+T}	T{
+Event ID string
+T}
+_
+T{
+\fBResponse code\fP
+T}	T{
+\fB200\fP (matching event found or new event ID reserved in
+\fBallocate\fP mode), \fB204\fP (no matching event found and no
+reservation made), \fB400\fP (invalid input)
+T}
+_
+.TE
+.sp
+The following example demonstrates how to query the event ID for an origin defined in
+\fBorigin.xml\fP using the command\-line program \fBcurl\fP\&. The request header
+\fBContent\-Type\fP must be specified. It is assumed that \fBscevent\fP is configured
+with \fBrestAPI = 18182\fP\&.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+curl \-v \-X POST http://localhost:18182/api/1/try\-to\-associate \-H \(dqContent\-Type: text/xml\(dq \-d @origin.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+To additionally let the receiver reserve a new event ID when no existing event matches
+the supplied origin, append the \fBallocate\fP query parameter:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+curl \-v \-X POST \(dqhttp://localhost:18182/api/1/try\-to\-associate?allocate\(dq \-H \(dqContent\-Type: text/xml\(dq \-d @origin.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+In \fBallocate\fP mode the reserved ID is cached together with the supplied origin for
+\fI\%eventIDSync.cacheRetention\fP seconds (and, if \fI\%eventIDSync.db\fP is set,
+also stored in the persistent database for \fI\%eventIDSync.databaseRetention\fP
+seconds, or indefinitely when that is negative). A local origin processed by the
+receiving instance which matches the cached or stored foreign origin (same time,
+distance and optionally matching pick IDs) will then reuse the reserved ID instead of
+allocating a new one, ensuring that the main instance and the secondary instance
+converge on the same event ID for the same earthquake.
+.SS allocate
+.sp
+Reserve a brand\-new, distinct event ID for a provided origin. Unlike
+\fI\%try\-to\-associate\fP, this endpoint never matches the
+origin against existing events: it always allocates and reserves a fresh event ID, even
+when the origin would match an event that already exists. It is used internally by a
+secondary instance when it must form a \fIseparate\fP event for an origin that is already
+associated elsewhere — the \fI\%EvSplitOrg()\fP (split an origin into its own event) and
+\fI\%EvNewEvent()\fP (force a new event) journal commands. In those cases querying
+\fBtry\-to\-associate\fP would return the ID of the very event the origin already belongs
+to, which is not what a split or forced new event needs.
+.TS
+center;
+|l|l|.
+_
+T{
+Request/Response
+T}	T{
+Description
+T}
+_
+T{
+\fBLocation\fP
+T}	T{
+\fB/api/1/allocate\fP
+T}
+_
+T{
+\fBHTTP Methods\fP
+T}	T{
+POST
+T}
+_
+T{
+\fBRequest data\fP
+T}	T{
+\fI\%SCML\fP containing an \fI\%EventParameters\fP element with one and only
+one \fI\%Origin\fP\&. \fI\%Pick\fP objects associated with the origin\(aqs
+arrivals may be included so that the receiver can match by pick IDs
+in addition to time and location.
+T}
+_
+T{
+\fBRequest header\fP
+T}	T{
+\fBContent\-Type: text/xml\fP (no subtype allowed)
+T}
+_
+T{
+\fBResponse data\fP
+T}	T{
+Event ID string
+T}
+_
+T{
+\fBResponse code\fP
+T}	T{
+\fB200\fP (new event ID reserved), \fB204\fP (no event ID could be
+allocated), \fB400\fP (invalid input)
+T}
+_
+.TE
+.sp
+The following example reserves a new event ID for an origin defined in
+\fBorigin.xml\fP\&. It is assumed that \fBscevent\fP is configured with
+\fBrestAPI = 18182\fP\&.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+curl \-v \-X POST http://localhost:18182/api/1/allocate \-H \(dqContent\-Type: text/xml\(dq \-d @origin.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The reserved ID is cached (and, if \fI\%eventIDSync.db\fP is set, persisted) exactly
+as in the \fBallocate\fP mode of \fI\%try\-to\-associate\fP, so a
+repeated request for the same origin returns the same reserved ID rather than allocating
+a second one.
+.SH PLUGINS
+.INDENT 0.0
+.IP \(bu 2
+\fI\%EventType\fP
+.sp
+evtype plugin for scevent
+.IP \(bu 2
+\fI\%RegionCheck\fP
+.sp
+evrc plugin for scevent
+.UNINDENT
+.SH MODULE CONFIGURATION
+.nf
+\fBetc/defaults/global.cfg\fP
+\fBetc/defaults/scevent.cfg\fP
+\fBetc/global.cfg\fP
+\fBetc/scevent.cfg\fP
+\fB~/.seiscomp/global.cfg\fP
+\fB~/.seiscomp/scevent.cfg\fP
+.fi
+.sp
+.sp
+scevent inherits \fI\%global options\fP\&.
+.INDENT 0.0
+.TP
+.B eventIDPrefix
+Type: \fIstring\fP
+.sp
+Prefix for all Event IDs
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventIDPattern
+Default: \fB%p%Y%04c\fP
+.sp
+Type: \fIstring\fP
+.sp
+Defines the pattern to generate an event ID.
+.sp
+%p : prefix
+.sp
+%Y : year
+.sp
+%[w]c: alpha character
+.sp
+%[w]C: upper case alpha character
+.sp
+%[w]d: decimal
+.sp
+%[w]x: hexadecimal
+.sp
+%[w]X: upper case hexadecimal
+.sp
+[w] is an optional width parameter.
+.sp
+The time of the event within one year is roughly encoded
+by the combination of characters or the decimal or hexadecimal
+value. The year (%Y) must therefore not be dropped from the pattern.
+.sp
+The number of possible event IDs, hence SeisComP events, during one
+calender year equals the number of possible combinations of [w]
+characters or the largest number with [w] decimal or hexadecimal
+places. The length of one time slot for one event ID is determined
+as:
+.sp
+Length = (1 year) / (number of time slots)
+.sp
+If multiple events occur within one time slot, the next available
+ID is consumed.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventIDLookupMargin
+Default: \fB\-1\fP
+.sp
+Type: \fIint\fP
+.sp
+Configures the number of event ID slots to look back and
+forth when an event ID is already taken. The default in
+previous versions was 5. Now \-1 means that the margin is
+determined automatically based on
+\(dqeventAssociation.eventTimeBefore\(dq and
+\(dqeventAssociation.eventTimeAfter\(dq. According to the
+configured \(dqeventIDPattern\(dq a fixed time range per slot
+can be computed and with that width the number of look
+ahead slots and look back slots can be computed based on
+the given time ranges for event association.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B populateFERegion
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If enabled, then the EventDescription with type \(aqFlinn\-Engdahl region\(aq
+will be populated with the Flinn\-Engdahl region name. The EventDescription
+with type \(aqregion name\(aq will only be populated with a custom region name
+if one exists. If the latter does not exist, an existing EventDescription
+with type \(aqregion name\(aq will be removed.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B restAPI
+Type: \fIhost\-with\-port\fP
+.sp
+Defines the bind address of the REST API of form [address:]port. This
+API provides the endpoints /api/1/try\-to\-associate, which allows to
+query for possible event associations of origin candidates, and
+/api/1/allocate, which reserves a new, distinct event ID for an
+origin.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B processing.blacklist.eventIDs
+Type: \fIlist:string\fP
+.sp
+Defines a list of event ID patterns to be blocked. The
+items of this list are only matched against %c, %C, %d,
+%x and %X of the eventIDPattern description. Year (%Y)
+and prefix (%p) are not matched. The match is
+case\-sensitive, so \(aqabcd\(aq would only by blocked in
+combination with %c. If %C is used, \(aqABCD\(aq is matched.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBeventAssociation.*\fP
+\fICriteria defining if Origins are associated to an event\fP
+\fIand which Origins and magnitudes become preferred.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.minimumDefiningPhases
+Default: \fB10\fP
+.sp
+Type: \fIint\fP
+.sp
+Minimum number of Picks for an Origin that is automatic
+and cannot be associated with an Event to be allowed to
+form an new Event.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.minimumScore
+Type: \fIdouble\fP
+.sp
+Minimum score of an automatic Origin to be allowed to
+form an new Event. This requires an activated score
+plugin and a score processor. Configure \(dqscore\(dq
+for defining the score processor and the score processor
+parameters. If minimumScore is defined, \(dqminimumDefiningPhases\(dq
+has no effect on association as this phase check will be
+superseded by the score check. It is the task of the score
+processor to evaluate a proper score for all input Origins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.ignoreFMDerivedOrigins
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Ignore and do not associate Origins derived
+from CMT/MT inversions.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.eventTimeBefore
+Default: \fB1800\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+Time range before the Origin time of an incoming Origin to
+search for matching events.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.eventTimeAfter
+Default: \fB1800\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+Time range after the Origin time of an incoming Origin to
+search for matching events.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.minimumMatchingArrivals
+Default: \fB3\fP
+.sp
+Type: \fIint\fP
+.sp
+Minimum number of matching picks between two Origins to be
+associated to the same event.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.maximumMatchingArrivalTimeDiff
+Default: \fB\-1\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+Negative time window: compare only pickIDs to find
+matching arrivals. A non negative
+value (including 0) compares pick times regardless
+of the pickID. Pass: |pick1.time \- pick2.time| <= threshold
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.compareAllArrivalTimes
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+This parameter is only used in conjunction with
+\(dqeventAssociation.maximumMatchingArrivalTimeDiff\(dq.
+If a station has multiple associated arrivals for a
+particular event, this flag defines if the time distance
+of a new pick to all arrivals must be within
+\(dqeventAssociation.maximumMatchingArrivalTimeDiff\(dq
+or if one matching arrival is enough.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.allowLooseAssociatedArrivals
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Allows to match picks that are associated with weight 0.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.maximumTimeSpan
+Default: \fB60\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIs\fP
+.sp
+Associates an Origin with an existing event if the Origin
+time differs not more than 60 seconds unless
+\(dqeventAssociation.minimumMatchingArrivals\(dq matches.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.maximumDistance
+Default: \fB5\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Unit: \fIdegrees\fP
+.sp
+Allowed location difference between an incoming Origin
+compared with preferred Origins to get associated.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.magTypes
+Default: \fBM\fP
+.sp
+Type: \fIlist:string\fP
+.sp
+List of magnitude types considered for computing priorities
+in order to declare the preferred magnitude of an event.
+Magnitudes not listed have a priority of 0 and are ranked
+by station count only.
+.sp
+Magnitudes must meet
+\(dqeventAssociation.minimumMagnitudes\(dq and
+\(dqeventAssociation.minMwCount\(dq unless
+\(dqeventAssociation.enableFallbackMagnitude\(dq is true.
+If listed, Mw\-/Mw()\-type magnitudes are preferred over all
+others. Next, the magnitude type with the largest station
+count wins (default) unless
+\(dqeventAssociation.magPriorityOverStationCount\(dq is
+true. If the station count is equal, priority is highest
+for the magnitude earliest in the list.
+.sp
+If \(dqeventAssociation.magPriorityOverStationCount\(dq is
+true, highest priority is first given to magnitude types
+earliest in the list before testing the station count.
+.sp
+Example:
+.sp
+M, mBc, Mw(mB), Mwp, ML, MLv, mb
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.minimumMagnitudes
+Default: \fB4\fP
+.sp
+Type: \fIint\fP
+.sp
+Minimum number of station magnitudes required for
+considering non\-Mw or non\-Mw() magnitudes, as
+preferred magnitude.
+.sp
+Also consider
+\(dqeventAssociation.enableFallbackMagnitude\(dq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.minMwCount
+Default: \fB8\fP
+.sp
+Type: \fIint\fP
+.sp
+Minimum number of station magnitudes required for
+considering Mw or any derived moment magnitude, Mw(), as
+preferred magnitude. The moment magnitudes must also meet
+\(dqeventAssociation.minimumMagnitudes\(dq.
+.sp
+Also consider
+\(dqeventAssociation.enableFallbackMagnitude\(dq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.enableFallbackMagnitude
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If true, one magnitude will be preferred even if magnitude
+criteria (\(dqeventAssociation.minimumMagnitudes\(dq,
+\(dqeventAssociation.minMwCount\(dq) are not fulfilled
+by any magnitude.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.mbOverMwCount
+Default: \fB30\fP
+.sp
+Type: \fIint\fP
+.sp
+Minimum number of station magnitudes which ensures that
+Mw(mB) will be preferred and not mb.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.mbOverMwValue
+Default: \fB6\fP
+.sp
+Type: \fIdouble\fP
+.sp
+Average between mb and Mw(mB) which must be exceeded to
+become Mw(mB) preferred.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.magPriorityOverStationCount
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If false, then the station count rules out the magnitude priority
+which is only taken into account if two magnitudes have the
+same station count.
+.sp
+If true, then the priority rules out the station count
+which is only taken into account if two magnitudes have the
+same priority.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.priorities
+Default: \fBAGENCY,STATUS,PHASES_AUTOMATIC,TIME_AUTOMATIC\fP
+.sp
+Type: \fIlist:string\fP
+.sp
+Values: \fB\(aq\(aq,AGENCY,AUTHOR,MODE,PHASES,PHASES_AUTOMATIC,RMS,RMS_AUTOMATIC,SCORE,STATUS,TIME,TIME_AUTOMATIC\fP
+.sp
+The general priority list to decide if new Origins become
+preferred.
+.sp
+Tokens are processed in the given order. Each token in the
+list corresponds to a check that is performed. Each check
+computes a score of the incoming Origin (s1) and the
+currently preferred Origin (s2). The origin with the higher
+score becomes preferred for the event. If s1 equals s2, the
+next check in the list is performed. Once a check prefers an
+origin, all subsequent checks are ignored.
+.sp
+Available tokens (checks):
+.sp
+* AGENCY: check based on agency priorities
+.sp
+* AUTHOR: check based on author priorities
+.sp
+* MODE: priority from evaluation mode. Priority values are
+.sp
+0 : unset
+.sp
+1 : automatic
+.sp
+2 : manual, manual over\-rules automatic
+.sp
+* STATUS: priority combined from evaluation status and
+evaluation mode. Priority values are
+.sp
+\-100 : status is rejected
+.sp
+\-1 : status is reported
+.sp
+0 : status is preliminary or status is unset and mode is automatic
+.sp
+1 : status is confirmed or status is unset and mode is manual
+.sp
+2 : status is reviewed
+.sp
+3 : status is final
+.sp
+* METHOD: priority based on the methods defined in \(dqeventAssociation.methods\(dq
+.sp
+* PHASES: higher phase count = higher priority
+.sp
+* PHASES_AUTOMATIC: only checks phase priorities for incoming
+automatic Origins. Higher phase count = higher priority.
+.sp
+* RMS: lower RMS = higher priority.
+.sp
+* RMS_AUTOMATIC: only check RMS on incoming automatic Origins.
+Lower RMS = higher priority.
+.sp
+* TIME: more recent Origins (creationTime) have higher priorities.
+.sp
+* TIME_AUTOMATIC: only check creationTime of incoming
+automatic Origins. More recent Origins (creationTime) have higher priorities.
+.sp
+* SCORE: priority based on the score according to a configured
+ScoreProcessor and prefers the Origin/FocalMechanism with
+the highest score.
+.sp
+Empty priority list replicates the hard\-wired default
+behavior: AGENCY,STATUS,PHASES_AUTOMATIC,TIME_AUTOMATIC
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.agencies
+Type: \fIlist:string\fP
+.sp
+The priority list of agency IDs. When scevent comes to the
+point to select a preferred Origin based on AGENCY it orders
+all Origins by its agency priority selecting the best one
+among the highest priority agency. It also defines the
+agency priority for custom priority checks.
+.sp
+The parameter is only considered when AGENCY is used in
+\(dqeventAssociation.priorities\(dq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.authors
+Type: \fIlist:string\fP
+.sp
+The author priority list. When scevent comes to the
+point to select a preferred Origin based on AUTHOR it orders
+all Origins by its author priority and selects then the best
+one among the highest priority author. It also defines the
+author priority for custom priority checks.
+.sp
+The parameter is only considered when AUTHOR is used
+in \(dqeventAssociation.priorities\(dq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.methods
+Type: \fIlist:string\fP
+.sp
+The method priority list. When the scevent comes to the
+point to select a preferred Origin based on METHOD it orders
+all Origins by its methodID priority and selects then the
+best one among the highest priority method. It also defines
+the method priority for custom priority checks. A defined
+method string must match exactly the string in
+Origin.methodID.
+.sp
+The parameter is only considered when METHODS is used
+in \(dqeventAssociation.priorities\(dq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.score
+Type: \fIstring\fP
+.sp
+Defines the ScoreProcessor interface to be used along
+with priority \(dqSCORE\(dq when defined in
+\(dqeventAssociation.priorities\(dq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.enablePreferredFMSelection
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Enables the selection of the preferred FocalMechanism. If set
+to false then only explicit commands will have effect on the
+preferred FocalMechanism selection, namely the EvPrefFocMecID
+command.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.declareFakeEventForRejectedOrigin
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+If the preferred Origin has evaluation status \(aqrejected\(aq, the
+Event type will be set to \(aqnot existing\(aq unless the Event
+type has been fixed by an operator or the preferred Origin
+has been fixed.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.delayTimeSpan
+Default: \fB0\fP
+.sp
+Type: \fIint\fP
+.sp
+Unit: \fIs\fP
+.sp
+The timespan to delay Event creation from new Origins which
+cannot be associated to an existing Event.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBeventAssociation.region.*\fP
+\fIRegion filter for creating events. Use with care! Origins\fP
+\fIoutside may be ignored even if they would become preferred\fP
+\fIotherwise. Empty value deactivates testing this parameter.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.region.rect
+Type: \fIlist:double\fP
+.sp
+Region by geographic coordinates. Empty value
+deactivates testing this parameter.
+.sp
+Format: \(dqSouth,East,North,West\(dq
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.region.minDepth
+Type: \fIdouble\fP
+.sp
+Unit: \fIkm\fP
+.sp
+Minimum depth. Empty value deactivates testing this
+parameter.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.region.maxDepth
+Type: \fIdouble\fP
+.sp
+Unit: \fIkm\fP
+.sp
+Maximum depth. Empty value deactivates testing this
+parameter.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBeventAssociation.delayFilter.*\fP
+\fIConfigure an Origin filter to delay Origin for being\fP
+\fIprocessed. If more than one filter is given they are\fP
+\fIcombined with AND. The application requires\fP
+\fIeventAssociation.delayTimeSpan > 0.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.delayFilter.agencyID
+Type: \fIstring\fP
+.sp
+The agency ID of the Origin to be delayed.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.delayFilter.author
+Type: \fIstring\fP
+.sp
+The author of the Origin to be delayed.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventAssociation.delayFilter.evaluationMode
+Type: \fIstring\fP
+.sp
+Values: \fBautomatic,manual\fP
+.sp
+The evaluation mode of the Origin to be delayed.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBeventIDSync.*\fP
+\fIParameters controlling the synchronization of event IDs between several\fP
+\fIdistributed :program:\(gascevent\(ga instances deployed for redundancy. One\fP
+\fIinstance is designated the main instance and allocates event IDs on\fP
+\fIbehalf of all the secondary instances; each secondary instance asks the\fP
+\fImain instance via its REST API before creating a new event so that all\fP
+\fIinstances converge on the same ID for the same earthquake.\fP
+**
+\fIWhen :confval:\(gaeventIDSync.main\(ga is empty this instance acts as a main\fP
+\fIinstance (or as a standalone instance if no secondary instance ever\fP
+\fIconnects). When set, it acts as a secondary instance. See\fP
+\fI:ref:\(gascevent\-eventid\-sync\(ga in the documentation for the full mechanism,\fP
+\fIincluding the /api/1/try\-to\-associate?allocate endpoint used internally\fP
+\fIfor the handshake and the /api/1/allocate endpoint used for the\fP
+\fIsplit\-origin and forced new\-event commands.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventIDSync.main
+Type: \fIstring\fP
+.sp
+URL of the main instance\(aqs REST API, for example
+\(dq\fI\%http://event\-main.example.org:18182\fP\(dq. Leave empty to make this
+instance a main instance (or a standalone instance). When set, this
+instance acts as a secondary instance and asks the configured main
+instance for an event ID before creating a new event. If the main
+instance cannot be reached within \fI\%eventIDSync.mainTimeout\fP
+seconds the secondary instance falls back to local event ID
+allocation.
+.sp
+The URL may include an explicit path; if no path is given,
+\(dq/api/1/try\-to\-associate\(dq is used. Both \(dqhttp\(dq and \(dqhttps\(dq schemes
+are supported.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventIDSync.mainTimeout
+Default: \fB5\fP
+.sp
+Type: \fIint\fP
+.sp
+Unit: \fIs\fP
+.sp
+Maximum number of seconds a secondary instance waits for the main
+instance\(aqs response before falling back to local event ID
+allocation. Only effective when \fI\%eventIDSync.main\fP is set.
+Must be greater than zero.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventIDSync.cacheRetention
+Default: \fB1800\fP
+.sp
+Type: \fIint\fP
+.sp
+Unit: \fIs\fP
+.sp
+Number of seconds a main instance keeps a reserved event ID in its
+in\-memory cache, together with the foreign origin that triggered the
+reservation. While the entry is cached, a local origin matching that
+foreign origin is assigned the same event ID instead of allocating a
+new one. After this time the entry is dropped from the cache and the
+event ID may be reused by subsequent allocations. Must be greater
+than zero.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventIDSync.db
+Type: \fIstring\fP
+.sp
+Path to an SQLite database file used by a main instance to keep the
+event IDs it reserves on behalf of secondary instances beyond the
+lifetime of the in\-memory cache. When empty (the default) the
+reservations live only in memory and are lost when scevent restarts.
+When set, reservations survive restarts and may cover a much larger
+origin/event\-ID set than the in\-memory cache: on a try\-to\-associate
+request the main instance looks up the incoming origin both by its
+public ID (fast path) and by a windowed epicenter/shared\-pick
+comparison over all stored origins around the incoming origin time
+(bounded by \fI\%eventAssociation.eventTimeBefore\fP and
+\fI\%eventAssociation.eventTimeAfter\fP), mirroring the strategy
+used against the SeisComP database. Only relevant in main mode
+(\fI\%eventIDSync.main\fP empty).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventIDSync.databaseRetention
+Default: \fB\-1\fP
+.sp
+Type: \fIint\fP
+.sp
+Unit: \fIs\fP
+.sp
+Number of seconds a reserved event ID is kept in the persistent
+database given by \fI\%eventIDSync.db\fP, measured by origin
+time. Should be at least as large as
+\fI\%eventIDSync.cacheRetention\fP; a larger value lets the main
+instance keep answering secondary\-instance requests for older
+origins after a restart. Rows older than this are pruned at startup
+and periodically at runtime. A negative value (the default)
+disables pruning, keeping reservations indefinitely.
+.UNINDENT
+.SS EventType extension
+.sp
+evtype plugin for scevent
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBeventType.*\fP
+\fISet the event type based on type comments of picks. Add the\fP
+\fIplugin \(dqevtype\(dq to the list of plugins in the order\fP
+\fIof priority to make this feature available.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventType.setEventType
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Allow setting the event type.
+The type of events which have manual origins will
+not be changed unless configured explicitely by
+\(dqoverwriteManual\(dq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventType.overwriteEventType
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Allow overwriting existing event types set by other modules.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventType.overwriteManual
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Allow setting the event type if the mode of the preferred
+origin is manual or if the event type was set manually.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B eventType.pickCommentIDs
+Default: \fBscrttv:eventTypeHint,deepc:eventTypeHint\fP
+.sp
+Type: \fIlist:string\fP
+.sp
+Consider comments of picks which have one of the
+given values. An empty list disables setting the type.
+.UNINDENT
+.SS RegionCheck extension
+.sp
+evrc plugin for scevent
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBrc.*\fP
+\fITest if events lie within or outside geographic regions defined\fP
+\fIby polygons.\fP
+\fIEvents within a region are flagged as positive, outside as negative.\fP
+\fIThe event type is set accordingly. Add the\fP
+\fIplugin \(dqevrc\(dq to the plugins parameter in the\fP
+\fIorder of priority to make this feature available. Read the\fP
+\fIdocumentation of the RegionCheck for more details.\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B rc.setEventType
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Allow setting the event type.
+The type of events which have manual origins will
+not be changed unless configured explicitely by
+\(dqoverwriteManual\(dq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B rc.overwriteEventType
+Default: \fBtrue\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Allow overwriting existing event types. Disabling does not
+allow accounting for changes in source region.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B rc.overwriteManual
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Allow setting the event type if the mode of the preferred
+origin is manual or if the event type was set manually.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B rc.regions
+Default: \fB!reject\fP
+.sp
+Type: \fIlist:string\fP
+.sp
+The list of closed polygon names defining regions for
+flagging event as positive or negative.
+A polygon name defines a positive region but names with
+prefix !  (exclamation mark) define negative regions.
+Evaluation is done in the order of the polygons. The last
+matching criteria applies and the event type is set
+accordingly.
+.sp
+Default: If events are not positive or are negative regions
+the event type is set to \(dqoutside of network
+interest\(dq. Default:
+\(dq!reject\(dq, use \(dqaccecpt\(dq to overwrite
+the default.
+.sp
+Examples:
+.sp
+Events are flagged positive within the polygon
+\(dqgermany\(dq:
+.sp
+germany
+.sp
+All events are flagged positive but events within the
+polygon \(dqquarries\(dq are negative:
+.sp
+accept,!quarries
+.sp
+Events within the polygon \(dqgermany\(dq are flagged
+positive but all other events and events within the polygon
+\(dqquarries\(dq are negaitve:
+.sp
+germany,!quarries
+.sp
+All events are flagged positive but events within the
+polygon \(dqgermany\(dq are negative and all events
+within the polygon \(dqsaxony\(dq are positive:
+.sp
+accept,!germany,saxony
+.UNINDENT
+.INDENT 0.0
+.TP
+.B rc.readEventTypeFromBNA
+Default: \fBfalse\fP
+.sp
+Type: \fIboolean\fP
+.sp
+Consider the event type, minDepth and maxDepth values from
+the polygons defined by GeoJSON or BNA files. Read the
+documentation of the RegionCheck plugin for the details.
+.sp
+When eventType is defined in the polygons, the value
+supersedes values of \(aqeventTypePositive\(aq and
+\(aqeventTypeNegative\(aq.
+If not set, \(aqeventTypePositive\(aq and \(aqeventTypeNegative\(aq are
+considered.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B rc.eventTypePositive
+Type: \fIstring\fP
+.sp
+New type of an event which is flagged positive. Ignored
+if \(aqreadEventTypeFromBNA\(aq is active and the polygons
+define eventType.
+.sp
+Empty: Do not set type.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B rc.eventTypeNegative
+Default: \fB\(dqoutside of network interest\(dq\fP
+.sp
+Type: \fIstring\fP
+.sp
+New type of an event which is flagged negative. Ignored
+if \(aqreadEventTypeFromBNA\(aq is active and the polygons
+define eventType.
+.sp
+Empty means default: \(dqoutside of network interest\(dq
+.UNINDENT
+.SH COMMAND-LINE OPTIONS
+.SS Generic
+.INDENT 0.0
+.TP
+.B \-h, \-\-help
+Show help message.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-V, \-\-version
+Show version information.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config\-file file
+The alternative module configuration file. When this option
+is used, the module configuration is only read from the
+given file and no other configuration stage is considered.
+Therefore, all configuration including the definition of
+plugins must be contained in that file or given along with
+other command\-line options such as \-\-plugins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-plugins arg
+Load given plugins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-D, \-\-daemon
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-auto\-shutdown arg
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with
+\-\-start\-stop\-msg for the master module).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-shutdown\-master\-module arg
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-shutdown\-master\-username arg
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
+given as well, this parameter is ignored.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-x, \-\-expiry time
+Time span in hours after which objects expire.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-O, \-\-origin\-id publicID
+Origin ID to be associated. When given no messages are sent.
+Only the status of the association is written to stdout.
+.UNINDENT
+.SS Verbosity
+.INDENT 0.0
+.TP
+.B \-\-verbosity arg
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-v, \-\-v
+Increase verbosity level (may be repeated, e.g., \-vv).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-q, \-\-quiet
+Quiet mode: no logging output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-component arg
+Limit the logging to a certain component. This option can
+be given more than once.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-s, \-\-syslog
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-l, \-\-lockfile arg
+Path to lock file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-console arg
+Send log output to stdout.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-debug
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-log\-file arg
+Use alternative log file.
+.UNINDENT
+.SS Messaging
+.INDENT 0.0
+.TP
+.B \-u, \-\-user arg
+Overrides configuration parameter \fI\%connection.username\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-H, \-\-host arg
+Overrides configuration parameter \fI\%connection.server\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-t, \-\-timeout arg
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-g, \-\-primary\-group arg
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-S, \-\-subscribe\-group arg
+A group to subscribe to.
+This option can be given more than once.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-start\-stop\-msg arg
+Default: \fB0\fP
+.sp
+Set sending of a start and a stop message.
+.UNINDENT
+.SS Database
+.INDENT 0.0
+.TP
+.B \-\-db\-driver\-list
+List all supported database drivers.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-d, \-\-database arg
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config\-module arg
+The config module to use.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-inventory\-db arg
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-db\-disable
+Do not use the database at all
+.UNINDENT
+.SS Input
+.INDENT 0.0
+.TP
+.B \-\-ep
+Event parameters XML file for offline processing of all
+contained origins. Use \(aq\-\(aq to read from stdin.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-reprocess
+Reprocess event parameters ignoring all event and journal
+objects in input file. Works only in combination with \(aq\-\-ep\(aq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-update\-event\-id
+Update IDs of events if they already exist. Works only in
+combination with \(aq\-\-ep\(aq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-clear\-cache
+Send a clear cache message and quit.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-disable\-info\-log
+Do not populate the scevent\-processing\-info.log file.
+.UNINDENT
+.SS Output
+.INDENT 0.0
+.TP
+.B \-f, \-\-formatted
+Use formatted XML output along with \(aq\-\-ep\(aq. Otherwise XML
+is unformatted.
+.UNINDENT
+.SH AUTHOR
+gempa GmbH, GFZ Potsdam
+.SH COPYRIGHT
+gempa GmbH, GFZ Potsdam
+.\" Generated by docutils manpage writer.
+.

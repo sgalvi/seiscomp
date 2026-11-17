@@ -1,0 +1,17 @@
+pkgname=gds
+pkgver=2026.314
+pkgrel=7
+pkgdesc=('Modular expandable dissemination and publication server (commercial)')
+pkgkeywords=('decision support dissemination EEW induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('share/doc/gds/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('1c67b620317572db80647546f9e69eabc4cd7540bd3101e776e29e32209d141f')
+pkgsize=('18352027')
+pkginstallsize=('25252500')
+pkgfilecount=('486')
+filename=('gds-2026.314-seiscomp-7-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-11-17 01:20:19')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

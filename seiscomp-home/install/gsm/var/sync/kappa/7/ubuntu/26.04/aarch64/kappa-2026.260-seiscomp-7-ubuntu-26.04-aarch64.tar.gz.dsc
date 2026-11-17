@@ -1,0 +1,16 @@
+pkgname=kappa
+pkgver=2026.260
+pkgrel=7
+pkgdesc=('Event classification GUI (commercial)')
+pkgkeywords=('decision support earthquake monitoring induced earthquake local monitoring microseismic monitoring moment tensor origin evaluation teleseismic monitoring volcano monitoring discrimination')
+pkgchangelog=('share/doc/kappa/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('aac47c1ced4a3038efa09a5e156757304d0d22098852fc4b5a660a4a3688f134')
+pkgsize=('16325375')
+pkginstallsize=('27926038')
+filename=('kappa-2026.260-seiscomp-7-ubuntu-26.04-aarch64.tar.gz')
+builddate=('2026-10-31 00:03:48')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

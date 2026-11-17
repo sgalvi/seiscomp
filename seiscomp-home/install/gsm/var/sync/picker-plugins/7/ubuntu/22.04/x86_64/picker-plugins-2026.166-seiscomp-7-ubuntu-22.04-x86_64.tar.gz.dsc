@@ -1,0 +1,17 @@
+pkgname=picker-plugins
+pkgver=2026.166
+pkgrel=7
+pkgdesc=('Package for different picker plugins, e.g., polarity picker (commercial)')
+pkgkeywords=('picker polarity paic p-aic aic p-fx pfx')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('6d97bf18dbeef4b3ca99cc361c8469ef81b87cf3e2c6bf82a5bc6ca7e0fa30f2')
+pkgsize=('10300619')
+pkginstallsize=('11906582')
+pkgfilecount=('207')
+filename=('picker-plugins-2026.166-seiscomp-7-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-16 22:20:13')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

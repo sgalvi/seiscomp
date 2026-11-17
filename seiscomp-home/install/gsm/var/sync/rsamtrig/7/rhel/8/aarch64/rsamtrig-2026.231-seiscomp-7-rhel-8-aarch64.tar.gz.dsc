@@ -1,0 +1,17 @@
+pkgname=rsamtrig
+pkgver=2026.231
+pkgrel=7
+pkgdesc=('RecordStreams providing Real-time Seismic Amplitude Measurement (RSAM) (commercial)')
+pkgkeywords=('RSAM volcano monitoring')
+pkgchangelog=('share/doc/rsamtrig/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('fa774925dc0a8f63f343072dab133ac68bcae14b686a80698ae7043c012ec70b')
+pkgsize=('2206357')
+pkginstallsize=('4153963')
+pkgfilecount=('101')
+filename=('rsamtrig-2026.231-seiscomp-7-rhel-8-aarch64.tar.gz')
+builddate=('2026-11-17 01:11:55')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

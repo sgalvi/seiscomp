@@ -1,0 +1,16 @@
+pkgname=gss-plugin-rttm
+pkgver=2026.231
+pkgrel=6
+pkgdesc=('GNS Science simulation plugin for Rapid Tsunami Threat Map (RTTM) generation by W.L. Power (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simrttm/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('b5e1968a5122830e2e3698d17110dfd00c83daa0335a58944acf6945ffa0743c')
+pkgsize=('4771879')
+pkginstallsize=('10959669')
+filename=('gss-plugin-rttm-2026.231-seiscomp-6-ubuntu-22.04-aarch64.tar.gz')
+builddate=('2026-10-21 01:50:57')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

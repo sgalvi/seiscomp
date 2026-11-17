@@ -1,0 +1,16 @@
+pkgname=caps-plugins-win
+pkgver=2026.124
+pkgrel=5
+pkgdesc=('Retrieve seismic waveforms from WIN server and push to CAPS (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('9c65622fa573131f37d606ab996a5ff3f08c6e19cc47511889c5e5fea8da9852')
+pkgsize=('152366')
+pkginstallsize=('447610')
+filename=('caps-plugins-win-2026.124-seiscomp-5-debian-11-x86_64.tar.gz')
+builddate=('2026-08-31 21:09:52')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

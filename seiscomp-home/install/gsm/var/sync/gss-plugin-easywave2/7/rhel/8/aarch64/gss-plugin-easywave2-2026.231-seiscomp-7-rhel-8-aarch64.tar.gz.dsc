@@ -1,0 +1,17 @@
+pkgname=gss-plugin-easywave2
+pkgver=2026.231
+pkgrel=7
+pkgdesc=('On-the-fly tsunami simulation backend (commercial)')
+pkgkeywords=('decision support multi-sensor TEW tide gauge tsunami observation tsunami simulation')
+pkgchangelog=('share/doc/simeasywave2/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('c3498231e75c300fb000067966a68c3f60d4db205c78e3f883c0071401dd88b2')
+pkgsize=('3434659')
+pkginstallsize=('10468582')
+filename=('gss-plugin-easywave2-2026.231-seiscomp-7-rhel-8-aarch64.tar.gz')
+builddate=('2026-10-21 00:56:55')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')
+conflicts=('easywave2')

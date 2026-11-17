@@ -1,0 +1,1 @@
+../../../forecastzones-rtsp/noarch/forecastzones-rtsp-5.2.tar.gz.sig

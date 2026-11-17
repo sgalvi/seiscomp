@@ -1,0 +1,16 @@
+pkgname=recordstream
+pkgver=2026.180
+pkgrel=nightly
+pkgdesc=('Plugins providing RecordStreams for routing and failover (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('486cf9bcb8c245eca85c423dcbea0d3b59921a772f71dc228af9424b56f41b9a')
+pkgsize=('816351')
+pkginstallsize=('2803668')
+filename=('recordstream-2026.180-seiscomp-nightly-ubuntu-26.04-aarch64.tar.gz')
+builddate=('2026-07-21 23:37:11')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

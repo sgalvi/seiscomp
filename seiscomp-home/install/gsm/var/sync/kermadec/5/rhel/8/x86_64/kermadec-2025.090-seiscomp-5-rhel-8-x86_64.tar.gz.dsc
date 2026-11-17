@@ -1,0 +1,16 @@
+pkgname=kermadec
+pkgver=2025.090
+pkgrel=5
+pkgdesc=('GNS Science threat model database simulation plugin for the Kermadec region (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simkermadec/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('fe428b047ca4b42ffc060916bae77766e9ab1f5e52a1ad2af30a33d07a22a850')
+pkgsize=('2438171')
+pkginstallsize=('6181185')
+filename=('kermadec-2025.090-seiscomp-5-rhel-8-x86_64.tar.gz')
+builddate=('2025-07-12 20:57:31')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

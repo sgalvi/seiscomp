@@ -1,0 +1,16 @@
+pkgname=forecastzones-rtsp-pgrs
+pkgver=6.0
+pkgdesc=('Tsunami forecast zones in TOAST for the Persian Gulf (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('9f8ce133aa9942444024a8b35035fb31f4f7d6b88e2d7157ddfbd496b51bd119')
+pkgsize=('2494254')
+pkginstallsize=('7397988')
+pkgfilecount=('13')
+filename=('forecastzones-rtsp-pgrs-6.0.tar.gz')
+pkgfilepath=('forecastzones/rtsp-pgrs')
+builddate=('2020-03-12 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

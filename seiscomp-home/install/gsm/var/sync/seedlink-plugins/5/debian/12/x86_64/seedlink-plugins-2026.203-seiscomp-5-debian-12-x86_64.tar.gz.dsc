@@ -1,0 +1,16 @@
+pkgname=seedlink-plugins
+pkgver=2026.203
+pkgrel=5
+pkgdesc=('seedlink-plugins')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('6dc0d5cb4c4cc7375cb8e1e37226fbd66dddc2f44fe2adf6d1edb161f412ce67')
+pkgsize=('653719')
+pkginstallsize=('1969089')
+filename=('seedlink-plugins-2026.203-seiscomp-5-debian-12-x86_64.tar.gz')
+builddate=('2026-08-18 21:45:33')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

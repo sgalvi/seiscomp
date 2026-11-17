@@ -1,0 +1,17 @@
+pkgname=eqevents
+pkgver=2026.289
+pkgrel=7
+pkgdesc=('Static websites showing events information, maps and images (commercial)')
+pkgkeywords=('dissemination earthquake monitoring induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('919d35080555c215399839841d441b107ab6d9250e106fde6a924f65961baffd')
+pkgsize=('14169003')
+pkginstallsize=('16549447')
+pkgfilecount=('314')
+filename=('eqevents-2026.289-seiscomp-7-debian-12-aarch64.tar.gz')
+builddate=('2026-11-17 01:16:40')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

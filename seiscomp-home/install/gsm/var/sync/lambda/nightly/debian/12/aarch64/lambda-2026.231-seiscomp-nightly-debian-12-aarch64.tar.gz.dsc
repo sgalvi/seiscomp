@@ -1,0 +1,16 @@
+pkgname=lambda
+pkgver=2026.231
+pkgrel=nightly
+pkgdesc=('Seismic and infrasound array analysis (commercial)')
+pkgkeywords=('array earthquake monitoring induced earthquake infrasound local monitoring microseismic monitoring teleseismic monitoring')
+pkgchangelog=('share/doc/lambda/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('12b68cd6361869f035cbd8e161d5316f22fd9fe6e4377684a0c6f4cff66bf367')
+pkgsize=('56552238')
+pkginstallsize=('65798173')
+filename=('lambda-2026.231-seiscomp-nightly-debian-12-aarch64.tar.gz')
+builddate=('2026-09-01 00:30:12')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

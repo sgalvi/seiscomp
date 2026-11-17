@@ -1,0 +1,16 @@
+pkgname=bom-addons
+pkgver=2026.289
+pkgrel=nightly
+pkgdesc=('Custom package used by BOM (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('c16882929d8d400f1943a4e671f3fc37865d9dc91e4ecff90bfb4947fb6917d7')
+pkgsize=('4542663')
+pkginstallsize=('7581141')
+filename=('bom-addons-2026.289-seiscomp-nightly-ubuntu-26.04-x86_64.tar.gz')
+builddate=('2026-10-16 21:26:03')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

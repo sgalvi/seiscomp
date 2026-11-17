@@ -1,0 +1,16 @@
+pkgname=rsamtrig
+pkgver=2026.203
+pkgrel=nightly
+pkgdesc=('RecordStreams providing Real-time Seismic Amplitude Measurement (RSAM) (commercial)')
+pkgkeywords=('RSAM volcano monitoring')
+pkgchangelog=('share/doc/rsamtrig/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('d8b190cfb533ae89bc7ee578a825bcf32bdd59f4b20c566bd71f2797033971d3')
+pkgsize=('2216752')
+pkginstallsize=('4169787')
+filename=('rsamtrig-2026.203-seiscomp-nightly-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-08-19 00:25:50')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

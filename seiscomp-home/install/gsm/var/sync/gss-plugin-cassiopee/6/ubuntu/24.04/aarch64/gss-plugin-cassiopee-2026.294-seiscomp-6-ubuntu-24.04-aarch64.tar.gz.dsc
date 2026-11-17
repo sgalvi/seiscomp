@@ -1,0 +1,16 @@
+pkgname=gss-plugin-cassiopee
+pkgver=2026.294
+pkgrel=6
+pkgdesc=('Cassiopee tsunami travel time calculation simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simcassiopee/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('9684fbda47c2e7b49421a7bc5d652ea77d49a63503fe886de8bf6b7db2f595f2')
+pkgsize=('3172699')
+pkginstallsize=('9732678')
+filename=('gss-plugin-cassiopee-2026.294-seiscomp-6-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-10-31 00:54:44')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

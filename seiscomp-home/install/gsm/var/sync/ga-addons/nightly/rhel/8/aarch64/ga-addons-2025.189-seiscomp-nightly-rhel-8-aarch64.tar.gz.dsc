@@ -1,0 +1,16 @@
+pkgname=ga-addons
+pkgver=2025.189
+pkgrel=nightly
+pkgdesc=('Custom package used by GA (commercial)')
+pkgkeywords=('web')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('ed67fc42f70aec0fffb421ca6a3f30dc28fe99f22b196307084bc493c7d9ff51')
+pkgsize=('91581')
+pkginstallsize=('443392')
+filename=('ga-addons-2025.189-seiscomp-nightly-rhel-8-aarch64.tar.gz')
+builddate=('2026-03-03 02:30:51')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

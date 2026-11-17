@@ -1,0 +1,19 @@
+pkgname=seiscomp
+pkgver=5.5.18
+pkgrel=5
+pkgdesc=('SeisComP including data acquisition, processing, distribution and interactive analysis, version >=4.0.0 (public)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/seiscomp/CHANGELOG')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('da97b38a8db944a24c715c1b4b5d67198dd4856094a5789fa59c264eb774ce3e')
+pkgsize=('63405771')
+pkginstallsize=('200339701')
+filename=('seiscomp-5.5.18-debian-12-x86_64.tar.gz')
+builddate=('2024-05-14 05:21:34')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')
+conflicts=('seiscomp-headless' 'seiscomp-acqui' 'seiscomp-debug')
+osinstallscripts=('install-base.sh' 'install-fdsnws.sh' 'install-gui.sh' 'install-mariadb-server.sh' 'install-postgresql-server.sh')

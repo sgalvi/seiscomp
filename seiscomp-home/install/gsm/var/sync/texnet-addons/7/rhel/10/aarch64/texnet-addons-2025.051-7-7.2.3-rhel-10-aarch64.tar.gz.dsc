@@ -1,0 +1,16 @@
+pkgname=texnet-addons
+pkgver=2025.051
+pkgrel=7
+pkgdesc=('Custom package used by TexNet (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('3de60754557dec8df87d96a83c459960cb124830c552aaed70f12367c8f5a3f1')
+pkgsize=('878026')
+pkginstallsize=('2425853')
+filename=('texnet-addons-2025.051-7-7.2.3-rhel-10-aarch64.tar.gz')
+builddate=('2026-05-07 00:57:13')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

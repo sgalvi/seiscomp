@@ -1,0 +1,17 @@
+pkgname=mapprojections
+pkgver=2026.306
+pkgrel=nightly
+pkgdesc=('Plugins for enhancing maps: different map projections, access to high resolution maps, dynamic grid overlays (commercial)')
+pkgkeywords=('induced earthquake local monitoring maps microseismic monitoring')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('82e107f5dd02fe7174808b97fe0abc3a212973342caad7a19e4fb657e4a0f0b3')
+pkgsize=('2254114')
+pkginstallsize=('6164214')
+pkgfilecount=('17')
+filename=('mapprojections-2026.306-seiscomp-nightly-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-16 21:08:56')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

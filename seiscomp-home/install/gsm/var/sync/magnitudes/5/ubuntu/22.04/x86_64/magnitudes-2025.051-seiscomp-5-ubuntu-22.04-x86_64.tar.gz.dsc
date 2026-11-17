@@ -1,0 +1,17 @@
+pkgname=magnitudes
+pkgver=2025.051
+pkgrel=5
+pkgdesc=('Plugins providing magnitudes and yield estimates (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('4f1ea0fecc6f2dfc6b96af86c3a16a668941937aeb23e4e04905fd29b57ba5db')
+pkgsize=('17892')
+pkginstallsize=('101768')
+pkgfilecount=('3')
+filename=('magnitudes-2025.051-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-16 21:48:18')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

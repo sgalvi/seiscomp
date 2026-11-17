@@ -1,0 +1,17 @@
+pkgname=gis
+pkgver=2026.306
+pkgrel=5
+pkgdesc=('Web-based image generation of SeisComP maps, traces and spectrograms (commercial)')
+pkgkeywords=('dissemination EEW maps shake map web')
+pkgchangelog=('share/doc/gis/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('c50c9254084700531b5fc3018c49cc80184aad3f4ec9095586a883fe7d196c5e')
+pkgsize=('13774003')
+pkginstallsize=('18359340')
+pkgfilecount=('218')
+filename=('gis-2026.306-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-16 21:46:12')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

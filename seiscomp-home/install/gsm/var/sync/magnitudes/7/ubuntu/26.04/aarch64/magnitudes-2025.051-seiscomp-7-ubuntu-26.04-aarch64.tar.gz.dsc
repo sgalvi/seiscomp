@@ -1,0 +1,17 @@
+pkgname=magnitudes
+pkgver=2025.051
+pkgrel=7
+pkgdesc=('Plugins providing magnitudes and yield estimates (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('47e3b4aa8e88e93d51d84be61b6b7252a17dd8e8729bf4609b074272f117f265')
+pkgsize=('27069')
+pkginstallsize=('237552')
+pkgfilecount=('3')
+filename=('magnitudes-2025.051-seiscomp-7-ubuntu-26.04-aarch64.tar.gz')
+builddate=('2026-11-17 01:23:06')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

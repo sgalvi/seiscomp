@@ -1,0 +1,16 @@
+pkgname=kermadec
+pkgver=2025.084
+pkgrel=nightly
+pkgdesc=('GNS Science threat model database simulation plugin for the Kermadec region (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simkermadec/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('69f753182c29e3d0de91ef1c352e25b1f675d47cf31c5cfcf01a594b0cc11cbf')
+pkgsize=('2456372')
+pkginstallsize=('6153201')
+filename=('kermadec-2025.084-seiscomp-nightly-rhel-8-x86_64.tar.gz')
+builddate=('2025-03-28 22:17:21')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

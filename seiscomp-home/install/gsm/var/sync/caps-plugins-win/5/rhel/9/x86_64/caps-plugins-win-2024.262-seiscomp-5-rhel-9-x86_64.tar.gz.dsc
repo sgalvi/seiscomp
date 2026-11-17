@@ -1,0 +1,16 @@
+pkgname=caps-plugins-win
+pkgver=2024.262
+pkgrel=5
+pkgdesc=('Retrieve seismic waveforms from WIN server and push to CAPS (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('ef13cda3d59943bb65f5205d720b09c809d1568319ebb23873b1a54338811649')
+pkgsize=('208480')
+pkginstallsize=('592258')
+filename=('caps-plugins-win-2024.262-seiscomp-5-rhel-9-x86_64.tar.gz')
+builddate=('2026-05-01 22:21:45')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

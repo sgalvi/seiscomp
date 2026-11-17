@@ -1,0 +1,16 @@
+pkgname=forecastzones-tms
+pkgver=1.0
+pkgdesc=('Tsunami forecast zones in TOAST for TMS (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('9efb2c0576fd0bd542daf66921a14cdaf870313c91500f77c54eb1a59092cf62')
+pkgsize=('7497')
+pkginstallsize=('223138')
+pkgfilecount=('13')
+filename=('forecastzones-tms-1.0.tar.gz')
+pkgfilepath=('forecastzones/tms')
+builddate=('2024-12-05 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

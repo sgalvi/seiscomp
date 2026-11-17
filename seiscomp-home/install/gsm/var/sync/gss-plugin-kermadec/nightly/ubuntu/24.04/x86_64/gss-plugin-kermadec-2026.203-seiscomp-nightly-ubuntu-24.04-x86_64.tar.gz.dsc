@@ -1,0 +1,16 @@
+pkgname=gss-plugin-kermadec
+pkgver=2026.203
+pkgrel=nightly
+pkgdesc=('GNS Science threat model database simulation plugin for the Kermadec region (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simkermadec/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('d47dacabe120891a6d750e60e856c35bfabdb53dbf19eebdc81fb2797a40705b')
+pkgsize=('2656446')
+pkginstallsize=('7100411')
+filename=('gss-plugin-kermadec-2026.203-seiscomp-nightly-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-08-18 21:35:31')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

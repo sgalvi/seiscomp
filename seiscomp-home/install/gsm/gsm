@@ -1,0 +1,160 @@
+#!/bin/bash
+
+###############################################################################
+# Copyright (C) 2017 by gempa GmbH                                            #
+#                                                                             #
+# All Rights Reserved.                                                        #
+#                                                                             #
+# NOTICE: All information contained herein is, and remains                    #
+# the property of gempa GmbH and its suppliers, if any. The intellectual      #
+# and technical concepts contained herein are proprietary to gempa GmbH       #
+# and its suppliers.                                                          #
+# Dissemination of this information or reproduction of this material          #
+# is strictly forbidden unless prior written permission is obtained           #
+# from gempa GmbH.                                                            #
+#                                                                             #
+# Author: Ralph Henneberger, Stephan Herrnkind                                #
+# Email: ralix@gempa.de, herrnkind@gempa.de                                   #
+###############################################################################
+
+file_path="$(readlink -f "${0}")"
+base_dir="$(dirname "${file_path}")"
+venv_dir="${base_dir}/var/venv"
+venv_python="${venv_dir}/bin/python"
+venv_pip="${venv_dir}/bin/pip"
+gsm_bin="$0"
+
+# Run gsm.py, preserving argument quoting via "$@".
+# -C always carries the invoked binary, which is how gsm.py tells a
+# gsm-<alias> symlink from plain gsm. An explicit -c/--config in "$@" only
+# selects the configuration file and overrides the one derived from -C.
+function run_gsm() {
+	"${venv_python}" bin/gsm.py -C "$gsm_bin" "$@"
+}
+
+
+# Print error message and exit with code 1
+function error() {
+	>&2 echo "$1"
+	exit 1
+}
+
+# Install dependencies into existing venv
+function install_deps() {
+	echo "Installing Python dependencies"
+	pip_log="var/log/pip.log"
+	echo "---------------------------------
+$(date -Iseconds)
+---------------------------------" >>$pip_log
+	"${venv_pip}" install --upgrade pip >>$pip_log|| error "Could not upgrade pip, check $pip_log for errors"
+	"${venv_pip}" install -r share/venv/requirements.txt >>$pip_log || error "Could not install dependencies, check $pip_log for errors"
+}
+
+# Search for suitable Python version
+function detect_python_bin() {
+	>&2 echo "Searching Python executable"
+	python_bin=$(which python3 2>/dev/null) || error "Python3 executable not found"
+	minor_version=$(${python_bin} -c "import sys; print(sys.version_info.minor)") || error "Could not detect Python minor version"
+	test ${minor_version} -ge 9 && echo "$python_bin" && return 0
+
+	for minor in {15..9}; do
+		binary="python3.${minor}"
+		#>&2 echo "  .. searching for $binary"
+		python_bin=$(which "${binary}" 2>/dev/null) || continue
+
+		echo "$python_bin" && return 0
+	done
+
+	error "GSM requires at least Python 3.9. You have 3.${minor_version}.
+
+On RHEL 8 you may install install Python 3.9 as follows
+
+  su -
+  dnf install python39"
+}
+
+# Create virtual environment
+function create_venv() {
+    python_bin=$(detect_python_bin)
+
+    echo "Using ${python_bin}"
+    echo "Creating Python virtual environment: ${venv_dir}"
+
+    if ! "${python_bin}" -m venv "${venv_dir}"; then
+        echo "Could not create Python virtual environment"
+        if [ -d "${venv_dir}" ]; then
+            echo "Deleting incomplete virtual environment: ${venv_dir}"
+            rm -rf "${venv_dir}"
+        fi
+        exit 1
+    fi
+}
+
+# Is this operating system too old for this gsm (it needs Python 3.9)? Only a system that is known and older than the
+# oldest supported version is refused; others (Arch, Fedora, Debian testing, ...) are not judged. The same list is
+# in lib/const.py (GSM_MIN_OS_VERSION), test/backport_fixes.py checks that they agree. This runs before any Python is looked at,
+# and needs none. GSM_OS_RELEASE is for the tests.
+min_os_ubuntu="22.04"
+min_os_debian="12"
+min_os_rhel="8"
+
+function check_operating_system() {
+	local os_release="${GSM_OS_RELEASE:-/etc/os-release}"
+	local id version name oldest
+	[ -r "${os_release}" ] || return 0
+	id=$(. "${os_release}"; echo "${ID:-}")
+	version=$(. "${os_release}"; echo "${VERSION_ID:-}")
+	case "${id}" in
+		ubuntu) name="Ubuntu"; oldest="${min_os_ubuntu}" ;;
+		debian|raspbian) name="Debian"; oldest="${min_os_debian}" ;;
+		rhel|centos|rocky|almalinux) name="Rocky Linux / RHEL"; oldest="${min_os_rhel}"; version="${version%%.*}" ;;
+		*) return 0 ;;
+	esac
+	case "${version}" in
+		""|*[!0-9.]*) return 0 ;;
+	esac
+	# version >= oldest, as numbers: "22.04" is 22 and 04 (not an octal number: 10#)
+	local have_major="${version%%.*}" have_minor=0 need_major="${oldest%%.*}" need_minor=0
+	[[ "${version}" == *.* ]] && have_minor="${version#*.}" && have_minor="${have_minor%%.*}"
+	[[ "${oldest}" == *.* ]] && need_minor="${oldest#*.}"
+	[ -z "${have_minor}" ] && have_minor=0
+	if (( 10#${have_major} > 10#${need_major} )) ||
+		(( 10#${have_major} == 10#${need_major} && 10#${have_minor} >= 10#${need_minor} )); then
+		return 0
+	fi
+	>&2 echo "This operating system is no longer supported by gsm: ${name} ${version} (gsm needs Python 3.9 or newer).
+Supported are Ubuntu ${min_os_ubuntu}, Debian ${min_os_debian} and Rocky Linux / RHEL ${min_os_rhel} or newer. Please upgrade the
+operating system.
+
+If gsm was updated to this version by an older gsm: unpack the archive of the old gsm again over this directory
+(the backups of the migration are in .restore/), or install the gsm that fits this system."
+	exit 1
+}
+
+# Change working dir to GSM installation path
+cd "${base_dir}" || error "Could not change directory to ${base_dir}"
+
+check_operating_system
+
+mkdir -p var/log || error "Could not create log directory"
+
+# Create venv if directory is missing
+if [ ! -d "${venv_dir}" ]; then
+	create_venv
+	install_deps
+fi
+
+# Launch GSM and evaluate return code
+run_gsm "$@"
+ret=$?
+
+# Restart command after GSM update or in case not all requirements
+# are fulfilled
+if [ $ret -eq 10 ]; then
+	install_deps
+	run_gsm "$@"
+	ret=$?
+fi
+
+exit $ret
+

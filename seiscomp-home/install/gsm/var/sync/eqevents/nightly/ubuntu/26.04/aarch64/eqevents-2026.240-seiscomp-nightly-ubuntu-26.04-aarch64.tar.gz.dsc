@@ -1,0 +1,16 @@
+pkgname=eqevents
+pkgver=2026.240
+pkgrel=nightly
+pkgdesc=('Static websites showing events information, maps and images (commercial)')
+pkgkeywords=('dissemination earthquake monitoring induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('464d2c82c275208215564bf1553b144010e8c047ee0c3e79d4cb5b72690e7288')
+pkgsize=('14195889')
+pkginstallsize=('16554737')
+filename=('eqevents-2026.240-seiscomp-nightly-ubuntu-26.04-aarch64.tar.gz')
+builddate=('2026-10-16 02:56:11')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

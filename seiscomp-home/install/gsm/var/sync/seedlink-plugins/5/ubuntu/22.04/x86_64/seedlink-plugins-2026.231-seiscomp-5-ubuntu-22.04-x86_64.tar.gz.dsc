@@ -1,0 +1,17 @@
+pkgname=seedlink-plugins
+pkgver=2026.231
+pkgrel=5
+pkgdesc=('seedlink-plugins')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('ca3a701100ca147dfe4cbad8e4571659f1a9f368878290a92fc3f8864ab48298')
+pkgsize=('664069')
+pkginstallsize=('2020081')
+pkgfilecount=('11')
+filename=('seedlink-plugins-2026.231-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-16 21:56:05')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

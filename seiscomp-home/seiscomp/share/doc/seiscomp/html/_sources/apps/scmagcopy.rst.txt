@@ -1,0 +1,227 @@
+.. highlight:: rst
+
+.. _scmagcopy:
+
+#########
+scmagcopy
+#########
+
+**Copies magnitudes to new origins referenced by events.**
+
+
+Description
+===========
+
+scmagcopy is a |scname| module which copies a
+:ref:`api-python-datamodel-magnitude` of a specific type, e.g., M(USGS), to an
+:ref:`api-python-datamodel-origin` that has been associated to an
+:ref:`api-python-datamodel-event`.
+
+Processing steps performed:
+
+#. Listen for new origins associated to an event
+   (:ref:`api-python-datamodel-originreference`).
+#. Check if the referenced origin already contains a magnitude of the configured
+   type and stop here if this is the case.
+#. Iterate through all origins and magnitudes of the corresponding event.
+#. Copy the latest magnitude of the configured type to the origin referenced by
+   the new origin reference just received.
+#. Send the magnitude copy to the messaging system.
+#. Let :ref:`scevent` decide whether the new magnitude becomes preferred.
+
+
+
+.. _scmagcopy_configuration:
+
+Module Configuration
+====================
+
+| :file:`etc/defaults/global.cfg`
+| :file:`etc/defaults/scmagcopy.cfg`
+| :file:`etc/global.cfg`
+| :file:`etc/scmagcopy.cfg`
+| :file:`~/.seiscomp/global.cfg`
+| :file:`~/.seiscomp/scmagcopy.cfg`
+
+scmagcopy inherits :ref:`global options<global-configuration>`.
+
+
+
+.. confval:: magType
+
+   Default: ``M(USGS)``
+
+   Type: *string*
+
+   Magnitude type to copy if present.
+
+
+
+Command-Line Options
+====================
+
+.. program:: scmagcopy
+
+:program:`scmagcopy [OPTIONS]`
+
+
+Generic
+-------
+
+.. option:: -h, --help
+
+   Show help message.
+
+.. option:: -V, --version
+
+   Show version information.
+
+.. option:: --config-file file
+
+   The alternative module configuration file. When this option
+   is used, the module configuration is only read from the
+   given file and no other configuration stage is considered.
+   Therefore, all configuration including the definition of
+   plugins must be contained in that file or given along with
+   other command\-line options such as \-\-plugins.
+
+.. option:: --plugins arg
+
+   Load given plugins.
+
+.. option:: -D, --daemon
+
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
+
+
+Verbosity
+---------
+
+.. option:: --verbosity arg
+
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
+
+.. option:: -v, --v
+
+   Increase verbosity level \(may be repeated, e.g., \-vv\).
+
+.. option:: -q, --quiet
+
+   Quiet mode: no logging output.
+
+.. option:: --print-component arg
+
+   For each log entry print the component right after the
+   log level. By default the component output is enabled
+   for file output but disabled for console output.
+
+.. option:: --component arg
+
+   Limit the logging to a certain component. This option can
+   be given more than once.
+
+.. option:: -s, --syslog
+
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
+
+.. option:: -l, --lockfile arg
+
+   Path to lock file.
+
+.. option:: --console arg
+
+   Send log output to stdout.
+
+.. option:: --debug
+
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
+
+.. option:: --trace
+
+   Execute in trace mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1
+   \-\-print\-context\=1 .
+
+.. option:: --log-file arg
+
+   Use alternative log file.
+
+
+Messaging
+---------
+
+.. option:: -u, --user arg
+
+   Overrides configuration parameter :confval:`connection.username`.
+
+
+.. option:: -H, --host arg
+
+   Overrides configuration parameter :confval:`connection.server`.
+
+
+.. option:: -t, --timeout arg
+
+   Overrides configuration parameter :confval:`connection.timeout`.
+
+
+.. option:: -g, --primary-group arg
+
+   Overrides configuration parameter :confval:`connection.primaryGroup`.
+
+
+.. option:: -S, --subscribe-group arg
+
+   A group to subscribe to.
+   This option can be given more than once.
+
+.. option:: --start-stop-msg arg
+
+   Default: ``0``
+
+   Set sending of a start and a stop message.
+
+
+Database
+--------
+
+.. option:: --db-driver-list
+
+   List all supported database drivers.
+
+.. option:: -d, --database arg
+
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
+
+.. option:: --config-module arg
+
+   The config module to use.
+
+.. option:: --inventory-db arg
+
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
+
+.. option:: --db-disable
+
+   Do not use the database at all.
+
+
+Processing
+----------
+
+.. option:: --mag-type arg
+
+   Default: ``M(USGS)``
+
+   Type: *string*
+
+   Magnitude type to copy if present.
+

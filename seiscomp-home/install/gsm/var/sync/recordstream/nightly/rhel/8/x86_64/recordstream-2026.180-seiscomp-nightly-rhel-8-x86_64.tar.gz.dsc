@@ -1,0 +1,16 @@
+pkgname=recordstream
+pkgver=2026.180
+pkgrel=nightly
+pkgdesc=('Plugins providing RecordStreams for routing and failover (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('e73958e893ce62c257b301a6e101e583ead394528e0da93323b102be434a3d4a')
+pkgsize=('839598')
+pkginstallsize=('2718372')
+filename=('recordstream-2026.180-seiscomp-nightly-rhel-8-x86_64.tar.gz')
+builddate=('2026-07-21 21:06:35')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

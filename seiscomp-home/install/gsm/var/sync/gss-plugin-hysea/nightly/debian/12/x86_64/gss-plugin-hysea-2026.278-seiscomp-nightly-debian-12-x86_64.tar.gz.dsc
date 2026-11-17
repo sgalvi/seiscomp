@@ -1,0 +1,17 @@
+pkgname=gss-plugin-hysea
+pkgver=2026.278
+pkgrel=nightly
+pkgdesc=('HySEA (Hyperbolic Systems and Efficient Algorithms) is a high-performance package developed by the EDANYA group at the University of Malaga, Spain, for the simulation of geophysical flows. (commercial)')
+pkgkeywords=('bathymetry TEW tsunami simulation')
+pkgchangelog=('share/doc/simhysea/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('cd0444a930154533395ac9e2738a392cee957b24afa1b8b6a3b3874b8acaca17')
+pkgsize=('5057770')
+pkginstallsize=('12887292')
+filename=('gss-plugin-hysea-2026.278-seiscomp-nightly-debian-12-x86_64.tar.gz')
+builddate=('2026-10-20 21:31:57')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')
+conflicts=('hysea')

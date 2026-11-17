@@ -1,0 +1,16 @@
+pkgname=seedlink-rtpdren-plugin
+pkgver=2025.178
+pkgrel=7
+pkgdesc=('SeedLink RTP server plugin (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('b81f4d7ee9138fd24d408af5300e8f12968d60085d26a45af95f5eda48797a9e')
+pkgsize=('124132')
+pkginstallsize=('337584')
+filename=('seedlink-rtpdren-plugin-2025.178-seiscomp-7-debian-13-x86_64.tar.gz')
+builddate=('2026-05-01 23:07:40')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

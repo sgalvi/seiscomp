@@ -1,0 +1,16 @@
+pkgname=caps-tools
+pkgver=2026.173
+pkgrel=7
+pkgdesc=('Client tools for CAPS, e.g., capstool or rifftest (commercial)')
+pkgkeywords=('caps acquisition tools capstools')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('d4b7a0fe09b80b2947c120cda372ea17eb51ad522914bda0693f5b85bf37897d')
+pkgsize=('805832')
+pkginstallsize=('2428035')
+filename=('caps-tools-2026.173-seiscomp-7-ubuntu-26.04-x86_64.tar.gz')
+builddate=('2026-07-21 21:41:58')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

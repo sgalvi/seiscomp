@@ -1,0 +1,16 @@
+pkgname=recordstream
+pkgver=2026.203
+pkgrel=7
+pkgdesc=('Plugins providing RecordStreams for routing and failover (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('12d5ba073d70049de070501ad5189fab06bdf7723619bd40c3e1e674a6708960')
+pkgsize=('833545')
+pkginstallsize=('2698668')
+filename=('recordstream-2026.203-seiscomp-7-rhel-9-x86_64.tar.gz')
+builddate=('2026-08-18 21:48:26')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

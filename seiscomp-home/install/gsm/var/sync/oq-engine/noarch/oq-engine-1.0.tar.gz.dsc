@@ -1,0 +1,17 @@
+pkgname=oq-engine
+pkgver=1.0
+pkgdesc=('oq-engine openquake engine for sigma (commercial)')
+pkgkeywords=('openquake sigma oq-engine gpme')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('8a39ea7350d32b8c4eb05820168db99c7d7ca0c0f69f7cec56d8838f2524b0d1')
+pkgsize=('64287744')
+pkginstallsize=('1055788636')
+pkgfilecount=('5495')
+filename=('oq-engine-1.0.tar.gz')
+pkgfilepath=('oq-engine')
+builddate=('2021-02-11 13:10:00')
+pkgos=('')
+pkgosversion=('')
+pkgtype=data

@@ -1,0 +1,17 @@
+pkgname=thor
+pkgver=2025.280
+pkgrel=6
+pkgdesc=('THOR (commercial)')
+pkgkeywords=('thor')
+pkgchangelog=('share/doc/thor/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('3313c2ab0b3a27379f265c904b4d3e082e1d02cc251a9d001c7bc2ac031da44c')
+pkgsize=('697428')
+pkginstallsize=('2136381')
+filename=('thor-2025.280-seiscomp-6-debian-11-aarch64.tar.gz')
+builddate=('2025-10-10 07:28:01')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')
+depends=('dlbase' 'dlmodels-pick')

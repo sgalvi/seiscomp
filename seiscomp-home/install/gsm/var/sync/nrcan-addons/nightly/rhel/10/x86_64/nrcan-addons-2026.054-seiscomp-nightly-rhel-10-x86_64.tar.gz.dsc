@@ -1,0 +1,16 @@
+pkgname=nrcan-addons
+pkgver=2026.054
+pkgrel=nightly
+pkgdesc=('Custom package used by NRCan (commercial)')
+pkgkeywords=('scevent score plugin')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('9b31e9dbf449884474463e8b90a1546ae74ff27c387c36f0084ed407ed583b12')
+pkgsize=('19767')
+pkginstallsize=('81196')
+filename=('nrcan-addons-2026.054-seiscomp-nightly-rhel-10-x86_64.tar.gz')
+builddate=('2026-02-23 13:33:04')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

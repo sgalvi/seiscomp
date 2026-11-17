@@ -1,0 +1,1 @@
+../../../slabs-usgs/noarch/slabs-usgs-1.0.tar.gz.dsc

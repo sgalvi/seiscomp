@@ -1,0 +1,16 @@
+pkgname=caps-tools
+pkgver=2026.173
+pkgrel=nightly
+pkgdesc=('Client tools for CAPS, e.g., capstool or rifftest (commercial)')
+pkgkeywords=('caps acquisition tools capstools')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('de613c505526a0ca99c7f74f39c611ba60456e97066817a5b52354e63b634300')
+pkgsize=('756183')
+pkginstallsize=('2510907')
+filename=('caps-tools-2026.173-seiscomp-nightly-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-07-21 23:46:26')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

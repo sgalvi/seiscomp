@@ -1,0 +1,17 @@
+pkgname=recordstream
+pkgver=2024.298
+pkgrel=6
+pkgdesc=('Plugins providing RecordStreams for routing and failover (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('d1d92db760eb3b2f73abc1a143974dd62078d74a2a2e3ea61d525b55906a8a3c')
+pkgsize=('933322')
+pkginstallsize=('3011563')
+filename=('recordstream-2024.298-seiscomp-6-debian-11-x86_64.tar.gz')
+builddate=('2024-11-14 22:25:08')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

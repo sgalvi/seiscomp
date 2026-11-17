@@ -1,0 +1,16 @@
+pkgname=seedlink-plugins
+pkgver=2026.131
+pkgrel=6
+pkgdesc=('seedlink-plugins')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('aa9f0411bd3d17cb33810d433291c48fb10115750c2cbeaa0612545d7eb12182')
+pkgsize=('634540')
+pkginstallsize=('1952073')
+filename=('seedlink-plugins-2026.131-seiscomp-6-debian-12-aarch64.tar.gz')
+builddate=('2026-07-22 00:20:55')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

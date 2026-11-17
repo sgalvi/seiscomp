@@ -1,0 +1,16 @@
+pkgname=texnet-addons
+pkgver=2024.295
+pkgrel=nightly
+pkgdesc=('Custom package used by TexNet (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('75420b1d2a8b2e5ed1c5c2f1261e44b3a3e3f9dfe7f5395a8add035391a6d33e')
+pkgsize=('844887')
+pkginstallsize=('2335613')
+filename=('texnet-addons-2024.295-nightly-nightly-rhel-9-x86_64.tar.gz')
+builddate=('2025-02-20 02:10:53')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

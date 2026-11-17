@@ -1,0 +1,262 @@
+.. highlight:: rst
+
+.. _scevtlog:
+
+########
+scevtlog
+########
+
+**Event log preserving the history of updates.**
+
+
+Description
+===========
+
+Running SeisComP causes many database accesses for writing. Anytime a new
+event has been created a new row will be inserted in the database table.
+When the same event is updated the row in the database table is going to be
+changed as well. The information about the history of the event is lost because
+the database contains only the current event attributes. scevtlog saves the
+event history into files. While scevtlog is running it keeps the track of all
+event updates and stores this information in a directory that can be analyzed
+at anytime. The stored information is written as plain text in an easily
+readable format. Additionally scevtlog maintains an event summary file for an
+overview of the event history.
+
+
+.. _scevtlog_configuration:
+
+Module Configuration
+====================
+
+| :file:`etc/defaults/global.cfg`
+| :file:`etc/defaults/scevtlog.cfg`
+| :file:`etc/global.cfg`
+| :file:`etc/scevtlog.cfg`
+| :file:`~/.seiscomp/global.cfg`
+| :file:`~/.seiscomp/scevtlog.cfg`
+
+scevtlog inherits :ref:`global options<global-configuration>`.
+
+
+
+.. confval:: directory
+
+   Default: ``@LOGDIR@/events``
+
+   Type: *string*
+
+   Specify the output directory. Within this directory the logging
+   directory structure and the event files are stored.
+
+
+.. confval:: format
+
+   Default: ``xml``
+
+   Type: *string*
+
+   Values: ``xml,autoloc1,autoloc3``
+
+   Event output format. For completeness it is recommended to stick
+   with the default 'xml' as it can be converted to 'autoloc1' and
+   'autoloc3' by scbulletin but not the other way around.
+
+
+.. confval:: gzip
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   If format is xml then all XML files will be compressed with gzip
+   and stored with file extension \".xml.gz\". They are also
+   valid gzip files and can be used as input to e.g. zgrep.
+
+
+
+Command-Line Options
+====================
+
+.. program:: scevtlog
+
+:program:`scevtlog [options]`
+
+
+Generic
+-------
+
+.. option:: -h, --help
+
+   Show help message.
+
+.. option:: -V, --version
+
+   Show version information.
+
+.. option:: --config-file file
+
+   The alternative module configuration file. When this option
+   is used, the module configuration is only read from the
+   given file and no other configuration stage is considered.
+   Therefore, all configuration including the definition of
+   plugins must be contained in that file or given along with
+   other command\-line options such as \-\-plugins.
+
+.. option:: --plugins arg
+
+   Load given plugins.
+
+.. option:: -D, --daemon
+
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
+
+.. option:: --auto-shutdown arg
+
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with
+   \-\-start\-stop\-msg for the master module\).
+
+.. option:: --shutdown-master-module arg
+
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
+
+.. option:: --shutdown-master-username arg
+
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
+
+
+Verbosity
+---------
+
+.. option:: --verbosity arg
+
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
+
+.. option:: -v, --v
+
+   Increase verbosity level \(may be repeated, e.g., \-vv\).
+
+.. option:: -q, --quiet
+
+   Quiet mode: no logging output.
+
+.. option:: --component arg
+
+   Limit the logging to a certain component. This option can
+   be given more than once.
+
+.. option:: -s, --syslog
+
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
+
+.. option:: -l, --lockfile arg
+
+   Path to lock file.
+
+.. option:: --console arg
+
+   Send log output to stdout.
+
+.. option:: --debug
+
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
+
+.. option:: --log-file arg
+
+   Use alternative log file.
+
+
+Messaging
+---------
+
+.. option:: -u, --user arg
+
+   Overrides configuration parameter :confval:`connection.username`.
+
+
+.. option:: -H, --host arg
+
+   Overrides configuration parameter :confval:`connection.server`.
+
+
+.. option:: -t, --timeout arg
+
+   Overrides configuration parameter :confval:`connection.timeout`.
+
+
+.. option:: -g, --primary-group arg
+
+   Overrides configuration parameter :confval:`connection.primaryGroup`.
+
+
+.. option:: -S, --subscribe-group arg
+
+   A group to subscribe to.
+   This option can be given more than once.
+
+.. option:: --content-type arg
+
+   Overrides configuration parameter :confval:`connection.contentType`.
+
+   Default: ``binary``
+
+
+.. option:: --start-stop-msg arg
+
+   Default: ``0``
+
+   Set sending of a start and a stop message.
+
+
+Database
+--------
+
+.. option:: --db-driver-list
+
+   List all supported database drivers.
+
+.. option:: -d, --database arg
+
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
+
+.. option:: --config-module arg
+
+   The config module to use.
+
+.. option:: --inventory-db arg
+
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
+
+.. option:: --db-disable
+
+   Do not use the database at all
+
+
+Storage
+-------
+
+.. option:: -o, --directory arg
+
+   Overrides configuration parameter :confval:`directory`.
+
+
+.. option:: -f, --format arg
+
+   Overrides configuration parameter :confval:`format`.
+
+

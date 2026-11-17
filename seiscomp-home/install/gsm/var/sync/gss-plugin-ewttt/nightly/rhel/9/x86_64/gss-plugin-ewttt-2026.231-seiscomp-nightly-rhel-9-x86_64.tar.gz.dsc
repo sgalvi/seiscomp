@@ -1,0 +1,16 @@
+pkgname=gss-plugin-ewttt
+pkgver=2026.231
+pkgrel=nightly
+pkgdesc=('EW tsunami travel time calculation simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simewttt/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('0536630185667b95c2326198de71ca9c49fd4eea46c6cbc1f39282de47301936')
+pkgsize=('4719359')
+pkginstallsize=('11826380')
+filename=('gss-plugin-ewttt-2026.231-seiscomp-nightly-rhel-9-x86_64.tar.gz')
+builddate=('2026-10-20 21:27:15')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

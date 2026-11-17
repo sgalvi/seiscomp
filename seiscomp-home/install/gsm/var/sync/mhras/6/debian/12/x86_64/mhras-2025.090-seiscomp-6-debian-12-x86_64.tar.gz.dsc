@@ -1,0 +1,16 @@
+pkgname=mhras
+pkgver=2025.090
+pkgrel=6
+pkgdesc=('MHRAS tsunami simulation backend (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('e4e17a3af09b868cbf58df7e764aa7739ebacec47a66e9f33ad2f2a508449db0')
+pkgsize=('2675765')
+pkginstallsize=('7808125')
+filename=('mhras-2025.090-seiscomp-6-debian-12-x86_64.tar.gz')
+builddate=('2025-07-12 21:05:51')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

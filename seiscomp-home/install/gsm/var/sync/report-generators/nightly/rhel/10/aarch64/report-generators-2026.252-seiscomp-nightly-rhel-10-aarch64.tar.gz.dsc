@@ -1,0 +1,17 @@
+pkgname=report-generators
+pkgver=2026.252
+pkgrel=nightly
+pkgdesc=('Report generators (commercial)')
+pkgkeywords=('report shard sigma')
+pkgchangelog=('share/doc/rgsm/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('66c5021569e2160214ff0f7c28c59dbc00b55533c9f3335b77fc8e9763926e0b')
+pkgsize=('13019303')
+pkginstallsize=('14752600')
+filename=('report-generators-2026.252-seiscomp-nightly-rhel-10-aarch64.tar.gz')
+builddate=('2026-09-12 00:39:42')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')
+osinstallscripts=('install-report-generators.sh')

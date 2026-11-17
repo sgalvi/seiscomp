@@ -1,0 +1,17 @@
+pkgname=gss-plugin-hysea
+pkgver=2026.278
+pkgrel=7
+pkgdesc=('HySEA (Hyperbolic Systems and Efficient Algorithms) is a high-performance package developed by the EDANYA group at the University of Malaga, Spain, for the simulation of geophysical flows. (commercial)')
+pkgkeywords=('bathymetry TEW tsunami simulation')
+pkgchangelog=('share/doc/simhysea/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('4421050e7e08431e1f2a4f87cf420c668da784bd6f546c187e515f60a113572b')
+pkgsize=('4922825')
+pkginstallsize=('12857708')
+filename=('gss-plugin-hysea-2026.278-seiscomp-7-rhel-8-aarch64.tar.gz')
+builddate=('2026-10-21 00:57:25')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')
+conflicts=('hysea')

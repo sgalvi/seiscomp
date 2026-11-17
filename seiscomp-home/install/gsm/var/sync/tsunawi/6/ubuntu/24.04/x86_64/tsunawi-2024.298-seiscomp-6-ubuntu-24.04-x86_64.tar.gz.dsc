@@ -1,0 +1,17 @@
+pkgname=tsunawi
+pkgver=2024.298
+pkgrel=6
+pkgdesc=('Tsunami simulation plugin for TOAST that gets data from precalculated database provided by AWI (commercial)')
+pkgkeywords=('TEW tsunami simulation')
+pkgchangelog=('share/doc/simtsunawi/CHANGELOG')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('609660e9e91fcbb53dd16a839bbadcd6ff79f29651ff33e307dd032f61a932d5')
+pkgsize=('2306738')
+pkginstallsize=('5927336')
+filename=('tsunawi-2024.298-seiscomp-6-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2024-11-01 22:11:03')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

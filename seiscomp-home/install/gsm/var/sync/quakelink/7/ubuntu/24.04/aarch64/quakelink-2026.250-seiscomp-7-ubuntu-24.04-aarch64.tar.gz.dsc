@@ -1,0 +1,16 @@
+pkgname=quakelink
+pkgver=2026.250
+pkgrel=7
+pkgdesc=('Real-time streaming of event information and inventory (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/quakelink/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('4a32df2aa6d7468993908a98f73ac2c2211bc3ae3b237943ec2e11d082582ae2')
+pkgsize=('16308732')
+pkginstallsize=('28383794')
+filename=('quakelink-2026.250-seiscomp-7-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-10-15 00:48:03')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

@@ -1,0 +1,1157 @@
+.\" Man page generated from reStructuredText.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "SCCONFIG" "1" "Sep 04, 2026" "7.4.0" "SeisComP"
+.SH NAME
+scconfig \- SeisComP Documentation
+.sp
+\fBConfiguration and system management frontend.\fP
+.SH DESCRIPTION
+.INDENT 0.0
+.INDENT 2.5
+[image: scconfig: system panel]
+[image]
+System panel.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image: scconfig: modules panel]
+[image]
+Modules panel.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image: scconfig: bindings panel]
+[image]
+Bindings panel.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image: scconfig: inventory panel]
+[image]
+Inventory panel.UNINDENT
+.UNINDENT
+.sp
+scconfig is a graphical user interface which allows to
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Control modules\fP (start/stop/check/enable/disable) and
+access logging file,
+.IP \(bu 2
+Create and adjust the \fI\%configuration\fP of
+\fI\%modules\fP and \fI\%bindings\fP for
+all configurable \fISeisComP\fP modules including all
+\fI\%trunk\fP and \fI\%standalone\fP modules,
+.IP \(bu 2
+\fI\%Import, check, synchronize and remove\fP
+\fI\%station meta data/inventory\fP,
+.IP \(bu 2
+Retrieve \fI\%information\fP about the installed \fISeisComP\fP
+system,
+.IP \(bu 2
+Access the \fI\%documentation and the changelog\fP\&.
+.UNINDENT
+.sp
+These actions are available in separate panels which are described below.
+.sp
+The modules are usually programs part of the \fISeisComP\fP system and have two
+distinct types of configuration (see section \fI\%Configuration\fP for
+a more complete documentation):
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Modules configuration\fP stored in configuration
+files like \fBscautopick.cfg\fP\&.
+.IP \(bu 2
+\fI\%Bindings\fP, that are sets of parameters to configure
+how the module will treat a certain station. I.e. station\-specific
+configurations per module. Bindings can be configured using profiles, or
+directly per station. A profile is a named set of parameters for a certain
+module that can be conveniently attributed to more than one station. Using
+profiles makes it easier to maintain large number of station configuration.
+When two stations are configured by the same profile, both will have the same
+parameter set for a certain module.
+.UNINDENT
+.sp
+scconfig does not know anything about the \fISeisComP\fP database. It actually only
+reads and writes the content of files from \fBetc/\fP and
+\fB~/.seiscomp\fP folder. scconfig allows you to manage this information in an
+organized and friendly manner and supports you in generating clean
+configurations and operating modules. Also, it relies on other applications
+like the proper \fI\%seiscomp\fP tool to complete the system configuration.
+.SS First start
+.sp
+If started for the first time, scconfig will ask the user to setup essential
+configurations.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+.UNINDENT
+.UNINDENT
+.sp
+The setup steps will allow you to (read also \fI\%Getting Started with SeisComP\fP):
+.INDENT 0.0
+.IP \(bu 2
+Configure general IDs such as the agency ID which will be written to the
+global module configuration in \fB@SYSTEMCONFIGDIR@/global.cfg\fP,
+.IP \(bu 2
+Setup a \fISeisComP\fP database,
+.IP \(bu 2
+Configure the \fI\%scmaster\fP module with the \fISeisComP\fP database
+(\fB@SYSTEMCONFIGDIR@/scmaster.cfg\fP).
+.UNINDENT
+.sp
+If done already with the \fI\%command line interface\fP,
+this step can be skipped. Whether the setup was done before is indicated by
+the presence of the file \fBvar/run/seiscomp.init\fP\&.
+.sp
+If you wish to run the setup, continue by pressing \fBYes\fP\&. The wizard will be
+started and will configure exactly the same parameters as described in
+\fI\%Getting Started with SeisComP\fP\&.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image]
+.UNINDENT
+.UNINDENT
+.sp
+Pressing \fBFinish\fP will run the setup and show the progress. Any issue
+requiring actions or causing the setup to fail will be reported. A success
+message is printed upon complete setup.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+.UNINDENT
+.UNINDENT
+.sp
+Pressing \fBClose\fP will launch the main configuration window.
+.SS Options
+.sp
+By command\-line options scconfig supports you in quickly navigating to panels, modules
+and stations. Read the \fI\%documentation of command\-line options\fP
+to learn about your options or call:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scconfig \-h
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Main Window
+.sp
+The layout of the main window is always the same regardless of what panel
+is selected.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Main window of scconfig: Frame title, action buttons, mode indicator (red),
+panel selection (yellow), panel title and information (green), panel content
+(blue)..UNINDENT
+.UNINDENT
+.sp
+The window is divided into main areas:
+.INDENT 0.0
+.IP \(bu 2
+Frame title,
+.IP \(bu 2
+Buttons for common and expert actions,
+.IP \(bu 2
+Red: Mode indicator, system and user mode are
+indicate by a screen and an avatar, respectively,
+.IP \(bu 2
+Yellow: Panel switch,
+.IP \(bu 2
+Green: Title and description of current panel,
+.IP \(bu 2
+Blue: The content and interactive screen of the current panel.
+.UNINDENT
+.SS Frame title
+.sp
+The frame title shows general information on the current SeisComP version and
+the configuration mode (system or user) along with the directory to store module
+configurations. The hostname is additionally displayed when starting scconfig
+on a remote host.
+.SS Actions
+.INDENT 0.0
+.IP \(bu 2
+Saving (\fBCtrl+S\fP): Store changed parameters and value in configuration
+in files.
+.IP \(bu 2
+Reset all (\fBCtrl+R\fP): Load the configuration currently available in
+files resetting all unsaved changes.
+.IP \(bu 2
+Help (\fBF1\fP): Open the HTML documentation of scconfig.
+.IP \(bu 2
+Wizard (\fBCtrl+N\fP): Start the \fI\%inital setup\fP\&.
+.IP \(bu 2
+Switch mode: Change the mode of configuration, see section
+scconfig\-mode\&. The current mode is indicated by the mode area:
+.INDENT 2.0
+.IP \(bu 2
+screen: System mode
+.IP \(bu 2
+avatar: User mode
+.UNINDENT
+.IP \(bu 2
+Quit: Finish scconfig.
+.UNINDENT
+.SS System panel
+.sp
+The system panel is a graphical frontend for the \fI\%seiscomp\fP script. Read
+also section \fI\%System management\fP  for more details.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+System panel: Overview.UNINDENT
+.UNINDENT
+.sp
+It is divided into 3 parts: the toolbar on the top (red), the module list (green)
+and the log window (blue).
+The log window shows the output of all external programs called such as \fBseiscomp\fP\&.
+The standard output is colored black and standard error is colored brown.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+Due to the buffering of the GUI it can happen that standard output and
+standard error logs are not in perfect order.
+.UNINDENT
+.UNINDENT
+.SS Actions
+.sp
+The toolbar gives access to the available operations. All operations
+will affect the currently selected modules (rows). If no row is selected, all
+modules are affected and the corresponding call to \fBseiscomp <arg>\fP is
+done without any module. Also read the documentation of \fI\%seiscomp\fP for more
+details.
+.INDENT 0.0
+.TP
+.B \fIReload\fP
+Updates the current module state. The action is useful in case the module state
+was changed by external actions. Calls \fBseiscomp \-\-csv status\fP\&.
+.TP
+.B \fIStart\fP
+Starts all selected modules. If no module is selected, all enabled modules are
+started. Calls \fBseiscomp start\fP\&.
+.TP
+.B \fIStop\fP
+Stops all selected modules. If no module is selected, all started modules are
+stopped. Calls \fBseiscomp stop\fP\&.
+.TP
+.B \fIRestart\fP
+Restarts (stops and starts) all selected modules. If no module is selected,
+all started modules are stopped and all enabled modules are started. Calls
+\fBseiscomp restart\fP\&.
+.TP
+.B \fICheck\fP
+Tests all selected modules if they have stopped unexpectedly. Such modules are
+started. If no module is selected, all started modules are checked. Calls
+\fBseiscomp check\fP\&.
+.TP
+.B \fIReload\fP
+Reloads the configuration of all selected modules. If no module is selected,
+the configuration of all modules is reloaded. The action is only applicable
+to selected modules. Calls \fBseiscomp reload\fP\&.
+.TP
+.B \fIEnable\fP
+Enables all selected modules for autostart when running
+\fBseiscomp start\fP or \fBseiscomp restart\fP\&.
+At least one module must be selected. Calls \fBseiscomp enable\fP\&.
+.TP
+.B \fIDisable\fP
+Disables all selected modules for autostart.
+At least one module must be selected. Calls \fBseiscomp disable\fP\&.
+.TP
+.B \fIUpdate config\fP
+Starts \fI\%scmaster\fP, synchronizes the inventory and sends configuration of
+bindings and \fI\%standalone modules\fP to the messaging.
+Perform this important action after the module configuration or bindings have
+changed and before restarting the affected modules. Calls
+\fBseiscomp update\-config\fP\&.
+.UNINDENT
+.sp
+\fBIMPORTANT:\fP
+.INDENT 0.0
+.INDENT 3.5
+For applying an action to all modules deselect any modules selection pressing
+\fBESC\fP and press the corresponding action button. When one or multiple
+modules are selected, the action is only applied to those.
+.UNINDENT
+.UNINDENT
+.SS Diagnosing
+.sp
+For diagnosing module performances you may read module log files. The latest
+log files can be directly accessed from the system panel:
+.INDENT 0.0
+.IP 1. 3
+Right click on the module name for which to read the log entries.
+.IP 2. 3
+Select the type of log to read. Only available logs can be selected. Normally
+you would want to read the module log which is by default written per
+module to \fB$HOME/.seiscomp/log/[module].log\fP\&.
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Right\-click on a module to open log files.UNINDENT
+.UNINDENT
+.sp
+\fBHINT:\fP
+.INDENT 0.0
+.INDENT 3.5
+The logging level is configurable per module by \fI\%logging.level\fP\&.
+.UNINDENT
+.UNINDENT
+.SS Modules panel
+.sp
+The Modules panel allows the configuration of all registered modules.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Modules panel: Overview.UNINDENT
+.UNINDENT
+.sp
+The left/green part shows the list of available modules grouped by defined
+categories and the right/blue part shows the current active module configuration.
+The active configuration corresponds to the selected module in the list.
+.SS Adjust module configuration
+.sp
+Read section \fI\%Module configuration\fP for details on module configuration.
+See also section \fI\%Editing parameters\fP for further information on editing parameters.
+.SS Adjust module configuration
+.sp
+Read section \fI\%Module configuration\fP for details on module configuration.
+See also section \fI\%Editing parameters\fP for further information on editing parameters.
+.SS System/user mode
+.sp
+The module configuration content that is displayed depends on the current
+configuration mode. Two modes exist:
+.INDENT 0.0
+.IP \(bu 2
+System mode: Module configurations are stored in files per modules like
+\fBetc/<module>.cfg\fP\&. This is the default and usually, the preferred
+configuration mode.
+.IP \(bu 2
+User mode the files are stored as \fB$HOME/.seiscomp/<module>.cfg\fP\&.
+Parameter values set in user mode override system\-mode configurations.
+.UNINDENT
+.sp
+You may change the mode by pressing the action button \fBSwitch mode\fP (section
+\fI\%Main Window\fP). The mode is indicated by the mode indicator
+widget (section \fI\%Main Window\fP).
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+Bindings configurations (section \fI\%Bindings panel\fP) are not affected
+by mode changes.
+.UNINDENT
+.UNINDENT
+.sp
+It may happen that a configuration parameter is editable but editing will not
+have any affect on the module configuration. This is caused by the different
+configuration stages. If the system configuration is active but a parameter has
+been set in the user configuration it cannot be overridden in the system
+configuration. The user configuration is always of higher priority. scconfig
+will detect such problems and will color the input widget red in such situations.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Warning in case a value is overridden by user configuration..UNINDENT
+.UNINDENT
+.sp
+The value in the edit widget will show the currently configured value in the
+active configuration file but the tooltip will show the evaluated value, the
+location of the definition and a warning.
+.SS Bindings panel
+.sp
+The binding panel configures a station for a module providing station\-specific
+configuration such as data acquisition or processing. Read section
+\fI\%Bindings configuration\fP for details on bindings configuration.
+See also section \fI\%Editing parameters\fP for further information on editing parameters.
+.sp
+You may configure station
+bindings or binding profiles. The profiles are typically applied to a set of
+stations. Any change in the profile parameters is applied to all stations bound
+to it.
+.sp
+\fBHINT:\fP
+.INDENT 0.0
+.INDENT 3.5
+.INDENT 0.0
+.IP \(bu 2
+Working with \fI\%bindings profiles\fP allows to
+maintain a single set of binding parameters for one or multiple stations.
+\fI\%Station bindings\fP are useful if a set of
+binding parameters are applied only to a single station. Otherwise configure
+\fI\%binding profiles\fP\&.
+\fI\%Profiles\fP are therefore usually preferred
+over \fI\%station bindings\fP\&.
+.IP \(bu 2
+Creating or modifying bindings or bindings parameters requires to run
+\fBseiscomp update\-config\fP and to restart the affected modules in
+order for the changes to take an effect.
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Bindings panel: Overview.UNINDENT
+.UNINDENT
+.sp
+The binding panel is separated into 3 main areas:
+.INDENT 0.0
+.IP \(bu 2
+Station tree (green + yellow). In the upper (green) part you may select an item of
+which the content is displayed in the lower (yellow) section.
+.IP \(bu 2
+Binding parameter content (blue) where you may adjust parameter values.
+.IP \(bu 2
+Module tree (red + orange). In the upper (red) part you may select a module
+of which the profiles are displayed in the lower (orange) section.
+.UNINDENT
+.sp
+The station tree (green) shows a tree of all available networks and their
+stations. Each stations contains nodes of its configured bindings. The lower
+view (yellow) represents the content of the currently selected item in the
+station tree.
+.sp
+The binding parameter content (blue) shows the content of a binding and is
+similar to the module configuration content. A \fI\%search function\fP
+as for module configuration parameters exists. See section \fI\%Editing parameters\fP
+for further information about this panel.
+.sp
+The module tree contains all modules which can be used along with bindings.
+The upper (red) window contains the modules and all available binding profiles
+for each module and the lower (orange) part shows all binding profiles of the
+currently selected module. This view is used to add new profiles and delete
+existing profiles.
+.SS Profiles
+.SS Create a profile
+.sp
+For creating a binding profile select a module in the module tree (red)
+and right\-click on the module or select the \(dqadd\(dq button in the lower (orange)
+panel. Provide a descriptive name. Clicking on the name of the profile opens the
+profile allowing to adjust the parameters.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Create a binding profile.UNINDENT
+.UNINDENT
+.SS Create bindings
+.sp
+Assigning a binding profile to one or more stations creates one or more bindings.
+To assign a binding profile to
+.INDENT 0.0
+.IP \(bu 2
+A single station,
+.IP \(bu 2
+A single network including all stations or
+.IP \(bu 2
+All networks.
+.UNINDENT
+.INDENT 0.0
+.IP 1. 3
+Select a profile by mouse click
+.IP 2. 3
+Drag the selected profile from the right part (red or orange)
+to the target in the left part (green or yellow).
+.UNINDENT
+.sp
+Multi\-selection of networks and stations is supported by holding the keys
+\fBShift\fP or \fBCtrl\fP while clicking on a network or a station.
+.sp
+It is not possible to drag and drop multiple profiles with one action.
+.SS Station bindings
+.sp
+To create an exclusive station binding for a module, it must be opened in the
+binding view (yellow) by either selecting a station in the station tree
+(green) or opening/clicking that station in the binding view (yellow). The
+binding view will then contain all currently configured bindings.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Add a station binding.UNINDENT
+.UNINDENT
+.sp
+Clicking with the right mouse button into the free area will open a menu which
+allows to add a binding for a module which has not yet been added. Adding
+a binding will activate it and bring its content into the content panel.
+.sp
+To convert an existing profile into a station binding, right click on the
+binding icon and select Change profile ‣ None\&. The existing
+profile will be converted into a station binding and activated for editing.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Convert a binding profile to a station binding.UNINDENT
+.UNINDENT
+.sp
+Reversely, you may select a profile for binding it to a station.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Convert a station binding to a binding profile. The current configuration is
+highlighted..UNINDENT
+.UNINDENT
+.SS Apply bindings
+.sp
+The bindings parameters must be additionally written to the database or as for a
+\fI\%standalone module\fP converted to the specific module configuration by
+updating the configuration. You may update configuration for all modules or just
+the specific one. To this end, change to the
+\fI\%System panel\fP select the specific module or none and
+press the button \(dq\fIUpdate configuration\fP\(dq.
+.sp
+Alternatively, execute the \fI\%seiscomp\fP script on the command line for all or
+the specific module:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+seiscomp update\-config
+seiscomp update\-config module
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Editing parameters
+.sp
+The content panel of a configuration is organized as a tree. Each module/binding
+name is a top\-level item and all namespaces are titles of sections which can be
+expanded or collapsed.
+Namespaces are separated by dot in the configuration file, e.g.
+\fBscautopick.cfg\fP which also reads \fBglobal.cfg\fP would end up in a tree
+like this:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
++ global
+|  |
+|  +\-\- connection
+|  |    |
+|  |    +\-\- server (global.cfg: connection.server)
+|  |    |
+|  |    +\-\- username (global.cfg: connection.username)
+|  |
+|  +\-\- database (global.cfg: database)
+|
++ scautopick
+   |
+   +\-\- connection
+   |    |
+   |    +\-\- server (scautopick.cfg: connection.server)
+   |    |
+   |    +\-\- username (scautopick.cfg: connection.username)
+   |
+   +\-\- database (scautopick.cfg: database)
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The Figure \fI\%Content panel layout\fP describes each item in the content
+panel.
+.sp
+When configuring module configuration parameters (in contrast to bindings), the
+parameters can can be set in system and user mode. While system  mode is the
+default and usually used, parameters set in user mode override system mode. Read
+section scconfig\-mode for the details.
+.SS Searching
+.sp
+Searching parameters by name, value or description (tooltip) in the modules
+configuration panel is easy by the advanced search function:
+.INDENT 0.0
+.IP 1. 3
+Click on the lens in the parameter section or press \fBCtrl+F\fP for
+activating the search mask.
+.IP 2. 3
+Enter the string you wish to search for.
+.IP 3. 3
+Hit enter to search. The first match is highlighted.
+.IP 4. 3
+Once a string is found, you may continue to search up and down the list of
+matches by clicking on the arrow up and down buttons, respectively.
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Advanced search function. The section containing a match is highlighted..UNINDENT
+.UNINDENT
+.SS Adjust values
+.sp
+Without further configuration, the parameters show the currently loaded value. This may
+be the default value or a value previously loaded from global configuration. The
+content panel shows information and actions for adjusting parameter values.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Content panel layout.UNINDENT
+.UNINDENT
+.sp
+In order to adjust a module or binding parameter:
+.INDENT 0.0
+.IP 1. 3
+Click on the edit button above the parameter field (pen) to activate the value field.
+.IP 2. 3
+Enter or select the value in either way:
+.INDENT 3.0
+.IP \(bu 2
+Enter the value directly into the value field. While entering, the parameter is
+evaluated.
+.INDENT 3.0
+.INDENT 2.5
+[image]
+Value field: Enter the value into the open field.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Parameter values may be long and difficult to enter into the value field. Instead of
+entering the value in the value field you may alternatively click on the parameter
+name which opens a line editor for entering the parameter. Apply your changes and
+click \fIOK\fP to accept the changes. You may copy and paste any text string from the
+editor window. For copying the parameter along with its value elsewhere, click on
+\fICopy parameter\fP\&.
+.INDENT 3.0
+.INDENT 2.5
+[image]
+Line editor: Enter the value into the open field.UNINDENT
+.UNINDENT
+.IP \(bu 2
+For files and directories a selection button may be visible. Click on the button
+to select the file or directory.
+.INDENT 3.0
+.INDENT 2.5
+[image]
+File and directory selector.UNINDENT
+.UNINDENT
+.UNINDENT
+.IP 3. 3
+Save the configuration: Click on the \fISave\fP button or press \fBCtrl+S\fP\&.
+.IP 4. 3
+To finally apply the change you need to restart the module. In case bindings
+were changed, update the configuration is required before restarting. Navigate to the
+\fI\%System panel\fP for these actions.
+.UNINDENT
+.sp
+You may later revert changes:
+.INDENT 0.0
+.IP \(bu 2
+Remove a value effectively returning to default by pressing the remove button (pen
+with red line).
+.IP \(bu 2
+Before saving a changed value, you may reset this value to the previously saved state
+by pressing the reset button (blue circular arrows).
+.IP \(bu 2
+Revert the changed values of all parameters to the saved stated by pressing
+\fIReset all\fP (\fBCtrl+R\fP).
+.UNINDENT
+.SS Evaluation
+.sp
+The content of the input field (except for boolean types which are mapped
+to a simple checkbox) is the parameter value.
+While typing an evaluation box pops up which contains the parsed and interpreted
+content as read by an application. It shows the number of parsed list items, possible
+errors or warnings and the content of each list item. The full list of value
+types and options to be tested is documented in the
+\fI\%table of description parameters\fP\&.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Examples of value syntax evaluation.UNINDENT
+.UNINDENT
+.SS Inventory panel
+.sp
+The inventory panel allows to import, check and synchronize inventory files as
+well as to inspect the content or to rename or remove the files. The panel shows
+a list of inventory XML files located in folder \fBetc/inventory\fP\&. Only
+\fI\%SCML\fP files can be used as source for inventory data but various importers
+exist to integrate inventory data from other formats. After the first start
+the list is empty and contains only a README file.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Inventory panel: List of files and actions.UNINDENT
+.UNINDENT
+.sp
+Importing station meta data is outlined in the
+\fI\%tutorial on adding a station\fP\&.
+.sp
+Servers running FDSNWS [\fI\%8\fP] as operated at \fIGEOFON\fP [\fI\%9\fP] or other
+data centers [\fI\%6\fP] are modern sources of inventory
+information. In scconfig you may fetch inventory directly from FDSN servers.
+Alternatively, you may navigate to such servers, download the inventory
+files and integrate the into \fISeisComP\fP\&. Both ways are supported by scconfig.
+.sp
+Depending on configuration and architecture, FDSN servers provide
+inventory in \fI\%SCML\fP and/or FDSN station XML [\fI\%5\fP] but other
+sources may provide other formats. \fISeisComP\fP supports reading inventory in a
+variety of different formats such as:
+.INDENT 0.0
+.IP \(bu 2
+scml: \fI\%SCML\fP
+.IP \(bu 2
+fdsnxml: FDSN station XML [\fI\%5\fP]
+.IP \(bu 2
+dlsv: dataless SEED volume
+.IP \(bu 2
+arclink: Arclink XML
+.UNINDENT
+.sp
+Ultimately, the inventory must be converted into \fI\%SCML\fP which is
+supported by scconfig.
+.sp
+\fBWARNING:\fP
+.INDENT 0.0
+.INDENT 3.5
+Ensure to provide full inventory including responses for the time period of
+interest for data processing. Waveform data without corresponding inventory
+cannot be processed.
+.UNINDENT
+.UNINDENT
+.SS Toolbar actions
+.sp
+The toolbar supports various actions:
+.INDENT 0.0
+.TP
+.B \fIImport\fP
+You may upload and integrate the inventory from file in any supported original
+format. Read section \fI\%Import from file\fP\&.
+.TP
+.B \fIFDSNWS\fP
+You may connect to any FDSN server providing station information and integrate
+the requested meta data into your \fISeisComP\fP configuration.  Read section
+\fI\%Import from FDSNWS\fP\&.
+.TP
+.B \fICheck\fP
+The inventory is checked for issues including inconsistencies which are reported.
+The tests are based on \fI\%scinv\fP and listed in the documentation of this
+module. Adjust sensitivity by configuring \fI\%scinv\fP\&.
+.sp
+The equivalent command\-line action is
+.INDENT 7.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scinv check
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.TP
+.B \fISync keys\fP
+This action is part of sync but can be called also standalone. It merges all
+inventory XML files and creates key files in \fBetc/key/station_*\fP if a
+key file does not yet exist. Existing key files are not touched unless the
+station is not part of the inventory anymore.
+.sp
+The equivalent command\-line action is
+.INDENT 7.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scinv keys
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+As a result, all stations in inventory will have a corresponding key file and
+each key file will have a corresponding station in inventory.
+.TP
+.B \fITest sync\fP
+The inventory XML files are not used directly with \fISeisComP\fP\&. They need to
+be synchronized with the database first (see \fI\%Station meta data\fP).
+Synchronization needs to merge all existing XML files and create differences
+against the existing database tables. While merging conflicts can occur such
+as duplicate stations with different content (e.g. different description).
+This action is a dry\-run of the actual synchronization. It performs merging
+and creates differences but does not send any update. This actions is useful
+to test all your existing inventory files before actually modifying the
+database.
+.sp
+The equivalent command\-line action is
+.INDENT 7.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scinv sync \-\-test
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 7.0
+.INDENT 2.5
+[image]
+Synchronize inventory: Success.UNINDENT
+.UNINDENT
+.TP
+.B \fISync\fP
+Almost identical to \fITest sync\fP but it does send updates to the database and
+additionally synchronizes key files and resource files.
+.sp
+The equivalent command\-line action is
+.INDENT 7.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scinv sync
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.sp
+\fISync\fP and \fISync keys\fP will cause a reload of the configuration to refresh the
+current binding tree (see \fI\%Bindings panel\fP).
+.SS Import from FDSNWS
+.sp
+Inventory files can be directly imported from FDSN server by pressing the
+\fBFDSNWS\fP button in the toolbar on the top. Pressing the button will open a
+popup allowing to enter the FDSN server address and the inventory constraints.
+Include responses and set the time period by Start and End. Unset values do not
+impose any limit. When done
+.INDENT 0.0
+.IP 1. 3
+Press \fBFetch\fP
+.IP 2. 3
+Inspect the stream table
+.IP 3. 3
+Press \fBOK\fP to download and integrate the inventory.
+.UNINDENT
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Import inventory: After fetching from FDSN server and before integration the
+stream list can be inspected..UNINDENT
+.UNINDENT
+.sp
+\fBHINT:\fP
+.INDENT 0.0
+.INDENT 3.5
+File names must end on \fI\&.xml\fP\&. It is recommended to use consistent file
+names, e.g., \fBinventory_[networkCode].xml\fP\&.
+.UNINDENT
+.UNINDENT
+.SS Import from file
+.sp
+External inventory files can be imported by pressing the \fBImport\fP
+button in the toolbar on the top. Pressing the button will open a popup allowing
+to select for input format.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Import inventory: File format selection.UNINDENT
+.UNINDENT
+.sp
+If \fIfdsnws\fP is selected, the source location should then point to the FDSN
+stations XML file downloaded before.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Import inventory: File selection.UNINDENT
+.UNINDENT
+.sp
+If successfully imported a window will popup with the execution result and
+the import output.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Import inventory: Success.UNINDENT
+.UNINDENT
+.sp
+After closing the popup, the imported inventory file will show up in the list of
+files. Right\-clicking a file allows:
+.INDENT 0.0
+.IP \(bu 2
+Checking (quality control),
+.IP \(bu 2
+Renaming,
+.IP \(bu 2
+Deleting,
+.IP \(bu 2
+Inspecting the content of
+.UNINDENT
+.sp
+the file.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Right\-click on file name to select actions on the file.UNINDENT
+.UNINDENT
+.sp
+\fBHINT:\fP
+.INDENT 0.0
+.INDENT 3.5
+File names must end on \fI\&.xml\fP\&. It is recommended to use consistent file
+names, e.g., \fBinventory_[networkCode].xml\fP\&.
+.UNINDENT
+.UNINDENT
+.SS Information panel
+.sp
+This panel shows information about the \fISeisComP\fP environment including system
+variables and the \fISeisComP\fP variable related to the currently executed instance
+of scconfig.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+Information panel showing variables and software information.UNINDENT
+.UNINDENT
+.sp
+All \fISeisComP\fP variables can be used as placeholders in most of the configuration
+parameters which define directories or files. The variables are encapsulated by
+\fB@\fP\&. Example:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+autoloc.grid = @CONFIGDIR@/autoloc/local.grid
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Documentation and changelog
+.sp
+Access the documentation and the changelog of any installed package from the
+Docs panel. Double\-click on the red or blue button to open the documentation
+or the changelog, respectively.
+.INDENT 0.0
+.INDENT 2.5
+[image]
+.UNINDENT
+.UNINDENT
+.SS Shortcuts / Hotkeys
+.TS
+center;
+|l|l|.
+_
+T{
+Hotkey
+T}	T{
+Description
+T}
+_
+T{
+\fBGeneral\fP
+T}	T{
+T}
+_
+T{
+1
+T}	T{
+Switch to System panel
+T}
+_
+T{
+2
+T}	T{
+Switch to Modules panel
+T}
+_
+T{
+3
+T}	T{
+Switch to Bindings panel
+T}
+_
+T{
+4
+T}	T{
+Switch to Inventory panel
+T}
+_
+T{
+5
+T}	T{
+Switch to Information panel
+T}
+_
+T{
+6
+T}	T{
+Switch to Docs panel
+T}
+_
+T{
+Ctrl + N
+T}	T{
+Start wizard for setting up initial global parameters, database and messaging
+T}
+_
+T{
+Ctrl + Q
+T}	T{
+Quit scconfig. Changed parameters may be saved file before eventually quitting.
+T}
+_
+T{
+Ctrl + R
+T}	T{
+Reset all changed parameters to values saved on disk
+T}
+_
+T{
+Ctrl + S
+T}	T{
+Save parameter values
+T}
+_
+T{
+F1
+T}	T{
+Open locally installed HTML documentation of scconfig
+T}
+_
+T{
+\fBBindings panel\fP
+T}	T{
+T}
+_
+T{
+Ctrl + F
+T}	T{
+Search parameters and descriptions
+T}
+_
+T{
+\fBModule panel\fP
+T}	T{
+T}
+_
+T{
+Ctrl + F
+T}	T{
+Search parameters and descriptions
+T}
+_
+T{
+\fBInventory panel\fP
+T}	T{
+T}
+_
+T{
+Del
+T}	T{
+Delete selected file
+T}
+_
+T{
+F2
+T}	T{
+Rename selected file
+T}
+_
+T{
+F3
+T}	T{
+Check the selected file executing \fIscinv check\fP
+T}
+_
+.TE
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBscconfig [options]\fP
+.SS Generic
+.INDENT 0.0
+.TP
+.B \-h, \-\-help
+Show help message.
+.UNINDENT
+.SS Verbosity
+.INDENT 0.0
+.TP
+.B \-\-debug
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-V, \-\-version
+Show version information.
+.UNINDENT
+.SS Options
+.INDENT 0.0
+.TP
+.B \-m, \-\-module arg
+Type: \fIstring\fP
+.sp
+Name of module for which to open the configuration at startup given by
+the module name, e.g. scautopick. Requires \-\-panel and is supported by
+the Modules and Bindings panels. In the Bindings panel all profiles of
+the module are shown and, when used with \-\-station, the parameters for
+that station also show.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-p, \-\-panel arg
+Type: \fIstring\fP
+.sp
+Panel to open at startup given by its number, e.g. 2, or its name, e.g.
+Modules. The number corresponds to the panel shortcut key.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-parameter arg
+Type: \fIstring\fP
+.sp
+Name of parameter or parameter section to navigate to at startup
+given by its full name, e.g., connection.server or database.
+Requires \-\-panel and \-module for Modules panel or \-\-panel, \-\-module
+and \-\-station for Bindings panel.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-s, \-\-station arg
+Type: \fIstring\fP
+.sp
+Station to show the bindings of at startup given as NET.STA, e.g.
+GE.APE. Requires \-\-panel and is supported by the Bindings panel. If
+combined with \-\-module, the parameters of the module binding at that
+station also show.
+.UNINDENT
+.SH AUTHOR
+gempa GmbH, GFZ Potsdam
+.SH COPYRIGHT
+gempa GmbH, GFZ Potsdam
+.\" Generated by docutils manpage writer.
+.

@@ -1,0 +1,17 @@
+pkgname=caps-plugins
+pkgver=2026.294
+pkgrel=7
+pkgdesc=('Collection of plugins for CAPS (commercial)')
+pkgkeywords=('data acquisition GNSS')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('b05248623ed290cc121a2e1fa85917ffa4ad5bc5182e162fd349cf16903986d9')
+pkgsize=('4406657')
+pkginstallsize=('20384797')
+pkgfilecount=('99')
+filename=('caps-plugins-2026.294-seiscomp-7-rhel-8-x86_64.tar.gz')
+builddate=('2026-11-09 21:48:44')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

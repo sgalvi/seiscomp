@@ -1,0 +1,16 @@
+pkgname=gds-plugins-gts
+pkgver=2026.203
+pkgrel=6
+pkgdesc=('GDS GTS message importer (commercial)')
+pkgkeywords=('decision support dissemination EEW web')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('ad69fece578fccfba634b06990f4cf5fbf48c7cadbecf1ab0dc8a270f19dde7d')
+pkgsize=('632643')
+pkginstallsize=('2134299')
+filename=('gds-plugins-gts-2026.203-seiscomp-6-rhel-8-aarch64.tar.gz')
+builddate=('2026-08-19 01:41:33')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

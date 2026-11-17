@@ -1,0 +1,17 @@
+pkgname=quakelink
+pkgver=2026.288
+pkgrel=6
+pkgdesc=('Real-time streaming of event information and inventory (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/quakelink/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('0e6ab1a1a896d7bb8a9ffd5629ecf3687e3c537de39f3fedf01a456b791380ac')
+pkgsize=('16275898')
+pkginstallsize=('28011953')
+pkgfilecount=('335')
+filename=('quakelink-2026.288-seiscomp-6-ubuntu-22.04-aarch64.tar.gz')
+builddate=('2026-11-17 01:42:34')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

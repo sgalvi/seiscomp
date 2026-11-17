@@ -1,0 +1,16 @@
+pkgname=magnitudes
+pkgver=2025.051
+pkgrel=6
+pkgdesc=('Plugins providing magnitudes and yield estimates (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('903a7763cbc6a73f33c202658e43111b920a9b199869a8db85be7f360448ee28')
+pkgsize=('21510')
+pkginstallsize=('102832')
+filename=('magnitudes-2025.051-seiscomp-6-debian-11-x86_64.tar.gz')
+builddate=('2026-08-31 21:24:57')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

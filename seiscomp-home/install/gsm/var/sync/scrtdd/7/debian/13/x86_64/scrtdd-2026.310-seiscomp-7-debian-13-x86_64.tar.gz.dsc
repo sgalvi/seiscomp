@@ -1,0 +1,17 @@
+pkgname=scrtdd
+pkgver=2026.310
+pkgrel=7
+pkgdesc=('Software package provided for ETH Zurich (https://www.seismo.ethz.ch) (public)')
+pkgkeywords=('scrtdd')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('9204f8bcb06a1ac284f66581d6b07eda810462e859606c0bde93839a97768957')
+pkgsize=('8215392')
+pkginstallsize=('10864331')
+pkgfilecount=('84')
+filename=('scrtdd-2026.310-seiscomp-7-debian-13-x86_64.tar.gz')
+builddate=('2026-11-17 00:02:50')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

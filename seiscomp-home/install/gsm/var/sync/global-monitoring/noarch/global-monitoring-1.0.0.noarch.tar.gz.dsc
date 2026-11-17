@@ -1,0 +1,16 @@
+pkgname=global-monitoring
+pkgver=1.0.0
+pkgdesc=('Inventory and Bindings examples for global monitoring (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('ea54c64a918200f232c0e0cd367291ab6f5fe8ea6c76e93959571db71acbf8f5')
+pkgsize=('1487620')
+pkginstallsize=('21724098')
+pkgfilecount=('598')
+filename=('global-monitoring-1.0.0.noarch.tar.gz')
+pkgfilepath=('global-monitoring')
+builddate=('2020-04-03 12:22:56')
+pkgos=('')
+pkgosversion=('')
+pkgtype=config

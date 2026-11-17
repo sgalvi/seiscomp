@@ -1,0 +1,17 @@
+pkgname=gss-plugin-easywave2
+pkgver=2026.294
+pkgrel=nightly
+pkgdesc=('On-the-fly tsunami simulation backend (commercial)')
+pkgkeywords=('decision support multi-sensor TEW tide gauge tsunami observation tsunami simulation')
+pkgchangelog=('share/doc/simeasywave2/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('9c92285587e5d25be57e854f3281f044cb423996b8f02f911c27ec7f2132b4a8')
+pkgsize=('3671517')
+pkginstallsize=('10846582')
+filename=('gss-plugin-easywave2-2026.294-seiscomp-nightly-ubuntu-26.04-x86_64.tar.gz')
+builddate=('2026-10-30 21:20:18')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')
+conflicts=('easywave2')

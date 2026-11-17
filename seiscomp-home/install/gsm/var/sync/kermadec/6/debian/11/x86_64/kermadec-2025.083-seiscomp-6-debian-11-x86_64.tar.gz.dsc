@@ -1,0 +1,16 @@
+pkgname=kermadec
+pkgver=2025.083
+pkgrel=6
+pkgdesc=('GNS Science threat model database simulation plugin for the Kermadec region (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simkermadec/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('34ef96d73a0784ce75172d4c4aeeedd2fade866255892ff49c0831f2bb82d198')
+pkgsize=('2451656')
+pkginstallsize=('6142513')
+filename=('kermadec-2025.083-seiscomp-6-debian-11-x86_64.tar.gz')
+builddate=('2025-03-25 00:30:16')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

@@ -1,0 +1,17 @@
+pkgname=npeval
+pkgver=2026.288
+pkgrel=6
+pkgdesc=('Seismic network performance evaluation (commercial)')
+pkgkeywords=('earthquake monitoring EEW induced earthquake local monitoring microseismic monitoring network configuration network evaluation quality control teleseismic monitoring volcano monitoring')
+pkgchangelog=('share/doc/npeval/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('92b7a19b8d124c194dfee4d9144a16a56ea016cf0f333c92624b2cf7a782d016')
+pkgsize=('12541452')
+pkginstallsize=('15883368')
+pkgfilecount=('215')
+filename=('npeval-2026.288-seiscomp-6-rhel-8-x86_64.tar.gz')
+builddate=('2026-11-16 22:29:34')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

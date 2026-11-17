@@ -1,0 +1,16 @@
+pkgname=world-9
+pkgver=1.3
+pkgdesc=('gempa map tiles in Pseudo-Mercator projection up to zoom level 9 (305 m/pixel, 4.6 GiB) (commercial)')
+pkgkeywords=('map world-9.mbtiles')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('2338334c3faecc2a53649cda7ded81d98e2291a7119cf35f70fc83ada446715f')
+pkgsize=('4973965312')
+pkginstallsize=('4973965312')
+filename=('world-9-1.3.mbtiles')
+pkgfilepath=('maps/world-9')
+builddate=('2020-08-12 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

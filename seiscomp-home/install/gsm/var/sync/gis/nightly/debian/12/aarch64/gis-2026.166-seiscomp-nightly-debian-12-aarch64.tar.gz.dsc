@@ -1,0 +1,16 @@
+pkgname=gis
+pkgver=2026.166
+pkgrel=nightly
+pkgdesc=('Web-based image generation of SeisComP maps, traces and spectrograms (commercial)')
+pkgkeywords=('dissemination EEW maps shake map web')
+pkgchangelog=('share/doc/gis/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('dc2eb1dc41444f0379271869d48bdc17212c5851a5639c1c9beee2090c0fc2c5')
+pkgsize=('13925608')
+pkginstallsize=('18277224')
+filename=('gis-2026.166-seiscomp-nightly-debian-12-aarch64.tar.gz')
+builddate=('2026-06-24 00:08:37')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

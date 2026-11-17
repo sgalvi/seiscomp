@@ -1,0 +1,17 @@
+pkgname=magnitudes
+pkgver=2025.051
+pkgrel=6
+pkgdesc=('Plugins providing magnitudes and yield estimates (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('1d342c24ad838bbc2a3875185827ab37c200d8bcaf5d7d7c6871ad7dcd1f7091')
+pkgsize=('29883')
+pkginstallsize=('239728')
+pkgfilecount=('3')
+filename=('magnitudes-2025.051-seiscomp-6-rhel-8-aarch64.tar.gz')
+builddate=('2026-11-17 01:38:36')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

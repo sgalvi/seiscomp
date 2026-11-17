@@ -1,0 +1,17 @@
+pkgname=report-generators
+pkgver=2026.257
+pkgrel=nightly
+pkgdesc=('Report generators (commercial)')
+pkgkeywords=('report shard sigma')
+pkgchangelog=('share/doc/rgsm/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('aba8da73400e561fbdc365be2811a708d94dac674c4e0a322be28b11bbbb81fd')
+pkgsize=('13022461')
+pkginstallsize=('14752898')
+filename=('report-generators-2026.257-seiscomp-nightly-debian-13-aarch64.tar.gz')
+builddate=('2026-10-07 23:47:51')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')
+osinstallscripts=('install-report-generators.sh')

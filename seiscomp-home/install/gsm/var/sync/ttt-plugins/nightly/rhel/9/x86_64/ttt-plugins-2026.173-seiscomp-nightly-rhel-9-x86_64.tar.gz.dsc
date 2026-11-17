@@ -1,0 +1,16 @@
+pkgname=ttt-plugins
+pkgver=2026.173
+pkgrel=nightly
+pkgdesc=('Package for different ttt plugins (commercial)')
+pkgkeywords=('ttt custom hycolo')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('6564ffde7fb0b17867447fa5c33438a5f2799091b2de24df6eebad6906277c44')
+pkgsize=('16016')
+pkginstallsize=('53192')
+filename=('ttt-plugins-2026.173-seiscomp-nightly-rhel-9-x86_64.tar.gz')
+builddate=('2026-06-22 07:09:24')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

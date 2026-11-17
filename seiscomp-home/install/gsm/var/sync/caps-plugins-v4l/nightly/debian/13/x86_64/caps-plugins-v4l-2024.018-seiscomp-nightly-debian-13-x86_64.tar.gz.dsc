@@ -1,0 +1,16 @@
+pkgname=caps-plugins-v4l
+pkgver=2024.018
+pkgrel=nightly
+pkgdesc=('Retrieve video data from cameras and push to CAPS (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('5b8e77d2e4ca5b093dff374c6671045773e818a02444edc1199b20dcfc2ea12f')
+pkgsize=('157471')
+pkginstallsize=('446620')
+filename=('caps-plugins-v4l-2024.018-seiscomp-nightly-debian-13-x86_64.tar.gz')
+builddate=('2026-01-14 22:05:15')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

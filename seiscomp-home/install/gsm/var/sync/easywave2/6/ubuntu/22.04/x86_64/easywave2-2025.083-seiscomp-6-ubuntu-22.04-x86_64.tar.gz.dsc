@@ -1,0 +1,16 @@
+pkgname=easywave2
+pkgver=2025.083
+pkgrel=6
+pkgdesc=('On-the-fly tsunami simulation backend (commercial)')
+pkgkeywords=('bathymetry TEW tsunami simulation')
+pkgchangelog=('share/doc/simeasywave2/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('a0cba2dc298f508960627f048bb5e27976c3566fe4d6f81e5c30981dc21853df')
+pkgsize=('2966413')
+pkginstallsize=('8750040')
+filename=('easywave2-2025.083-seiscomp-6-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2025-03-24 22:50:27')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

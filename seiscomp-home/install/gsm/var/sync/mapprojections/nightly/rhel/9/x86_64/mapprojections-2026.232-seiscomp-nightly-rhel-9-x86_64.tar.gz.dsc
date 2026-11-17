@@ -1,0 +1,16 @@
+pkgname=mapprojections
+pkgver=2026.232
+pkgrel=nightly
+pkgdesc=('Plugins for enhancing maps: different map projections, access to high resolution maps, dynamic grid overlays (commercial)')
+pkgkeywords=('induced earthquake local monitoring maps microseismic monitoring')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('71e93f0a769fab6d35876c1de796f805a5557d4a136621a4b7896bcc08070f19')
+pkgsize=('2505057')
+pkginstallsize=('6278670')
+filename=('mapprojections-2026.232-seiscomp-nightly-rhel-9-x86_64.tar.gz')
+builddate=('2026-10-30 21:03:07')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

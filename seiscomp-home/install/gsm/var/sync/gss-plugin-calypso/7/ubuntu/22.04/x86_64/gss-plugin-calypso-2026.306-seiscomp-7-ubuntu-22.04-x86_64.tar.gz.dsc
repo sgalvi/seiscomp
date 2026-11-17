@@ -1,0 +1,17 @@
+pkgname=gss-plugin-calypso
+pkgver=2026.306
+pkgrel=7
+pkgdesc=('Calypso tsunami travel time calculation simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simcalypso/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('74dac20d6f41976e208f9f0e52eca7ce3e94e2414d23a55ec341b3eb38e3f4f8')
+pkgsize=('2887419')
+pkginstallsize=('9165529')
+pkgfilecount=('65')
+filename=('gss-plugin-calypso-2026.306-seiscomp-7-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-16 22:18:33')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

@@ -1,0 +1,16 @@
+pkgname=ga-addons
+pkgver=2025.189
+pkgrel=5
+pkgdesc=('Custom package used by GA (commercial)')
+pkgkeywords=('web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('411a4741e1b09033adceb7b9cb70b82c6311d5254b07d8ccc9ead3ba95c9c28a')
+pkgsize=('101203')
+pkginstallsize=('373920')
+filename=('ga-addons-2025.189-seiscomp-5-debian-12-x86_64.tar.gz')
+builddate=('2026-03-03 00:34:02')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

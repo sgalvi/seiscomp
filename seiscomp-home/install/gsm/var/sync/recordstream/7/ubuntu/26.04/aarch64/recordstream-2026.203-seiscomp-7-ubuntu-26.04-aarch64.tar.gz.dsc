@@ -1,0 +1,16 @@
+pkgname=recordstream
+pkgver=2026.203
+pkgrel=7
+pkgdesc=('Plugins providing RecordStreams for routing and failover (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('05df2f1bf03676f7dd7ab616a3df297086a999841adef14e167e32b5190a3a94')
+pkgsize=('816206')
+pkginstallsize=('2803740')
+filename=('recordstream-2026.203-seiscomp-7-ubuntu-26.04-aarch64.tar.gz')
+builddate=('2026-08-19 01:04:19')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

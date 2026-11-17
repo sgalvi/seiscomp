@@ -1,0 +1,16 @@
+pkgname=sed-eew
+pkgver=2026.064
+pkgrel=6
+pkgdesc=('Earthquake early warning modules by SED (public)')
+pkgkeywords=('sed eew')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('56b4820517334513f34724a77346d3136a5e4f8d20c56f2e4ca41270fd72ab2d')
+pkgsize=('11158455')
+pkginstallsize=('33777214')
+filename=('sed-eew-2026.064-seiscomp-6-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-04-07 01:12:14')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

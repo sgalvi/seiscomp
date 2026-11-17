@@ -1,0 +1,16 @@
+pkgname=scrtdd
+pkgver=2025.260
+pkgrel=5
+pkgdesc=('A module for real-time double difference relocation of events (public)')
+pkgkeywords=('scrtdd')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('07cceb1f2852a37c8d9c885bfcf18f36cb2e7b8fbbadc367bb1c9c84c179b354')
+pkgsize=('11952759')
+pkginstallsize=('14713953')
+filename=('scrtdd-2025.260-seiscomp-5-rhel-9-x86_64.tar.gz')
+builddate=('2025-11-19 00:20:00')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

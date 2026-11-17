@@ -1,0 +1,17 @@
+pkgname=quakelink
+pkgver=2026.288
+pkgrel=nightly
+pkgdesc=('Real-time streaming of event information and inventory (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/quakelink/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('5b6f1530dc8eafa6f9b89a7a34f66c5bdb03def5c8faeb14d06a1b09856b9b28')
+pkgsize=('16392894')
+pkginstallsize=('28099061')
+pkgfilecount=('335')
+filename=('quakelink-2026.288-seiscomp-nightly-rhel-9-x86_64.tar.gz')
+builddate=('2026-11-16 21:05:32')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

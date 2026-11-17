@@ -1,0 +1,16 @@
+pkgname=gis
+pkgver=2026.175
+pkgrel=nightly
+pkgdesc=('Web-based image generation of SeisComP maps, traces and spectrograms (commercial)')
+pkgkeywords=('dissemination EEW maps shake map web')
+pkgchangelog=('share/doc/gis/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('10d5b7d00b013e9e3dd82bd195cf1849f26175e131ead9cdf271047c0cfca8ec')
+pkgsize=('13966234')
+pkginstallsize=('18344570')
+filename=('gis-2026.175-seiscomp-nightly-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-10-30 21:06:26')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

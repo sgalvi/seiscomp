@@ -1,0 +1,19 @@
+pkgname=seiscomp
+pkgver=nightly
+pkgrel=nightly
+pkgdesc=('SeisComP including data acquisition, processing, distribution and interactive analysis, version >=4.0.0 (public)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/seiscomp/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('13b960f5404b850e13d56ccf19bf38876567a91e360f06b099e2f2be7345aa6d')
+pkgsize=('76141806')
+pkginstallsize=('185525726')
+pkgfilecount=('2458')
+filename=('seiscomp-nightly-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-17 06:23:40')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')
+conflicts=('seiscomp-headless' 'seiscomp-acqui' 'seiscomp-debug')
+osinstallscripts=('install-base.sh' 'install-fdsnws.sh' 'install-gui.sh' 'install-iloc.sh' 'install-mariadb-server.sh' 'install-mysql-server.sh' 'install-postgresql-server.sh')

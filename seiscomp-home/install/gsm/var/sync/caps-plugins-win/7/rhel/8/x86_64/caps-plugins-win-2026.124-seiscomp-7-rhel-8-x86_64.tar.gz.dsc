@@ -1,0 +1,17 @@
+pkgname=caps-plugins-win
+pkgver=2026.124
+pkgrel=7
+pkgdesc=('Retrieve seismic waveforms from WIN server and push to CAPS (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('8a03015107a82b4f690f749e04b14e4554a9b5b13a14d0175b0817f314c60bf1')
+pkgsize=('142524')
+pkginstallsize=('418631')
+pkgfilecount=('4')
+filename=('caps-plugins-win-2026.124-seiscomp-7-rhel-8-x86_64.tar.gz')
+builddate=('2026-11-16 21:59:52')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

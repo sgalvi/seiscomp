@@ -1,0 +1,17 @@
+pkgname=quakelink
+pkgver=2026.288
+pkgrel=nightly
+pkgdesc=('Real-time streaming of event information and inventory (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/quakelink/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('c13b84544bf31ec200ced19a1ce6e8f17721f7514643a21ed15ff42bff4a5b0f')
+pkgsize=('16227783')
+pkginstallsize=('28046877')
+pkgfilecount=('335')
+filename=('quakelink-2026.288-seiscomp-nightly-debian-13-aarch64.tar.gz')
+builddate=('2026-11-17 00:40:20')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

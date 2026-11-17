@@ -1,0 +1,17 @@
+pkgname=bom-addons-client
+pkgver=0.6
+pkgdesc=('BOM addons client (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('c96582b302f2cc9bdbfa531636b05c9d3cd5978120df43f9c3f89886afb1a740')
+pkgsize=('45806')
+pkginstallsize=('114467')
+filename=('bom-addons-client-0.6.tar.gz')
+pkgfilepath=('addons/bom-addons-client')
+pkginstallpath=('addons/bom/client')
+builddate=('2024-04-18 00:00:00')
+pkgos=('')
+pkgosversion=('')
+pkgtype=data
+conflicts=('templates-bom-toastd')

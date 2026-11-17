@@ -1,0 +1,17 @@
+pkgname=ccloc
+pkgver=2024.296
+pkgrel=5
+pkgdesc=('Event detector based on cross-correlation with template waveforms (commercial)')
+pkgkeywords=('Cross-correlation earthquake monitoring induced earthquake infrasound local monitoring microseismic monitoring teleseismic monitoring volcano monitoring')
+pkgchangelog=('share/doc/ccloc/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+depends=('')
+sha256=('60ae3ca43f6e29502825f5cc2eb8ddf9ca2dc57384ad60963ebd080b92dfe26d')
+pkgsize=('13698090')
+pkginstallsize=('18769620')
+filename=('ccloc-2024.296-seiscomp-5-debian-11-x86_64.tar.gz')
+builddate=('2024-10-25 21:57:50')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

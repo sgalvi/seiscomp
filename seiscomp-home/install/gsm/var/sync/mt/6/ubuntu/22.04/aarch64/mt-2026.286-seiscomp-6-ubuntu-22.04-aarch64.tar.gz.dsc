@@ -1,0 +1,17 @@
+pkgname=mt
+pkgver=2026.286
+pkgrel=6
+pkgdesc=('Automatic and interactive moment tensor analysis (commercial)')
+pkgkeywords=('decision support earthquake monitoring Greens function intensity moment tensor teleseismic monitoring tsunami simulation MT')
+pkgchangelog=('share/doc/MT/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('843e60b1e6eac7f97aefa4fa3586c5abf57aa19ba78b2e2a8b0bba27a9cd9437')
+pkgsize=('20565138')
+pkginstallsize=('28634563')
+filename=('mt-2026.286-seiscomp-6-ubuntu-22.04-aarch64.tar.gz')
+builddate=('2026-10-31 00:23:07')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')
+osinstallscripts=('install-mt.sh')

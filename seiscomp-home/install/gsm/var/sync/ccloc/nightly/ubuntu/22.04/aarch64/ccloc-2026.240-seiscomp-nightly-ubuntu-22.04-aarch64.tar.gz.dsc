@@ -1,0 +1,16 @@
+pkgname=ccloc
+pkgver=2026.240
+pkgrel=nightly
+pkgdesc=('Event detector based on cross-correlation with template waveforms (commercial)')
+pkgkeywords=('Cross-correlation earthquake monitoring induced earthquake infrasound local monitoring microseismic monitoring teleseismic monitoring volcano monitoring')
+pkgchangelog=('share/doc/ccloc/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('026912440feaab4e95d31f0a4c34ef4f42fe2a8ac129af05c85e0120b3806abf')
+pkgsize=('13672826')
+pkginstallsize=('18795945')
+filename=('ccloc-2026.240-seiscomp-nightly-ubuntu-22.04-aarch64.tar.gz')
+builddate=('2026-09-03 00:06:59')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

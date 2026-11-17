@@ -1,0 +1,16 @@
+pkgname=gnsthreat
+pkgver=2025.090
+pkgrel=5
+pkgdesc=('GNS Science threat model database simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simgnsthreat/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('cb4ebfd7cd3e81ceb6440067fd4d6d530e30a582dbf3807fa50638089ada1c58')
+pkgsize=('3919307')
+pkginstallsize=('8877156')
+filename=('gnsthreat-2025.090-seiscomp-5-debian-12-x86_64.tar.gz')
+builddate=('2025-04-01 22:23:44')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

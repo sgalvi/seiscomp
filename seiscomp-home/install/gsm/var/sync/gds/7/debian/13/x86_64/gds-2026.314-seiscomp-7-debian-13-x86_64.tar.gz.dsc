@@ -1,0 +1,17 @@
+pkgname=gds
+pkgver=2026.314
+pkgrel=7
+pkgdesc=('Modular expandable dissemination and publication server (commercial)')
+pkgkeywords=('decision support dissemination EEW induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('share/doc/gds/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('b39902810970292b2c96a42568a4a70c5626d44d14fa84bab8e635ac78ef888f')
+pkgsize=('18400641')
+pkginstallsize=('25234356')
+pkgfilecount=('486')
+filename=('gds-2026.314-seiscomp-7-debian-13-x86_64.tar.gz')
+builddate=('2026-11-16 21:47:22')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

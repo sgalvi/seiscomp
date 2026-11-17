@@ -1,0 +1,17 @@
+pkgname=kappa
+pkgver=2024.298
+pkgrel=5
+pkgdesc=('Event classification GUI (commercial)')
+pkgkeywords=('decision support earthquake monitoring induced earthquake local monitoring microseismic monitoring moment tensor origin evaluation teleseismic monitoring volcano monitoring discrimination')
+pkgchangelog=('share/doc/kappa/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+depends=('')
+sha256=('8773d6fab1a396f0d8f65007eacc15abf9f77dd5aeeb79ce0db2be927d31193c')
+pkgsize=('7763527')
+pkginstallsize=('17471387')
+filename=('kappa-2024.298-seiscomp-5-debian-11-x86_64.tar.gz')
+builddate=('2024-11-01 22:17:40')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

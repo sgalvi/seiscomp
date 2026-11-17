@@ -1,0 +1,16 @@
+pkgname=forecastzones-gns
+pkgver=1.0
+pkgdesc=('Tsunami forecast zones in TOAST for GNS (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('f5b3b5bdad7db198e22720287dc47b05f340671d32c940dfbc4854d6067ca60a')
+pkgsize=('441381')
+pkginstallsize=('1341590')
+pkgfilecount=('12')
+filename=('forecastzones-gns-1.0.tar.gz')
+pkgfilepath=('forecastzones/gns')
+builddate=('2020-03-12 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

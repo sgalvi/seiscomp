@@ -1,0 +1,17 @@
+pkgname=scrtdd
+pkgver=2024.135
+pkgrel=5
+pkgdesc=('A module for real-time double difference relocation of events (public)')
+pkgkeywords=('scrtdd')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('064d0d84c39ddfcd7267218941dc8c3ff2af1b4865b141d396d005622bd0e082')
+pkgsize=('11968450')
+pkginstallsize=('14785022')
+filename=('scrtdd-2024.135-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2024-05-17 00:12:34')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

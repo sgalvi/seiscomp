@@ -1,0 +1,16 @@
+pkgname=bom-addons
+pkgver=2026.289
+pkgrel=6
+pkgdesc=('Custom package used by BOM (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('922070819d509aacd973df09f76302e7b6924b257fcaf3d4631ecf5c9ab70bcf')
+pkgsize=('4544251')
+pkginstallsize=('7517594')
+filename=('bom-addons-2026.289-seiscomp-6-rhel-8-x86_64.tar.gz')
+builddate=('2026-10-16 22:39:23')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

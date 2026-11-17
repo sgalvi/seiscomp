@@ -1,0 +1,16 @@
+pkgname=world-8-no-admin
+pkgver=1.3
+pkgdesc=('gempa map tiles in Pseudo-Mercator projection up to zoom level 8 without administrative borders and names (611 m/pixel, 1.4 GiB) (commercial)')
+pkgkeywords=('map world-8-no-admin.mbtiles')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('713fc1dc0e121fbc4daaeca97314ecc5205c7504bd9d71c92a0631fbd373b803')
+pkgsize=('1536937984')
+pkginstallsize=('1536937984')
+filename=('world-8-no-admin-1.3.mbtiles')
+pkgfilepath=('maps/world-8-no-admin')
+builddate=('2020-07-20 08:44:56')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

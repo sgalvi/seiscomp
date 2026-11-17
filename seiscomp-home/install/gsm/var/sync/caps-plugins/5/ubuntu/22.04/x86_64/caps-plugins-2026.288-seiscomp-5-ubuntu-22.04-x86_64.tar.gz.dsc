@@ -1,0 +1,16 @@
+pkgname=caps-plugins
+pkgver=2026.288
+pkgrel=5
+pkgdesc=('Collection of plugins for CAPS (commercial)')
+pkgkeywords=('data acquisition GNSS')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('6acf75d92394c2c65b6f995b4c3e8d2749e15f39aea01d854361cd20d01b025b')
+pkgsize=('4524824')
+pkginstallsize=('21237977')
+filename=('caps-plugins-2026.288-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-10-20 21:38:20')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

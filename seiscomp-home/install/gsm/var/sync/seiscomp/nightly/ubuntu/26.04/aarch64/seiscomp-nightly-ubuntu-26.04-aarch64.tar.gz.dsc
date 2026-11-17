@@ -1,0 +1,19 @@
+pkgname=seiscomp
+pkgver=nightly
+pkgrel=nightly
+pkgdesc=('SeisComP including data acquisition, processing, distribution and interactive analysis, version >=4.0.0 (public)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/seiscomp/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('442e4df7785a19041cad0774048d2cc9cc2b1e8c109ff34a2b6cb9715a7f0ac9')
+pkgsize=('75164005')
+pkginstallsize=('187521318')
+pkgfilecount=('2458')
+filename=('seiscomp-nightly-ubuntu-26.04-aarch64.tar.gz')
+builddate=('2026-11-17 00:09:13')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')
+conflicts=('seiscomp-headless' 'seiscomp-acqui' 'seiscomp-debug')
+osinstallscripts=('install-base.sh' 'install-fdsnws.sh' 'install-gui.sh' 'install-mariadb-server.sh' 'install-mysql-server.sh' 'install-postgresql-server.sh')

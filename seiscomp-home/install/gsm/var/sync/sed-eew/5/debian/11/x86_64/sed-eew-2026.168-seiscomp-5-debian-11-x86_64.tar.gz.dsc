@@ -1,0 +1,16 @@
+pkgname=sed-eew
+pkgver=2026.168
+pkgrel=5
+pkgdesc=('Earthquake early warning modules by SED (public)')
+pkgkeywords=('sed eew')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('da909ba50cdab812aa291e336620b5345d71c65d2d54bca56ff5f24c9a39480f')
+pkgsize=('11190441')
+pkginstallsize=('33600699')
+filename=('sed-eew-2026.168-seiscomp-5-debian-11-x86_64.tar.gz')
+builddate=('2026-06-26 23:06:24')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

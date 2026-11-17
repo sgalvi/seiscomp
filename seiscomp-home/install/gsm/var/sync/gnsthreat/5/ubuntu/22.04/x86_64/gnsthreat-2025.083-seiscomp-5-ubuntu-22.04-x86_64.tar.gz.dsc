@@ -1,0 +1,16 @@
+pkgname=gnsthreat
+pkgver=2025.083
+pkgrel=5
+pkgdesc=('GNS Science threat model database simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simgnsthreat/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('b6ee44fd482bbede925906ee7bfcd39e3452b6d97c757975ce499765a9a20919')
+pkgsize=('3939788')
+pkginstallsize=('8955194')
+filename=('gnsthreat-2025.083-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2025-03-24 22:35:11')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

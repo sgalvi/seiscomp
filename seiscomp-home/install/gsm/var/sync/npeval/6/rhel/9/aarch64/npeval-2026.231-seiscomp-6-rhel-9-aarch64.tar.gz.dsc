@@ -1,0 +1,16 @@
+pkgname=npeval
+pkgver=2026.231
+pkgrel=6
+pkgdesc=('Seismic network performance evaluation (commercial)')
+pkgkeywords=('earthquake monitoring EEW induced earthquake local monitoring microseismic monitoring network configuration network evaluation quality control teleseismic monitoring volcano monitoring')
+pkgchangelog=('share/doc/npeval/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('e1808bd4ef9f1f53bd0ac49655115ac499dcd981ac617ea156db22c404fd5810')
+pkgsize=('12502594')
+pkginstallsize=('15895327')
+filename=('npeval-2026.231-seiscomp-6-rhel-9-aarch64.tar.gz')
+builddate=('2026-08-20 10:19:16')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

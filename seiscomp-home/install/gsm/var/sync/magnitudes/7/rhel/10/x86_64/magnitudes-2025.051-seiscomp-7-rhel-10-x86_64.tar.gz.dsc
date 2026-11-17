@@ -1,0 +1,17 @@
+pkgname=magnitudes
+pkgver=2025.051
+pkgrel=7
+pkgdesc=('Plugins providing magnitudes and yield estimates (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('4155bfe9f10fb8c1136210c1d96c84ecf09e9bd26547bd6ee7bc9a2563dc0089')
+pkgsize=('18530')
+pkginstallsize=('101880')
+pkgfilecount=('3')
+filename=('magnitudes-2025.051-seiscomp-7-rhel-10-x86_64.tar.gz')
+builddate=('2026-11-16 21:34:05')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

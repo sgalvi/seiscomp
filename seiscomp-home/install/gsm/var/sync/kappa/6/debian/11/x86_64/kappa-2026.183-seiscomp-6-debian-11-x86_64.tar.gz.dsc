@@ -1,0 +1,16 @@
+pkgname=kappa
+pkgver=2026.183
+pkgrel=6
+pkgdesc=('Event classification GUI (commercial)')
+pkgkeywords=('decision support earthquake monitoring induced earthquake local monitoring microseismic monitoring moment tensor origin evaluation teleseismic monitoring volcano monitoring discrimination')
+pkgchangelog=('share/doc/kappa/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('5fcedcbb06ebbd0dd8f929d448e9539378ce9a98e5a64341bfad3891ba209b2f')
+pkgsize=('16378184')
+pkginstallsize=('27368217')
+filename=('kappa-2026.183-seiscomp-6-debian-11-x86_64.tar.gz')
+builddate=('2026-07-21 21:23:54')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

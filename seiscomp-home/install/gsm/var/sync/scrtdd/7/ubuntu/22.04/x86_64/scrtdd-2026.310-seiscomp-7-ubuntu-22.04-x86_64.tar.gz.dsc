@@ -1,0 +1,17 @@
+pkgname=scrtdd
+pkgver=2026.310
+pkgrel=7
+pkgdesc=('Software package provided for ETH Zurich (https://www.seismo.ethz.ch) (public)')
+pkgkeywords=('scrtdd')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('474b604ac9a5a5eeaa5a72bb6c2ae7ec068c0719950aa27342ab45462b551f3d')
+pkgsize=('8231264')
+pkginstallsize=('10986251')
+pkgfilecount=('84')
+filename=('scrtdd-2026.310-seiscomp-7-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-17 00:02:21')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

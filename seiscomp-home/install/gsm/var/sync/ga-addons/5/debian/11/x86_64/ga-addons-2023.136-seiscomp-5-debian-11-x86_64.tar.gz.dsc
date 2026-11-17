@@ -1,0 +1,17 @@
+pkgname=ga-addons
+pkgver=2023.136
+pkgrel=5
+pkgdesc=('Custom package used by GA')
+pkgkeywords=('web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('db54916ac9a6a367e3749220bfc0f6867df81ab8a2891fc512f2fcc12010d167')
+pkgsize=('27317')
+pkginstallsize=('103065')
+filename=('ga-addons-2023.136-seiscomp-5-debian-11-x86_64.tar.gz')
+builddate=('2023-05-17 20:48:48')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

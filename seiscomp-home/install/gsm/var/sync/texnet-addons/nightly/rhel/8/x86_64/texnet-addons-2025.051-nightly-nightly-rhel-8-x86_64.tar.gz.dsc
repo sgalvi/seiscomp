@@ -1,0 +1,17 @@
+pkgname=texnet-addons
+pkgver=2025.051
+pkgrel=nightly
+pkgdesc=('Custom package used by TexNet (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('b31bda1b01c9e6ac3a21303f68b211b4fe0f8fbca5bb687c6638c10c9d5c9337')
+pkgsize=('775294')
+pkginstallsize=('2136285')
+pkgfilecount=('7')
+filename=('texnet-addons-2025.051-nightly-nightly-rhel-8-x86_64.tar.gz')
+builddate=('2026-11-17 00:00:13')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

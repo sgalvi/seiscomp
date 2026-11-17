@@ -1,0 +1,17 @@
+pkgname=caps-dataview
+pkgver=2026.315
+pkgrel=7
+pkgdesc=('CAPS DataView web application featuring 24h plots, spectrograms, spectra, filtered or unfiltered waveforms (commercial)')
+pkgkeywords=('caps data view 24h pots spectrogram spectra waveform web')
+pkgchangelog=('None')
+arch=('noarch')
+license=('None')
+sha256=('c349f4cfbebc3efc2bab776771a8bb2fb0b410bbebc6f4ba0d881cf28c025e10')
+pkgsize=('589503')
+pkginstallsize=('1259164')
+pkgfilecount=('8')
+filename=('caps-dataview-2026.315-seiscomp-7-any--noarch.tar.gz')
+builddate=('2026-11-13 23:44:14')
+pkgos=('any')
+pkgosversion=('')
+pkgfileversion=('0.1')

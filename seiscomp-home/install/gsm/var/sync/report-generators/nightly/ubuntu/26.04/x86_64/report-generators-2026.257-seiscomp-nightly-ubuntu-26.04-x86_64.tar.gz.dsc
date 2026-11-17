@@ -1,0 +1,16 @@
+pkgname=report-generators
+pkgver=2026.257
+pkgrel=nightly
+pkgdesc=('Report generators (commercial)')
+pkgkeywords=('report shard sigma')
+pkgchangelog=('share/doc/rgsm/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('20eade27874c0d3d9217bfa72bc9cc49e1b3e12fa631f2ca04bc796f3d63c879')
+pkgsize=('13017881')
+pkginstallsize=('14752898')
+filename=('report-generators-2026.257-seiscomp-nightly-ubuntu-26.04-x86_64.tar.gz')
+builddate=('2026-10-07 21:20:55')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

@@ -1,0 +1,17 @@
+pkgname=mhras
+pkgver=2022.166
+pkgrel=5
+pkgdesc=('MHRAS tsunami simulation backend')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('d5fd6072a1dc218fc48813fee4784f593b64ea29d567be8b8217c0d641be9ee4')
+pkgsize=('2458137')
+pkginstallsize=('7285418')
+filename=('mhras-2022.166-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2022-07-04 20:07:52')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

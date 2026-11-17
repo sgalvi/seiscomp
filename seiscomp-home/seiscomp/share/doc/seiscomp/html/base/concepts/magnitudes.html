@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html  lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Amplitudes and Magnitudes &#8212; SeisComP Release documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/seiscomp.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+    <script type="text/javascript" src="../../_static/seiscomp.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Locators" href="locators.html" />
+    <link rel="prev" title="Configuration" href="configuration.html" /> 
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="brand">
+          <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
+           <!-- span class="title">SeisComP Release</span -->
+          <span class="version">7.4.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="container">
+        <div class="content"><a class="pull-right" id="sidebar-toggle">TOC</a>
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <ul>
+        <li class="right">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">
+            index
+          </a>
+        </li>
+        <li class="right">
+          <a href="locators.html" title="Locators"
+             accesskey="N">
+            next
+          </a>
+        </li>
+        <li class="right">
+          <a href="configuration.html" title="Configuration"
+             accesskey="P">
+            previous
+          </a>
+        </li>
+        <li class="nav-item nav-item-0">
+          <a href="../../index.html">Home</a>
+        </li>
+        <li class="nav-item nav-item-1">
+          <a href="../concepts.html" accesskey="U">Concepts</a>
+        </li> 
+      </ul>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="fitted content" id="anchors-container">
+        <div class="body" role="main">
+          
+  <section id="amplitudes-and-magnitudes">
+<span id="concepts-magnitudes"></span><h1>Amplitudes and Magnitudes<a class="headerlink" href="#amplitudes-and-magnitudes" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference internal" href="#concepts-magnitudes-station"><span class="std std-ref">Magnitudes of specific types</span></a> are computed
+from <a class="reference internal" href="#concepts-magnitudes-amplitudes"><span class="std std-ref">amplitudes</span></a> measured on waveforms.
+Different types of amplitudes and magnitudes are available including aliases.
+All magnitudes can be regionalized and mapped to Mw. The native amplitude and
+magnitudes types are listed in <a class="reference internal" href="../../apps/scamp.html#scamp"><span class="std std-ref">scamp</span></a> and <a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a>.</p>
+<p>All amplitude and magnitude values can be read in the Magnitudes tab of
+<a class="reference internal" href="../../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a>, in bulletins created by <a class="reference internal" href="../../apps/scbulletin.html#scbulletin"><span class="std std-ref">scbulletin</span></a> and dumped
+from database to XML for an origin or event by <a class="reference internal" href="../../apps/scxmldump.html#scxmldump"><span class="std std-ref">scxmldump</span></a>.</p>
+<p>This concept section describes the principles applied in <cite>SeisComP</cite> and links to
+more specific sections including tutorials describing the configuration and
+application.</p>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="../../_images/amplitude-magnitude-processing.png"><img alt="amplitudes and magnitudes: processing flow" src="../../_images/amplitude-magnitude-processing.png" style="width: 18cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Schematic processing flow for computing magnitudes from measured amplitudes
+including the involved <cite>SeisComP</cite> modules and interfaces. Multiple network
+magnitude types can be computed for the same <a class="reference internal" href="../glossary.html#term-origin"><span class="xref std std-term">origin</span></a>. The default
+processing of native amplitudes and magnitudes in the center can be extended
+by aliases, regionalization, Mw mapping or external magnitudes.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="amplitudes">
+<span id="concepts-magnitudes-amplitudes"></span><h2>Amplitudes<a class="headerlink" href="#amplitudes" title="Permalink to this heading">¶</a></h2>
+<p>Amplitudes can be measured on waveforms</p>
+<ul class="simple">
+<li><p>Automatically during phase picking by <a class="reference internal" href="../../apps/scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> with generally fixed
+time windows due to the absence of knowledge about source parameters.</p></li>
+<li><p>Automatically by <a class="reference internal" href="../../apps/scamp.html#scamp"><span class="std std-ref">scamp</span></a> as soon as <a class="reference internal" href="../glossary.html#term-origin"><span class="xref std std-term">origins</span></a> are
+available. Depending on the amplitude type and their configuration, fixed or
+distance-dependent time windows as well as constraints on signal quality apply.</p></li>
+<li><p>Interactively using <a class="reference internal" href="../../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a> with preset or user-defined conditions.</p></li>
+</ul>
+<p><a class="reference internal" href="../time-grammar.html#time-grammar"><span class="std std-ref">Time grammar</span></a> applies for configuring the time windows.</p>
+<section id="input-data">
+<h3>Input data<a class="headerlink" href="#input-data" title="Permalink to this heading">¶</a></h3>
+<p>Depending on type amplitudes are measured on raw or filtered waveform data.
+Initial raw data are given in counts of the digitizer with a stream gain unit of
+m/s which is typical for seismometers.
+It is assumed that the measured signal has its dominant
+frequency where the response of the recording instrument is flat.
+For other instruments such as accelerometers or short-period geophones, amplitude
+correction for instrument response and the corresponding frequency range may be
+configured by the global binding parameters
+<a class="reference internal" href="../../apps/global.html#confval-amplitudes.enableResponses"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.enableResponses</span></code></a>, <a class="reference internal" href="../../apps/global.html#confval-amplitudes.resp.minFreq"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.resp.minFreq</span></code></a>,
+<a class="reference internal" href="../../apps/global.html#confval-amplitudes.resp.maxFreq"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.resp.maxFreq</span></code></a> or even with in amplitude-type profiles for
+more specific application. Amplitude measurements will fail if the
+unit of the (corrected) input data do not correspond to the requirement of the
+amplitude type.</p>
+<p>Filtering may involve
+<a class="reference internal" href="#concepts-magnitudes-wa"><span class="std std-ref">simulation of Wood-Anderson seismographs</span></a>.
+Final amplitude measurements are corrected by stream gain and provided as an
+amplitude object.</p>
+</section>
+<section id="wood-anderson-simulation">
+<span id="concepts-magnitudes-wa"></span><h3>Wood-Anderson simulation<a class="headerlink" href="#wood-anderson-simulation" title="Permalink to this heading">¶</a></h3>
+<p>Some amplitude types require or allow the correction of waveforms by simulation
+of instruments such as <a class="reference internal" href="../filter-grammar.html#WA" title="WA"><code class="xref py py-func docutils literal notranslate"><span class="pre">Wood-Anderson</span> <span class="pre">torsion</span> <span class="pre">seismometers</span></code></a>
+(<span id="id1">Richter [<a class="reference internal" href="../references.html#id81" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">67</a>], Uhrhammer and Collins [<a class="reference internal" href="../references.html#id104" title="R.A. Uhrhammer and E.R. Collins. Synthesis of Wood-Anderson seismograms from broadband digital records. Bull. Seismol. Soc. Am., 80(3):702–716, 1990. doi:10.1785/BSSA0800030702.">74</a>]</span>), <a class="reference internal" href="../filter-grammar.html#WWSSN_SP" title="WWSSN_SP"><code class="xref py py-func docutils literal notranslate"><span class="pre">WWSSN_SP()</span></code></a> or <a class="reference internal" href="../filter-grammar.html#WWSSN_LP" title="WWSSN_LP"><code class="xref py py-func docutils literal notranslate"><span class="pre">WWSSN_LP()</span></code></a>.
+The calibration parameters describing a Wood-Anderson seismometer are
+configurable in global bindings or module configuration:
+<a class="reference internal" href="../../apps/global.html#confval-2"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.WoodAnderson.gain</span></code></a>, <a class="reference internal" href="../../apps/global.html#confval-3"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.WoodAnderson.T0</span></code></a>,
+<a class="reference internal" href="../../apps/global.html#confval-4"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.WoodAnderson.h</span></code></a>. Specifically, the difference in magnitude
+due to configuration using original values listed in
+<span id="id2">Richter [<a class="reference internal" href="../references.html#id81" title="C.F. Richter. An instrumental earthquake magnitude scale. Bull. Seismol. Soc. Am., 1:1 - 32, 1935. URL: https://resolver.caltech.edu/CaltechAUTHORS:20140804-143558638, doi:10.1785/BSSA0250010001.">67</a>]</span> and updated ones given in <span id="id3">Uhrhammer and Collins [<a class="reference internal" href="../references.html#id104" title="R.A. Uhrhammer and E.R. Collins. Synthesis of Wood-Anderson seismograms from broadband digital records. Bull. Seismol. Soc. Am., 80(3):702–716, 1990. doi:10.1785/BSSA0800030702.">74</a>]</span>
+result in a constant offset of 0.13 in those magnitudes which apply
+Wood-Anderson simulation, e.g. <a class="reference internal" href="../glossary.html#term-magnitude-local-ML"><span class="xref std std-term">ML</span></a>,
+<a class="reference internal" href="../glossary.html#term-magnitude-local-vertical-MLv"><span class="xref std std-term">MLv</span></a>, <a class="reference internal" href="../glossary.html#term-magnitude-local-custom-MLc"><span class="xref std std-term">MLc</span></a>.</p>
+</section>
+<section id="physical-units">
+<h3>Physical units<a class="headerlink" href="#physical-units" title="Permalink to this heading">¶</a></h3>
+<p>The physical units of measured amplitudes depend on amplitudes type. They are
+documented along with the corresponding magnitude type. Starting with the initial
+gain unit of raw data streams, typically m/s, the amplitude processor in
+<cite>SeisComP</cite> converts to the required unit. Where instrument simulation if optional,
+e.g., for <a class="reference internal" href="../glossary.html#term-magnitude-local-custom-MLc"><span class="xref std std-term">MLc amplitudes</span></a>, a conversion
+configurable factor must be considered for non-default amplitude processing.</p>
+</section>
+<section id="amplitude-aliases">
+<span id="concepts-amplitudes-aliases"></span><h3>Amplitude Aliases<a class="headerlink" href="#amplitude-aliases" title="Permalink to this heading">¶</a></h3>
+<p>New amplitude types (aliases) can be created based on existing amplitude types
+but configured and measured specifically. They can be measured as any other
+amplitude by <a class="reference internal" href="../../apps/scamp.html#scamp"><span class="std std-ref">scamp</span></a> or <a class="reference internal" href="../../apps/scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> and used by other modules, e.g.,
+by <a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a> for <a class="reference internal" href="#concepts-magnitudes-station"><span class="std std-ref">magnitude aliases</span></a>. The
+setup procedure is outlined in the tutorial on
+<a class="reference internal" href="../tutorials/amplitudes-magnitudes.html#tutorials-amplitude-aliases"><span class="std std-ref">amplitude aliases</span></a>.</p>
+</section>
+<section id="regionalization">
+<span id="concepts-amplitudes-regionalization"></span><h3>Regionalization<a class="headerlink" href="#regionalization" title="Permalink to this heading">¶</a></h3>
+<p>Measuring amplitudes only for sources or pairs of sources and stations in
+specific regions is supported by regionalization. The region polygons are
+defined by <a class="reference internal" href="#concepts-magnitudes-regionalization"><span class="std std-ref">magnitude regionalization</span></a>.
+In order to use the feature, regionalized amplitudes and magnitudes must have
+the same type (name) and regionalization must be activated per amplitude type in
+amplitude-type profiles of global bindings.</p>
+</section>
+</section>
+<section id="station-magnitudes">
+<span id="concepts-magnitudes-station"></span><h2>Station Magnitudes<a class="headerlink" href="#station-magnitudes" title="Permalink to this heading">¶</a></h2>
+<p>Station magnitudes are computed automatically by <a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a> or interactively
+by <a class="reference internal" href="../../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a> from measured amplitudes based on distance-dependent
+calibration curves which depend on magnitude type. Since distance measures are
+required, station magnitudes are always related to one <a class="reference internal" href="../glossary.html#term-origin"><span class="xref std std-term">origin</span></a>. For
+computing new magnitudes in scolv, a new origin must be created which is done by
+relocating.</p>
+<p>When computing a set of station magnitudes in <a class="reference internal" href="../../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a> which is different from
+the set configured in <a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a>, then scmag may later add the missing
+magnitudes automatically. Magnitude types for which the evaluation status is
+set to “rejected”, e.g., in <a class="reference internal" href="../../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a>, will not be recomputed by scmag. In
+order to ignore a magnitude type interactively, it should therefore be treated
+and rejected in scolv.</p>
+<section id="station-corrections">
+<span id="concepts-magnitudes-correction"></span><h3>Station corrections<a class="headerlink" href="#station-corrections" title="Permalink to this heading">¶</a></h3>
+<p>Linear station corrections applied to station magnitudes can be configured by
+global <a class="reference internal" href="configuration.html#global-bindings-config"><span class="std std-ref">binding parameters</span></a>:</p>
+<ol class="arabic simple">
+<li><p>Add a magnitude type profile where the name of the profile is the name of the
+magnitude itself,</p></li>
+<li><p>Configure the correction parameters.</p></li>
+</ol>
+<p>When using binding profiles, all referencing stations will be affected equally
+which is typically not intended. In contrast, applying station bindings requires
+to set up many bindings which may not be intended either.concepts-magnitudes-regionalization</p>
+<p>Therefore, you may add lines to the global module configuration in
+<code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code> where one line corresponds to one station with one magnitude
+and the corresponding correction parameter. The groups and the name of the
+parameters are identical to the global bindings parameters. All lines start with
+“<em>module.trunk</em>”. Example for an offset correction of
+<a class="reference internal" href="../glossary.html#term-magnitude-local-vertical-MLv"><span class="xref std std-term">MLv</span></a> measured station GE.UGM:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">module.trunk.GE.UGM.magnitudes.MLv.offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.1</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The configuration of parameters starting with <em>module.trunk.</em> is not
+supported by <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a>. All corresponding configurations must be done
+by direclty editing the configuration file, e.g.,
+<code class="file docutils literal notranslate"><span class="pre">seiscomp/etc/global.cfg</span></code>.</p>
+</div>
+</section>
+<section id="magnitude-aliases">
+<span id="concepts-magnitudes-aliases"></span><h3>Magnitude Aliases<a class="headerlink" href="#magnitude-aliases" title="Permalink to this heading">¶</a></h3>
+<p>New magnitude types (aliases) can be created inheriting the configuration
+parameters but not the configured values from existing magnitude and amplitude types or
+<a class="reference internal" href="#concepts-amplitudes-aliases"><span class="std std-ref">amplitude aliases</span></a>. The values are configured
+specifically. Unless specified explicitly, the amplitude type
+is the base amplitude of the original magnitude. Other
+amplitude types or amplitude aliases must be defined first and given explicitly.
+The aliased magnitudes can be computed by other modules such as <a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a> or
+<a class="reference internal" href="../../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a>. The setup procedure is outlined in the tutorial on
+<a class="reference internal" href="../tutorials/amplitudes-magnitudes.html#tutorials-magnitude-aliases"><span class="std std-ref">magnitude aliases</span></a>.</p>
+</section>
+<section id="concepts-magnitudes-regionalization">
+<span id="id4"></span><h3>Regionalization<a class="headerlink" href="#concepts-magnitudes-regionalization" title="Permalink to this heading">¶</a></h3>
+<p>The computation of station magnitudes can be regionalized. This means that for
+a specific region specific conditions apply when computing magnitudes. The
+conditions include any parameter available for configuring a magnitude
+including global binding parameters such as magnitude calibration, distance
+and depth ranges, etc. As an example you may wish to apply different
+attenuation curves for computing MLv magnitudes to earthquakes in Eastern and
+in Western Canada.</p>
+<p>Regionalization is achieved by adding magnitude-type profiles in the magnitudes
+section of global module configuration parameters. Regionalization assumes
+defaults from global bindings but overrides the values when configured. The
+setup procedure including
+<a class="reference internal" href="#concepts-magnitudes-correction"><span class="std std-ref">station corrections</span></a> is outlined in the
+<a class="reference internal" href="../tutorials/amplitudes-magnitudes.html#tutorials-magnitude-region-aliases"><span class="std std-ref">tutorial on regionalization</span></a>.</p>
+</section>
+</section>
+<section id="network-magnitudes">
+<span id="concepts-magnitudes-network"></span><h2>Network Magnitudes<a class="headerlink" href="#network-magnitudes" title="Permalink to this heading">¶</a></h2>
+<p>Network magnitudes are computed automatically by <a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a> or interactively
+by <a class="reference internal" href="../../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a> from station magnitudes based on averaging station magnitudes.
+The averaging methods applied by <a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a> are configurable by
+<a class="reference internal" href="../../apps/scmag.html#confval-magnitudes.average"><code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.average</span></code></a>. Available are (<span id="id5">Rosenberger and Gasko [<a class="reference internal" href="../references.html#id91" title="J.L. Rosenberger and M. Gasko. Comparing location estimators: trimmed means, medians, and trimean. In D.C. Hoaglin, F. Mosteller, and J.W. Tukey, editors, Understanding Robust and Exploratory Data Analysis, pages 297-336. Wiley, New York, NY, 1983.">69</a>]</span>):</p>
+<ul class="simple">
+<li><p><em>mean</em>: The mean value from all station magnitudes.</p></li>
+<li><p><em>median</em>: The mean value from all station magnitudes.</p></li>
+<li><p><em>trimmedMean(X)</em>: Ignores outlier station magnitudes by first removing the
+largest and the smallest <em>X</em> % of the observed values (percentiles). The mean is
+formed from the remaining station magnitudes.</p></li>
+<li><p><em>trimmedMedian(X)</em>: Forms the median from all station magnitudes but returns
+the uncertainty by ignoring the largest and the smallest <em>X</em> % station
+magnitudes.</p></li>
+<li><p><em>medianTrimmedMean(X)</em>: Returns the mean magnitude from all station magnitudes
+differing less than <em>X</em> magnitudes from the median.</p></li>
+</ul>
+</section>
+<section id="moment-magnitudes">
+<span id="concepts-magnitudes-moment"></span><h2>Moment Magnitudes<a class="headerlink" href="#moment-magnitudes" title="Permalink to this heading">¶</a></h2>
+<p>Moment magnitudes can be derived from all other network magnitudes by mapping of
+the original network magnitude, e.g., <em>Mx</em>, to a new moment magnitude <em>Mw(Mx)</em>.</p>
+<p>The mapping function can be configured for all original magnitude types except
+<a class="reference internal" href="../glossary.html#term-magnitude-derived-mB-Mw-mB"><span class="xref std std-term">mB</span></a> and
+<a class="reference internal" href="../glossary.html#term-magnitude-derived-Mwp-Mw-Mwp"><span class="xref std std-term">Mwp</span></a> where the mapping is hardcoded.
+Read the <a class="reference internal" href="../tutorials/amplitudes-magnitudes.html#tutorials-mags-moment"><span class="std std-ref">tutorial on moment magnitudes</span></a> for the
+configuration.</p>
+</section>
+<section id="summary-magnitude">
+<span id="concepts-magnitudes-summary"></span><h2>Summary Magnitude<a class="headerlink" href="#summary-magnitude" title="Permalink to this heading">¶</a></h2>
+<p>In order to account for different phenomena related to magnitude computation
+including magnitude saturation and application of different magnitude types at
+specific distance and depth ranges of the sources a summary magnitude can be
+computed from network magnitudes by <a class="reference internal" href="../../apps/scmag.html#scmag"><span class="std std-ref">scmag</span></a>. The summary magnitude is
+usually referred to as <em>M</em>. The name is configurable.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Station, network and summary magnitudes are contained uniquely in one
+<a class="reference internal" href="../glossary.html#term-origin"><span class="xref std std-term">origin</span></a>.</p>
+</div>
+</section>
+<section id="preferred-magnitude">
+<span id="concepts-magnitudes-preferred"></span><h2>Preferred Magnitude<a class="headerlink" href="#preferred-magnitude" title="Permalink to this heading">¶</a></h2>
+<p>From the list of computed network magnitudes and the summary magnitude,
+<a class="reference internal" href="../../apps/scevent.html#scevent"><span class="std std-ref">scevent</span></a> can automatically determine the preferred magnitude of the
+<a class="reference internal" href="../glossary.html#term-event"><span class="xref std std-term">event</span></a>. This may also be done interactively by operators in the
+<a class="reference internal" href="../../apps/scolv.html#scolv-sec-event-tab"><span class="std std-ref">Event tab of scolv</span></a> or by
+<a class="reference internal" href="../../apps/scolv.html#sec-scolv-custom-commit"><span class="std std-ref">custom commit buttons in scolv</span></a>.</p>
+</section>
+</section>
+
+
+          <div id="anchors-bottom"></div>
+        </div>
+        
+      <div class="sidebar" role="navigation" aria-label="main navigation">
+        <div id="anchors-top"></div>
+        <div id="anchors" class="content">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Amplitudes and Magnitudes</a><ul>
+<li><a class="reference internal" href="#amplitudes">Amplitudes</a><ul>
+<li><a class="reference internal" href="#input-data">Input data</a></li>
+<li><a class="reference internal" href="#wood-anderson-simulation">Wood-Anderson simulation</a></li>
+<li><a class="reference internal" href="#physical-units">Physical units</a></li>
+<li><a class="reference internal" href="#amplitude-aliases">Amplitude Aliases</a></li>
+<li><a class="reference internal" href="#regionalization">Regionalization</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#station-magnitudes">Station Magnitudes</a><ul>
+<li><a class="reference internal" href="#station-corrections">Station corrections</a></li>
+<li><a class="reference internal" href="#magnitude-aliases">Magnitude Aliases</a></li>
+<li><a class="reference internal" href="#concepts-magnitudes-regionalization">Regionalization</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#network-magnitudes">Network Magnitudes</a></li>
+<li><a class="reference internal" href="#moment-magnitudes">Moment Magnitudes</a></li>
+<li><a class="reference internal" href="#summary-magnitude">Summary Magnitude</a></li>
+<li><a class="reference internal" href="#preferred-magnitude">Preferred Magnitude</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="configuration.html"
+                          title="previous chapter">Configuration</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="locators.html"
+                          title="next chapter">Locators</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/base/concepts/magnitudes.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="horizontal layout content">
+        <a class="fade-in" href="https://www.gempa.de" target="_blank">
+          <img class="brand" src="../../_static/brands/gempa.svg"/>
+        </a>
+        <div class="stretched align-center fitted content">
+          <div>
+		  Version <b>7.4.0</b> Release
+          </div>
+            <div class="copyright">
+              Copyright &copy; gempa GmbH, GFZ Potsdam.
+            </div>
+        </div>
+        <a class="fade-in" href="https://www.gfz-potsdam.de" target="_blank">
+          <img class="brand" src="../../_static/brands/gfz.svg"/>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

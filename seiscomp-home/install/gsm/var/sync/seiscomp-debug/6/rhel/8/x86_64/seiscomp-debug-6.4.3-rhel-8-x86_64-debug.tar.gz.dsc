@@ -1,0 +1,19 @@
+pkgname=seiscomp-debug
+pkgver=6.4.3
+pkgrel=6
+pkgdesc=('SeisComP including data acquisition, processing, distribution and interactive analysis, version >=4.0.0 (public)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/seiscomp/CHANGELOG')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('2d4fdf6f6d67417d488af305aee7aed63a948d1df7c7a2f191365255d6e0ed30')
+pkgsize=('192794644')
+pkginstallsize=('617516184')
+filename=('seiscomp-debug-6.4.3-rhel-8-x86_64-debug.tar.gz')
+builddate=('2024-06-05 12:10:46')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')
+conflicts=('seiscomp-headless' 'seiscomp-acqui' 'seiscomp')
+osinstallscripts=('install-base.sh' 'install-fdsnws.sh' 'install-gui.sh' 'install-mariadb-server.sh' 'install-mysql-server.sh' 'install-postgresql-server.sh')

@@ -1,0 +1,18 @@
+##########
+Processing
+##########
+
+.. toctree::
+   :maxdepth: 1
+
+   /apps/ew2sc
+   /apps/scamp
+   /apps/scautoloc
+   /apps/scautopick
+   /apps/scevent
+   /apps/scmag
+   /apps/scqc
+   /apps/screloc
+   /apps/screpick
+   /apps/scsmdump
+   /apps/scwfparam

@@ -1,0 +1,16 @@
+pkgname=mhras
+pkgver=2025.198
+pkgrel=nightly
+pkgdesc=('MHRAS tsunami simulation backend (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('abaf88664ef27db22a19bafdd74eb96b6d53146d64c9e1da467a96866da53dfb')
+pkgsize=('2663090')
+pkginstallsize=('7744221')
+filename=('mhras-2025.198-seiscomp-nightly-rhel-9-x86_64.tar.gz')
+builddate=('2025-11-29 20:27:14')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

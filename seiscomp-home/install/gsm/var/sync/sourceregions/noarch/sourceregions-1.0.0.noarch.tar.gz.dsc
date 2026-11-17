@@ -1,0 +1,16 @@
+pkgname=sourceregions
+pkgver=1.0.0
+pkgdesc=('Example source region files for TOAST (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('3f410b19244776a48edc843f8deea81e77d984ad798d2476d0742b19dfc3d52f')
+pkgsize=('17662')
+pkginstallsize=('36609')
+pkgfilecount=('4')
+filename=('sourceregions-1.0.0.noarch.tar.gz')
+pkgfilepath=('sourceregions')
+builddate=('2023-06-15 00:00:00')
+pkgos=('')
+pkgosversion=('')
+pkgtype=data

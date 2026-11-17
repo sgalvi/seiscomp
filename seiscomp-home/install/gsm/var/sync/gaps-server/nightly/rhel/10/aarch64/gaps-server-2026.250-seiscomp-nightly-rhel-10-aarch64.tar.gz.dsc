@@ -1,0 +1,17 @@
+pkgname=gaps-server
+pkgver=2026.250
+pkgrel=nightly
+pkgdesc=('Web based earthquake monitoring (server) (commercial)')
+pkgkeywords=('earthquake monitoring induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('share/doc/gaps/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+pkglicensefile=('gaps')
+sha256=('66685323b243265c0851b8c1beb65b19b8d6165db4d2cf83e4946215d8749dbb')
+pkgsize=('25279801')
+pkginstallsize=('30096624')
+filename=('gaps-server-2026.250-seiscomp-nightly-rhel-10-aarch64.tar.gz')
+builddate=('2026-10-06 00:29:30')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

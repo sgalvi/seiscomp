@@ -1,0 +1,16 @@
+pkgname=nrcan-addons
+pkgver=2026.055
+pkgrel=6
+pkgdesc=('Custom package used by NRCan (commercial)')
+pkgkeywords=('scevent score plugin')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('19412f88ae28d5acd576c59e7250584b8a4d2c656db34e3cfc4696fe74c54dc3')
+pkgsize=('19193')
+pkginstallsize=('80388')
+filename=('nrcan-addons-2026.055-seiscomp-6-debian-12-x86_64.tar.gz')
+builddate=('2026-02-24 08:38:36')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

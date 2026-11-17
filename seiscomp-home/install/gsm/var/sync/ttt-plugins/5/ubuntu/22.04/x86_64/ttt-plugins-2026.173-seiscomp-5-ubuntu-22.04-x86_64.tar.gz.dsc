@@ -1,0 +1,16 @@
+pkgname=ttt-plugins
+pkgver=2026.173
+pkgrel=5
+pkgdesc=('Package for different ttt plugins (commercial)')
+pkgkeywords=('ttt custom hycolo')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('a0512de092909f2da7053eaf77ee0862cd6dec99867b71b73c674277cfc43970')
+pkgsize=('15376')
+pkginstallsize=('53056')
+filename=('ttt-plugins-2026.173-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-06-22 07:09:42')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

@@ -1,0 +1,16 @@
+pkgname=global_vs30
+pkgver=2019.001
+pkgdesc=('Global Vs30 grid file in Surfer 6 format (2.8 GiB) (commercial)')
+pkgkeywords=('map global_vs30.grd velocity')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('042747043e7ff894f98ec8659a89b5a27b1d5bdf7e8d6c09fc3190b064ce6d78')
+pkgsize=('2903280064')
+pkginstallsize=('2903280064')
+filename=('global_vs30.grd')
+pkgfilepath=('velocity/global_vs30')
+builddate=('2019-06-17 08:44:56')
+pkgos=('')
+pkgosversion=('')
+pkgtype=data

@@ -1,0 +1,16 @@
+pkgname=eqevents
+pkgver=2026.233
+pkgrel=nightly
+pkgdesc=('Static websites showing events information, maps and images (commercial)')
+pkgkeywords=('dissemination earthquake monitoring induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('f7e33d3e92b417171ac13051c919cc6b5db2d6dfc597a830fb839ac383fbfe30')
+pkgsize=('4405362')
+pkginstallsize=('5893747')
+filename=('eqevents-2026.233-seiscomp-nightly-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-08-27 21:06:03')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

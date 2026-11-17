@@ -1,0 +1,16 @@
+pkgname=seedlink-plugins
+pkgver=2026.203
+pkgrel=nightly
+pkgdesc=('seedlink-plugins')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('f650f8062e156fb11f26b13a7d723a8226e0b23b4be71b370fe33c02ebfee352')
+pkgsize=('646180')
+pkginstallsize=('1918457')
+filename=('seedlink-plugins-2026.203-seiscomp-nightly-rhel-9-x86_64.tar.gz')
+builddate=('2026-08-18 21:14:01')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

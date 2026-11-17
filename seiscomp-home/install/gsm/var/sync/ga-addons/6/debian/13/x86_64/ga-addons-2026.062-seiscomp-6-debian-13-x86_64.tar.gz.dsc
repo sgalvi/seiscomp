@@ -1,0 +1,17 @@
+pkgname=ga-addons
+pkgver=2026.062
+pkgrel=6
+pkgdesc=('Custom package used by GA (commercial)')
+pkgkeywords=('web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('c81c7b5c2c4cced760ef28e7cd43f54afae49bfe6406fcec930f4f886a942149')
+pkgsize=('89806')
+pkginstallsize=('332560')
+pkgfilecount=('5')
+filename=('ga-addons-2026.062-seiscomp-6-debian-13-x86_64.tar.gz')
+builddate=('2026-11-17 00:06:21')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

@@ -1,0 +1,19 @@
+pkgname=seiscomp
+pkgver=6.4.4
+pkgrel=6
+pkgdesc=('SeisComP including data acquisition, processing, distribution and interactive analysis, version >=4.0.0 (public)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/seiscomp/CHANGELOG')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('98df12fab3f340fe4872967f5c42a3e5cdf5a85b57f707c6c1055301ac932af4')
+pkgsize=('65717511')
+pkginstallsize=('207759222')
+filename=('seiscomp-6.4.4-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2024-07-18 08:09:33')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')
+conflicts=('seiscomp-headless' 'seiscomp-acqui' 'seiscomp-debug')
+osinstallscripts=('install-base.sh' 'install-fdsnws.sh' 'install-gui.sh' 'install-mariadb-server.sh' 'install-mysql-server.sh' 'install-postgresql-server.sh')

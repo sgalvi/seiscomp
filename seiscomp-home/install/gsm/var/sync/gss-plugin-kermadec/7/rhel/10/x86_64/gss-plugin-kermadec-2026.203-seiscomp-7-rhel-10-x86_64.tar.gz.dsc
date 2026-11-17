@@ -1,0 +1,16 @@
+pkgname=gss-plugin-kermadec
+pkgver=2026.203
+pkgrel=7
+pkgdesc=('GNS Science threat model database simulation plugin for the Kermadec region (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simkermadec/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('f24e6e1cba5cb5cfab67de6033aeded6b8387d5e0c95b9a6f521049dae1d1104')
+pkgsize=('2637801')
+pkginstallsize=('6960859')
+filename=('gss-plugin-kermadec-2026.203-seiscomp-7-rhel-10-x86_64.tar.gz')
+builddate=('2026-08-18 22:36:59')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

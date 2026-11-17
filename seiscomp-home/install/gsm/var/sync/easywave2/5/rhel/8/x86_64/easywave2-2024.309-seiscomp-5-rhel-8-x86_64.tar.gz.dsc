@@ -1,0 +1,17 @@
+pkgname=easywave2
+pkgver=2024.309
+pkgrel=5
+pkgdesc=('On-the-fly tsunami simulation backend (commercial)')
+pkgkeywords=('bathymetry TEW tsunami simulation')
+pkgchangelog=('share/doc/simeasywave2/CHANGELOG')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('7b6f188e12b49b7af54b73a4f56bb589265e43907ddb401b164fb8ec88725739')
+pkgsize=('2852457')
+pkginstallsize=('8409392')
+filename=('easywave2-2024.309-seiscomp-5-rhel-8-x86_64.tar.gz')
+builddate=('2024-11-14 22:30:28')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

@@ -1,0 +1,17 @@
+pkgname=mhras
+pkgver=2022.150
+pkgrel=5
+pkgdesc=('mhras')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('7b19102f952d1b49d56aabb990cabd122e37abcf83ec14cf621f4d71db503d84')
+pkgsize=('2435470')
+pkginstallsize=('7164834')
+filename=('mhras-2022.150-seiscomp-5-debian-11-x86_64.tar.gz')
+builddate=('2022-06-09 23:09:59')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

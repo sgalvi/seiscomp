@@ -1,0 +1,17 @@
+pkgname=gaps-frontends-all
+pkgver=2023.298
+pkgrel=5
+pkgdesc=('Web frontends for GAPS server including OriginLocatorView (commercial)')
+pkgkeywords=('earthquake monitoring induced earthquake local monitoring microseismic monitoring origin evaluation teleseismic monitoring web')
+pkgchangelog=('None')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('7736019fcbc283fec25729efbe42334b8ce2354ff8e5b8bfcb21c51c4191d83d')
+pkgsize=('12898952')
+pkginstallsize=('15286601')
+filename=('gaps-frontends-all-2023.298-seiscomp-5-any--noarch.tar.gz')
+builddate=('2023-10-25 21:25:15')
+pkgos=('any')
+pkgosversion=('')
+pkgfileversion=('0.1')

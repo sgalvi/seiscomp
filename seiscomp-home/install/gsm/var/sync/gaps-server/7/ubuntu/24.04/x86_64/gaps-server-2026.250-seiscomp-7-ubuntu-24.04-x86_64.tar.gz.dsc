@@ -1,0 +1,17 @@
+pkgname=gaps-server
+pkgver=2026.250
+pkgrel=7
+pkgdesc=('Web based earthquake monitoring (server) (commercial)')
+pkgkeywords=('earthquake monitoring induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('share/doc/gaps/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+pkglicensefile=('gaps')
+sha256=('8acdc7b40b220dea1da963454c7993ec2f6d4f8dbf16aa137c8f063494ec6e65')
+pkgsize=('25338280')
+pkginstallsize=('30304584')
+filename=('gaps-server-2026.250-seiscomp-7-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-10-05 21:31:36')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

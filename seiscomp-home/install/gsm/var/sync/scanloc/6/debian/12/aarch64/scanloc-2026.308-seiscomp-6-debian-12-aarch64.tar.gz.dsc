@@ -1,0 +1,17 @@
+pkgname=scanloc
+pkgver=2026.308
+pkgrel=6
+pkgdesc=('Local earthquake monitoring based on clustering and P and S phase picks (commercial)')
+pkgkeywords=('earthquake monitoring EEW induced earthquake intensity local monitoring microseismic monitoring seismic harzard shake map teleseismic monitoring')
+pkgchangelog=('share/doc/scanloc/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('2027229327168f291516ab36e4f029a4f3f3a19afc144cc5d0b44911d6dc3d3b')
+pkgsize=('14528510')
+pkginstallsize=('21120232')
+pkgfilecount=('291')
+filename=('scanloc-2026.308-seiscomp-6-debian-12-aarch64.tar.gz')
+builddate=('2026-11-17 01:45:07')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

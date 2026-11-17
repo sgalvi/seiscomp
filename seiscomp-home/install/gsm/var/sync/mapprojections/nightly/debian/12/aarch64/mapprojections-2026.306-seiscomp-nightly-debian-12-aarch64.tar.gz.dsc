@@ -1,0 +1,17 @@
+pkgname=mapprojections
+pkgver=2026.306
+pkgrel=nightly
+pkgdesc=('Plugins for enhancing maps: different map projections, access to high resolution maps, dynamic grid overlays (commercial)')
+pkgkeywords=('induced earthquake local monitoring maps microseismic monitoring')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('875f858b1a46c249d33d5f39ec979b89e581906bc094802e7985499065b866d9')
+pkgsize=('2187773')
+pkginstallsize=('6168038')
+pkgfilecount=('17')
+filename=('mapprojections-2026.306-seiscomp-nightly-debian-12-aarch64.tar.gz')
+builddate=('2026-11-17 00:44:36')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

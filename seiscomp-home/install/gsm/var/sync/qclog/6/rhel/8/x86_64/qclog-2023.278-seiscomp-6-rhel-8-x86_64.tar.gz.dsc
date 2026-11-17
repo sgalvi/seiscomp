@@ -1,0 +1,17 @@
+pkgname=qclog
+pkgver=2023.278
+pkgrel=6
+pkgdesc=('Interactive website providing waveform quality control (QC) parameters (commercial)')
+pkgkeywords=('quality control web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('Gempa')
+depends=('')
+sha256=('947f99390bffdfd41656382fc98b0a31581cc2fea479681d1597fb4a26c1e452')
+pkgsize=('677307')
+pkginstallsize=('2090144')
+filename=('qclog-2023.278-seiscomp-6-rhel-8-x86_64.tar.gz')
+builddate=('2023-11-13 13:22:33')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

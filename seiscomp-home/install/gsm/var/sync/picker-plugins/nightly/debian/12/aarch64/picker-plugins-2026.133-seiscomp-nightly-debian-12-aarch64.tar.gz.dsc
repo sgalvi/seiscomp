@@ -1,0 +1,16 @@
+pkgname=picker-plugins
+pkgver=2026.133
+pkgrel=nightly
+pkgdesc=('Package for different picker plugins, e.g., polarity picker (commercial)')
+pkgkeywords=('picker polarity paic p-aic aic p-fx pfx')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('0c82226f6d173bdeec092925907d312fedb57f74166e8f5f26f79d2f00fdb294')
+pkgsize=('10305810')
+pkginstallsize=('11922419')
+filename=('picker-plugins-2026.133-seiscomp-nightly-debian-12-aarch64.tar.gz')
+builddate=('2026-06-09 01:24:13')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

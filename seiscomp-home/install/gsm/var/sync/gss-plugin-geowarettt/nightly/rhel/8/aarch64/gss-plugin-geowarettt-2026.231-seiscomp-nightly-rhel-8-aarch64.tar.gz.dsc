@@ -1,0 +1,17 @@
+pkgname=gss-plugin-geowarettt
+pkgver=2026.231
+pkgrel=nightly
+pkgdesc=('Geoware tsunami travel time calculation simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simgeowarettt/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('ffab30415e73f2195ea0dd14bf04fb9901b3e5acbc8e24526fdb484d9f96d519')
+pkgsize=('4587575')
+pkginstallsize=('11848681')
+filename=('gss-plugin-geowarettt-2026.231-seiscomp-nightly-rhel-8-aarch64.tar.gz')
+builddate=('2026-10-21 00:27:19')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')
+conflicts=('geowarettt')

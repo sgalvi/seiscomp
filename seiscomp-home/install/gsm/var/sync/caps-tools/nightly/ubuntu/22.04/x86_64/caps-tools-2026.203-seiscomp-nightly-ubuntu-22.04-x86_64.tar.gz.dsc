@@ -1,0 +1,16 @@
+pkgname=caps-tools
+pkgver=2026.203
+pkgrel=nightly
+pkgdesc=('Client tools for CAPS, e.g., capstool or rifftest (commercial)')
+pkgkeywords=('caps acquisition tools capstools')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('891d88d9b6531d0c2fabc5eb777d660edc0f347bde8f4aede18f7fccb9cb34ee')
+pkgsize=('788138')
+pkginstallsize=('2426499')
+filename=('caps-tools-2026.203-seiscomp-nightly-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-08-18 21:16:27')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

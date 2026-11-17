@@ -1,0 +1,16 @@
+pkgname=picker-plugins
+pkgver=2026.160
+pkgrel=7
+pkgdesc=('Package for different picker plugins, e.g., polarity picker (commercial)')
+pkgkeywords=('picker polarity paic p-aic aic p-fx pfx')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('ffadd85331c0a22b53bce0148d6e5066ddb061c1fc66a2259086aa188011e49c')
+pkgsize=('10309386')
+pkginstallsize=('11906518')
+filename=('picker-plugins-2026.160-seiscomp-7-rhel-10-x86_64.tar.gz')
+builddate=('2026-06-12 21:51:14')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

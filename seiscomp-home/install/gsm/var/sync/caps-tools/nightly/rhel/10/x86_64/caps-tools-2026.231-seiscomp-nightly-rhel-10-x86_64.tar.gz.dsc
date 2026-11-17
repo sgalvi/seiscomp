@@ -1,0 +1,17 @@
+pkgname=caps-tools
+pkgver=2026.231
+pkgrel=nightly
+pkgdesc=('Client tools for CAPS, e.g., capstool or rifftest (commercial)')
+pkgkeywords=('caps acquisition tools capstools')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('7fedb24991c5346a2735755c110e2dfb425d8af256a2834669cebb06d88a56aa')
+pkgsize=('855735')
+pkginstallsize=('2503147')
+pkgfilecount=('6')
+filename=('caps-tools-2026.231-seiscomp-nightly-rhel-10-x86_64.tar.gz')
+builddate=('2026-11-16 21:15:11')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

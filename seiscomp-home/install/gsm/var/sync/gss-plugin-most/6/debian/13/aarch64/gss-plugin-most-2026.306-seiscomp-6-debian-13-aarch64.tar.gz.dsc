@@ -1,0 +1,17 @@
+pkgname=gss-plugin-most
+pkgver=2026.306
+pkgrel=6
+pkgdesc=('Most tsunami travel time calculation simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simbommost/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('6010fc2e970b9a6ed2d01ac3a2f0a1a60324057f900133e062d50668221efefd')
+pkgsize=('4253057')
+pkginstallsize=('11371647')
+pkgfilecount=('165')
+filename=('gss-plugin-most-2026.306-seiscomp-6-debian-13-aarch64.tar.gz')
+builddate=('2026-11-17 02:11:59')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

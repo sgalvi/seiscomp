@@ -1,0 +1,17 @@
+pkgname=kermadec
+pkgver=2024.283
+pkgrel=6
+pkgdesc=('GNS Science threat model database simulation plugin for the Kermadec region (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simkermadec/CHANGELOG')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('ba30aba498a970084189e4fafbb8ed92cc6742e64f6e80dc1374570545bcf9ea')
+pkgsize=('2444138')
+pkginstallsize=('6112865')
+filename=('kermadec-2024.283-seiscomp-6-debian-12-x86_64.tar.gz')
+builddate=('2024-10-24 23:08:18')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

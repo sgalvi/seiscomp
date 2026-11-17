@@ -1,0 +1,17 @@
+pkgname=sed-eew
+pkgver=2026.180
+pkgrel=nightly
+pkgdesc=('Software package provided for ETH Zurich (https://www.seismo.ethz.ch) (public)')
+pkgkeywords=('sed eew')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('1ae8a753cefd3408b63b6bc5d22dec034682cd263a90ecbd1d65f311a2fbb281')
+pkgsize=('11195637')
+pkginstallsize=('33539460')
+pkgfilecount=('146')
+filename=('sed-eew-2026.180-seiscomp-nightly-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-11-17 00:00:45')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

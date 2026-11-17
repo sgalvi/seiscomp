@@ -1,0 +1,17 @@
+pkgname=toast-server
+pkgver=2026.313
+pkgrel=6
+pkgdesc=('Tsunami Observation and Simulation Tool Server (commercial)')
+pkgkeywords=('decision support multi-sensor TEW tide gauge tsunami observation tsunami simulation')
+pkgchangelog=('share/doc/toastd/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('5d652416fc0e24722d61c27178f4cfab13dd08037fc21187fee72885fb8acde5')
+pkgsize=('25937418')
+pkginstallsize=('41165986')
+pkgfilecount=('494')
+filename=('toast-server-2026.313-seiscomp-6-debian-13-aarch64.tar.gz')
+builddate=('2026-11-17 02:09:33')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

@@ -1,0 +1,16 @@
+pkgname=seedlink-plugins
+pkgver=2026.131
+pkgrel=nightly
+pkgdesc=('seedlink-plugins')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('3c4340315bf210ea80f6c8bf2cca9bf809a0615db63edbcdf21794755ee9ac62')
+pkgsize=('618494')
+pkginstallsize=('1928985')
+filename=('seedlink-plugins-2026.131-seiscomp-nightly-debian-13-aarch64.tar.gz')
+builddate=('2026-07-21 23:46:58')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

@@ -1,0 +1,17 @@
+pkgname=mhras
+pkgver=2024.309
+pkgrel=nightly
+pkgdesc=('MHRAS tsunami simulation backend (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('1a799fa78e06f5b39aecff05cba16f4fd9ebf05979a3e234309d41f5a2e1b5f7')
+pkgsize=('2695818')
+pkginstallsize=('7921067')
+filename=('mhras-2024.309-seiscomp-nightly-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2024-11-14 21:58:08')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

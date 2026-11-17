@@ -1,0 +1,17 @@
+#########################
+Graphical User Interfaces
+#########################
+
+.. toctree::
+   :maxdepth: 2
+
+   /apps/scconfig
+   /apps/scesv
+   /apps/scheli
+   /apps/scmm
+   /apps/scmv
+   /apps/scmvx
+   /apps/scolv
+   /apps/scqcv
+   /apps/scrttv
+

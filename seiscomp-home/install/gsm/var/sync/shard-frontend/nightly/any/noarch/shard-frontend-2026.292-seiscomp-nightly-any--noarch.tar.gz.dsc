@@ -1,0 +1,17 @@
+pkgname=shard-frontend
+pkgver=2026.292
+pkgrel=nightly
+pkgdesc=('A more user friendly frontend for SHARD (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('noarch')
+license=('None')
+sha256=('fbe6bf66cf369c69e90a8974b099a4aa805f524640ff4db677453d7b7fd75e2b')
+pkgsize=('15964077')
+pkginstallsize=('28576957')
+pkgfilecount=('102')
+filename=('shard-frontend-2026.292-seiscomp-nightly-any--noarch.tar.gz')
+builddate=('2026-11-17 00:26:49')
+pkgos=('any')
+pkgosversion=('')
+pkgfileversion=('0.1')

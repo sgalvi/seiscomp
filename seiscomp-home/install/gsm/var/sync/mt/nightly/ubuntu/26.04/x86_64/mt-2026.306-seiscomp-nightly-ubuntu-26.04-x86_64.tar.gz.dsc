@@ -1,0 +1,17 @@
+pkgname=mt
+pkgver=2026.306
+pkgrel=nightly
+pkgdesc=('Automatic and interactive moment tensor analysis (commercial)')
+pkgkeywords=('decision support earthquake monitoring Greens function intensity moment tensor teleseismic monitoring tsunami simulation MT')
+pkgchangelog=('share/doc/MT/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('450a79d2569c9112e43048eaf86bd293a2686669626f81af95b052546eafcd79')
+pkgsize=('20518354')
+pkginstallsize=('29099196')
+pkgfilecount=('298')
+filename=('mt-2026.306-seiscomp-nightly-ubuntu-26.04-x86_64.tar.gz')
+builddate=('2026-11-16 21:09:53')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

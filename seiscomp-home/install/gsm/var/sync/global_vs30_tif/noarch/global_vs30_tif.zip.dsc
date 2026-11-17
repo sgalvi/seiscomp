@@ -1,0 +1,16 @@
+pkgname=global_vs30_tif
+pkgver=2019.001
+pkgdesc=('Global Vs30 grid file in GeoTIFF format (2.9 GiB) (commercial)')
+pkgkeywords=('map global_vs30_tif velocity')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('45c775fe0881983e7efab9724dbe509848d60f0de1b18cf40f507ce7258acb7c')
+pkgsize=('661308864')
+pkginstallsize=('661308864')
+filename=('global_vs30_tif.zip')
+pkgfilepath=('velocity/global_vs30_tif')
+builddate=('2019-06-17 08:44:56')
+pkgos=('')
+pkgosversion=('')
+pkgtype=data

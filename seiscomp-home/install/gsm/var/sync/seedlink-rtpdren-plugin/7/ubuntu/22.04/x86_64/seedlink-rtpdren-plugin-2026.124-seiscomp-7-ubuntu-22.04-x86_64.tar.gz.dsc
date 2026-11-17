@@ -1,0 +1,16 @@
+pkgname=seedlink-rtpdren-plugin
+pkgver=2026.124
+pkgrel=7
+pkgdesc=('SeedLink RTP server plugin (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('a601b39d9078158ad707dfd77d773b52ff0a4175e40b297b5f66aed45f803042')
+pkgsize=('127448')
+pkginstallsize=('347128')
+filename=('seedlink-rtpdren-plugin-2026.124-seiscomp-7-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-05-08 23:10:54')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

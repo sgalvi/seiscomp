@@ -1,0 +1,1701 @@
+.. highlight:: rst
+
+.. _scevent:
+
+#######
+scevent
+#######
+
+**Associate an Origin to an Event or form a new Event if no match is found.
+Select the preferred origin, magnitude and focal mechanism.**
+
+
+Description
+===========
+
+As a consequence of a real-time system the |scname| modules creates several
+:term:`origins <origin>` (results of localization processes) for one earthquake
+or other seismic events because as time
+goes by more seismic phases are available. scevent receives these origins and
+associates the origins to :term:`events <event>`. It is also possible to import
+and associate origins from other agencies.
+
+The main tasks of scevent are:
+
+* :ref:`Create new events or associate origins <scevent-assocorg>` to existing events.
+* Set the :ref:`ID of events <scevent-eventid>`.
+* Set the :ref:`preferred origin <scevent-preforg>` from all available origins.
+* Set the :ref:`preferred magnitude <scevent-prefmag>` from all available magnitudes.
+* Set the :ref:`preferred focal mechanism <scevent-preffm>` from all available focal mechanisms.
+* *Optional:* Set the event type of automatic origins by plugins:
+
+  * :ref:`evrc <scevent_regioncheck>`: Type based on hypocenter,
+  * :ref:`evtype <scevent_eventtype>`: Type based on comments added to picks,
+    e.g., by :ref:`scautopick`.
+
+
+.. _scevent-assocorg:
+
+Origin Association
+==================
+
+scevent associates origins to event objects by searching for the best match of the new
+(incoming) origin to other origins for existing events:
+
+* Create new |scname| events for origins which cannot be associated to an
+  existing event object and associate the origin to this new event.
+* Associate origins to existing event objects: Origins belonging to **the same seismic
+  event** shall be associated to the same event object.
+
+Origins can be filtered/ignored based on
+
+* ID of agency which has created the origin:
+  :confval:`processing.blacklist.agencies`,
+  :confval:`processing.whitelist.agencies` (global parameters),
+* Hypocenter parameters: :confval:`eventAssociation.region.rect`,
+  :confval:`eventAssociation.region.minDepth`,
+  :confval:`eventAssociation.region.maxDepth`.
+
+
+Origin match
+------------
+
+The new origin is matched to existing origins by comparing differences in epicenter,
+origin time, and :term:`arrivals <arrival>` (associated picks).
+The new origin is matched to an existing origin which has the highest rank in
+the following three groups (1, 2, 3):
+
+#. Location and Time (lowest)
+
+   The difference in horizontal location is less than
+   :confval:`eventAssociation.maximumDistance` (degrees)
+   and the difference in origin times is less than
+   :confval:`eventAssociation.maximumTimeSpan`.
+
+#. Picks
+
+   The two origins have more than :confval:`eventAssociation.minimumMatchingArrivals`
+   matching picks. Picks are matched either by ID or by time depending
+   on :confval:`eventAssociation.maximumMatchingArrivalTimeDiff`.
+
+#. Picks and Location and Time (highest)
+
+   This is the best match, for which both the location-and-time and picks
+   criteria above are satisfied.
+
+If more than one origin is found in the highest ranking class, then the first
+one of them is chosen.
+
+.. note::
+
+   For efficiency events in the cache are scanned first and if no matches are found,
+   the database is scanned for the time window :confval:`eventAssociation.eventTimeBefore` -
+   :confval:`eventAssociation.eventTimeAfter`
+   around the incoming Origin time. The cached events are ordered by eventID and
+   thus in time.
+
+
+No origin match
+---------------
+
+If no event with an origin that matches the incoming origin is found, then a
+new event is formed and the origin is associated to that event. The following
+criteria are applied to allow the creation of the new event:
+
+* The agency for the origin is not black listed (:confval:`processing.blacklist.agencies`).
+* The origin is automatic and it has more than :confval:`eventAssociation.minimumDefiningPhases`
+  :term:`arrivals <arrival>` (associated picks).
+
+.. figure:: media/scevent/Association_of_an_origin_by_matching_picks.jpg
+    :scale: 50%
+    :alt: alternate association of an origin by matching picks.
+    :align: center
+
+    Association of an origin to an event by matching picks.
+
+
+.. _scevent-preforg:
+
+Preferred Origin
+================
+
+The preferred origin is set by ranking of all associated origins. The ranking
+is controlled by :confval:`eventAssociation.priorities` and related configuration
+parameters.
+
+
+.. _scevent-prefmag:
+
+Preferred Magnitude
+===================
+
+The preferred magnitude is set by ranking of the
+:ref:`summary magnitude <scmag-summaryM>` and all :ref:`network magnitudes <scmag-networkM>`
+of the preferred origin. The ranking is mainly controlled by
+:confval:`eventAssociation.magTypes` and :confval:`eventAssociation.minimumMagnitudes`
+and related configuration parameters.
+
+Magnitudes where the evaluation mode is 'rejected' are ignored.
+
+
+.. _scevent-preffm:
+
+Preferred Focal Mechanism
+=========================
+
+The most recent manual focal mechanism or, if no manual ones are unavailable, the
+most recent automatic focal mechnisms becomes preferred.
+
+
+.. _scevent-eventid:
+
+ID of Events
+============
+
+The ID of an event or eventID uniquely identifies an event. The ID is derived from
+the time of occurrence of the event within a year. As configured by :confval:`eventIDPattern`
+it typically consists of a prefix configured by :confval:`eventIDPrefix` and a
+string containing the year and a set of characters or numbers defining the time.
+
+
+.. _scevent-eventid-sync:
+
+Distributed Event ID Allocation
+===============================
+
+When several :program:`scevent` instances process origins in parallel, each instance
+independently sees origins arriving from its processing pipeline and would, without
+coordination, pick its own event ID for the same earthquake. Event IDs are
+derived from origin times with finite resolution of time slots. The length and the
+number of available time slots are defined by :confval:`eventIDPattern` and
+:confval:`eventIDLookupMargin`. Due to differences in configuration but also in
+seismicity, two :program:`scevent` instances starting from the same origin time can
+quickly diverge to different event IDs which shall be avoided by distributed allocation
+of event IDs.
+
+This concept affects two kinds of |scname| system deployments:
+
+* **Redundant systems:** Two or more instances run *the same configuration* for high
+  availability, and must agree on one event ID so that a failover is transparent to
+  downstream consumers.
+* **Distributed systems:** Instances run *different configurations* with different
+  detection goals or focus (for example a global network alongside a dense regional
+  network, or a fast automatic system alongside a more thorough one). The systems
+  observe
+
+  * the same earthquakes but with slightly different origin parameters due to their
+    differences in configuration. Both systems should still assign a single, globally
+    unique event ID to that earthquake rather than minting a separate ID on each system.
+  * different earthquakes within the same time slot. Mutually unique IDs shall be given
+    by the systems.
+
+To achieve this, one instance is designated the **main** instance and the others act as
+**secondary instances**. Each secondary instance asks the main instance, over the REST
+API, which event ID to use for a new origin; the main instance either returns the ID of
+an event it has already formed or reserves a fresh ID and keeps it cached for a
+configurable amount of time. The main instance does not create an event for an incoming
+secondary-instance request — it only reserves the ID. When the main instance's own
+processing later sees a matching local origin, it picks up the cached ID and creates its
+event with that same ID. The two instances therefore converge on the same event ID
+without any explicit coordination between their messaging buses.
+
+.. figure:: media/scevent/scevent_main_secondary_sync.svg
+   :alt: Main and secondary scevent instances exchanging event IDs over the REST API
+   :align: center
+   :width: 80%
+
+   Two :program:`scevent` instances synchronizing event IDs. The secondary instance
+   posts each incoming origin to the main instance's
+   ``/api/1/try-to-associate?allocate`` endpoint and uses the returned event ID for its
+   local event creation.
+
+If the main instance cannot be reached, or does not respond in time, the secondary
+instance falls back to local event ID allocation. This preserves availability at the
+cost of a possible (and recoverable) ID divergence during the outage.
+
+The behavior is controlled by the parameters in the :confval:`eventIDSync` group:
+
+* :confval:`eventIDSync.main` — URL of the main instance's REST API. Leave empty on the
+  main instance (or on a standalone instance); set on each secondary instance.
+* :confval:`eventIDSync.mainTimeout` — how long a secondary instance waits for the main
+  instance's response before falling back to local allocation (default: 5 s).
+* :confval:`eventIDSync.cacheRetention` — how long the main instance keeps a reserved ID
+  and the associated foreign origin in its in-memory cache so that a matching local
+  origin can reuse it (default: 1800 s).
+* :confval:`eventIDSync.db` — optional path to an SQLite database file. When set, the
+  main instance persists every reserved event ID (together with the origin time, origin
+  public ID and the origin/picks as SCML) so that reservations survive a restart and can
+  cover a much larger set than the in-memory cache. Leave empty to keep the
+  in-memory-only behavior.
+* :confval:`eventIDSync.databaseRetention` — how long persisted reservations are kept,
+  by origin time. A negative value (the default) keeps them indefinitely; a positive
+  value should be at least as large as :confval:`eventIDSync.cacheRetention`.
+
+When :confval:`eventIDSync.db` is set, a try-to-associate request that does not match an
+in-memory reservation additionally consults the database. The lookup first tries a
+direct match on the incoming origin's public ID (a fast path that immediately reuses the
+stored event ID), and otherwise loads all stored origins whose time lies between
+:confval:`eventAssociation.eventTimeBefore` before and
+:confval:`eventAssociation.eventTimeAfter` after the incoming origin time and compares
+them by epicenter and shared picks — the same strategy scevent uses against the SeisComP
+database.
+
+The matching criteria used to decide whether a local origin "is" the same earthquake as
+a cached foreign origin are the same as those used for ordinary event association:
+origin time difference within :confval:`eventAssociation.maximumTimeSpan`, epicenter
+distance within :confval:`eventAssociation.maximumDistance` and, if pick information is
+available on both sides, at least :confval:`eventAssociation.minimumMatchingArrivals`
+matching picks.
+
+
+Roles and configuration
+-----------------------
+
+==============  ========================================================================
+Role            Configuration
+==============  ========================================================================
+**Standalone**  :confval:`eventIDSync.main` empty, :confval:`restAPI` unset. Local ID
+                allocation only. This is the historical behavior and the default.
+**Main**        :confval:`eventIDSync.main` empty, :confval:`restAPI` set. Allocates IDs
+                locally and additionally serves ``/api/1/try-to-associate?allocate``
+                and ``/api/1/allocate`` requests from secondary instances. Read also
+                section :ref:`scevent-restapi`.
+**Secondary**   :confval:`eventIDSync.main` set to the main instance's REST URL.
+                Queries the main instance for each new event and falls back to local
+                allocation on failure. Read also section :ref:`scevent-restapi`.
+==============  ========================================================================
+
+
+Example deployment
+------------------
+
+For a two-host redundant deployment with hosts ``host-a`` (running the main instance)
+and ``host-b`` (running a secondary instance):
+
+On the main instance:
+
+.. code-block:: properties
+
+   # /etc/seiscomp/scevent.cfg on 'host-a'
+   restAPI = 18182
+   eventIDSync.cacheRetention = 1800
+
+On the secondary instance:
+
+.. code-block:: properties
+
+   # /etc/seiscomp/scevent.cfg on 'host-b'
+   eventIDSync.main = http://host-a:18182
+   eventIDSync.mainTimeout = 5
+
+At startup each instance logs its role; for example, the secondary
+instance prints:
+
+.. code-block:: none
+
+   eventID synchronization: secondary mode, main=http://host-a:18182, main timeout=5s
+
+and the main instance prints:
+
+.. code-block:: none
+
+   eventID synchronization: main mode (allocations cached for 1800s)
+
+
+.. _scevent-journals:
+
+Journals
+========
+
+scevent can be commanded by journals to do a certain action. Journal entries are being
+received via the messaging bus to any of the subscribed groups. A journal entry
+contains an action, a subject (a publicID of an object) and optional parameters.
+Journals can be interactively sent to the messaging by :ref:`scsendjournal`.
+
+If scevent has handled an action, it will send a reply journal entry with
+an action formed from the origin action name plus **OK** or **Failed**. The
+parameters of the journal entry contain a possible reason.
+
+The following actions are supported by scevent:
+
+.. function:: EvGrabOrg(objectID, parameters)
+
+   Grabs an origin and associates it to the given event. If the origin is
+   already associated with another event then its reference to this event
+   will be removed.
+
+   :param objectID: The ID of an existing event
+   :param parameters: The ID of the origin to be grabbed
+
+.. function:: EvMerge(objectID, parameters)
+
+   Merges an event (source) into another event (target). After successful
+   completion the source event will be deleted.
+
+   :param objectID: The ID of an existing event (target)
+   :param parameters: The ID of an existing event (source)
+
+.. function:: EvName(objectID, parameters)
+
+   Adds or updates the event description with type "earthquake name".
+
+   :param objectID: The ID of an existing event
+   :param parameters: An event name
+
+.. function:: EvFeltReport(objectID, parameters)
+
+   Adds or updates the event description with type "felt report".
+
+   :param objectID: The ID of an existing event
+   :param parameters: A felt report
+
+.. function:: EvNewEvent(objectID, parameters)
+
+   Creates a new event based on a given origin. The origin must not yet be
+   associated with another event.
+
+   On a secondary instance (:confval:`eventIDSync.main` set) the event ID for
+   the new event is obtained from the main instance through its
+   :ref:`/api/1/allocate <scevent-restapi-allocate>` endpoint, so that main and
+   secondary instances stay synchronized; on failure the secondary falls back to
+   local allocation.
+
+   :param objectID: The origin publicID of the origin which will be used to
+                    create the new event.
+   :param parameters: Unused
+
+.. function:: EvOpComment(objectID, parameters)
+
+   Adds or updates the event comment text with id "Operator".
+
+   :param objectID: The ID of an existing event
+   :param parameters: The comment text
+
+.. function:: EvPrefFocMecID(objectID, parameters)
+
+   Sets the preferred focal mechanism ID of an event. If a focal mechanism ID
+   is passed then it will be fixed as preferred solution for this event and
+   any subsequent focal mechanism associations will not cause a change of the
+   preferred focal mechanism.
+
+   If an empty focal mechanism ID is passed then this is considered as "unfix"
+   and scevent will switch back to automatic preferred selection mode.
+
+   :param objectID: The ID of an existing event
+   :param parameters: The focal mechanism ID which will become preferred or empty.
+
+.. function:: EvPrefMagType(objectID, parameters)
+
+   Set the preferred magnitude of the event matching the requested magnitude
+   type.
+
+   :param objectID: The ID of an existing event
+   :param parameters: The desired preferred magnitude type
+
+.. function:: EvPrefMw(objectID, parameters)
+
+   Sets the moment magnitude (Mw) of the preferred focal mechanism as
+   preferred magnitude of the event.
+
+   :param objectID: The ID of an existing event
+   :param parameters: Boolean flag, either "true" or "false"
+
+.. function:: EvPrefOrgAutomatic(objectID, parameters)
+
+   Releases the fixed origin constraint. This call is equal to :code:`EvPrefOrgID(eventID, '')`.
+
+   :param objectID: The ID of an existing event
+   :param parameters: Unused
+
+.. function:: EvPrefOrgEvalMode(objectID, parameters)
+
+   Sets the preferred origin based on an evaluation mode. The configured
+   priorities are still valid. If an empty evaluation mode is passed then
+   scevent releases this constraint.
+
+   :param objectID: The ID of an existing event
+   :param parameters: The evaluation mode ("automatic", "manual") or empty
+
+.. function:: EvPrefOrgID(objectID, parameters)
+
+   Sets the preferred origin ID of an event. If an origin ID is passed then
+   it will be fixed as preferred solution for this event and any subsequent
+   origin associations will not cause a change of the preferred origin.
+
+   If an empty origin ID is passed then this is considered as "unfix" and
+   scevent will switch back to automatic preferred selection mode.
+
+   :param objectID: The ID of an existing event
+   :param parameters: The origin ID which will become preferred or empty.
+
+.. function:: EvRefresh(objectID, parameters)
+
+   Refreshes the event information. This operation can be useful if the
+   configured fep region files have changed on disc and scevent should
+   update the region information. Changed plugin parameters can be another
+   reason to refresh the event status.
+
+   :param objectID: The ID of an existing event
+   :param parameters: Unused
+
+.. function:: EvSplitOrg(objectID, parameters)
+
+   Remove an origin reference from an event and create a new event for
+   this origin.
+
+   On a secondary instance (:confval:`eventIDSync.main` set) the event ID for
+   the new event is obtained from the main instance through its
+   :ref:`/api/1/allocate <scevent-restapi-allocate>` endpoint, so that main and
+   secondary instances stay synchronized; on failure the secondary falls back to
+   local allocation.
+
+   :param objectID: The ID of an existing event holding a reference to the
+                    given origin ID.
+   :param parameters: The ID of the origin to be split
+
+.. function:: EvType(objectID, parameters)
+
+   Sets the event type to the passed value.
+
+   :param objectID: The ID of an existing event
+   :param parameters: The event type
+
+.. function:: EvTypeCertainty(objectID, parameters)
+
+   Sets the event type certainty to the passed value.
+
+   :param objectID: The ID of an existing event
+   :param parameters: The event type certainty
+
+
+.. _scevent-restapi:
+
+REST API
+========
+
+For generating unique event IDs across multiple |scname| systems (read section
+:ref:`scevent-eventid-sync`) :program:`scevent` provides a HTTP REST API which may be
+enabled by defining a bind address under :confval:`restAPI`. The available endpoints are
+listed below.
+
+
+.. _scevent-restapi-associate:
+
+try-to-associate
+----------------
+
+Query the ID of the event a provided origin can be associated to. An event ID is
+returned if a matching event is found. By default no event is ever created and no event
+ID is allocated. When the optional query parameter ``allocate`` is given and no existing
+event matches the supplied origin, the receiving :program:`scevent` instance reserves a
+new event ID on behalf of the caller; this mode is used internally by secondary
+instances to obtain an event ID from a main instance.
+
+==================  ===================================================================
+Request/Response    Description
+==================  ===================================================================
+**Location**        ``/api/1/try-to-associate`` (lookup only) or
+                    ``/api/1/try-to-associate?allocate`` (lookup and reserve if no
+                    match)
+**HTTP Methods**    POST
+**Request data**    :term:`SCML` containing an :ref:`EventParameters
+                    <api-python-datamodel-eventparameters>` element with one and only
+                    one :ref:`Origin <api-python-datamodel-origin>`. :ref:`Pick
+                    <api-python-datamodel-pick>` objects associated with the origin's
+                    arrivals may be included so that the receiver can match by pick IDs
+                    in addition to time and location.
+**Request header**  ``Content-Type: text/xml`` (no subtype allowed)
+**Response data**   Event ID string
+**Response code**   **200** (matching event found or new event ID reserved in
+                    ``allocate`` mode), **204** (no matching event found and no
+                    reservation made), **400** (invalid input)
+==================  ===================================================================
+
+The following example demonstrates how to query the event ID for an origin defined in
+:file:`origin.xml` using the command-line program :program:`curl`. The request header
+``Content-Type`` must be specified. It is assumed that :program:`scevent` is configured
+with ``restAPI = 18182``.
+
+.. code-block:: sh
+
+   curl -v -X POST http://localhost:18182/api/1/try-to-associate -H "Content-Type: text/xml" -d @origin.xml
+
+To additionally let the receiver reserve a new event ID when no existing event matches
+the supplied origin, append the ``allocate`` query parameter:
+
+.. code-block:: sh
+
+   curl -v -X POST "http://localhost:18182/api/1/try-to-associate?allocate" -H "Content-Type: text/xml" -d @origin.xml
+
+In ``allocate`` mode the reserved ID is cached together with the supplied origin for
+:confval:`eventIDSync.cacheRetention` seconds (and, if :confval:`eventIDSync.db` is set,
+also stored in the persistent database for :confval:`eventIDSync.databaseRetention`
+seconds, or indefinitely when that is negative). A local origin processed by the
+receiving instance which matches the cached or stored foreign origin (same time,
+distance and optionally matching pick IDs) will then reuse the reserved ID instead of
+allocating a new one, ensuring that the main instance and the secondary instance
+converge on the same event ID for the same earthquake.
+
+
+.. _scevent-restapi-allocate:
+
+allocate
+--------
+
+Reserve a brand-new, distinct event ID for a provided origin. Unlike
+:ref:`try-to-associate <scevent-restapi-associate>`, this endpoint never matches the
+origin against existing events: it always allocates and reserves a fresh event ID, even
+when the origin would match an event that already exists. It is used internally by a
+secondary instance when it must form a *separate* event for an origin that is already
+associated elsewhere — the :func:`EvSplitOrg` (split an origin into its own event) and
+:func:`EvNewEvent` (force a new event) journal commands. In those cases querying
+``try-to-associate`` would return the ID of the very event the origin already belongs
+to, which is not what a split or forced new event needs.
+
+==================  ===================================================================
+Request/Response    Description
+==================  ===================================================================
+**Location**        ``/api/1/allocate``
+**HTTP Methods**    POST
+**Request data**    :term:`SCML` containing an :ref:`EventParameters
+                    <api-python-datamodel-eventparameters>` element with one and only
+                    one :ref:`Origin <api-python-datamodel-origin>`. :ref:`Pick
+                    <api-python-datamodel-pick>` objects associated with the origin's
+                    arrivals may be included so that the receiver can match by pick IDs
+                    in addition to time and location.
+**Request header**  ``Content-Type: text/xml`` (no subtype allowed)
+**Response data**   Event ID string
+**Response code**   **200** (new event ID reserved), **204** (no event ID could be
+                    allocated), **400** (invalid input)
+==================  ===================================================================
+
+The following example reserves a new event ID for an origin defined in
+:file:`origin.xml`. It is assumed that :program:`scevent` is configured with
+``restAPI = 18182``.
+
+.. code-block:: sh
+
+   curl -v -X POST http://localhost:18182/api/1/allocate -H "Content-Type: text/xml" -d @origin.xml
+
+The reserved ID is cached (and, if :confval:`eventIDSync.db` is set, persisted) exactly
+as in the ``allocate`` mode of :ref:`try-to-associate <scevent-restapi-associate>`, so a
+repeated request for the same origin returns the same reserved ID rather than allocating
+a second one.
+
+
+
+Plugins
+=======
+
+* :ref:`EventType <scevent_eventtype>`
+
+  evtype plugin for scevent
+* :ref:`RegionCheck <scevent_regioncheck>`
+
+  evrc plugin for scevent
+
+.. _scevent_configuration:
+
+Module Configuration
+====================
+
+| :file:`etc/defaults/global.cfg`
+| :file:`etc/defaults/scevent.cfg`
+| :file:`etc/global.cfg`
+| :file:`etc/scevent.cfg`
+| :file:`~/.seiscomp/global.cfg`
+| :file:`~/.seiscomp/scevent.cfg`
+
+scevent inherits :ref:`global options<global-configuration>`.
+
+
+
+.. confval:: eventIDPrefix
+
+   Type: *string*
+
+   Prefix for all Event IDs
+
+
+.. confval:: eventIDPattern
+
+   Default: ``%p%Y%04c``
+
+   Type: *string*
+
+   Defines the pattern to generate an event ID.
+   
+   %p : prefix
+   
+   %Y : year
+   
+   %[w]c: alpha character
+   
+   %[w]C: upper case alpha character
+   
+   %[w]d: decimal
+   
+   %[w]x: hexadecimal
+   
+   %[w]X: upper case hexadecimal
+   
+   [w] is an optional width parameter.
+   
+   The time of the event within one year is roughly encoded
+   by the combination of characters or the decimal or hexadecimal
+   value. The year \(%Y\) must therefore not be dropped from the pattern.
+   
+   The number of possible event IDs, hence SeisComP events, during one
+   calender year equals the number of possible combinations of [w]
+   characters or the largest number with [w] decimal or hexadecimal
+   places. The length of one time slot for one event ID is determined
+   as:
+   
+   Length \= \(1 year\) \/ \(number of time slots\)
+   
+   If multiple events occur within one time slot, the next available
+   ID is consumed.
+
+
+.. confval:: eventIDLookupMargin
+
+   Default: ``-1``
+
+   Type: *int*
+
+   Configures the number of event ID slots to look back and
+   forth when an event ID is already taken. The default in
+   previous versions was 5. Now \-1 means that the margin is
+   determined automatically based on
+   \"eventAssociation.eventTimeBefore\" and
+   \"eventAssociation.eventTimeAfter\". According to the
+   configured \"eventIDPattern\" a fixed time range per slot
+   can be computed and with that width the number of look
+   ahead slots and look back slots can be computed based on
+   the given time ranges for event association.
+
+
+.. confval:: populateFERegion
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   If enabled, then the EventDescription with type 'Flinn\-Engdahl region'
+   will be populated with the Flinn\-Engdahl region name. The EventDescription
+   with type 'region name' will only be populated with a custom region name
+   if one exists. If the latter does not exist, an existing EventDescription
+   with type 'region name' will be removed.
+
+
+.. confval:: restAPI
+
+   Type: *host-with-port*
+
+   Defines the bind address of the REST API of form [address:]port. This
+   API provides the endpoints \/api\/1\/try\-to\-associate, which allows to
+   query for possible event associations of origin candidates, and
+   \/api\/1\/allocate, which reserves a new, distinct event ID for an
+   origin.
+
+
+.. confval:: processing.blacklist.eventIDs
+
+   Type: *list:string*
+
+   Defines a list of event ID patterns to be blocked. The
+   items of this list are only matched against %c, %C, %d,
+   %x and %X of the eventIDPattern description. Year \(%Y\)
+   and prefix \(%p\) are not matched. The match is
+   case\-sensitive, so 'abcd' would only by blocked in
+   combination with %c. If %C is used, 'ABCD' is matched.
+
+
+.. note::
+   **eventAssociation.\***
+   *Criteria defining if Origins are associated to an event*
+   *and which Origins and magnitudes become preferred.*
+
+
+
+.. confval:: eventAssociation.minimumDefiningPhases
+
+   Default: ``10``
+
+   Type: *int*
+
+   Minimum number of Picks for an Origin that is automatic
+   and cannot be associated with an Event to be allowed to
+   form an new Event.
+
+
+.. confval:: eventAssociation.minimumScore
+
+   Type: *double*
+
+   Minimum score of an automatic Origin to be allowed to
+   form an new Event. This requires an activated score
+   plugin and a score processor. Configure \"score\"
+   for defining the score processor and the score processor
+   parameters. If minimumScore is defined, \"minimumDefiningPhases\"
+   has no effect on association as this phase check will be
+   superseded by the score check. It is the task of the score
+   processor to evaluate a proper score for all input Origins.
+
+
+.. confval:: eventAssociation.ignoreFMDerivedOrigins
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Ignore and do not associate Origins derived
+   from CMT\/MT inversions.
+
+
+.. confval:: eventAssociation.eventTimeBefore
+
+   Default: ``1800``
+
+   Type: *double*
+
+   Unit: *s*
+
+   Time range before the Origin time of an incoming Origin to
+   search for matching events.
+
+
+.. confval:: eventAssociation.eventTimeAfter
+
+   Default: ``1800``
+
+   Type: *double*
+
+   Unit: *s*
+
+   Time range after the Origin time of an incoming Origin to
+   search for matching events.
+
+
+.. confval:: eventAssociation.minimumMatchingArrivals
+
+   Default: ``3``
+
+   Type: *int*
+
+   Minimum number of matching picks between two Origins to be
+   associated to the same event.
+
+
+.. confval:: eventAssociation.maximumMatchingArrivalTimeDiff
+
+   Default: ``-1``
+
+   Type: *double*
+
+   Unit: *s*
+
+   Negative time window: compare only pickIDs to find
+   matching arrivals. A non negative
+   value \(including 0\) compares pick times regardless
+   of the pickID. Pass: \|pick1.time \- pick2.time\| <\= threshold
+
+
+.. confval:: eventAssociation.compareAllArrivalTimes
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   This parameter is only used in conjunction with
+   \"eventAssociation.maximumMatchingArrivalTimeDiff\".
+   If a station has multiple associated arrivals for a
+   particular event, this flag defines if the time distance
+   of a new pick to all arrivals must be within
+   \"eventAssociation.maximumMatchingArrivalTimeDiff\"
+   or if one matching arrival is enough.
+
+
+.. confval:: eventAssociation.allowLooseAssociatedArrivals
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Allows to match picks that are associated with weight 0.
+
+
+.. confval:: eventAssociation.maximumTimeSpan
+
+   Default: ``60``
+
+   Type: *double*
+
+   Unit: *s*
+
+   Associates an Origin with an existing event if the Origin
+   time differs not more than 60 seconds unless
+   \"eventAssociation.minimumMatchingArrivals\" matches.
+
+
+.. confval:: eventAssociation.maximumDistance
+
+   Default: ``5``
+
+   Type: *double*
+
+   Unit: *degrees*
+
+   Allowed location difference between an incoming Origin
+   compared with preferred Origins to get associated.
+
+
+.. confval:: eventAssociation.magTypes
+
+   Default: ``M``
+
+   Type: *list:string*
+
+   List of magnitude types considered for computing priorities
+   in order to declare the preferred magnitude of an event.
+   Magnitudes not listed have a priority of 0 and are ranked
+   by station count only.
+   
+   Magnitudes must meet
+   \"eventAssociation.minimumMagnitudes\" and
+   \"eventAssociation.minMwCount\" unless
+   \"eventAssociation.enableFallbackMagnitude\" is true.
+   If listed, Mw\-\/Mw\(\)\-type magnitudes are preferred over all
+   others. Next, the magnitude type with the largest station
+   count wins \(default\) unless
+   \"eventAssociation.magPriorityOverStationCount\" is
+   true. If the station count is equal, priority is highest
+   for the magnitude earliest in the list.
+   
+   If \"eventAssociation.magPriorityOverStationCount\" is
+   true, highest priority is first given to magnitude types
+   earliest in the list before testing the station count.
+   
+   Example:
+   
+   M, mBc, Mw\(mB\), Mwp, ML, MLv, mb
+
+
+.. confval:: eventAssociation.minimumMagnitudes
+
+   Default: ``4``
+
+   Type: *int*
+
+   Minimum number of station magnitudes required for
+   considering non\-Mw or non\-Mw\(\) magnitudes, as
+   preferred magnitude.
+   
+   Also consider
+   \"eventAssociation.enableFallbackMagnitude\".
+
+
+.. confval:: eventAssociation.minMwCount
+
+   Default: ``8``
+
+   Type: *int*
+
+   Minimum number of station magnitudes required for
+   considering Mw or any derived moment magnitude, Mw\(\), as
+   preferred magnitude. The moment magnitudes must also meet
+   \"eventAssociation.minimumMagnitudes\".
+   
+   Also consider
+   \"eventAssociation.enableFallbackMagnitude\".
+
+
+.. confval:: eventAssociation.enableFallbackMagnitude
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   If true, one magnitude will be preferred even if magnitude
+   criteria \(\"eventAssociation.minimumMagnitudes\",
+   \"eventAssociation.minMwCount\"\) are not fulfilled
+   by any magnitude.
+
+
+.. confval:: eventAssociation.mbOverMwCount
+
+   Default: ``30``
+
+   Type: *int*
+
+   Minimum number of station magnitudes which ensures that
+   Mw\(mB\) will be preferred and not mb.
+
+
+.. confval:: eventAssociation.mbOverMwValue
+
+   Default: ``6``
+
+   Type: *double*
+
+   Average between mb and Mw\(mB\) which must be exceeded to
+   become Mw\(mB\) preferred.
+
+
+.. confval:: eventAssociation.magPriorityOverStationCount
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   If false, then the station count rules out the magnitude priority
+   which is only taken into account if two magnitudes have the
+   same station count.
+   
+   If true, then the priority rules out the station count
+   which is only taken into account if two magnitudes have the
+   same priority.
+
+
+.. confval:: eventAssociation.priorities
+
+   Default: ``AGENCY,STATUS,PHASES_AUTOMATIC,TIME_AUTOMATIC``
+
+   Type: *list:string*
+
+   Values: ``'',AGENCY,AUTHOR,MODE,PHASES,PHASES_AUTOMATIC,RMS,RMS_AUTOMATIC,SCORE,STATUS,TIME,TIME_AUTOMATIC``
+
+   The general priority list to decide if new Origins become
+   preferred.
+   
+   Tokens are processed in the given order. Each token in the
+   list corresponds to a check that is performed. Each check
+   computes a score of the incoming Origin \(s1\) and the
+   currently preferred Origin \(s2\). The origin with the higher
+   score becomes preferred for the event. If s1 equals s2, the
+   next check in the list is performed. Once a check prefers an
+   origin, all subsequent checks are ignored.
+   
+   Available tokens \(checks\):
+   
+   \* AGENCY: check based on agency priorities
+   
+   \* AUTHOR: check based on author priorities
+   
+   \* MODE: priority from evaluation mode. Priority values are
+   
+   0 : unset
+   
+   1 : automatic
+   
+   2 : manual, manual over\-rules automatic
+   
+   \* STATUS: priority combined from evaluation status and
+   evaluation mode. Priority values are
+   
+   \-100 : status is rejected
+   
+   \-1 : status is reported
+   
+   0 : status is preliminary or status is unset and mode is automatic
+   
+   1 : status is confirmed or status is unset and mode is manual
+   
+   2 : status is reviewed
+   
+   3 : status is final
+   
+   \* METHOD: priority based on the methods defined in \"eventAssociation.methods\"
+   
+   \* PHASES: higher phase count \= higher priority
+   
+   \* PHASES_AUTOMATIC: only checks phase priorities for incoming
+   automatic Origins. Higher phase count \= higher priority.
+   
+   \* RMS: lower RMS \= higher priority.
+   
+   \* RMS_AUTOMATIC: only check RMS on incoming automatic Origins.
+   Lower RMS \= higher priority.
+   
+   \* TIME: more recent Origins \(creationTime\) have higher priorities.
+   
+   \* TIME_AUTOMATIC: only check creationTime of incoming
+   automatic Origins. More recent Origins \(creationTime\) have higher priorities.
+   
+   \* SCORE: priority based on the score according to a configured
+   ScoreProcessor and prefers the Origin\/FocalMechanism with
+   the highest score.
+   
+   Empty priority list replicates the hard\-wired default
+   behavior: AGENCY,STATUS,PHASES_AUTOMATIC,TIME_AUTOMATIC
+
+
+.. confval:: eventAssociation.agencies
+
+   Type: *list:string*
+
+   The priority list of agency IDs. When scevent comes to the
+   point to select a preferred Origin based on AGENCY it orders
+   all Origins by its agency priority selecting the best one
+   among the highest priority agency. It also defines the
+   agency priority for custom priority checks.
+   
+   The parameter is only considered when AGENCY is used in
+   \"eventAssociation.priorities\".
+
+
+.. confval:: eventAssociation.authors
+
+   Type: *list:string*
+
+   The author priority list. When scevent comes to the
+   point to select a preferred Origin based on AUTHOR it orders
+   all Origins by its author priority and selects then the best
+   one among the highest priority author. It also defines the
+   author priority for custom priority checks.
+   
+   The parameter is only considered when AUTHOR is used
+   in \"eventAssociation.priorities\".
+
+
+.. confval:: eventAssociation.methods
+
+   Type: *list:string*
+
+   The method priority list. When the scevent comes to the
+   point to select a preferred Origin based on METHOD it orders
+   all Origins by its methodID priority and selects then the
+   best one among the highest priority method. It also defines
+   the method priority for custom priority checks. A defined
+   method string must match exactly the string in
+   Origin.methodID.
+   
+   The parameter is only considered when METHODS is used
+   in \"eventAssociation.priorities\".
+
+
+.. confval:: eventAssociation.score
+
+   Type: *string*
+
+   Defines the ScoreProcessor interface to be used along
+   with priority \"SCORE\" when defined in
+   \"eventAssociation.priorities\".
+
+
+.. confval:: eventAssociation.enablePreferredFMSelection
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Enables the selection of the preferred FocalMechanism. If set
+   to false then only explicit commands will have effect on the
+   preferred FocalMechanism selection, namely the EvPrefFocMecID
+   command.
+
+
+.. confval:: eventAssociation.declareFakeEventForRejectedOrigin
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   If the preferred Origin has evaluation status 'rejected', the
+   Event type will be set to 'not existing' unless the Event
+   type has been fixed by an operator or the preferred Origin
+   has been fixed.
+
+
+.. confval:: eventAssociation.delayTimeSpan
+
+   Default: ``0``
+
+   Type: *int*
+
+   Unit: *s*
+
+   The timespan to delay Event creation from new Origins which
+   cannot be associated to an existing Event.
+
+
+.. note::
+   **eventAssociation.region.\***
+   *Region filter for creating events. Use with care! Origins*
+   *outside may be ignored even if they would become preferred*
+   *otherwise. Empty value deactivates testing this parameter.*
+
+
+
+.. confval:: eventAssociation.region.rect
+
+   Type: *list:double*
+
+   Region by geographic coordinates. Empty value
+   deactivates testing this parameter.
+   
+   Format: \"South,East,North,West\"
+
+
+.. confval:: eventAssociation.region.minDepth
+
+   Type: *double*
+
+   Unit: *km*
+
+   Minimum depth. Empty value deactivates testing this
+   parameter.
+
+
+.. confval:: eventAssociation.region.maxDepth
+
+   Type: *double*
+
+   Unit: *km*
+
+   Maximum depth. Empty value deactivates testing this
+   parameter.
+
+
+.. note::
+   **eventAssociation.delayFilter.\***
+   *Configure an Origin filter to delay Origin for being*
+   *processed. If more than one filter is given they are*
+   *combined with AND. The application requires*
+   *eventAssociation.delayTimeSpan > 0.*
+
+
+
+.. confval:: eventAssociation.delayFilter.agencyID
+
+   Type: *string*
+
+   The agency ID of the Origin to be delayed.
+
+
+.. confval:: eventAssociation.delayFilter.author
+
+   Type: *string*
+
+   The author of the Origin to be delayed.
+
+
+.. confval:: eventAssociation.delayFilter.evaluationMode
+
+   Type: *string*
+
+   Values: ``automatic,manual``
+
+   The evaluation mode of the Origin to be delayed.
+
+
+.. note::
+   **eventIDSync.\***
+   *Parameters controlling the synchronization of event IDs between several*
+   *distributed :program:`scevent` instances deployed for redundancy. One*
+   *instance is designated the main instance and allocates event IDs on*
+   *behalf of all the secondary instances; each secondary instance asks the*
+   *main instance via its REST API before creating a new event so that all*
+   *instances converge on the same ID for the same earthquake.*
+   **
+   *When :confval:`eventIDSync.main` is empty this instance acts as a main*
+   *instance (or as a standalone instance if no secondary instance ever*
+   *connects). When set, it acts as a secondary instance. See*
+   *:ref:`scevent-eventid-sync` in the documentation for the full mechanism,*
+   *including the /api/1/try-to-associate?allocate endpoint used internally*
+   *for the handshake and the /api/1/allocate endpoint used for the*
+   *split-origin and forced new-event commands.*
+
+
+
+.. confval:: eventIDSync.main
+
+   Type: *string*
+
+   URL of the main instance's REST API, for example
+   \"http:\/\/event\-main.example.org:18182\". Leave empty to make this
+   instance a main instance \(or a standalone instance\). When set, this
+   instance acts as a secondary instance and asks the configured main
+   instance for an event ID before creating a new event. If the main
+   instance cannot be reached within :confval:`eventIDSync.mainTimeout`
+   seconds the secondary instance falls back to local event ID
+   allocation.
+   
+   The URL may include an explicit path; if no path is given,
+   \"\/api\/1\/try\-to\-associate\" is used. Both \"http\" and \"https\" schemes
+   are supported.
+
+
+.. confval:: eventIDSync.mainTimeout
+
+   Default: ``5``
+
+   Type: *int*
+
+   Unit: *s*
+
+   Maximum number of seconds a secondary instance waits for the main
+   instance's response before falling back to local event ID
+   allocation. Only effective when :confval:`eventIDSync.main` is set.
+   Must be greater than zero.
+
+
+.. confval:: eventIDSync.cacheRetention
+
+   Default: ``1800``
+
+   Type: *int*
+
+   Unit: *s*
+
+   Number of seconds a main instance keeps a reserved event ID in its
+   in\-memory cache, together with the foreign origin that triggered the
+   reservation. While the entry is cached, a local origin matching that
+   foreign origin is assigned the same event ID instead of allocating a
+   new one. After this time the entry is dropped from the cache and the
+   event ID may be reused by subsequent allocations. Must be greater
+   than zero.
+
+
+.. confval:: eventIDSync.db
+
+   Type: *string*
+
+   Path to an SQLite database file used by a main instance to keep the
+   event IDs it reserves on behalf of secondary instances beyond the
+   lifetime of the in\-memory cache. When empty \(the default\) the
+   reservations live only in memory and are lost when scevent restarts.
+   When set, reservations survive restarts and may cover a much larger
+   origin\/event\-ID set than the in\-memory cache: on a try\-to\-associate
+   request the main instance looks up the incoming origin both by its
+   public ID \(fast path\) and by a windowed epicenter\/shared\-pick
+   comparison over all stored origins around the incoming origin time
+   \(bounded by :confval:`eventAssociation.eventTimeBefore` and
+   :confval:`eventAssociation.eventTimeAfter`\), mirroring the strategy
+   used against the SeisComP database. Only relevant in main mode
+   \(:confval:`eventIDSync.main` empty\).
+
+
+.. confval:: eventIDSync.databaseRetention
+
+   Default: ``-1``
+
+   Type: *int*
+
+   Unit: *s*
+
+   Number of seconds a reserved event ID is kept in the persistent
+   database given by :confval:`eventIDSync.db`, measured by origin
+   time. Should be at least as large as
+   :confval:`eventIDSync.cacheRetention`; a larger value lets the main
+   instance keep answering secondary\-instance requests for older
+   origins after a restart. Rows older than this are pruned at startup
+   and periodically at runtime. A negative value \(the default\)
+   disables pruning, keeping reservations indefinitely.
+
+
+.. _scevent/EventType:
+
+
+EventType extension
+-------------------
+
+evtype plugin for scevent
+
+
+.. note::
+   **eventType.\***
+   *Set the event type based on type comments of picks. Add the*
+   *plugin "evtype" to the list of plugins in the order*
+   *of priority to make this feature available.*
+
+
+
+.. confval:: eventType.setEventType
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Allow setting the event type.
+   The type of events which have manual origins will
+   not be changed unless configured explicitely by
+   \"overwriteManual\".
+
+
+.. confval:: eventType.overwriteEventType
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Allow overwriting existing event types set by other modules.
+
+
+.. confval:: eventType.overwriteManual
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Allow setting the event type if the mode of the preferred
+   origin is manual or if the event type was set manually.
+
+
+.. confval:: eventType.pickCommentIDs
+
+   Default: ``scrttv:eventTypeHint,deepc:eventTypeHint``
+
+   Type: *list:string*
+
+   Consider comments of picks which have one of the
+   given values. An empty list disables setting the type.
+
+
+.. _scevent/RegionCheck:
+
+
+RegionCheck extension
+---------------------
+
+evrc plugin for scevent
+
+
+.. note::
+   **rc.\***
+   *Test if events lie within or outside geographic regions defined*
+   *by polygons.*
+   *Events within a region are flagged as positive, outside as negative.*
+   *The event type is set accordingly. Add the*
+   *plugin "evrc" to the plugins parameter in the*
+   *order of priority to make this feature available. Read the*
+   *documentation of the RegionCheck for more details.*
+
+
+
+.. confval:: rc.setEventType
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Allow setting the event type.
+   The type of events which have manual origins will
+   not be changed unless configured explicitely by
+   \"overwriteManual\".
+
+
+.. confval:: rc.overwriteEventType
+
+   Default: ``true``
+
+   Type: *boolean*
+
+   Allow overwriting existing event types. Disabling does not
+   allow accounting for changes in source region.
+
+
+.. confval:: rc.overwriteManual
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Allow setting the event type if the mode of the preferred
+   origin is manual or if the event type was set manually.
+
+
+.. confval:: rc.regions
+
+   Default: ``!reject``
+
+   Type: *list:string*
+
+   The list of closed polygon names defining regions for
+   flagging event as positive or negative.
+   A polygon name defines a positive region but names with
+   prefix \!  \(exclamation mark\) define negative regions.
+   Evaluation is done in the order of the polygons. The last
+   matching criteria applies and the event type is set
+   accordingly.
+   
+   Default: If events are not positive or are negative regions
+   the event type is set to \"outside of network
+   interest\". Default:
+   \"\!reject\", use \"accecpt\" to overwrite
+   the default.
+   
+   Examples:
+   
+   Events are flagged positive within the polygon
+   \"germany\":
+   
+   germany
+   
+   All events are flagged positive but events within the
+   polygon \"quarries\" are negative:
+   
+   accept,\!quarries
+   
+   Events within the polygon \"germany\" are flagged
+   positive but all other events and events within the polygon
+   \"quarries\" are negaitve:
+   
+   germany,\!quarries
+   
+   All events are flagged positive but events within the
+   polygon \"germany\" are negative and all events
+   within the polygon \"saxony\" are positive:
+   
+   accept,\!germany,saxony
+
+
+.. confval:: rc.readEventTypeFromBNA
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Consider the event type, minDepth and maxDepth values from
+   the polygons defined by GeoJSON or BNA files. Read the
+   documentation of the RegionCheck plugin for the details.
+   
+   When eventType is defined in the polygons, the value
+   supersedes values of 'eventTypePositive' and
+   'eventTypeNegative'.
+   If not set, 'eventTypePositive' and 'eventTypeNegative' are
+   considered.
+
+
+.. confval:: rc.eventTypePositive
+
+   Type: *string*
+
+   New type of an event which is flagged positive. Ignored
+   if 'readEventTypeFromBNA' is active and the polygons
+   define eventType.
+   
+   Empty: Do not set type.
+
+
+.. confval:: rc.eventTypeNegative
+
+   Default: ``"outside of network interest"``
+
+   Type: *string*
+
+   New type of an event which is flagged negative. Ignored
+   if 'readEventTypeFromBNA' is active and the polygons
+   define eventType.
+   
+   Empty means default: \"outside of network interest\"
+
+
+
+Command-Line Options
+====================
+
+.. program:: scevent
+
+
+Generic
+-------
+
+.. option:: -h, --help
+
+   Show help message.
+
+.. option:: -V, --version
+
+   Show version information.
+
+.. option:: --config-file file
+
+   The alternative module configuration file. When this option
+   is used, the module configuration is only read from the
+   given file and no other configuration stage is considered.
+   Therefore, all configuration including the definition of
+   plugins must be contained in that file or given along with
+   other command\-line options such as \-\-plugins.
+
+.. option:: --plugins arg
+
+   Load given plugins.
+
+.. option:: -D, --daemon
+
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
+
+.. option:: --auto-shutdown arg
+
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with
+   \-\-start\-stop\-msg for the master module\).
+
+.. option:: --shutdown-master-module arg
+
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
+
+.. option:: --shutdown-master-username arg
+
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
+
+.. option:: -x, --expiry time
+
+   Time span in hours after which objects expire.
+
+.. option:: -O, --origin-id publicID
+
+   Origin ID to be associated. When given no messages are sent.
+   Only the status of the association is written to stdout.
+
+
+Verbosity
+---------
+
+.. option:: --verbosity arg
+
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
+
+.. option:: -v, --v
+
+   Increase verbosity level \(may be repeated, e.g., \-vv\).
+
+.. option:: -q, --quiet
+
+   Quiet mode: no logging output.
+
+.. option:: --component arg
+
+   Limit the logging to a certain component. This option can
+   be given more than once.
+
+.. option:: -s, --syslog
+
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
+
+.. option:: -l, --lockfile arg
+
+   Path to lock file.
+
+.. option:: --console arg
+
+   Send log output to stdout.
+
+.. option:: --debug
+
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
+
+.. option:: --log-file arg
+
+   Use alternative log file.
+
+
+Messaging
+---------
+
+.. option:: -u, --user arg
+
+   Overrides configuration parameter :confval:`connection.username`.
+
+
+.. option:: -H, --host arg
+
+   Overrides configuration parameter :confval:`connection.server`.
+
+
+.. option:: -t, --timeout arg
+
+   Overrides configuration parameter :confval:`connection.timeout`.
+
+
+.. option:: -g, --primary-group arg
+
+   Overrides configuration parameter :confval:`connection.primaryGroup`.
+
+
+.. option:: -S, --subscribe-group arg
+
+   A group to subscribe to.
+   This option can be given more than once.
+
+.. option:: --start-stop-msg arg
+
+   Default: ``0``
+
+   Set sending of a start and a stop message.
+
+
+Database
+--------
+
+.. option:: --db-driver-list
+
+   List all supported database drivers.
+
+.. option:: -d, --database arg
+
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
+
+.. option:: --config-module arg
+
+   The config module to use.
+
+.. option:: --inventory-db arg
+
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
+
+.. option:: --db-disable
+
+   Do not use the database at all
+
+
+Input
+-----
+
+.. option:: --ep
+
+   Event parameters XML file for offline processing of all
+   contained origins. Use '\-' to read from stdin.
+
+.. option:: --reprocess
+
+   Reprocess event parameters ignoring all event and journal
+   objects in input file. Works only in combination with '\-\-ep'.
+
+.. option:: --update-event-id
+
+   Update IDs of events if they already exist. Works only in
+   combination with '\-\-ep'.
+
+.. option:: --clear-cache
+
+   Send a clear cache message and quit.
+
+.. option:: --disable-info-log
+
+   Do not populate the scevent\-processing\-info.log file.
+
+
+Output
+------
+
+.. option:: -f, --formatted
+
+   Use formatted XML output along with '\-\-ep'. Otherwise XML
+   is unformatted.
+

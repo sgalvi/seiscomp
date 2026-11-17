@@ -1,0 +1,17 @@
+pkgname=vortex
+pkgver=2024.320
+pkgrel=6
+pkgdesc=('Volcano monitoring GUI (commercial)')
+pkgkeywords=('multi-sensor RSAM SSAM volcano monitoring')
+pkgchangelog=('share/doc/vortex/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('ea74930caccaadb27f2f3acbac0868829518891edeac54025b2dac16b042ed58')
+pkgsize=('25138311')
+pkginstallsize=('30886835')
+filename=('vortex-2024.320-seiscomp-6-debian-11-x86_64.tar.gz')
+builddate=('2024-11-21 22:25:45')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')
+osinstallscripts=('install-vortex.sh')

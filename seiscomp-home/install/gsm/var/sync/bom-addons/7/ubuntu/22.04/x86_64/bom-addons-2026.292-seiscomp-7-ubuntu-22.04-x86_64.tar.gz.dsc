@@ -1,0 +1,17 @@
+pkgname=bom-addons
+pkgver=2026.292
+pkgrel=7
+pkgdesc=('Custom package used by BOM (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('cd61c848f95b13c88ec933071596a774bcca60c4a3a3b921e59dc0dc2fbd55be')
+pkgsize=('4546528')
+pkginstallsize=('7547737')
+pkgfilecount=('338')
+filename=('bom-addons-2026.292-seiscomp-7-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-16 22:09:56')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

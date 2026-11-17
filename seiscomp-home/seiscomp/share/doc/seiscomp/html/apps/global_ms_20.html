@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html  lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Ms_20 &#8212; SeisComP Release documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <script type="text/javascript" src="../_static/seiscomp.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="mb" href="global_mb.html" />
+    <link rel="prev" title="RecordStream" href="global_recordstream.html" /> 
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="brand">
+          <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
+           <!-- span class="title">SeisComP Release</span -->
+          <span class="version">7.4.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="container">
+        <div class="content"><a class="pull-right" id="sidebar-toggle">TOC</a>
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <ul>
+        <li class="right">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">
+            index
+          </a>
+        </li>
+        <li class="right">
+          <a href="global_mb.html" title="mb"
+             accesskey="N">
+            next
+          </a>
+        </li>
+        <li class="right">
+          <a href="global_recordstream.html" title="RecordStream"
+             accesskey="P">
+            previous
+          </a>
+        </li>
+        <li class="nav-item nav-item-0">
+          <a href="../index.html">Home</a>
+        </li>
+        <li class="nav-item nav-item-1">
+          <a href="../toc/extensions.html" >Extensions</a>
+        </li>
+        <li class="nav-item nav-item-2">
+          <a href="../toc/extensions/global.html" accesskey="U">global</a>
+        </li> 
+      </ul>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="fitted content" id="anchors-container">
+        <div class="body" role="main">
+          
+  <section id="ms-20">
+<span id="global-ms-20"></span><h1>Ms_20<a class="headerlink" href="#ms-20" title="Permalink to this heading">¶</a></h1>
+<p>Surface wave magnitude measured at around 20 s</p>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
+<p>Ms_20 is the surface wave magnitude measured on the vertical component at around
+20 s period     in accordance with the IASPEI standards. Please read the
+specifications in <span id="id1">IASPEI [<a class="reference internal" href="../base/references.html#id55" title="IASPEI. Summary of magnitude working group recommendations on standard procedures for determining earthquake magnitudes from digital data. IASPEI Website, 2013. URL: http://www.iaspei.org/commissions/commission-on-seismological-observation-and-interpretation/Summary_WG_recommendations_20130327.pdf.">55</a>]</span>.</p>
+<section id="amplitude">
+<h3>Amplitude<a class="headerlink" href="#amplitude" title="Permalink to this heading">¶</a></h3>
+<p>The Ms_20 amplitudes are measured on vertical-component displacement seismograms
+corrected for the instrument response of a <a class="reference internal" href="../base/glossary.html#term-WWSSN_LP"><span class="xref std std-term">WWSSN_LP</span></a> seismograph.
+For configuration of amplitude measurement create and configure an
+<em>Ms_20</em>-named amplitude-type profile in global bindings.
+Bindings configuration parameters (replace <em>$name</em> by <em>Ms_20</em>):</p>
+<ul class="simple">
+<li><p>Time window: <em>max(OT+R/4,-5)</em> - <em>min(OT+R/3,3000)</em>, configurable:
+<a class="reference internal" href="global.html#confval-amplitudes.-name.signalBegin"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.$name.signalBegin</span></code></a> and
+<a class="reference internal" href="global.html#confval-amplitudes.-name.signalEnd"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.$name.signalEnd</span></code></a>.</p></li>
+<li><p>Period range: 18 s - 22 s, configurable: <a class="reference internal" href="global.html#confval-amplitudes.-name.minPeriod"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.$name.minPeriod</span></code></a>,
+<a class="reference internal" href="global.html#confval-amplitudes.-name.maxPeriod"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.$name.maxPeriod</span></code></a>. Some agencies extend the range up to
+12 s - 28 s.</p></li>
+<li><p>Default distance range: 20 - 160 deg, configurable:
+<a class="reference internal" href="global.html#confval-amplitudes.-name.minDist"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.$name.minDist</span></code></a>, <a class="reference internal" href="global.html#confval-amplitudes.-name.maxDist"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.$name.maxDist</span></code></a>,</p></li>
+<li><p>Depth range: &lt;= 100 km, configurable:  <a class="reference internal" href="global.html#confval-amplitudes.-name.minDepth"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.$name.minDepth</span></code></a>,
+<a class="reference internal" href="global.html#confval-amplitudes.-name.maxDepth"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.$name.maxDepth</span></code></a>,</p></li>
+<li><p>Signal-to-noise ration: 0, configurable:  <a class="reference internal" href="global.html#confval-amplitudes.-name.minSNR"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.$name.minSNR</span></code></a>,</p></li>
+<li><p>Clipped seismograms: false, configurable:
+<a class="reference internal" href="global.html#confval-amplitudes.-name.saturationThreshold"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.$name.saturationThreshold</span></code></a>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The bindings configuration parameters <code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.Ms_20.minVelocity</span></code>
+and <code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.Ms_20.maxVelocity</span></code> are obsolete, not considered
+anymore and replaced by <a class="reference internal" href="global.html#confval-amplitudes.-name.signalBegin"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.$name.signalBegin</span></code></a> and
+<a class="reference internal" href="global.html#confval-amplitudes.-name.signalEnd"><code class="xref std std-confval docutils literal notranslate"><span class="pre">amplitudes.$name.signalEnd</span></code></a>, respectively.</p>
+</div>
+</section>
+<section id="station-magnitude">
+<h3>Station Magnitude<a class="headerlink" href="#station-magnitude" title="Permalink to this heading">¶</a></h3>
+<p>Ms_20 is the surface-wave magnitude at 20 s period based on the recommendations
+by the IASPEI magnitude working group issued on 27 March, 2013 (<span id="id2">IASPEI [<a class="reference internal" href="../base/references.html#id55" title="IASPEI. Summary of magnitude working group recommendations on standard procedures for determining earthquake magnitudes from digital data. IASPEI Website, 2013. URL: http://www.iaspei.org/commissions/commission-on-seismological-observation-and-interpretation/Summary_WG_recommendations_20130327.pdf.">55</a>]</span>).</p>
+<div class="math">
+<p><img src="../_images/math/5372a118ea890a46b0b8ebc3b8388fef8a21d6bc.svg" alt="Ms(20) = \log \left(\frac{A}{T}\right) + 1.66 \log(\Delta) + 0.3"/></p>
+</div><p>with</p>
+<ul class="simple">
+<li><p>A: <a class="reference internal" href="../base/glossary.html#term-WWSSN_LP"><span class="xref std std-term">WWSSN_LP</span></a> corrected ground displacement in units of nm measured on
+the vertical-component seismogram as the maximum absolute trace amplitude of a
+surface wave at periods between 18 s and 22 s,</p></li>
+<li><p>T: period of the surface wave in seconds.</p></li>
+</ul>
+<p>The term <em>Ms_20</em> is chosen in accordance with the IASPEI standard as of 2013
+(<span id="id3">IASPEI [<a class="reference internal" href="../base/references.html#id55" title="IASPEI. Summary of magnitude working group recommendations on standard procedures for determining earthquake magnitudes from digital data. IASPEI Website, 2013. URL: http://www.iaspei.org/commissions/commission-on-seismological-observation-and-interpretation/Summary_WG_recommendations_20130327.pdf.">55</a>]</span>). Alternatively, the term <em>Ms(20)</em> may be used.
+For configuration of magnitude computation create and configure an <em>Ms_20</em>-named
+magnitude-type profile in global bindings.
+Bindings configuration parameters (replace <em>$name</em> by <em>Ms_20</em>):</p>
+<ul class="simple">
+<li><p>Amplitude unit: nm, ground displacement corrected for <a class="reference internal" href="../base/glossary.html#term-WWSSN_LP"><span class="xref std std-term">WWSSN_LP</span></a></p></li>
+<li><p>Period range: 18 s - 22 s, configurable: <a class="reference internal" href="global.html#confval-magnitudes.-name.minPeriod"><code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.$name.minPeriod</span></code></a>,
+<a class="reference internal" href="global.html#confval-magnitudes.-name.maxPeriod"><code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.$name.maxPeriod</span></code></a>. Some agencies extend the range up to
+12 s - 28 s.</p></li>
+<li><p>Default distance range: 20 - 160 deg, configurable:
+<a class="reference internal" href="global.html#confval-magnitudes.-name.minDist"><code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.$name.minDist</span></code></a>, <a class="reference internal" href="global.html#confval-magnitudes.-name.maxDist"><code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.$name.maxDist</span></code></a></p></li>
+<li><p>Depth range: &lt;= 100 km, configurable:  <a class="reference internal" href="global.html#confval-magnitudes.-name.minDepth"><code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.$name.minDepth</span></code></a>,
+<a class="reference internal" href="global.html#confval-magnitudes.-name.maxDepth"><code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.$name.maxDepth</span></code></a></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The bindings configuration parameters <code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.Ms_20.lowerPeriod</span></code>
+and <code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.Ms_20.upperPeriod</span></code> are obsolete, not considered
+anymore and replace by <a class="reference internal" href="global.html#confval-magnitudes.-name.minPeriod"><code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.$name.minPeriod</span></code></a> and
+<a class="reference internal" href="global.html#confval-magnitudes.-name.maxPeriod"><code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.$name.maxPeriod</span></code></a>, respectively.</p>
+</div>
+</section>
+<section id="network-magnitude">
+<h3>Network magnitude<a class="headerlink" href="#network-magnitude" title="Permalink to this heading">¶</a></h3>
+<p>The network magnitude is computed from station magnitudes automatically by
+<a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a> or interactively by <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a>.
+The trimmed mean method is applied. Outliers beyond the outer 12.5% percentiles
+are removed before forming the mean. The method can be adjusted in <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a>
+by <a class="reference internal" href="scmag.html#confval-magnitudes.average"><code class="xref std std-confval docutils literal notranslate"><span class="pre">magnitudes.average</span></code></a>.</p>
+</section>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Add and configure <em>Ms_20</em>-named amplitude and magnitude profiles in global
+bindings.</p></li>
+<li><p>Add <em>Ms_20</em> to the list of measured amplitudes and computed magnitudes in
+the module configuration of <a class="reference internal" href="scamp.html#scamp"><span class="std std-ref">scamp</span></a>, <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a> and <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a>.</p></li>
+<li><p>Configure the averaging method in <a class="reference internal" href="scmag.html#scmag"><span class="std std-ref">scmag</span></a>.</p></li>
+<li><p>Configure the magnitude priority list in <a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a> in case you wish to
+give priority to Ms_20 for becoming the preferred magnitude of an event.</p></li>
+<li><p>Add <em>Ms_20</em> the the list visible magnitudes in the module configuration of
+<a class="reference internal" href="scesv.html#scesv"><span class="std std-ref">scesv</span></a> or <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a>. The magnitude will become visible in the
+summary view of the GUIs.</p></li>
+</ol>
+</section>
+</section>
+
+
+          <div id="anchors-bottom"></div>
+        </div>
+        
+      <div class="sidebar" role="navigation" aria-label="main navigation">
+        <div id="anchors-top"></div>
+        <div id="anchors" class="content">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Ms_20</a><ul>
+<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#amplitude">Amplitude</a></li>
+<li><a class="reference internal" href="#station-magnitude">Station Magnitude</a></li>
+<li><a class="reference internal" href="#network-magnitude">Network magnitude</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="global_recordstream.html"
+                          title="previous chapter">RecordStream</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="global_mb.html"
+                          title="next chapter">mb</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/apps/global_ms_20.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="horizontal layout content">
+        <a class="fade-in" href="https://www.gempa.de" target="_blank">
+          <img class="brand" src="../_static/brands/gempa.svg"/>
+        </a>
+        <div class="stretched align-center fitted content">
+          <div>
+		  Version <b>7.4.0</b> Release
+          </div>
+            <div class="copyright">
+              Copyright &copy; gempa GmbH, GFZ Potsdam.
+            </div>
+        </div>
+        <a class="fade-in" href="https://www.gfz-potsdam.de" target="_blank">
+          <img class="brand" src="../_static/brands/gfz.svg"/>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

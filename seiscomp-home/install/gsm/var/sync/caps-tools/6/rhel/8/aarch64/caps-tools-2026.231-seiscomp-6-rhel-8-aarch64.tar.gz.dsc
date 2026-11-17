@@ -1,0 +1,17 @@
+pkgname=caps-tools
+pkgver=2026.231
+pkgrel=6
+pkgdesc=('Client tools for CAPS, e.g., capstool or rifftest (commercial)')
+pkgkeywords=('caps acquisition tools capstools')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('cc898f32437d612787ebf90a99d1194ccddd0d87a05aef2dd2651c6b2d1d13db')
+pkgsize=('988323')
+pkginstallsize=('3054323')
+pkgfilecount=('6')
+filename=('caps-tools-2026.231-seiscomp-6-rhel-8-aarch64.tar.gz')
+builddate=('2026-11-17 01:42:19')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

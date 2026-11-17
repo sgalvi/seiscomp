@@ -1,0 +1,17 @@
+pkgname=cea-addons
+pkgver=2026.314
+pkgrel=7
+pkgdesc=('Custom package used by CEA (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('17aee5330b94193a2a61e094a6178b6330c35871b95fcd92e48e5a0727876b8a')
+pkgsize=('10087366')
+pkginstallsize=('29694468')
+pkgfilecount=('113')
+filename=('cea-addons-2026.314-seiscomp-7-debian-12-aarch64.tar.gz')
+builddate=('2026-11-10 11:25:22')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

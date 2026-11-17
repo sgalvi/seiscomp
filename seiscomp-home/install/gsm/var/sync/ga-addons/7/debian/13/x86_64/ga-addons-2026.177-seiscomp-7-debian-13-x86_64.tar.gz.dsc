@@ -1,0 +1,17 @@
+pkgname=ga-addons
+pkgver=2026.177
+pkgrel=7
+pkgdesc=('Custom package used by GA (commercial)')
+pkgkeywords=('web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('66729082614392eaf2804bae79817170a3dadf29d82362c8e665e2a4f7efa331')
+pkgsize=('116456')
+pkginstallsize=('419770')
+pkgfilecount=('7')
+filename=('ga-addons-2026.177-seiscomp-7-debian-13-x86_64.tar.gz')
+builddate=('2026-11-17 00:03:45')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

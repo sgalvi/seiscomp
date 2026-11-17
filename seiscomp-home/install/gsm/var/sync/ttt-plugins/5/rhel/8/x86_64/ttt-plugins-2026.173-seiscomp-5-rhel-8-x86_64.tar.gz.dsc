@@ -1,0 +1,16 @@
+pkgname=ttt-plugins
+pkgver=2026.173
+pkgrel=5
+pkgdesc=('Package for different ttt plugins (commercial)')
+pkgkeywords=('ttt custom hycolo')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('2f3cac1a0499e4b3f3664311da58750d78347976baabfd2fd987f7f2ec2e5642')
+pkgsize=('17182')
+pkginstallsize=('49792')
+filename=('ttt-plugins-2026.173-seiscomp-5-rhel-8-x86_64.tar.gz')
+builddate=('2026-06-22 07:10:10')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

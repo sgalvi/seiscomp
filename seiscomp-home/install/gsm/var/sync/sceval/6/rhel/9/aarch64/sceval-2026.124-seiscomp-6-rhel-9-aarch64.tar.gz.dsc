@@ -1,0 +1,16 @@
+pkgname=sceval
+pkgver=2026.124
+pkgrel=6
+pkgdesc=('Origin evaluation in real time (commercial)')
+pkgkeywords=('earthquake monitoring EEW induced earthquake intensity local monitoring microseismic monitoring origin evaluation QC quality control seismic harzard shake map teleseismic monitoring')
+pkgchangelog=('share/doc/sceval/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('631f494fa1eda8bfd5c65f0f4a3526619ec512afa7ff646e690bb0bc6c9a560a')
+pkgsize=('10517769')
+pkginstallsize=('12985421')
+filename=('sceval-2026.124-seiscomp-6-rhel-9-aarch64.tar.gz')
+builddate=('2026-06-09 01:22:05')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

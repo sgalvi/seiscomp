@@ -1,0 +1,17 @@
+pkgname=magnitudes
+pkgver=2024.018
+pkgrel=nightly
+pkgdesc=('Plugins providing magnitudes and yield estimates (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('4b0e2665de09fa365da0982a2394ea1c78cfc6a54219c9b918325b538352b186')
+pkgsize=('25357')
+pkginstallsize=('104216')
+filename=('magnitudes-2024.018-seiscomp-nightly-rhel-8-x86_64.tar.gz')
+builddate=('2024-06-25 22:18:57')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

@@ -1,0 +1,17 @@
+pkgname=tsunawi
+pkgver=2025.198
+pkgrel=5
+pkgdesc=('Tsunami simulation plugin for TOAST that gets data from precalculated database provided by AWI (commercial)')
+pkgkeywords=('TEW tsunami simulation')
+pkgchangelog=('share/doc/simtsunawi/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('686f8ccc514b8dcadc5044d7644b5085af651201cc0250e1c86bae7f2c6a1288')
+pkgsize=('2264573')
+pkginstallsize=('5825882')
+pkgfilecount=('12')
+filename=('tsunawi-2025.198-seiscomp-5-rhel-9-x86_64.tar.gz')
+builddate=('2026-11-14 20:31:37')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

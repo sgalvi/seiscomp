@@ -1,0 +1,17 @@
+pkgname=cea-addons
+pkgver=2026.314
+pkgrel=nightly
+pkgdesc=('Custom package used by CEA (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('0fc4fdf7fc8f7b82f7a7215cbfe09cee34798e1876382b9774aabd014ce9f908')
+pkgsize=('10062713')
+pkginstallsize=('29492066')
+pkgfilecount=('113')
+filename=('cea-addons-2026.314-seiscomp-nightly-debian-13-aarch64.tar.gz')
+builddate=('2026-11-10 11:24:17')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

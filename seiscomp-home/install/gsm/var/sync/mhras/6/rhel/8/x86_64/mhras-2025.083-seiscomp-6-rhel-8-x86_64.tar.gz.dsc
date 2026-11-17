@@ -1,0 +1,16 @@
+pkgname=mhras
+pkgver=2025.083
+pkgrel=6
+pkgdesc=('MHRAS tsunami simulation backend (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('bf96a46280cdfc20cbfef539474c69d904c31889a169d0c06071c1ddc3f85f56')
+pkgsize=('2668161')
+pkginstallsize=('7774347')
+filename=('mhras-2025.083-seiscomp-6-rhel-8-x86_64.tar.gz')
+builddate=('2025-03-24 22:48:42')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

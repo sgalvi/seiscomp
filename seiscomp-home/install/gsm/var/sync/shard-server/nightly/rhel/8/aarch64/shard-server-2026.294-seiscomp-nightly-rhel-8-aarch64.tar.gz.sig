@@ -1,0 +1,11 @@
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEHN/MLuBVpt5rP6FodXYEOhgMOswFAmr7oxEACgkQdXYEOhgM
+Osz7xgf/VTd4TxoYlz4eMGn6p5RAWH01XKpZ1FIAKobzoo7yH2kDSl/fnfizOaCN
+SWR3S9GdlI5xdsuN9f56ujiKt9gW3BWd4BdxfctrrQ0wonMdahTawzt3+UFZwo+c
+dLiIqlt4Jupkmcrg3dEie5eKGOrnzpzvBWlhVNWQGcjd9ZfRhfZeK6doz6WFg2ZX
+eiY2SemaQDhcFhAWiFFlyQXfllRtRSHZ6wT04fj8YMhE9BWBiCzFzjVpQU/G7f7h
+Pvc2jm4ed/meTRNSN2AivIqNlD0oYxOKsOSZ0mKbgxkieSkJcgVmlyzqrY0mz+8A
+DK8XypxCUp7XqY1kXl3csDxb7tul4A==
+=Afz2
+-----END PGP SIGNATURE-----

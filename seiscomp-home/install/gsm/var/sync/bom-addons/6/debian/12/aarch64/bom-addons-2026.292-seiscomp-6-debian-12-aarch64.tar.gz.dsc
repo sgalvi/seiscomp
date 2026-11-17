@@ -1,0 +1,17 @@
+pkgname=bom-addons
+pkgver=2026.292
+pkgrel=6
+pkgdesc=('Custom package used by BOM (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('d0835b6a1442e782fa4a351d267a10e64709dacb94650d39794bc01325a029b3')
+pkgsize=('4532192')
+pkginstallsize=('7649120')
+pkgfilecount=('338')
+filename=('bom-addons-2026.292-seiscomp-6-debian-12-aarch64.tar.gz')
+builddate=('2026-11-17 02:00:36')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

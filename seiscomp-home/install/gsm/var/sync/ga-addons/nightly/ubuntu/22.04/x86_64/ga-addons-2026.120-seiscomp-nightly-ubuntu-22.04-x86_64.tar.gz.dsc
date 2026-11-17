@@ -1,0 +1,16 @@
+pkgname=ga-addons
+pkgver=2026.120
+pkgrel=nightly
+pkgdesc=('Custom package used by GA (commercial)')
+pkgkeywords=('web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('c401dd00b3b08ffe7f2e47c52fc1a5f624c72a5e0ff7e6ae7244d476f19a9c13')
+pkgsize=('113201')
+pkginstallsize=('413177')
+filename=('ga-addons-2026.120-seiscomp-nightly-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-06-08 23:56:38')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

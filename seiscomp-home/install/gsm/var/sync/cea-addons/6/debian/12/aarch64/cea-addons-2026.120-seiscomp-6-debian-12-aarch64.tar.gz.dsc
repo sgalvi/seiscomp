@@ -1,0 +1,16 @@
+pkgname=cea-addons
+pkgver=2026.120
+pkgrel=6
+pkgdesc=('Custom package used by CEA (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('0318440a3c3bf48372b96c66d840db1a2e537ffcd32e08f654d0528aa1800ae9')
+pkgsize=('10428306')
+pkginstallsize=('30123099')
+filename=('cea-addons-2026.120-seiscomp-6-debian-12-aarch64.tar.gz')
+builddate=('2026-05-02 00:53:48')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

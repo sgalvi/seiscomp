@@ -1,0 +1,16 @@
+pkgname=forecastzones-bmkg
+pkgver=1.0
+pkgdesc=('Tsunami forecast zones in TOAST for BMKG (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('801a68316f4f4e5de770d6d71802dd322d9cfad5a8793849d5e8dc65fc48eda6')
+pkgsize=('8226357')
+pkginstallsize=('19695356')
+pkgfilecount=('5')
+filename=('forecastzones-bmkg-1.0.tar.gz')
+pkgfilepath=('forecastzones/bmkg')
+builddate=('2020-03-12 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

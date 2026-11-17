@@ -1,0 +1,19 @@
+pkgname=seiscomp
+pkgver=5.5.18
+pkgrel=5
+pkgdesc=('SeisComP including data acquisition, processing, distribution and interactive analysis, version >=4.0.0 (public)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/seiscomp/CHANGELOG')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('efb2ebb7484e4a2e099bb193d9f89752d0263a36c159dc3a95feb26f4b1529b2')
+pkgsize=('63130524')
+pkginstallsize=('200382781')
+filename=('seiscomp-5.5.18-rhel-9-x86_64.tar.gz')
+builddate=('2024-05-14 05:24:49')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')
+conflicts=('seiscomp-headless' 'seiscomp-acqui' 'seiscomp-debug')
+osinstallscripts=('install-base.sh' 'install-fdsnws.sh' 'install-gui.sh' 'install-mysql-server.sh' 'install-postgresql-server.sh')

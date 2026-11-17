@@ -1,0 +1,17 @@
+pkgname=cea-addons
+pkgver=2026.314
+pkgrel=nightly
+pkgdesc=('Custom package used by CEA (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('425f94d872eaa4ca77b4d0719388b74ab5089a1f9bf39b1677c63df82da30094')
+pkgsize=('10216911')
+pkginstallsize=('29513718')
+pkgfilecount=('113')
+filename=('cea-addons-2026.314-seiscomp-nightly-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-17 00:01:21')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

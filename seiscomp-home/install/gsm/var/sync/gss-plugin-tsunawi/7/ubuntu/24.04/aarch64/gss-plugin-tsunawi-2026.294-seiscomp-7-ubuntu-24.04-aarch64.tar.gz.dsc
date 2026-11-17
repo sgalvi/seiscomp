@@ -1,0 +1,17 @@
+pkgname=gss-plugin-tsunawi
+pkgver=2026.294
+pkgrel=7
+pkgdesc=('Tsunami simulation plugin for TOAST that gets data from precalculated database provided by AWI (commercial)')
+pkgkeywords=('decision support multi-sensor TEW tide gauge tsunami observation tsunami simulation')
+pkgchangelog=('share/doc/simtsunawi/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('b81de39a6ce560ba593f80114897a632ae8b21a27a4f29b74c7c2200c330d2a7')
+pkgsize=('3126713')
+pkginstallsize=('9501004')
+filename=('gss-plugin-tsunawi-2026.294-seiscomp-7-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-10-31 00:15:20')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')
+conflicts=('tsunawi')

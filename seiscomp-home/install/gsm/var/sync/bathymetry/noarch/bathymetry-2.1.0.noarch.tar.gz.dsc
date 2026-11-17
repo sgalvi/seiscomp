@@ -1,0 +1,16 @@
+pkgname=bathymetry
+pkgver=2.1.0
+pkgdesc=('Bathymetry files for TOAST (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('639496fd065f0faa0f2ffb4944afcdfedfc277b0ca3b3dc1c012d30162de1530')
+pkgsize=('82214843')
+pkginstallsize=('253393615')
+pkgfilecount=('8')
+filename=('bathymetry-2.1.0.noarch.tar.gz')
+pkgfilepath=('bathymetry')
+builddate=('2025-08-11 00:00:00')
+pkgos=('')
+pkgosversion=('')
+pkgtype=data

@@ -1,0 +1,16 @@
+pkgname=scrtdd
+pkgver=2026.106
+pkgrel=nightly
+pkgdesc=('A module for real-time double difference relocation of events (public)')
+pkgkeywords=('scrtdd')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('721ea79ed6c76af1a065ddd91efe1043c7a599fcb8e3c57ea9fd82ee0e54baec')
+pkgsize=('8132281')
+pkginstallsize=('10749701')
+filename=('scrtdd-2026.106-seiscomp-nightly-rhel-10-aarch64.tar.gz')
+builddate=('2026-04-29 04:22:56')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

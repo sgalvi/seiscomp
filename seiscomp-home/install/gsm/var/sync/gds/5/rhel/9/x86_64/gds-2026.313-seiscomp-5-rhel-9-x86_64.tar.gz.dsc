@@ -1,0 +1,17 @@
+pkgname=gds
+pkgver=2026.313
+pkgrel=5
+pkgdesc=('Modular expandable dissemination and publication server (commercial)')
+pkgkeywords=('decision support dissemination EEW induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('share/doc/gds/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('8047733b360b74950c2b2b3a562932127f27d922987a0d445418bad5636022a9')
+pkgsize=('18332081')
+pkginstallsize=('25169613')
+pkgfilecount=('486')
+filename=('gds-2026.313-seiscomp-5-rhel-9-x86_64.tar.gz')
+builddate=('2026-11-09 21:32:17')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

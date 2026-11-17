@@ -1,0 +1,16 @@
+pkgname=world-10
+pkgver=1.3
+pkgdesc=('gempa map tiles in Pseudo-Mercator projection up to zoom level 10 (153 m/pixel, 14.8 GiB) (commercial)')
+pkgkeywords=('map world-10.mbtiles')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('1a7711e43183a6048b273b9f059bfcf24710bf53a78d5329598cc07c5d71fcf2')
+pkgsize=('15953559552')
+pkginstallsize=('15953559552')
+filename=('world-10-1.3.mbtiles')
+pkgfilepath=('maps/world-10')
+builddate=('2020-08-12 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

@@ -1,0 +1,16 @@
+pkgname=seedlink-plugins
+pkgver=2026.131
+pkgrel=7
+pkgdesc=('seedlink-plugins')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('ab8d1b080a6d88c3d69bb7f6e46ef6f261c35266a9c10e33fff7f591e7144ed9')
+pkgsize=('660888')
+pkginstallsize=('1937369')
+filename=('seedlink-plugins-2026.131-seiscomp-7-debian-13-x86_64.tar.gz')
+builddate=('2026-07-21 22:25:36')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

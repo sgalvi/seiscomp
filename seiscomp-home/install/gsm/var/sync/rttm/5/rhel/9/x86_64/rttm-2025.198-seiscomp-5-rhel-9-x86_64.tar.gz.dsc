@@ -1,0 +1,17 @@
+pkgname=rttm
+pkgver=2025.198
+pkgrel=5
+pkgdesc=('GNS Science simulation plugin for Rapid Tsunami Threat Map (RTTM) generation by W.L. Power (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simrttm/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('0b99b67aef020ebb3302b6dd4c818c7b0a6d6ead0df814d132338baf6deb3f80')
+pkgsize=('3684795')
+pkginstallsize=('6684972')
+pkgfilecount=('20')
+filename=('rttm-2025.198-seiscomp-5-rhel-9-x86_64.tar.gz')
+builddate=('2026-11-14 20:31:02')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

@@ -1,0 +1,17 @@
+pkgname=thor
+pkgver=2024.323
+pkgrel=6
+pkgdesc=('THOR (commercial)')
+pkgkeywords=('thor')
+pkgchangelog=('share/doc/thor/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('9b3ecdc460fc1a622952740b155d9da2e38ba1cdb92bfd02683e00f889c4350b')
+pkgsize=('3521197')
+pkginstallsize=('4616974')
+filename=('thor-2024.323-seiscomp-6-debian-11-x86_64.tar.gz')
+builddate=('2024-11-20 22:49:38')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')
+depends=('dlbase')

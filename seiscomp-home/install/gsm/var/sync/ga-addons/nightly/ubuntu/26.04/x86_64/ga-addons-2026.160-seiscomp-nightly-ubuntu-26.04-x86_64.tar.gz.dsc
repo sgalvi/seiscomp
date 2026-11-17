@@ -1,0 +1,16 @@
+pkgname=ga-addons
+pkgver=2026.160
+pkgrel=nightly
+pkgdesc=('Custom package used by GA (commercial)')
+pkgkeywords=('web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('49cd804d526b95243a071f5ee3701b160abb2a72f699d778754adb8183666754')
+pkgsize=('117840')
+pkginstallsize=('431962')
+filename=('ga-addons-2026.160-seiscomp-nightly-ubuntu-26.04-x86_64.tar.gz')
+builddate=('2026-06-09 04:26:31')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

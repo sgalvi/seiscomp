@@ -1,0 +1,16 @@
+pkgname=eqevents
+pkgver=2026.233
+pkgrel=nightly
+pkgdesc=('Static websites showing events information, maps and images (commercial)')
+pkgkeywords=('dissemination earthquake monitoring induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('758f77795278f19998a5c106cd2fefe41ca4c197be5c33073afa932175f7bfad')
+pkgsize=('4400198')
+pkginstallsize=('5893747')
+filename=('eqevents-2026.233-seiscomp-nightly-rhel-9-x86_64.tar.gz')
+builddate=('2026-08-27 21:05:10')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

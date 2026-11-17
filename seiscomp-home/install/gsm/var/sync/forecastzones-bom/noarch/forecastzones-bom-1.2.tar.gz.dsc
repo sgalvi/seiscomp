@@ -1,0 +1,16 @@
+pkgname=forecastzones-bom
+pkgver=1.2
+pkgdesc=('Tsunami forecast zones in TOAST for BOM (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('e2614bce699177c2e860fbfb09184d262b0e093c0b1b1136d235db4be5b0d956')
+pkgsize=('486108')
+pkginstallsize=('1203714')
+pkgfilecount=('18')
+filename=('forecastzones-bom-1.2.tar.gz')
+pkgfilepath=('forecastzones/bom')
+builddate=('2024-04-04 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

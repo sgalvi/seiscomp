@@ -1,0 +1,17 @@
+pkgname=scanloc
+pkgver=2026.308
+pkgrel=5
+pkgdesc=('Local earthquake monitoring based on clustering and P and S phase picks (commercial)')
+pkgkeywords=('earthquake monitoring EEW induced earthquake intensity local monitoring microseismic monitoring seismic harzard shake map teleseismic monitoring')
+pkgchangelog=('share/doc/scanloc/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('556e3914cd691fa18c6c9637b323c9a004cb1143522233923ab783353565167c')
+pkgsize=('14599979')
+pkginstallsize=('21085068')
+pkgfilecount=('291')
+filename=('scanloc-2026.308-seiscomp-5-rhel-9-x86_64.tar.gz')
+builddate=('2026-11-16 21:32:46')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

@@ -1,0 +1,17 @@
+pkgname=gds
+pkgver=2026.313
+pkgrel=nightly
+pkgdesc=('Modular expandable dissemination and publication server (commercial)')
+pkgkeywords=('decision support dissemination EEW induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('share/doc/gds/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('75ad9ebcfa9d35ebf167b9a1abb37d251c1abbc7ab4ee2a04ab4392155fb0149')
+pkgsize=('18304810')
+pkginstallsize=('25096140')
+pkgfilecount=('486')
+filename=('gds-2026.313-seiscomp-nightly-rhel-8-x86_64.tar.gz')
+builddate=('2026-11-09 21:08:48')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

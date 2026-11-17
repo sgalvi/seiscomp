@@ -1,0 +1,17 @@
+pkgname=ga-addons
+pkgver=2026.062
+pkgrel=5
+pkgdesc=('Custom package used by GA (commercial)')
+pkgkeywords=('web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('21a3ebe2a3bbf11b2e8ca8ec13e8ea725e7d3a8f24bd27795868d4fe1b67b09c')
+pkgsize=('106659')
+pkginstallsize=('394120')
+pkgfilecount=('5')
+filename=('ga-addons-2026.062-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-17 00:01:56')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

@@ -1,0 +1,17 @@
+pkgname=seiscomp-tools
+pkgver=2026.250
+pkgrel=6
+pkgdesc=('tools by gempa GmbH (public)')
+pkgkeywords=('seiscomp tools')
+pkgchangelog=('None')
+arch=('noarch')
+license=('None')
+sha256=('dba818736992bd45b72f04683cc739f1e6964998cacb51e323517db622968ffa')
+pkgsize=('8823')
+pkginstallsize=('42066')
+filename=('seiscomp-tools-2026.250-seiscomp-6-any--noarch.tar.gz')
+builddate=('2026-10-13 03:59:52')
+pkgos=('any')
+pkgosversion=('')
+pkgfileversion=('0.1')
+pkgtype=app

@@ -1,0 +1,16 @@
+pkgname=gss-plugin-kermadec
+pkgver=2026.231
+pkgrel=6
+pkgdesc=('GNS Science threat model database simulation plugin for the Kermadec region (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simkermadec/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('407146116c55db83feeaf14fee9181e94c33500658d69481159b17b3e8e61ad8')
+pkgsize=('2592547')
+pkginstallsize=('7103907')
+filename=('gss-plugin-kermadec-2026.231-seiscomp-6-debian-12-aarch64.tar.gz')
+builddate=('2026-10-21 01:54:02')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

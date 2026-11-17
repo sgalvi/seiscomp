@@ -1,0 +1,17 @@
+pkgname=scrtdd
+pkgver=2026.310
+pkgrel=6
+pkgdesc=('Software package provided for ETH Zurich (https://www.seismo.ethz.ch) (public)')
+pkgkeywords=('scrtdd')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('d3d7f3f41d3a9e91f394e5bb2a21969dc5e7147125dba31450bd52c2f5223c24')
+pkgsize=('8211042')
+pkginstallsize=('10839443')
+pkgfilecount=('84')
+filename=('scrtdd-2026.310-seiscomp-6-debian-13-x86_64.tar.gz')
+builddate=('2026-11-17 00:05:27')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

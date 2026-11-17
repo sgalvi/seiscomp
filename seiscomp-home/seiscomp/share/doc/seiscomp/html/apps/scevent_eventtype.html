@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html  lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>EventType &#8212; SeisComP Release documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <script type="text/javascript" src="../_static/seiscomp.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RegionCheck" href="scevent_regioncheck.html" />
+    <link rel="prev" title="scevent" href="../toc/extensions/scevent.html" /> 
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="brand">
+          <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
+           <!-- span class="title">SeisComP Release</span -->
+          <span class="version">7.4.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="container">
+        <div class="content"><a class="pull-right" id="sidebar-toggle">TOC</a>
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <ul>
+        <li class="right">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">
+            index
+          </a>
+        </li>
+        <li class="right">
+          <a href="scevent_regioncheck.html" title="RegionCheck"
+             accesskey="N">
+            next
+          </a>
+        </li>
+        <li class="right">
+          <a href="../toc/extensions/scevent.html" title="scevent"
+             accesskey="P">
+            previous
+          </a>
+        </li>
+        <li class="nav-item nav-item-0">
+          <a href="../index.html">Home</a>
+        </li>
+        <li class="nav-item nav-item-1">
+          <a href="../toc/extensions.html" >Extensions</a>
+        </li>
+        <li class="nav-item nav-item-2">
+          <a href="../toc/extensions/scevent.html" accesskey="U">scevent</a>
+        </li> 
+      </ul>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="fitted content" id="anchors-container">
+        <div class="body" role="main">
+          
+  <section id="eventtype">
+<span id="scevent-eventtype"></span><h1>EventType<a class="headerlink" href="#eventtype" title="Permalink to this heading">¶</a></h1>
+<p>evtype plugin for scevent</p>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
+<p>The <em>evtype</em> pluging sets the type of an event based on comments of picks which
+are associated to the preferred origin of this event. The IDs of the comments
+from which the comment values are considered must be configured by
+<a class="reference internal" href="#confval-eventType.pickCommentIDs"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventType.pickCommentIDs</span></code></a> and the name of the plugin, <em>evtype</em>, must
+be added to the <a class="reference internal" href="global.html#confval-plugins"><code class="xref std std-confval docutils literal notranslate"><span class="pre">plugins</span></code></a> parameter. The text of the considered
+comments must contain a supported event type.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Other criteria for setting the event type may be added later to this plugin.</p>
+</div>
+<p>Example of a pick comment:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;pick</span><span class="w"> </span><span class="na">publicID=</span><span class="s">&quot;20160914.075944.29-deepc-AB.XYZ..HHZ&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span>...
+<span class="w">  </span><span class="nt">&lt;comment&gt;</span>
+<span class="w">    </span><span class="nt">&lt;text&gt;</span>earthquake<span class="nt">&lt;/text&gt;</span>
+<span class="w">    </span><span class="nt">&lt;id&gt;</span>deepc:eventTypeHint<span class="nt">&lt;/id&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/comment&gt;</span>
+<span class="w">  </span>...
+<span class="nt">&lt;/pick&gt;</span>
+</pre></div>
+</div>
+<p>Example configuration (<code class="file docutils literal notranslate"><span class="pre">scevent.cfg</span></code>):</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">evtype</span>
+
+<span class="na">eventType.setEventType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+<span class="na">eventType.pickCommentIDs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">scrttv:eventTypeHint, deepc:eventTypeHint</span>
+</pre></div>
+</div>
+</section>
+<section id="module-configuration">
+<span id="scevent-eventtype-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>eventType.*</strong>
+<em>Set the event type based on type comments of picks. Add the</em>
+<em>plugin “evtype” to the list of plugins in the order</em>
+<em>of priority to make this feature available.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventType.setEventType">
+<span class="sig-name descname"><span class="pre">eventType.setEventType</span></span><a class="headerlink" href="#confval-eventType.setEventType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Allow setting the event type.
+The type of events which have manual origins will
+not be changed unless configured explicitely by
+&quot;overwriteManual&quot;.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventType.overwriteEventType">
+<span class="sig-name descname"><span class="pre">eventType.overwriteEventType</span></span><a class="headerlink" href="#confval-eventType.overwriteEventType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Allow overwriting existing event types set by other modules.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventType.overwriteManual">
+<span class="sig-name descname"><span class="pre">eventType.overwriteManual</span></span><a class="headerlink" href="#confval-eventType.overwriteManual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Allow setting the event type if the mode of the preferred
+origin is manual or if the event type was set manually.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventType.pickCommentIDs">
+<span class="sig-name descname"><span class="pre">eventType.pickCommentIDs</span></span><a class="headerlink" href="#confval-eventType.pickCommentIDs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">scrttv:eventTypeHint,deepc:eventTypeHint</span></code></p>
+<p>Type: <em>list:string</em></p>
+<p>Consider comments of picks which have one of the
+given values. An empty list disables setting the type.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+          <div id="anchors-bottom"></div>
+        </div>
+        
+      <div class="sidebar" role="navigation" aria-label="main navigation">
+        <div id="anchors-top"></div>
+        <div id="anchors" class="content">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">EventType</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../toc/extensions/scevent.html"
+                          title="previous chapter">scevent</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="scevent_regioncheck.html"
+                          title="next chapter">RegionCheck</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/apps/scevent_eventtype.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="horizontal layout content">
+        <a class="fade-in" href="https://www.gempa.de" target="_blank">
+          <img class="brand" src="../_static/brands/gempa.svg"/>
+        </a>
+        <div class="stretched align-center fitted content">
+          <div>
+		  Version <b>7.4.0</b> Release
+          </div>
+            <div class="copyright">
+              Copyright &copy; gempa GmbH, GFZ Potsdam.
+            </div>
+        </div>
+        <a class="fade-in" href="https://www.gfz-potsdam.de" target="_blank">
+          <img class="brand" src="../_static/brands/gfz.svg"/>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

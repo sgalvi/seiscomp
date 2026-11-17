@@ -1,0 +1,17 @@
+pkgname=imo-addons
+pkgver=2025.309
+pkgrel=6
+pkgdesc=('Icelandic Meteorological Office (IMO) specific modules and plugins (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('e09d7c5ac45200bfc6c0de7eb1c4fde47ea865a0688a9e6a461a0a9a63eed689')
+pkgsize=('24440')
+pkginstallsize=('92860')
+pkgfilecount=('2')
+filename=('imo-addons-2025.309-seiscomp-6-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-17 00:04:51')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

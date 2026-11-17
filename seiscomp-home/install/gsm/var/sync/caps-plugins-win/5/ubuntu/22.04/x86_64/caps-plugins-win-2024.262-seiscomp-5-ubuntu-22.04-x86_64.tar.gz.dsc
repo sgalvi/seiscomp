@@ -1,0 +1,16 @@
+pkgname=caps-plugins-win
+pkgver=2024.262
+pkgrel=5
+pkgdesc=('Retrieve seismic waveforms from WIN server and push to CAPS (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('71bcec9031d2161281518273502b5a1f38432356c8ea64911f4fc86facdfaf81')
+pkgsize=('154939')
+pkginstallsize=('457746')
+filename=('caps-plugins-win-2024.262-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-05-01 22:26:10')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

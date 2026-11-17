@@ -1,0 +1,17 @@
+pkgname=gdisp
+pkgver=2023.004
+pkgrel=nightly
+pkgdesc=('Get events from messaging and compute GNSS displacements. (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/gdisp/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('13cbaf2bd097183abf2ef8dd81290a3ac183f16e511d389830099fff71952eb1')
+pkgsize=('11224')
+pkginstallsize=('46845')
+pkgfilecount=('4')
+filename=('gdisp-2023.004-nightly-nightly-rhel-8-x86_64.tar.gz')
+builddate=('2026-11-16 21:20:05')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

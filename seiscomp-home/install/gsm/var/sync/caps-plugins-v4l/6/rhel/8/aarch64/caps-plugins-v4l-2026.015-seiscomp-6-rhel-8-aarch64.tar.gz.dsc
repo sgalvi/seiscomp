@@ -1,0 +1,17 @@
+pkgname=caps-plugins-v4l
+pkgver=2026.015
+pkgrel=6
+pkgdesc=('Retrieve video data from cameras and push to CAPS (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('641ebf135a5e13c3b2f04d9867a816f9b3872d69ae1a9633371555314c2a19c7')
+pkgsize=('206373')
+pkginstallsize=('643404')
+pkgfilecount=('3')
+filename=('caps-plugins-v4l-2026.015-seiscomp-6-rhel-8-aarch64.tar.gz')
+builddate=('2026-11-17 01:37:43')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

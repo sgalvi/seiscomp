@@ -1,0 +1,17 @@
+pkgname=caps-plugins-v4l
+pkgver=2026.015
+pkgrel=6
+pkgdesc=('Retrieve video data from cameras and push to CAPS (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('ba126dc717fcd991583672242ac7c15f6bbee9a7184055d6487a144336e1619a')
+pkgsize=('160291')
+pkginstallsize=('455020')
+pkgfilecount=('3')
+filename=('caps-plugins-v4l-2026.015-seiscomp-6-debian-12-x86_64.tar.gz')
+builddate=('2026-11-16 22:56:27')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

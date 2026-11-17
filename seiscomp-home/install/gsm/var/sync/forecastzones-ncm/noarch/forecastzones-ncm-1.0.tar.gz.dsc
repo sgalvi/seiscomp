@@ -1,0 +1,16 @@
+pkgname=forecastzones-ncm
+pkgver=1.0
+pkgdesc=('Tsunami forecast zones in TOAST for NCM (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('bf930c998393080ad4135b71cfe883ee0a38dbbee1c9fb9c2b642c40c8630b1b')
+pkgsize=('159426')
+pkginstallsize=('394013')
+pkgfilecount=('10')
+filename=('forecastzones-ncm-1.0.tar.gz')
+pkgfilepath=('forecastzones/ncm')
+builddate=('2020-03-12 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

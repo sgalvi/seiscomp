@@ -1,0 +1,16 @@
+pkgname=scqceval
+pkgver=2026.124
+pkgrel=nightly
+pkgdesc=('Station quality evaluation and selection (commercial)')
+pkgkeywords=('array earthquake monitoring EEW induced earthquake local monitoring microseismic monitoring network configuration QC quality control teleseismic monitoring configuration')
+pkgchangelog=('share/doc/scqceval/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('b9cfcac09f79ea9e03a4205864c2a4f64ea64ff5884be89f80fb8a3bad8abd5f')
+pkgsize=('10296994')
+pkginstallsize=('13213708')
+filename=('scqceval-2026.124-seiscomp-nightly-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-07-21 23:40:19')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

@@ -1,0 +1,16 @@
+pkgname=report-generators
+pkgver=2026.257
+pkgrel=7
+pkgdesc=('Report generators (commercial)')
+pkgkeywords=('report shard sigma')
+pkgchangelog=('share/doc/rgsm/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('3ae81a73873e6eaf8593a846739b74f52c167e00431b10cbc51c99599c24e30d')
+pkgsize=('13039301')
+pkginstallsize=('14749753')
+filename=('report-generators-2026.257-seiscomp-7-ubuntu-26.04-aarch64.tar.gz')
+builddate=('2026-10-08 00:21:33')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

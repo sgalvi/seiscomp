@@ -1,0 +1,16 @@
+pkgname=sed-eew
+pkgver=2026.097
+pkgrel=nightly
+pkgdesc=('Earthquake early warning modules by SED (public)')
+pkgkeywords=('sed eew')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('5a35743ce4ca168852ddf45b7b1aeeb36f758255f0e0289a93fa91a86d4e0bcc')
+pkgsize=('11145680')
+pkginstallsize=('33471943')
+filename=('sed-eew-2026.097-seiscomp-nightly-ubuntu-22.04-aarch64.tar.gz')
+builddate=('2026-05-07 02:52:53')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

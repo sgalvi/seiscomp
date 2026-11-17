@@ -1,0 +1,17 @@
+pkgname=caps-plugins
+pkgver=2026.294
+pkgrel=6
+pkgdesc=('Collection of plugins for CAPS (commercial)')
+pkgkeywords=('data acquisition GNSS')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('422c3aebb5d55fba7bd8677ea8f0a2ca974b7621da66e1a41d299088c1ff8bcf')
+pkgsize=('4861732')
+pkginstallsize=('22246242')
+pkgfilecount=('99')
+filename=('caps-plugins-2026.294-seiscomp-6-rhel-9-aarch64.tar.gz')
+builddate=('2026-11-10 01:23:55')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

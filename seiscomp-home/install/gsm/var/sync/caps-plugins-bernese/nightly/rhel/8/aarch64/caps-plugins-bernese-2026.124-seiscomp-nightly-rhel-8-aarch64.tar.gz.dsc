@@ -1,0 +1,17 @@
+pkgname=caps-plugins-bernese
+pkgver=2026.124
+pkgrel=nightly
+pkgdesc=('Bernese plugin for CAPS (commercial)')
+pkgkeywords=('data acquisition GNSS')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('283503377d8b2cbd57a8f073ba60e5f68064cee7e4cc1535b070efa3c5d9571d')
+pkgsize=('240740')
+pkginstallsize=('743149')
+pkgfilecount=('3')
+filename=('caps-plugins-bernese-2026.124-seiscomp-nightly-rhel-8-aarch64.tar.gz')
+builddate=('2026-11-17 00:46:57')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

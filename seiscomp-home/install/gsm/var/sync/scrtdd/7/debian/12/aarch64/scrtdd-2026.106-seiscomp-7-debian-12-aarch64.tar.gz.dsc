@@ -1,0 +1,16 @@
+pkgname=scrtdd
+pkgver=2026.106
+pkgrel=7
+pkgdesc=('A module for real-time double difference relocation of events (public)')
+pkgkeywords=('scrtdd')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('54ce6f866e9b9215036ee10ee1e217e5e3cfd0f2fc3b0dcdafb99d347d7fd349')
+pkgsize=('8158664')
+pkginstallsize=('10770917')
+filename=('scrtdd-2026.106-seiscomp-7-debian-12-aarch64.tar.gz')
+builddate=('2026-04-29 03:25:44')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

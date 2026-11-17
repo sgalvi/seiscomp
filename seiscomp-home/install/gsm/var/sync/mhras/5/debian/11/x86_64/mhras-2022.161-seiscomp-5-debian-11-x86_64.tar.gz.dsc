@@ -1,0 +1,17 @@
+pkgname=mhras
+pkgver=2022.161
+pkgrel=5
+pkgdesc=('mhras')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('677b51b16b6dd89b35b0335f18eaac17b3b3389aa80ede6e2f1edd668d6adf61')
+pkgsize=('2435392')
+pkginstallsize=('7163706')
+filename=('mhras-2022.161-seiscomp-5-debian-11-x86_64.tar.gz')
+builddate=('2022-06-14 23:44:23')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

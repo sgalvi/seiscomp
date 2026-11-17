@@ -1,0 +1,16 @@
+pkgname=ttt-plugins
+pkgver=2026.173
+pkgrel=7
+pkgdesc=('Package for different ttt plugins (commercial)')
+pkgkeywords=('ttt custom hycolo')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('eafd7cbd91058890c2abf6506cdef1bf77330fab521af3822c73ee1d7592008f')
+pkgsize=('15770')
+pkginstallsize=('52264')
+filename=('ttt-plugins-2026.173-seiscomp-7-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-06-22 07:10:08')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

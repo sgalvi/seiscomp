@@ -1,0 +1,17 @@
+pkgname=toast-server
+pkgver=2026.306
+pkgrel=6
+pkgdesc=('Tsunami Observation and Simulation Tool Server (commercial)')
+pkgkeywords=('decision support multi-sensor TEW tide gauge tsunami observation tsunami simulation')
+pkgchangelog=('share/doc/toastd/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('56ac47cdb0bfdffd6c3e64b51a790607e5a0a9c9396c5234aef19c8f6e584832')
+pkgsize=('26143636')
+pkginstallsize=('41439832')
+pkgfilecount=('494')
+filename=('toast-server-2026.306-seiscomp-6-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-05 22:36:25')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

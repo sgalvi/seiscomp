@@ -1,0 +1,16 @@
+pkgname=gis
+pkgver=2026.166
+pkgrel=7
+pkgdesc=('Web-based image generation of SeisComP maps, traces and spectrograms (commercial)')
+pkgkeywords=('dissemination EEW maps shake map web')
+pkgchangelog=('share/doc/gis/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('50d09aac2e6eedf935bbc74b6acf086e930aa9db59ec19a06b7646bff34d00e4')
+pkgsize=('13983111')
+pkginstallsize=('18421584')
+filename=('gis-2026.166-seiscomp-7-ubuntu-26.04-x86_64.tar.gz')
+builddate=('2026-06-23 21:52:20')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

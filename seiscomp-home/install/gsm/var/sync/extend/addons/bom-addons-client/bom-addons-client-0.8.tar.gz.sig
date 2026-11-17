@@ -1,0 +1,1 @@
+../../../bom-addons-client/noarch/bom-addons-client-0.8.tar.gz.sig

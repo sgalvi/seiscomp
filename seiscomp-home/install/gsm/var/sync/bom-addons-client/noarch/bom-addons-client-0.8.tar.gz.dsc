@@ -1,0 +1,16 @@
+pkgname=bom-addons-client
+pkgver=0.8
+pkgdesc=('BOM addons client (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('1d98dd4d951fbf2ed82c5d5d28f1af97c8665173c91c341bea1badd8d441aa9d')
+pkgsize=('47474')
+pkginstallsize=('124992')
+filename=('bom-addons-client-0.8.tar.gz')
+pkgfilepath=('addons/bom-addons-client')
+pkginstallpath=('addons/bom/client')
+builddate=('2024-08-23 00:00:00')
+pkgos=('')
+pkgosversion=('')
+pkgtype=data

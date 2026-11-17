@@ -1,0 +1,1 @@
+../../../forecastzones-bom/noarch/forecastzones-bom-1.2.tar.gz.sig

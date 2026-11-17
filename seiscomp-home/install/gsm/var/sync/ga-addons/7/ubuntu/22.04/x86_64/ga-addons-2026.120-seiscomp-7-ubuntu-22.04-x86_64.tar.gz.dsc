@@ -1,0 +1,16 @@
+pkgname=ga-addons
+pkgver=2026.120
+pkgrel=7
+pkgdesc=('Custom package used by GA (commercial)')
+pkgkeywords=('web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('62ee22995e772dcf0871789579b7f3df59dd191ede6586b4f8b45da106b496ce')
+pkgsize=('113185')
+pkginstallsize=('413177')
+filename=('ga-addons-2026.120-seiscomp-7-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-06-09 00:02:11')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

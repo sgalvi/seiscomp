@@ -1,0 +1,16 @@
+pkgname=gss-plugin-ewttt
+pkgver=2026.231
+pkgrel=7
+pkgdesc=('EW tsunami travel time calculation simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simewttt/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('9167767dd1960e040c4ecc4ed9a4000b3f66b7db40f112de50d1959e909abb4e')
+pkgsize=('4569538')
+pkginstallsize=('11828612')
+filename=('gss-plugin-ewttt-2026.231-seiscomp-7-debian-12-aarch64.tar.gz')
+builddate=('2026-10-21 01:17:25')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

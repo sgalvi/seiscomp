@@ -1,0 +1,16 @@
+pkgname=scenarios-most
+pkgver=0.2
+pkgdesc=('scenarios-most (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('7d7c4758d03e16dc33b4437fa05420d2e92e82d5052c8bd42ef3fe23d12a1388')
+pkgsize=('433347177')
+pkginstallsize=('1083420535')
+pkgfilecount=('40975')
+filename=('scenarios-most-0.2.tar.gz')
+pkgfilepath=('scenarios/most')
+builddate=('2023-07-08 00:00:00')
+pkgos=('')
+pkgosversion=('')
+pkgtype=data

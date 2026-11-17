@@ -1,0 +1,16 @@
+pkgname=rttm
+pkgver=2025.090
+pkgrel=6
+pkgdesc=('GNS Science simulation plugin for Rapid Tsunami Threat Map (RTTM) generation by W.L. Power (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simrttm/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('8053f93eb810ef88b569f0991cca133748fbacdb8cd44a9c7e5aac1b26a40dfe')
+pkgsize=('3721351')
+pkginstallsize=('6800948')
+filename=('rttm-2025.090-seiscomp-6-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2025-07-12 21:06:46')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

@@ -1,0 +1,16 @@
+pkgname=kermadec
+pkgver=2025.083
+pkgrel=6
+pkgdesc=('GNS Science threat model database simulation plugin for the Kermadec region (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simkermadec/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('1ee6ff26b62b66c7198af2d039b1def76bb16e19a775a0639278663fb11d005a')
+pkgsize=('2472790')
+pkginstallsize=('6224273')
+filename=('kermadec-2025.083-seiscomp-6-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2025-03-24 22:49:51')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

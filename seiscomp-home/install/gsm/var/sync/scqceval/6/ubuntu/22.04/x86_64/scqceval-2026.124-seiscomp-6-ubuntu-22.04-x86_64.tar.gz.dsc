@@ -1,0 +1,16 @@
+pkgname=scqceval
+pkgver=2026.124
+pkgrel=6
+pkgdesc=('Station quality evaluation and selection (commercial)')
+pkgkeywords=('array earthquake monitoring EEW induced earthquake local monitoring microseismic monitoring network configuration QC quality control teleseismic monitoring configuration')
+pkgchangelog=('share/doc/scqceval/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('eed2c94e36bf9b954fdc51bc54077448286858c8102a70371f4c822c62fca8ba')
+pkgsize=('10329303')
+pkginstallsize=('13169853')
+filename=('scqceval-2026.124-seiscomp-6-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-07-21 21:47:59')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

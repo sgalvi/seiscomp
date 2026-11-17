@@ -1,0 +1,17 @@
+pkgname=seiscomp-headless
+pkgver=6.9.2
+pkgrel=6
+pkgdesc=('SeisComP without graphical user interfaces (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('f96e347bd214c1e361e396334c898643c3c65592be07a61f6b3a569974587f87')
+pkgsize=('21631339')
+pkginstallsize=('93793663')
+filename=('seiscomp-headless-6.9.2-debian-13-aarch64.tar.gz')
+builddate=('2026-01-06 13:14:22')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')
+conflicts=('seiscomp' 'seiscomp-acqui' 'seiscomp-debug')

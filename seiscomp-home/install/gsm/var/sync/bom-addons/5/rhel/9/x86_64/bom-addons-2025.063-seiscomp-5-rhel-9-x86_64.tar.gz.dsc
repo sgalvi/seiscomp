@@ -1,0 +1,16 @@
+pkgname=bom-addons
+pkgver=2025.063
+pkgrel=5
+pkgdesc=('Custom package used by BOM (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('7705d9efee4024c346519bb65ac227b5bd0b6be10bfecce2fc03f82b501e58bc')
+pkgsize=('4558278')
+pkginstallsize=('7505409')
+filename=('bom-addons-2025.063-seiscomp-5-rhel-9-x86_64.tar.gz')
+builddate=('2025-04-02 22:56:29')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

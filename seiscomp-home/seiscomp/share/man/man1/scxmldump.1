@@ -1,0 +1,611 @@
+.\" Man page generated from reStructuredText.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "SCXMLDUMP" "1" "Sep 04, 2026" "7.4.0" "SeisComP"
+.SH NAME
+scxmldump \- SeisComP Documentation
+.sp
+\fBDump objects from database or messaging to XML.\fP
+.SH DESCRIPTION
+.sp
+scxmldump reads SeisComP objects from database or messaging and writes them
+in SeisComP XML (\fI\%SCML\fP) to stdout or into a file (\fB\-o\fP).
+.INDENT 0.0
+.IP \(bu 2
+Dumping from a SeisComP database supports various
+\fI\%objects\fP:
+.INDENT 2.0
+.IP \(bu 2
+Availability,
+.IP \(bu 2
+Config (bindings parameters),
+.IP \(bu 2
+Event parameters,
+.IP \(bu 2
+Inventory,
+.IP \(bu 2
+Journal,
+.IP \(bu 2
+Routing.
+.UNINDENT
+.IP \(bu 2
+Dumping from a SeisComP messaging (\fB\-\-listen\fP) considers only event
+parameters.
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+Waveform quality control (QC) parameters can be read from databases using
+scqcquery\&.
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.IP \(bu 2
+Furthermore any object carrying a publicID can be retrieved from the database
+including its hierarchie or not. See \fI\%PublicObjects\fP\&.
+.UNINDENT
+.SS Event parameters
+.sp
+To get event, origin or pick information from the database without using SQL
+commands is an important task for the user. \fI\%scxmldump\fP queries the
+database and transforms that information into XML. Events and origins can be
+treated further by \fI\%scbulletin\fP for generating bulletins or conversion
+into other formats including KML.
+.sp
+Many processing modules, e.g., \fI\%scevent\fP support the on\-demand processing
+of dumped event parameters by the command\-line option \fB\-\-ep\fP\&.
+Importing event parameters into another database is possible with \fI\%scdb\fP
+and sending to a SeisComP messaging is provided by \fI\%scdispatch\fP\&.
+.sp
+\fBHINT:\fP
+.INDENT 0.0
+.INDENT 3.5
+Events, origins and picks are referred to by their public IDs. IDs of events
+and origins can be provided by \fI\%scevtls\fP and \fI\%scorgls\fP,
+respectively. Event, origin and pick IDs can also be read from graphical
+tools like \fI\%scolv\fP or used database queries assisted by \fI\%scquery\fP\&.
+.UNINDENT
+.UNINDENT
+.SS PublicObjects
+.sp
+The option \fB\-\-public\-id\fP defines a list of publicIDs to be retrieved
+from the database. As the data model is extendable via plugins and custom code,
+scxmldump cannot know all of those object types and how to retrieve them
+from the database. If a publicID belongs to a type for which the code resides
+in another library or plugin, then scxmldump must load this plugin or library
+in order to find the correct database tables. For example, if a strong motion
+object should be dumped, then the plugin dmsm must be loaded into scxmldump.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scxmldump \-d localhost \-\-plugins dbmysql,dmsm \-\-public\-id StrongMotionOrigin/123456
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+This command would only export the StrongMotionOrigin itself without all
+child objects. Option \fB\-\-with\-children\fP must be passed to export the
+full hierarchy:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scxmldump \-d localhost \-\-plugins dbmysql,dmsm \-\-public\-id StrongMotionOrigin/123456 \-\-with\-children
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+If the extension code resides in a library then LD_PRELOAD can be used to inject
+the code into scxmldump:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+LD_PRELOAD=/home/sysop/seiscomp/lib/libseiscomp_datamodel_sm.so scxmldump \-d localhost \-\-public\-id StrongMotionOrigin/123456 \-\-with\-children
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Format conversion
+.sp
+Conversion of \fI\%SCML\fP into other formats is supported by \fI\%sccnv\fP\&.
+An XSD schema of the XML output can be found under
+\fB$SEISCOMP_ROOT/share/xml/\fP\&.
+.SS Examples
+.INDENT 0.0
+.IP \(bu 2
+Dump inventory
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scxmldump \-d mysql://sysop:sysop@localhost/seiscomp \-fI \-o inventory.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Dump config (bindings parameters)
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scxmldump \-d localhost \-fC \-o config.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Dump full event data including the relevant journal entries
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scxmldump \-d localhost \-fPAMFJ \-E test2012abcd \-o test2012abcd.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Dump full event data. Event IDs are provided by \fI\%scevtls\fP and received
+from stdin
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scevtls \-d localhost \-\-begin 2025\-01\-01 |\e
+scxmldump \-d localhost \-fPAMF \-E \- \-o events.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Dump summary event data
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scxmldump \-d localhost \-fap \-E test2012abcd \-o test2012abcd.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Create bulletin from an event using \fI\%scbulletin\fP
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scxmldump \-d localhost \-fPAMF \-E test2012abcd | scbulletin
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Copy event parameters to another database
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scxmldump \-d localhost \-fPAMF \-E test2012abcd |\e
+scdb \-i \- \-d mysql://sysop:sysop@archive\-db/seiscomp
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Dump the entire journal:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scxmldump \-d localhost \-fJ \-o journal.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Dump events received from messaging on local computer:
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scxmldump \-H localhost/production \-\-listen
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.SH MODULE CONFIGURATION
+.nf
+\fBetc/defaults/global.cfg\fP
+\fBetc/defaults/scxmldump.cfg\fP
+\fBetc/global.cfg\fP
+\fBetc/scxmldump.cfg\fP
+\fB~/.seiscomp/global.cfg\fP
+\fB~/.seiscomp/scxmldump.cfg\fP
+.fi
+.sp
+.sp
+scxmldump inherits \fI\%global options\fP\&.
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBscxmldump [options]\fP
+.SS Generic
+.INDENT 0.0
+.TP
+.B \-h, \-\-help
+Show help message.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-V, \-\-version
+Show version information.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config\-file file
+The alternative module configuration file. When this option
+is used, the module configuration is only read from the
+given file and no other configuration stage is considered.
+Therefore, all configuration including the definition of
+plugins must be contained in that file or given along with
+other command\-line options such as \-\-plugins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-plugins arg
+Load given plugins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-D, \-\-daemon
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-auto\-shutdown arg
+Enable/disable self\-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with
+\-\-start\-stop\-msg for the master module).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-shutdown\-master\-module arg
+Set the name of the master\-module used for auto\-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-shutdown\-master\-username arg
+Set the name of the master\-username of the messaging
+used for auto\-shutdown. If \(dqshutdown\-master\-module\(dq is
+given as well, this parameter is ignored.
+.UNINDENT
+.SS Verbosity
+.INDENT 0.0
+.TP
+.B \-\-verbosity arg
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-v, \-\-v
+Increase verbosity level (may be repeated, e.g., \-vv).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-q, \-\-quiet
+Quiet mode: no logging output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-component arg
+Limit the logging to a certain component. This option can
+be given more than once.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-s, \-\-syslog
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-l, \-\-lockfile arg
+Path to lock file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-console arg
+Send log output to stdout.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-debug
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-log\-file arg
+Use alternative log file.
+.UNINDENT
+.SS Messaging
+.INDENT 0.0
+.TP
+.B \-u, \-\-user arg
+Overrides configuration parameter \fI\%connection.username\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-H, \-\-host arg
+Overrides configuration parameter \fI\%connection.server\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-t, \-\-timeout arg
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-g, \-\-primary\-group arg
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-S, \-\-subscribe\-group arg
+A group to subscribe to.
+This option can be given more than once.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-content\-type arg
+Overrides configuration parameter \fI\%connection.contentType\fP\&.
+.sp
+Default: \fBbinary\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-start\-stop\-msg arg
+Default: \fB0\fP
+.sp
+Set sending of a start and a stop message.
+.UNINDENT
+.SS Database
+.INDENT 0.0
+.TP
+.B \-\-db\-driver\-list
+List all supported database drivers.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-d, \-\-database arg
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config\-module arg
+The config module to use.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-inventory\-db arg
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config\-db arg
+Load the configuration from the given database or file,
+format: [\fI\%service://]location\fP .
+.UNINDENT
+.SS Dump
+.INDENT 0.0
+.TP
+.B \-I, \-\-inventory
+Dump the inventory.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-without\-station\-groups
+Remove all station groups from inventory.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-stations sta\-list
+If inventory is dumped, filter the stations to dump.
+Wildcards are supported. Format of each item: net[.{sta|*}].
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-C, \-\-config
+Dump the configuration (bindings).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-J, \-\-journal
+Dump the journal. In combination with \-E only corresponding
+journal entries are included.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-R, \-\-routing
+Dump the routing.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-Y, \-\-availability
+Dump data availability information.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-with\-segments
+Dump individual data segments. Requires
+\(dq\-\-availability\(dq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-listen
+Listen to the message server for incoming events. Otherwise
+scxmldump reads from database.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-E, \-\-event ID
+Event public ID(s) to dump. Multiple events may be specified
+as a comma\-separated list. Use \(dq\-\(dq for reading the IDs as
+individual lines from stdin.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-O, \-\-origin ID
+Origin public ID(s) to dump. Multiple origins may be specified
+as a comma\-separated list. Use \(dq\-\(dq for reading the IDs as
+individual lines from stdin
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-P, \-\-with\-picks
+Add picks associated to origins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-A, \-\-with\-amplitudes
+Add amplitudes associated to magnitudes.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-M, \-\-with\-magnitudes
+Add station magnitudes associated to origins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-F, \-\-with\-focal\-mechanism
+Add focal mechanisms associated to events.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-a, \-\-ignore\-arrivals
+Do not dump arrivals of origins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-ignore\-magnitudes
+Do not dump (network) magnitudes of origins. This
+option is most useful in combination with \-O to only
+dump the location information.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-p, \-\-preferred\-only
+When dumping events only the preferred origin, the preferred
+magnitude and the preferred focal mechanism will be dumped.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-m, \-\-all\-magnitudes
+If only the preferred origin is dumped, all magnitudes for
+this origin will be dumped.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-pick ID
+ID(s) of pick(s) to dump. Use \(aq\-\(aq to read the IDs as
+individual lines from stdin.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-public\-id ID
+ID(s) of any object(s) to dump. Use \(aq\-\(aq to read the IDs as
+individual lines from stdin. No parent objects are dumped.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-with\-children
+Dump also all child objects of dumped objects. Valid only in
+combination with \-\-public\-id.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-with\-root
+Whether to add the container of exported PublicObjects or
+not. Objects which are not a direct child of
+EventParameters, Inventory and so on, also referred to as
+top\-level objects, will not be exported.
+Valid in combination with \-\-public\-id.
+.UNINDENT
+.SS Output
+.INDENT 0.0
+.TP
+.B \-f, \-\-formatted
+Use formatted XML output. Otherwise all XML is printed
+on one line.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-o, \-\-output
+Name of output file. If not given, output is sent to
+stdout.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-prepend\-datasize
+Prepend a line with the length of the XML data.
+.UNINDENT
+.SH AUTHOR
+gempa GmbH, GFZ Potsdam
+.SH COPYRIGHT
+gempa GmbH, GFZ Potsdam
+.\" Generated by docutils manpage writer.
+.

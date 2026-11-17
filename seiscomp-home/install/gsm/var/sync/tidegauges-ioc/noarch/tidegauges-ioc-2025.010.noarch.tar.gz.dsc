@@ -1,0 +1,15 @@
+pkgname=tidegauges-ioc
+pkgver=2025.010
+pkgdesc=('Inventory and Bindings for IOC tide gauge stations (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('b02ce67cddfa0071da66974bbef766967aa84b9e90e2b52056bbd4f81db924d7')
+pkgsize=('206667')
+pkginstallsize=('9789440')
+pkgfilecount=('1680')
+filename=('tidegauges-ioc-2025.010.noarch.tar.gz')
+builddate=('2025-01-10 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=config

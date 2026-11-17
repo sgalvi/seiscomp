@@ -1,0 +1,16 @@
+pkgname=ga-addons
+pkgver=2026.011
+pkgrel=6
+pkgdesc=('Custom package used by GA (commercial)')
+pkgkeywords=('web')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('c25aff9862903b1555d5993d87f2d71f0505b1a0bd05d5d40a64651478742129')
+pkgsize=('89719')
+pkginstallsize=('442184')
+filename=('ga-addons-2026.011-seiscomp-6-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-03-03 01:23:56')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

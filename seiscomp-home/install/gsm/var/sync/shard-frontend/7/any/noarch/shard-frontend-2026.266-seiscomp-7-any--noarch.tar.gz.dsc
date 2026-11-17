@@ -1,0 +1,16 @@
+pkgname=shard-frontend
+pkgver=2026.266
+pkgrel=7
+pkgdesc=('A more user friendly frontend for SHARD (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('noarch')
+license=('None')
+sha256=('85b0c8323cc312dc18b4d5e1c7741e72758562560954e01b9ce2c3d3c8176b34')
+pkgsize=('15964503')
+pkginstallsize=('28414452')
+filename=('shard-frontend-2026.266-seiscomp-7-any--noarch.tar.gz')
+builddate=('2026-09-23 23:53:48')
+pkgos=('any')
+pkgosversion=('')
+pkgfileversion=('0.1')

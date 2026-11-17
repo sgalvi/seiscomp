@@ -1,0 +1,16 @@
+pkgname=world-9-no-admin
+pkgver=1.3
+pkgdesc=('gempa map tiles in Pseudo-Mercator projection up to zoom level 9 without administrative borders and names (305 m/pixel, 4.6 GiB) (commercial)')
+pkgkeywords=('map world-9-no-admin.mbtiles')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('d8760b687866a2f32803ae622485068a55f6bded78d4836814b8dfcdae7cfa87')
+pkgsize=('4973232128')
+pkginstallsize=('4973232128')
+filename=('world-9-no-admin-1.3.mbtiles')
+pkgfilepath=('maps/world-9-no-admin')
+builddate=('2020-07-20 08:44:56')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

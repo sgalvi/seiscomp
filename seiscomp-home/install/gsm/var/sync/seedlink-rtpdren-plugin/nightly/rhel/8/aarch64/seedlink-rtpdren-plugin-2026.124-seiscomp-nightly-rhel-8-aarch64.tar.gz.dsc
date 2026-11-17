@@ -1,0 +1,16 @@
+pkgname=seedlink-rtpdren-plugin
+pkgver=2026.124
+pkgrel=nightly
+pkgdesc=('SeedLink RTP server plugin (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('5420150f5a5491da4555ffd6ab7aa8a3a0c0747ac6dd66e5146b7267c5b23df1')
+pkgsize=('123732')
+pkginstallsize=('374840')
+filename=('seedlink-rtpdren-plugin-2026.124-seiscomp-nightly-rhel-8-aarch64.tar.gz')
+builddate=('2026-05-09 01:15:00')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

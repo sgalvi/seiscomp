@@ -1,0 +1,17 @@
+pkgname=sceval
+pkgver=2024.311
+pkgrel=6
+pkgdesc=('Origin evaluation in real time (commercial)')
+pkgkeywords=('earthquake monitoring EEW induced earthquake intensity local monitoring microseismic monitoring origin evaluation QC quality control seismic harzard shake map teleseismic monitoring')
+pkgchangelog=('share/doc/sceval/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+depends=('')
+sha256=('be22363d6bc58396ecab42f8835e761676ede991d69953dbf29324c68ddd3837')
+pkgsize=('10439567')
+pkginstallsize=('12729088')
+filename=('sceval-2024.311-seiscomp-6-debian-11-x86_64.tar.gz')
+builddate=('2024-11-13 22:20:50')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

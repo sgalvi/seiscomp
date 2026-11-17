@@ -1,0 +1,16 @@
+pkgname=scqceval
+pkgver=2026.203
+pkgrel=nightly
+pkgdesc=('Station quality evaluation and selection (commercial)')
+pkgkeywords=('array earthquake monitoring EEW induced earthquake local monitoring microseismic monitoring network configuration QC quality control teleseismic monitoring configuration')
+pkgchangelog=('share/doc/scqceval/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('716ba02dbdfda95a5bfff33bc8ebe37d8b708be5ec48a455ed742e58c9da93ac')
+pkgsize=('10320050')
+pkginstallsize=('13132828')
+filename=('scqceval-2026.203-seiscomp-nightly-rhel-10-x86_64.tar.gz')
+builddate=('2026-08-18 21:11:18')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

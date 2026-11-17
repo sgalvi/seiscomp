@@ -1,0 +1,16 @@
+pkgname=forecastzones-dgmet
+pkgver=1.0
+pkgdesc=('Tsunami forecast zones in TOAST for DGMET (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('fe567380b2fe3b3a27f2538f207be054225d164fdb1d26c79864dbe5e68ab162')
+pkgsize=('67468544')
+pkginstallsize=('124606299')
+pkgfilecount=('71')
+filename=('forecastzones-dgmet-1.0.tar.gz')
+pkgfilepath=('forecastzones/dgmet')
+builddate=('2025-01-20 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

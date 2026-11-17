@@ -1,0 +1,16 @@
+pkgname=picker-plugins
+pkgver=2026.160
+pkgrel=6
+pkgdesc=('Package for different picker plugins, e.g., polarity picker (commercial)')
+pkgkeywords=('picker polarity paic p-aic aic p-fx pfx')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('cc02eb1a7e7d5b59e1c983fbe92a7d2ef95b3398262d9b2deb17096c9615b9a4')
+pkgsize=('10292813')
+pkginstallsize=('11884765')
+filename=('picker-plugins-2026.160-seiscomp-6-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-06-13 00:35:51')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

@@ -1,0 +1,17 @@
+pkgname=toast-server
+pkgver=2026.306
+pkgrel=6
+pkgdesc=('Tsunami Observation and Simulation Tool Server (commercial)')
+pkgkeywords=('decision support multi-sensor TEW tide gauge tsunami observation tsunami simulation')
+pkgchangelog=('share/doc/toastd/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('969f752dfa372f853400e47a9ffe7963a9f42a0337818132c17011de6d1c722b')
+pkgsize=('26040175')
+pkginstallsize=('41487152')
+pkgfilecount=('494')
+filename=('toast-server-2026.306-seiscomp-6-rhel-9-aarch64.tar.gz')
+builddate=('2026-11-06 00:45:27')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

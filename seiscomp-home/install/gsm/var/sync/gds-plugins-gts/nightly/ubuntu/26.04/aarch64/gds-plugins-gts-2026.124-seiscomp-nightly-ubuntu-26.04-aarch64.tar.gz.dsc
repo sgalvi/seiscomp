@@ -1,0 +1,16 @@
+pkgname=gds-plugins-gts
+pkgver=2026.124
+pkgrel=nightly
+pkgdesc=('GDS GTS message importer (commercial)')
+pkgkeywords=('decision support dissemination EEW web')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('9ce07be4e90331dc8728af10c74fb94d9ca1ef08931f6830deaf1912bf56443a')
+pkgsize=('680849')
+pkginstallsize=('2197955')
+filename=('gds-plugins-gts-2026.124-seiscomp-nightly-ubuntu-26.04-aarch64.tar.gz')
+builddate=('2026-07-21 23:38:46')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

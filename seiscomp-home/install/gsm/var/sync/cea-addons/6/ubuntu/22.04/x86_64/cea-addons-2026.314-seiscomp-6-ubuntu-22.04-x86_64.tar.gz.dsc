@@ -1,0 +1,17 @@
+pkgname=cea-addons
+pkgver=2026.314
+pkgrel=6
+pkgdesc=('Custom package used by CEA (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('8b168290b928d7b945195205fbd10fc898a22755e6a7e690de59fe5eb80194bb')
+pkgsize=('10303007')
+pkginstallsize=('29752341')
+pkgfilecount=('113')
+filename=('cea-addons-2026.314-seiscomp-6-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-17 00:06:47')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

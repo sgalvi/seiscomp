@@ -1,0 +1,231 @@
+.. highlight:: rst
+
+.. _scevtls:
+
+#######
+scevtls
+#######
+
+**List event IDs from database.**
+
+
+Description
+===========
+
+*scevtls* lists the event IDs of all events available in a database or
+:term:`SCML` file within a given time span. The list may be filtered by
+event type. The IDs are printed to stdout.
+
+
+Similarly, use :ref:`scorgls` for listing all origin IDs. In extension to
+*scevtls* and :ref:`scorgls`, :ref:`scquery` can search for parameters based on
+complex custom queries.
+
+
+Examples
+========
+
+* Print all event IDs for the complete year 2012:
+
+  .. code-block:: sh
+
+     scevtls -d mysql://sysop:sysop@localhost/seiscomp \
+             --begin "2012-01-01 00:00:00" \
+             --end "2013-01-01 00:00:00"
+
+* Print all event IDs with event type *quarry blast*:
+
+  .. code-block:: sh
+
+     scevtls -d mysql://sysop:sysop@localhost/seiscomp \
+             --event-type "quarry blast"
+
+* Print the IDs of all events provided with the XML file:
+
+  .. code-block:: sh
+
+     scevtls -i events.xml
+
+* Print all event IDs along with the ID of the preferred origin:
+
+  .. code-block:: sh
+
+     scevtls -d localhost -p
+
+
+.. _scevtls_configuration:
+
+Module Configuration
+====================
+
+| :file:`etc/defaults/global.cfg`
+| :file:`etc/defaults/scevtls.cfg`
+| :file:`etc/global.cfg`
+| :file:`etc/scevtls.cfg`
+| :file:`~/.seiscomp/global.cfg`
+| :file:`~/.seiscomp/scevtls.cfg`
+
+scevtls inherits :ref:`global options<global-configuration>`.
+
+
+
+
+Command-Line Options
+====================
+
+.. program:: scevtls
+
+:program:`scevtls [options]`
+
+
+Generic
+-------
+
+.. option:: -h, --help
+
+   Show help message.
+
+.. option:: -V, --version
+
+   Show version information.
+
+.. option:: --config-file file
+
+   The alternative module configuration file. When this option
+   is used, the module configuration is only read from the
+   given file and no other configuration stage is considered.
+   Therefore, all configuration including the definition of
+   plugins must be contained in that file or given along with
+   other command\-line options such as \-\-plugins.
+
+
+Verbosity
+---------
+
+.. option:: --verbosity arg
+
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
+
+.. option:: -v, --v
+
+   Increase verbosity level \(may be repeated, e.g., \-vv\).
+
+.. option:: -q, --quiet
+
+   Quiet mode: no logging output.
+
+.. option:: --component arg
+
+   Limit the logging to a certain component. This option can
+   be given more than once.
+
+.. option:: -s, --syslog
+
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
+
+.. option:: -l, --lockfile arg
+
+   Path to lock file.
+
+.. option:: --console arg
+
+   Send log output to stdout.
+
+.. option:: --debug
+
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
+
+.. option:: --log-file arg
+
+   Use alternative log file.
+
+
+Database
+--------
+
+.. option:: --db-driver-list
+
+   List all supported database drivers.
+
+.. option:: -d, --database arg
+
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
+
+.. option:: --config-module arg
+
+   The config module to use.
+
+.. option:: --inventory-db arg
+
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
+
+.. option:: --db-disable
+
+   Do not use the database at all
+
+
+Input
+-----
+
+.. option:: -i, --input arg
+
+   Name of input XML file. Read from stdin if '\-' is given.
+   Deactivates reading of events from database.
+
+
+Events
+------
+
+.. option:: --begin time
+
+   Specify the lower bound of the preferred origin time
+   interval. Format: 2012\-01\-01T00:00:00.
+
+.. option:: --end time
+
+   Specify the upper bound of the preferred origin time
+   interval. Format: 2012\-01\-01T00:00:00.
+
+.. option:: --hours arg
+
+   Start searching given hours before now. If set, '\-\-begin'
+   and '\-\-end' are ignored.
+
+.. option:: --modified-after time
+
+   Filter for events modified after the specified time.
+   Only the event modification time but not the modification
+   time of related objects is considered.
+   Format: 2012\-01\-01T00:00:00.
+
+.. option:: --event-type arg
+
+   The event type for filtering events. Use quotes for types
+   with more than one word. Use 'unknown' or an empty string
+   to search for events having no type associated yet.
+   Example: \"mining explosion\".
+
+
+Output
+------
+
+.. option:: -D, --delimiter string
+
+   Specify the delimiter of the resulting event IDs.
+
+.. option:: -p, --preferred-origin
+
+   Print the ID of the preferred origin along with the event
+   ID.
+
+.. option:: -c, --origin-count
+
+   Print the number of origins references by an event.
+

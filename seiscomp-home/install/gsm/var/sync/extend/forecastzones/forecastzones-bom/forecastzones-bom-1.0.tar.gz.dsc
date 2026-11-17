@@ -1,0 +1,1 @@
+../../../forecastzones-bom/noarch/forecastzones-bom-1.0.tar.gz.dsc

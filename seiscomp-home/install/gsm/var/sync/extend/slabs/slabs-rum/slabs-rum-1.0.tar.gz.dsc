@@ -1,0 +1,1 @@
+../../../slabs-rum/noarch/slabs-rum-1.0.tar.gz.dsc

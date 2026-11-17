@@ -1,0 +1,17 @@
+pkgname=caps-tools
+pkgver=2026.231
+pkgrel=7
+pkgdesc=('Client tools for CAPS, e.g., capstool or rifftest (commercial)')
+pkgkeywords=('caps acquisition tools capstools')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('ebccac2912866b9153c79fb3fa56dbc139367a6dbb54ddd846f6ff0461752666')
+pkgsize=('782302')
+pkginstallsize=('2380795')
+pkgfilecount=('6')
+filename=('caps-tools-2026.231-seiscomp-7-debian-12-x86_64.tar.gz')
+builddate=('2026-11-16 22:13:32')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

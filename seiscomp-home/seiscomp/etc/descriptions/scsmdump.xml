@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<seiscomp>
+	<module name="scsmdump" category="Processing" inherit-global-bindings="true">
+		<description>Strong motion parameters database dump.</description>
+		<configuration/>
+		<command-line>
+			<group name="Generic">
+				<optionReference>generic#help</optionReference>
+				<optionReference>generic#version</optionReference>
+				<optionReference>generic#config-file</optionReference>
+				<optionReference>generic#plugins</optionReference>
+				<optionReference>generic#daemon</optionReference>
+				<optionReference>generic#auto-shutdown</optionReference>
+				<optionReference>generic#shutdown-master-module</optionReference>
+				<optionReference>generic#shutdown-master-username</optionReference>
+			</group>
+
+			<group name="Verbosity">
+				<optionReference>verbosity#verbosity</optionReference>
+				<optionReference>verbosity#v</optionReference>
+				<optionReference>verbosity#quiet</optionReference>
+				<optionReference>verbosity#component</optionReference>
+				<optionReference>verbosity#syslog</optionReference>
+				<optionReference>verbosity#lockfile</optionReference>
+				<optionReference>verbosity#console</optionReference>
+				<optionReference>verbosity#debug</optionReference>
+				<optionReference>verbosity#log-file</optionReference>
+			</group>
+
+			<group name="Database">
+				<optionReference>database#db-driver-list</optionReference>
+				<optionReference>database#database</optionReference>
+				<optionReference>database#config-module</optionReference>
+				<optionReference>database#inventory-db</optionReference>
+				<optionReference>database#db-disable</optionReference>
+			</group>
+
+			<group name="Input">
+				<option flag="O" long-flag="origin" argument="originID">
+					<description>
+					Origin public ID(s) to dump. Multiple origins may be specified
+					as a comma-separated list. Use "-" for reading from stdin.
+					</description>
+				</option>
+				<option flag="E" long-flag="event" argument="eventID">
+					<description>
+					Event public ID(s) to dump. Multiple events may be specified
+					as a comma-separated list. Use "-" for reading from stdin.
+					</description>
+				</option>
+			</group>
+
+			<group name="Dump">
+				<option flag="r" long-flag="with-event-records">
+					<description>
+					Include event record references. This option is necessary in order to export the records itself.
+					</description>
+				</option>
+				<option flag="S" long-flag="with-records">
+					<description>
+					Include records referred to from event records. This option depends on --with-event-records.
+					</description>
+				</option>
+				<option flag="R" long-flag="with-ruptures">
+					<description>
+					Include ruptures.
+					</description>
+				</option>
+				<option flag="p" long-flag="preferred-only">
+					<description>
+					When dumping events, only the preferred origin will be dumped.
+					</description>
+				</option>
+			</group>
+
+			<group name="Output">
+				<option flag="f" long-flag="formatted">
+					<description>
+					Use formatted XML output.
+					</description>
+				</option>
+				<option flag="o" long-flag="output" argument="file">
+					<description>
+					Name of output file. If not given or '-', output
+					is sent to stdout.
+					</description>
+				</option>
+			</group>
+		</command-line>
+	</module>
+</seiscomp>

@@ -1,0 +1,16 @@
+pkgname=world-7-no-admin
+pkgver=1.3
+pkgdesc=('gempa map tiles in Pseudo-Mercator projection up to zoom level 7 without administrative borders and names (1.2 km/pixel, 443.4 MiB) (commercial)')
+pkgkeywords=('map world-7-no-admin.mbtiles')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('c7efcc111f23363c68d5ac81a97d4339b3af3da14bcd726ad984bd3f8091daa6')
+pkgsize=('461004800')
+pkginstallsize=('461004800')
+filename=('world-7-no-admin-1.3.mbtiles')
+pkgfilepath=('maps/world-7-no-admin')
+builddate=('2020-07-20 08:44:56')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

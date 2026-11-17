@@ -1,0 +1,17 @@
+pkgname=gss-plugin-geowarettt
+pkgver=2026.175
+pkgrel=6
+pkgdesc=('Geoware tsunami travel time calculation simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simgeowarettt/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('e1fa30299a5751eb19eb43848b7fb9c91cec4a55f8d520bb702b97e7615bd856')
+pkgsize=('4726469')
+pkginstallsize=('11905121')
+filename=('gss-plugin-geowarettt-2026.175-seiscomp-6-debian-11-x86_64.tar.gz')
+builddate=('2026-07-21 21:27:46')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')
+conflicts=('geowarettt')

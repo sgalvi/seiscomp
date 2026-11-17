@@ -1,0 +1,19 @@
+pkgname=seiscomp
+pkgver=nightly
+pkgrel=nightly
+pkgdesc=('SeisComP including data acquisition, processing, distribution and interactive analysis, version >=4.0.0 (public)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/seiscomp/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('03feadf609b97effa4000d08dd0b88c466e6fac75d4defe638142646880fa6ba')
+pkgsize=('75503329')
+pkginstallsize=('182671541')
+pkgfilecount=('2458')
+filename=('seiscomp-nightly-rhel-9-x86_64.tar.gz')
+builddate=('2026-11-17 00:08:54')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')
+conflicts=('seiscomp-headless' 'seiscomp-acqui' 'seiscomp-debug')
+osinstallscripts=('install-base.sh' 'install-fdsnws.sh' 'install-gui.sh' 'install-iloc.sh' 'install-mariadb-server.sh' 'install-mysql-server.sh' 'install-postgresql-server.sh')

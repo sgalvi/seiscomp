@@ -1,0 +1,16 @@
+pkgname=bom-addons
+pkgver=2026.288
+pkgrel=7
+pkgdesc=('Custom package used by BOM (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('a988fdef6fd2c5c869f3b27ba4c8a02397d17a315889c04d547ffa83504463fc')
+pkgsize=('4562009')
+pkginstallsize=('7567544')
+filename=('bom-addons-2026.288-seiscomp-7-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-10-15 23:05:28')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

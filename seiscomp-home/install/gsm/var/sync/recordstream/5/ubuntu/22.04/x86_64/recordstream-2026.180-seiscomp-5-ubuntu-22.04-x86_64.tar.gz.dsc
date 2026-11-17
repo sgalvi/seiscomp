@@ -1,0 +1,16 @@
+pkgname=recordstream
+pkgver=2026.180
+pkgrel=5
+pkgdesc=('Plugins providing RecordStreams for routing and failover (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('0b0add6f606e32ffbda91e1a2d88ae343b2303b5d1c84789a13e0194e847a082')
+pkgsize=('847673')
+pkginstallsize=('2843324')
+filename=('recordstream-2026.180-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-07-21 21:32:12')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

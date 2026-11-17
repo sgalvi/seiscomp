@@ -1,0 +1,16 @@
+pkgname=npeval
+pkgver=2026.231
+pkgrel=7
+pkgdesc=('Seismic network performance evaluation (commercial)')
+pkgkeywords=('earthquake monitoring EEW induced earthquake local monitoring microseismic monitoring network configuration network evaluation quality control teleseismic monitoring volcano monitoring')
+pkgchangelog=('share/doc/npeval/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('4bd477f919c86f2fd2b5a5f6bf5f1126c44d891ff4a16434e4bab74858e9663b')
+pkgsize=('12431584')
+pkginstallsize=('15624376')
+filename=('npeval-2026.231-seiscomp-7-debian-13-aarch64.tar.gz')
+builddate=('2026-08-20 09:50:19')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

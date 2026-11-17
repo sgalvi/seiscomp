@@ -1,0 +1,17 @@
+pkgname=fdsnws-frontend
+pkgver=2026.267
+pkgrel=wa-angular-unused
+pkgdesc=('A more user friendly frontend for FDSNWS service requests (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('noarch')
+license=('None')
+sha256=('d876fc60c9da33a9f374a8a41e70eee0c78824ccece36de9f45ef2e28452c327')
+pkgsize=('10460298')
+pkginstallsize=('20479207')
+pkgfilecount=('66')
+filename=('gempa-fdsnws-frontend-2026.267.tar.gz')
+builddate=('2026-11-17 00:22:31')
+pkgos=('any')
+pkgosversion=('')
+pkgfileversion=('0.1')

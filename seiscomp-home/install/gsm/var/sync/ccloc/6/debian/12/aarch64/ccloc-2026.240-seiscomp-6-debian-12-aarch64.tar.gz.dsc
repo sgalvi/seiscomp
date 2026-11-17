@@ -1,0 +1,16 @@
+pkgname=ccloc
+pkgver=2026.240
+pkgrel=6
+pkgdesc=('Event detector based on cross-correlation with template waveforms (commercial)')
+pkgkeywords=('Cross-correlation earthquake monitoring induced earthquake infrasound local monitoring microseismic monitoring teleseismic monitoring volcano monitoring')
+pkgchangelog=('share/doc/ccloc/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('8c797cffbb670c678daeeb12dc761a74eaa3c9223bc131a43172561e8a2504ff')
+pkgsize=('13767221')
+pkginstallsize=('18919193')
+filename=('ccloc-2026.240-seiscomp-6-debian-12-aarch64.tar.gz')
+builddate=('2026-09-03 01:31:44')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

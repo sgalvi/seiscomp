@@ -1,0 +1,17 @@
+pkgname=cea-addons
+pkgver=2026.314
+pkgrel=7
+pkgdesc=('Custom package used by CEA (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('d067bdde8d47596994862794fad702be69539edea177224528d16b9835503d0c')
+pkgsize=('10215268')
+pkginstallsize=('29501906')
+pkgfilecount=('113')
+filename=('cea-addons-2026.314-seiscomp-7-rhel-10-x86_64.tar.gz')
+builddate=('2026-11-17 00:03:14')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

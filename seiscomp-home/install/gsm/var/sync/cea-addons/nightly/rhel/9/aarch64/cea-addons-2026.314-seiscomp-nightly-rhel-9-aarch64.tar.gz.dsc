@@ -1,0 +1,17 @@
+pkgname=cea-addons
+pkgver=2026.314
+pkgrel=nightly
+pkgdesc=('Custom package used by CEA (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('3d6b6090a7ea76864253fbbe87c7a7e227f761eb21fafe8f7da363732776273b')
+pkgsize=('10057367')
+pkginstallsize=('29433666')
+pkgfilecount=('113')
+filename=('cea-addons-2026.314-seiscomp-nightly-rhel-9-aarch64.tar.gz')
+builddate=('2026-11-10 11:24:43')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

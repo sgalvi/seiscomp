@@ -1,0 +1,16 @@
+pkgname=rsamtrig
+pkgver=2026.124
+pkgrel=7
+pkgdesc=('RecordStreams providing Real-time Seismic Amplitude Measurement (RSAM) (commercial)')
+pkgkeywords=('RSAM volcano monitoring')
+pkgchangelog=('share/doc/rsamtrig/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('3e4dfee23cffce2a1da17bce3a16cb30129e27e05e594b0949def43b6e133962')
+pkgsize=('2196117')
+pkginstallsize=('4096011')
+filename=('rsamtrig-2026.124-seiscomp-7-debian-13-aarch64.tar.gz')
+builddate=('2026-07-22 00:51:14')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

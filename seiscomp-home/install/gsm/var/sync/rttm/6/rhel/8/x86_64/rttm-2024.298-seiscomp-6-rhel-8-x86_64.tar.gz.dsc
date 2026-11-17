@@ -1,0 +1,17 @@
+pkgname=rttm
+pkgver=2024.298
+pkgrel=6
+pkgdesc=('GNS Science simulation plugin for Rapid Tsunami Threat Map (RTTM) generation by W.L. Power (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simrttm/CHANGELOG')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('dcfb593958b70a4da598404b20744292b4d10b4db9463dd2ffb4754db66e859b')
+pkgsize=('3685580')
+pkginstallsize=('6670434')
+filename=('rttm-2024.298-seiscomp-6-rhel-8-x86_64.tar.gz')
+builddate=('2024-11-01 22:36:21')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

@@ -1,0 +1,416 @@
+.. _global_locsat:
+
+######
+LOCSAT
+######
+
+Locator in SeisComP for computing source time and hypocenter
+coordinates from phase picks.
+
+Description
+===========
+
+LOCSAT is a locator with a travel-time interface in |scname| for computing
+source time and hypocenter coordinates from phase picks considering:
+
+* Pick time and pick uncertainty,
+* Backazimuth and backazimuth uncertainty,
+* Slowness and slowness uncertainty,
+* Phase-specfic travel-time tables.
+
+The LOCSAT :ref:`locator interface <locsat_li>` implements a wrapper for the
+LocSAT locator by :cite:t:`bratt-1991` (according to the README file shipped
+with the LocSAT distribution) referred to as **LOCSAT** in |scname|. The LOCSAT
+:ref:`travel-time interface <locsat_tti>` provides travel time for specfic
+phases, epicentral distance, source depth and station elevation.
+
+
+.. _locsat_li:
+
+Locator Interface
+=================
+
+LOCSAT provides the hypocenter parameters through the locator interface. Instead
+of specifying an Earth model, LOCSAT queries travel times via the
+:ref:`LOCSAT travel-time interface <locsat_tti>` which makes use of
+:ref:`pre-defined travel-time tables <locsat_ttt>`. Note the
+:ref:`limitations <locsat_tt>`.
+
+Use "LOCSAT" as a value for the locator interface along with a profile when
+configurable, e.g., by :ref:`scolv`, :ref:`scautoloc` or :ref:`screloc`.
+
+
+.. _locsat_tti:
+
+Travel-Time Interface
+=====================
+
+LOCSAT provides an interface for computing travel times based on station and
+source coordinates with non-negative source depths. Note the
+:ref:`limitations <locsat_tt>`.
+
+The travel times are used for predicting phase arrival times in various
+applications such as :ref:`scautoloc` or :ref:`scolv`. The times are visualized,
+e.g., as blue marks in the :ref:`scolv picker window <scolv-sec-waveform-review>`.
+
+Use "LOCSAT" as a value for the travel-time interface when configurable, e.g.,
+by :ref:`global_fixedhypocenter` or :ref:`global_stdloc`.
+
+
+.. _locsat_ttt:
+
+Travel-Time Tables
+==================
+
+|scname| ships with two sets of predefined travel-time tables which are
+made available as the profiles *tab* and *iasp91*.
+The default profile is *iasp91*.
+
+LOCSAT travel time tables and optional profile files are located as plain
+ascii files in :file:`@DATADIR@/locsat/tables/`. All profile-related files
+have file names starting with the profile name. The specific type is added by a
+suffix. Types include
+
+* :ref:`Travel times <locsat_tables>` for a phase (mandatory). Suffix is the
+  phase name. E.g., P-wave travel times for the *iasp91* profile are found in
+  :file:`@DATADIR@/locsat/tables/iasp91.P`.
+* :ref:`Station elevation corrections <locsat_station_elevation>` (optional).
+  Suffix is *stacor*.
+* :ref:`Phase definitions <locsat_phases>` (optional). Suffix is *ph*.
+
+
+.. _locsat_limitations:
+
+Limitations
+-----------
+
+#. The source depth is limited to non-negative values up to 800 km.
+#. Only phases for which a travel-time table exists can be considered.
+#. LOCSAT considers default travel-time tables for phases which are hard-coded.
+   Currently, the phases are:
+
+   * seismic body waves: P, Pb, Pg, Pn, pP, PP, PcP, PKiKP, PKIKP, PKKP, PKP,
+     PKPab, PKPbc, PKPdf, pPKPab, pPKPbc, pPKPdf,
+
+     S, Sb, Sg, Sn, sP, sS, SS, ScP, ScS, SKKP, SKP, SKPdf, SKS, SKSac, SKSdf,
+     sPKPab, sPKPbc, sPKPdf,
+
+     where P and S are the frist-arrival direct P and S phases, respectively, at
+     all distances no matter the take-off angle at the source.
+   * seismic surface waves: LQ, LR, Lg, Rg.
+   * infrasound: Is, It, Iw.
+
+   .. hint::
+
+      A custom list of phases can be provided replacing the default phases.
+      Read section :ref:`locsat_phases` for the details.
+
+
+#. The maximum number of distance and depth intervals per table file is
+   currently 210 and 50, respectively.
+
+   .. warning::
+
+      * Travel-time tables with larger numbers of distance or depth samples are
+        reported along with command-line error output (stderr). The travel-time
+        tables should therefore be tested, e.g., with :ref:`scolv` before
+        unsupervised application.
+      * Travel times at distance and depth samples exceeding the limits are
+        ignored. This may lead to undesired behavior during location.
+      * Phase picks observed outside the distance and depth ranges defined by
+        travel-time tables may lead to undesired behavior during location.
+
+#. The considered minimum depth is 0 km. Elevations and depths above datum are
+   not natively considered. The effects of station elevation can be
+   :ref:`empirically corrected for<locsat_station_elevation>`.
+
+
+.. _locsat_tables:
+
+Travel-time tables
+------------------
+
+The tables provide the travel times for an Earth model (profile) and particular
+seismic phases at given depth and epicentral distance in one file per profile
+and seismic phase. The file format can be read from
+:file:`@DATADIR@/locsat/tables/iasp91.P` which ships with |scname| by default.
+
+You may easily add your own tables for any available Earth model and seismic
+phase by adopting existing ones in new files which are added by
+:ref:`configuration <locsat_station_application>` to your |scname| modules.
+
+
+.. _locsat_phases:
+
+Custom phase list
+-----------------
+
+A custom list of phases can be provided for a LOCSAT profile replacing the
+default phases. The file lists the supported phase names. Use one phase name
+per line. Example:
+
+.. code-block:: properties
+
+   P
+   S
+   PmP
+   Pg
+   Sg
+
+For a given profile, the name of the file consists of the profile name and the
+suffix *ph* like :file:`[profile].ph`. E.g., for
+adding phase definitions to the *iasp91* profile, the file
+:file:`$SEISCOMP_ROOT/share/locsat/tables/iasp91.ph` can be created.
+
+
+.. _locsat_station_elevation:
+
+Station elevations
+------------------
+
+LOCSAT does not natively support corrections of travel times for station
+elevations. At least checking the code:
+
+.. code-block:: c
+
+   sta_cor[i]  = 0.0;    /* FIX !!!!!!*/
+
+However, the |scname| wrapper adds this feature. It allows to define a
+:file:`.stacor` file which defines emperic corrections of observed travel times.
+The corrections are provided in seconds and **subtracted** (not added) from
+the observation time to be compatible with the NonLinLoc :cite:p:`nonlinloc`
+station correction definitions.
+
+Each LOCSAT profile (travel time table) can have one associated station
+correction file. For a given profile, the name of the file is
+:file:`[profile].stacor`. E.g., for adding station corrections to the *iasp91*
+profile, the file :file:`$SEISCOMP_ROOT/share/locsat/tables/iasp91.stacor` can be
+created.
+
+Station correction files take the form (example):
+
+.. code-block:: properties
+
+   # LOCDELAY code phase numReadings delay
+   LOCDELAY GE.MORC P 1 0.15
+   LOCDELAY IU.ANMO.00 P 1 0.36
+   LOCDELAY IU.KONO.20 P 1 -0.03
+
+with
+
+- **LOCDELAY**: Required fixed string.
+- **code** (*string*): Stream code (after all alias evaluations) up to sensor
+  location code with network and station code as a minium. Exception: If only
+  a station code is given, then only the station code is checked. This is a
+  fallback for data centers ignoring network codes and should be used
+  exceptionally only.
+
+  Network, station and
+  sensor location codes are separated by '.'. If no sensor location is given, an
+  empty code is assumed. Wildcards are not supported.
+- **phase** (*string*): Phase type (any of the available travel time tables)
+- **numReadings** (*integer*): Number of residuals used to calculate mean
+  residual/delay. Not used by LOCSAT, included for compatibility reasons with
+  :ref:`NonLinLoc <global_nonlinloc>`
+- **delay** (*float*): Delay in seconds, subtracted from observed time.
+
+.. note::
+
+   * Station corrections are only considered by the locator, not the travel-time
+     interface. Therefore, they do not find application for locating by
+     :ref:`global_fixedhypocenter` or for phase association in :ref:`scautoloc`.
+   * The example file for station corrections above reflect the format not any
+     empirically derived relationship and the values themselves have no meaning.
+
+
+.. _locsat_station_application:
+
+Application and Setup
+=====================
+
+LOCSAT is the default and only locator for :ref:`scautoloc` with *iasp91* as the
+default profile. However, LOCSAT can be used optionally in other modules such as
+:ref:`scolv` or :ref:`screloc`.
+
+
+.. _locsat_custom-ttt:
+
+Custom travel-time tables
+-------------------------
+
+#. Generate your travel-time tables from a custom Earth model, depth and
+   distance intervals. Use the same format as the defaults as the *iasp91*
+   tables. Tools such as :cite:t:`taup` allow the generation.
+#. Optionally add the files for station elevation corrections and phase
+   definitions.
+#. Add your custom travel-time tables along with optional station elevation
+   corrections and the custom phase list to :file:`@DATADIR@/locsat/tables/`.
+#. Add your available custom LOCSAT travel-time tables in global configuration,
+   e.g., to the list of tables of travel-time interfaces
+
+   .. code-block:: properties
+
+      ttt.LOCSAT.tables = iasp91, custom
+
+   and to the list of locator profiles
+
+   .. code-block:: properties
+
+      LOCSAT.profiles = iasp91, custom
+
+   and optionally to locators which make use of LOCSAT tables, e.g.,
+   :ref:`global_fixedhypocenter`.
+
+
+Application with modules
+------------------------
+
+LOCSAT-specific parameters may be configured by global module configuration
+(:ref:`LOCSAT.*`) and overridden per module:
+
+* The profiles for locating may be extended or limited by
+  :confval:`LOCSAT.profiles`.
+* When using picks with time uncertainties, consider
+  :confval:`LOCSAT.usePickUncertainties` and :confval:`LOCSAT.defaultTimeError`.
+* Measurements of backazimuth and slowness may be obtained as attributes to
+  picks from array processing or from feature extraction by
+  :ref:`scautopick`. These pick attributes may be activated for default
+  application by configuration of the global module parameters
+  :confval:`LOCSAT.usePickBackazimuth` and :confval:`LOCSAT.usePickSlowness`.
+* :ref:`scautoloc` and :ref:`scolv` will consider backazimuth and slowness when
+  :confval:`LOCSAT.usePickBackazimuth` and :confval:`LOCSAT.usePickSlowness`,
+  respectively, are true.
+
+Specific modules:
+
+* :ref:`scolv`:
+
+  * define the profile to be used by default in
+    :ref:`scolv module configuration <scolv_configuration>`
+  * interactively adjust the settings for uncertainties and the pick
+    attributes. The changes only apply during runtime:
+
+    .. figure:: media/scolv-locsat-settings.png
+       :align: center
+       :width: 10cm
+
+       scolv Location tab with LOCSAT selected and the settings menu.
+
+* :ref:`scautoloc`: Define the profile used for automatic locations in
+  :ref:`scautoloc module configuration <scautoloc_configuration>`.
+* :ref:`screloc`: Define *LOCSAT* as a locator along with the profile for
+  automatic relocation in
+  :ref:`screloc module configuration <screloc_configuration>`.
+
+
+
+.. _global_locsat_configuration:
+
+Module Configuration
+====================
+
+
+.. note::
+   **LOCSAT.\***
+   *Locator parameters: LOCSAT*
+
+
+
+.. confval:: LOCSAT.profiles
+
+   Default: ``iasp91, tab``
+
+   Type: *list:string*
+
+   Defines a list of available LOCSAT travel\-time tables.
+
+
+.. confval:: LOCSAT.depthInit
+
+   Default: ``20.0``
+
+   Type: *double*
+
+   Unit: *km*
+
+   The initial depth estimate for LOCSAT.
+
+
+.. confval:: LOCSAT.usePickUncertainties
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Whether to use pick time uncertainties for arrivals rather
+   than a fixed time error. If true, the uncertainties are
+   retrieved from each individual phase pick. If they are not
+   defined, the default pick time uncertainty will be used
+   as fallback.
+
+
+.. confval:: LOCSAT.defaultTimeError
+
+   Default: ``1.0``
+
+   Type: *double*
+
+   Unit: *s*
+
+   The default pick time uncertainty assigned to LOCSAT's arrival
+   attribute if pick uncertainties are not going to be used or
+   if they are absent. A time uncertainty of 0 s may result in
+   errors of the SVD decomposition in LOCSAT.
+
+
+.. confval:: LOCSAT.usePickBackazimuth
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Forward backazimuth measured for phase picks to LOCSAT.
+   Backazimuth measured automaticaly may be inaccurate
+   and disabling their usage in LOCSAT can be controlled with
+   this parameter.
+
+
+.. confval:: LOCSAT.usePickSlowness
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Forward horizontal slowness measured for phase picks to LOCSAT.
+   Slowness values measured automatically may be
+   inaccurate and disabling their usage in LOCSAT can be
+   controlled with	this parameter.
+
+
+.. confval:: LOCSAT.degreesOfFreedom
+
+   Default: ``9999``
+
+   Type: *int*
+
+   Number of degrees of freedom.
+
+
+.. confval:: LOCSAT.confLevel
+
+   Default: ``0.9``
+
+   Type: *double*
+
+   Confidence level between 0.5 and 1.0.
+
+
+.. confval:: LOCSAT.enableConfidenceEllipsoid
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Compute the confidence ellipsoid from covariance matrix in 3D.
+
+

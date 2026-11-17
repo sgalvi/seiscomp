@@ -1,0 +1,17 @@
+pkgname=kappa
+pkgver=2026.306
+pkgrel=nightly
+pkgdesc=('Event classification GUI (commercial)')
+pkgkeywords=('decision support earthquake monitoring induced earthquake local monitoring microseismic monitoring moment tensor origin evaluation teleseismic monitoring volcano monitoring discrimination')
+pkgchangelog=('share/doc/kappa/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('665378356dbab94876a77fe157f60ba57a9b2536ae0eb90d6885660f83f286fd')
+pkgsize=('15844391')
+pkginstallsize=('26026062')
+pkgfilecount=('211')
+filename=('kappa-2026.306-seiscomp-nightly-rhel-8-x86_64.tar.gz')
+builddate=('2026-11-16 21:19:04')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

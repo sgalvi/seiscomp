@@ -1,0 +1,16 @@
+pkgname=gis
+pkgver=2026.166
+pkgrel=5
+pkgdesc=('Web-based image generation of SeisComP maps, traces and spectrograms (commercial)')
+pkgkeywords=('dissemination EEW maps shake map web')
+pkgchangelog=('share/doc/gis/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('db97fbd4fb4c9319344e42553aa3cfa62bcfa42856557656468573438533d0b0')
+pkgsize=('14029322')
+pkginstallsize=('18495711')
+filename=('gis-2026.166-seiscomp-5-debian-12-x86_64.tar.gz')
+builddate=('2026-06-23 21:49:25')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

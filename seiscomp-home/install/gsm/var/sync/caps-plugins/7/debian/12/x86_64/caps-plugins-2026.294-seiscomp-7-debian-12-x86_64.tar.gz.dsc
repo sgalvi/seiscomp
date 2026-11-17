@@ -1,0 +1,17 @@
+pkgname=caps-plugins
+pkgver=2026.294
+pkgrel=7
+pkgdesc=('Collection of plugins for CAPS (commercial)')
+pkgkeywords=('data acquisition GNSS')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('224f94b810230df8556e64fc8c357ea3349e9137c706c4f90fa05c5595ab379a')
+pkgsize=('4549015')
+pkginstallsize=('21099263')
+pkgfilecount=('99')
+filename=('caps-plugins-2026.294-seiscomp-7-debian-12-x86_64.tar.gz')
+builddate=('2026-11-09 22:08:04')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

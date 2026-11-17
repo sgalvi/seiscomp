@@ -1,0 +1,17 @@
+pkgname=caps-plugins
+pkgver=2026.314
+pkgrel=nightly
+pkgdesc=('Collection of plugins for CAPS (commercial)')
+pkgkeywords=('data acquisition GNSS')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('0aeeb9d7a9a9fe3eaac51e2691cefbdc9fca825749bd4264d1f5f301dfd3755c')
+pkgsize=('4666816')
+pkginstallsize=('21434266')
+pkgfilecount=('99')
+filename=('caps-plugins-2026.314-seiscomp-nightly-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-11-10 21:05:28')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

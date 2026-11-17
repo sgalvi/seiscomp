@@ -1,0 +1,17 @@
+pkgname=gaps-server
+pkgver=2026.250
+pkgrel=5
+pkgdesc=('Web based earthquake monitoring (server) (commercial)')
+pkgkeywords=('earthquake monitoring induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('share/doc/gaps/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+pkglicensefile=('gaps')
+sha256=('0707da57ad7b41dacfa9ed781e8d41eab3d68d0b4593a0d28b73c7358cbe9d0b')
+pkgsize=('25290398')
+pkginstallsize=('30202627')
+filename=('gaps-server-2026.250-seiscomp-5-debian-12-x86_64.tar.gz')
+builddate=('2026-10-05 21:29:24')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

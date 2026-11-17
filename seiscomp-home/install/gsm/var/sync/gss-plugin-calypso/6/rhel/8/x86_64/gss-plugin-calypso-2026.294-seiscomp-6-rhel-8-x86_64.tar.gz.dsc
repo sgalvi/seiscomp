@@ -1,0 +1,16 @@
+pkgname=gss-plugin-calypso
+pkgver=2026.294
+pkgrel=6
+pkgdesc=('Calypso tsunami travel time calculation simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simcalypso/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('11099517b441ecdee562068890ae66464e736fa12c7623e3b9f180232f7bed7d')
+pkgsize=('3422740')
+pkginstallsize=('10057113')
+filename=('gss-plugin-calypso-2026.294-seiscomp-6-rhel-8-x86_64.tar.gz')
+builddate=('2026-10-30 22:35:02')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

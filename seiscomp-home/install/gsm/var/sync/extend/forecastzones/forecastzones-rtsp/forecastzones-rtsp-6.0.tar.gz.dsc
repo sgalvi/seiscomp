@@ -1,0 +1,1 @@
+../../../forecastzones-rtsp/noarch/forecastzones-rtsp-6.0.tar.gz.dsc

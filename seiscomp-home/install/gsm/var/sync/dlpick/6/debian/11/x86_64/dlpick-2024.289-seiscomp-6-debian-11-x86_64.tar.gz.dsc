@@ -1,0 +1,17 @@
+pkgname=dlpick
+pkgver=2024.289
+pkgrel=6
+pkgdesc=('Deep Learning Phase Picker, uses TorchScript models to pick on record streams (commercial)')
+pkgkeywords=('earthquake monitoring decision support deep learning')
+pkgchangelog=('share/doc/dlpick/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('fa853ef9a97ba01cdb4a21dfd154184ac0e75dd02251efff90cefda9d7a9727c')
+pkgsize=('29121713')
+pkginstallsize=('34363393')
+filename=('dlpick-2024.289-seiscomp-6-debian-11-x86_64.tar.gz')
+builddate=('2024-11-22 22:32:59')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')
+depends=('dlbase')

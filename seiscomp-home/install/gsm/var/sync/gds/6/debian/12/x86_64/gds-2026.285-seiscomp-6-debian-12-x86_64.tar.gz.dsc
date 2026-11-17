@@ -1,0 +1,17 @@
+pkgname=gds
+pkgver=2026.285
+pkgrel=6
+pkgdesc=('Modular expandable dissemination and publication server (commercial)')
+pkgkeywords=('decision support dissemination EEW induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('share/doc/gds/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('eb94d35d59359c52ab3307ac6862c135c0900f8d67a089fcba45ef4d5e23f822')
+pkgsize=('18330505')
+pkginstallsize=('25073256')
+pkgfilecount=('486')
+filename=('gds-2026.285-seiscomp-6-debian-12-x86_64.tar.gz')
+builddate=('2026-11-06 22:19:08')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

@@ -1,0 +1,16 @@
+pkgname=world-8
+pkgver=1.3
+pkgdesc=('gempa map tiles in Pseudo-Mercator projection up to zoom level 8 (611 m/pixel, 1.4 GiB) (commercial)')
+pkgkeywords=('map world-8.mbtiles')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('a05a243bca25bb36a1a446bcd3f8337d663809034084b4493dc08abe4da03696')
+pkgsize=('1538830336')
+pkginstallsize=('1538830336')
+filename=('world-8-1.3.mbtiles')
+pkgfilepath=('maps/world-8')
+builddate=('2020-08-12 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

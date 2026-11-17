@@ -1,0 +1,16 @@
+pkgname=ccloc
+pkgver=2026.240
+pkgrel=7
+pkgdesc=('Event detector based on cross-correlation with template waveforms (commercial)')
+pkgkeywords=('Cross-correlation earthquake monitoring induced earthquake infrasound local monitoring microseismic monitoring teleseismic monitoring volcano monitoring')
+pkgchangelog=('share/doc/ccloc/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('2954f8ae5f6f7051c46fc264c75142a82c99c4577ff09aeb9f434a0175e3b0a1')
+pkgsize=('13703435')
+pkginstallsize=('18751188')
+filename=('ccloc-2026.240-seiscomp-7-rhel-9-aarch64.tar.gz')
+builddate=('2026-09-03 00:31:56')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

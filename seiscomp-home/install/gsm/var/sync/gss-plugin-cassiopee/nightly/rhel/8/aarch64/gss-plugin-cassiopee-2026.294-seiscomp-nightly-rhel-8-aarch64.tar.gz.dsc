@@ -1,0 +1,16 @@
+pkgname=gss-plugin-cassiopee
+pkgver=2026.294
+pkgrel=nightly
+pkgdesc=('Cassiopee tsunami travel time calculation simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simcassiopee/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('e57ec23e266460a1c3e17231e8f92d94ccb464e47b12339c1b9b47017ba17c71')
+pkgsize=('3158555')
+pkginstallsize=('9675382')
+filename=('gss-plugin-cassiopee-2026.294-seiscomp-nightly-rhel-8-aarch64.tar.gz')
+builddate=('2026-10-30 23:37:19')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

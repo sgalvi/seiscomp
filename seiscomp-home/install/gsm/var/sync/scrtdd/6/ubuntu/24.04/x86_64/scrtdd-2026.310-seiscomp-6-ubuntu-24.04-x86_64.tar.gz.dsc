@@ -1,0 +1,17 @@
+pkgname=scrtdd
+pkgver=2026.310
+pkgrel=6
+pkgdesc=('Software package provided for ETH Zurich (https://www.seismo.ethz.ch) (public)')
+pkgkeywords=('scrtdd')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('de1b93429461212b94106ba698992f5747921a2c88e2ba8013227c3509f7f083')
+pkgsize=('8226556')
+pkginstallsize=('10928051')
+pkgfilecount=('84')
+filename=('scrtdd-2026.310-seiscomp-6-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-11-17 00:04:42')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

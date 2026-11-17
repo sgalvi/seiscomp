@@ -1,0 +1,18 @@
+pkgname=seiscomp-debug
+pkgver=7.2.3
+pkgrel=7
+pkgdesc=('SeisComP including data acquisition, processing, distribution and interactive analysis, version >=4.0.0 (public)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/seiscomp/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('b84eb263a423458130b51940b945b603d1d9938033709acb90cb163c015cb865')
+pkgsize=('226485713')
+pkginstallsize=('665020760')
+filename=('seiscomp-debug-7.2.3-ubuntu-22.04-x86_64-debug.tar.gz')
+builddate=('2026-04-07 10:26:32')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')
+conflicts=('seiscomp-headless' 'seiscomp-acqui' 'seiscomp')
+osinstallscripts=('install-base.sh' 'install-fdsnws.sh' 'install-gui.sh' 'install-iloc.sh' 'install-mariadb-server.sh' 'install-mysql-server.sh' 'install-postgresql-server.sh')

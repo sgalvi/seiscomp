@@ -1,0 +1,16 @@
+pkgname=world-6
+pkgver=1.3
+pkgdesc=('gempa map tiles in Pseudo-Mercator projection up to zoom level 6 (2.4 km/pixel, 127.9 MiB) (commercial)')
+pkgkeywords=('map world-6.mbtiles')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('2b989a14bef2c7ad041811f7a79bcf7ca1af0ff1bdd6e0c05cc2e903dfcbc178')
+pkgsize=('134103040')
+pkginstallsize=('134103040')
+filename=('world-6-1.3.mbtiles')
+pkgfilepath=('maps/world-6')
+builddate=('2020-08-12 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

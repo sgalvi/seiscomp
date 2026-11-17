@@ -1,0 +1,16 @@
+pkgname=bom-addons
+pkgver=2025.063
+pkgrel=5
+pkgdesc=('Custom package used by BOM (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('c5463074942dd8a8095d4c6a46c3f77d1cb42b0ae07375214a981efadfee0ca2')
+pkgsize=('4558219')
+pkginstallsize=('7499025')
+filename=('bom-addons-2025.063-seiscomp-5-debian-12-x86_64.tar.gz')
+builddate=('2025-04-02 22:44:22')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

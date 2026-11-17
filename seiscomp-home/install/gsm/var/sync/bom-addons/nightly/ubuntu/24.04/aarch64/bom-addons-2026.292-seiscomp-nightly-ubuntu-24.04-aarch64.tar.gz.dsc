@@ -1,0 +1,17 @@
+pkgname=bom-addons
+pkgver=2026.292
+pkgrel=nightly
+pkgdesc=('Custom package used by BOM (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('83847a336bf1057b74587a56526ac02c3ef52f706266595de5b93a5214e253f5')
+pkgsize=('4542530')
+pkginstallsize=('7649537')
+pkgfilecount=('338')
+filename=('bom-addons-2026.292-seiscomp-nightly-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-11-17 00:57:48')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

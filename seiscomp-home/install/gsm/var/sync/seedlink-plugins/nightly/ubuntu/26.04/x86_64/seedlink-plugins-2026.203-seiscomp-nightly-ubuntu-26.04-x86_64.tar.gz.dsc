@@ -1,0 +1,16 @@
+pkgname=seedlink-plugins
+pkgver=2026.203
+pkgrel=nightly
+pkgdesc=('seedlink-plugins')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('aac3d30fc8d1ed19552ef44932307dc793c001ce81bcc9fd0d4387eceb9cce05')
+pkgsize=('685869')
+pkginstallsize=('2012825')
+filename=('seedlink-plugins-2026.203-seiscomp-nightly-ubuntu-26.04-x86_64.tar.gz')
+builddate=('2026-08-18 21:20:21')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

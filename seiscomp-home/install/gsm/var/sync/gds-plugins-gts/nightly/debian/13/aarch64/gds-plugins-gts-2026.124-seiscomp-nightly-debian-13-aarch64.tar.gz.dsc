@@ -1,0 +1,16 @@
+pkgname=gds-plugins-gts
+pkgver=2026.124
+pkgrel=nightly
+pkgdesc=('GDS GTS message importer (commercial)')
+pkgkeywords=('decision support dissemination EEW web')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('8decc55dd76e22338ff08d0a48795ee6f3355110bbddf1dd19615e5552f6c265')
+pkgsize=('637640')
+pkginstallsize=('2072827')
+filename=('gds-plugins-gts-2026.124-seiscomp-nightly-debian-13-aarch64.tar.gz')
+builddate=('2026-07-21 23:39:02')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

@@ -1,0 +1,16 @@
+pkgname=caps-plugins-bernese
+pkgver=2024.178
+pkgrel=7
+pkgdesc=('Bernese plugin for CAPS (commercial)')
+pkgkeywords=('data acquisition GNSS')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('cd091b9607c9fd2e80b04d3dc9376528f0a243f917160659bd06485197e5e224')
+pkgsize=('195225')
+pkginstallsize=('584853')
+filename=('caps-plugins-bernese-2024.178-seiscomp-7-debian-12-x86_64.tar.gz')
+builddate=('2026-05-01 23:09:10')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

@@ -1,0 +1,485 @@
+.. highlight:: rst
+
+.. _scxmldump:
+
+#########
+scxmldump
+#########
+
+**Dump objects from database or messaging to XML.**
+
+
+Description
+===========
+
+scxmldump reads SeisComP objects from database or messaging and writes them
+in SeisComP XML (:term:`SCML`) to stdout or into a file (:option:`-o`).
+
+* Dumping from a SeisComP database supports various
+  :ref:`objects <api-datamodel-python>`:
+
+  * Availability,
+  * Config (bindings parameters),
+  * Event parameters,
+  * Inventory,
+  * Journal,
+  * Routing.
+
+* Dumping from a SeisComP messaging (:option:`--listen`) considers only event
+  parameters.
+
+.. note::
+
+   Waveform quality control (QC) parameters can be read from databases using
+   :ref:`scqcquery`.
+
+* Furthermore any object carrying a publicID can be retrieved from the database
+  including its hierarchie or not. See :ref:`scxmldump-public-objects`.
+
+
+Event parameters
+----------------
+
+To get event, origin or pick information from the database without using SQL
+commands is an important task for the user. :ref:`scxmldump` queries the
+database and transforms that information into XML. Events and origins can be
+treated further by :ref:`scbulletin` for generating bulletins or conversion
+into other formats including KML.
+
+Many processing modules, e.g., :ref:`scevent` support the on-demand processing
+of dumped event parameters by the command-line option :option:`--ep`.
+Importing event parameters into another database is possible with :ref:`scdb`
+and sending to a SeisComP messaging is provided by :ref:`scdispatch`.
+
+.. hint::
+
+   Events, origins and picks are referred to by their public IDs. IDs of events
+   and origins can be provided by :ref:`scevtls` and :ref:`scorgls`,
+   respectively. Event, origin and pick IDs can also be read from graphical
+   tools like :ref:`scolv` or used database queries assisted by :ref:`scquery`.
+
+
+.. _scxmldump-public-objects:
+PublicObjects
+-------------
+
+The option :option:`--public-id` defines a list of publicIDs to be retrieved
+from the database. As the data model is extendable via plugins and custom code,
+scxmldump cannot know all of those object types and how to retrieve them
+from the database. If a publicID belongs to a type for which the code resides
+in another library or plugin, then scxmldump must load this plugin or library
+in order to find the correct database tables. For example, if a strong motion
+object should be dumped, then the plugin dmsm must be loaded into scxmldump.
+
+.. code-block:: sh
+
+   scxmldump -d localhost --plugins dbmysql,dmsm --public-id StrongMotionOrigin/123456
+
+This command would only export the StrongMotionOrigin itself without all
+child objects. Option :option:`--with-children` must be passed to export the
+full hierarchy:
+
+.. code-block:: sh
+
+   scxmldump -d localhost --plugins dbmysql,dmsm --public-id StrongMotionOrigin/123456 --with-children
+
+
+If the extension code resides in a library then LD_PRELOAD can be used to inject
+the code into scxmldump:
+
+.. code-block:: sh
+
+   LD_PRELOAD=/home/sysop/seiscomp/lib/libseiscomp_datamodel_sm.so scxmldump -d localhost --public-id StrongMotionOrigin/123456 --with-children
+
+
+Format conversion
+-----------------
+
+Conversion of :term:`SCML` into other formats is supported by :ref:`sccnv`.
+An XSD schema of the XML output can be found under
+:file:`$SEISCOMP_ROOT/share/xml/`.
+
+
+Examples
+--------
+
+* Dump inventory
+
+  .. code-block:: sh
+
+     scxmldump -d mysql://sysop:sysop@localhost/seiscomp -fI -o inventory.xml
+
+* Dump config (bindings parameters)
+
+  .. code-block:: sh
+
+     scxmldump -d localhost -fC -o config.xml
+
+* Dump full event data including the relevant journal entries
+
+  .. code-block:: sh
+
+     scxmldump -d localhost -fPAMFJ -E test2012abcd -o test2012abcd.xml
+
+* Dump full event data. Event IDs are provided by :ref:`scevtls` and received
+  from stdin
+
+  .. code-block:: sh
+
+     scevtls -d localhost --begin 2025-01-01 |\
+     scxmldump -d localhost -fPAMF -E - -o events.xml
+
+* Dump summary event data
+
+  .. code-block:: sh
+
+     scxmldump -d localhost -fap -E test2012abcd -o test2012abcd.xml
+
+* Create bulletin from an event using :ref:`scbulletin`
+
+  .. code-block:: sh
+
+     scxmldump -d localhost -fPAMF -E test2012abcd | scbulletin
+
+* Copy event parameters to another database
+
+  .. code-block:: sh
+
+     scxmldump -d localhost -fPAMF -E test2012abcd |\
+     scdb -i - -d mysql://sysop:sysop@archive-db/seiscomp
+
+* Dump the entire journal:
+
+  .. code-block:: sh
+
+     scxmldump -d localhost -fJ -o journal.xml
+
+* Dump events received from messaging on local computer:
+
+  .. code-block:: sh
+
+     scxmldump -H localhost/production --listen
+
+
+.. _scxmldump_configuration:
+
+Module Configuration
+====================
+
+| :file:`etc/defaults/global.cfg`
+| :file:`etc/defaults/scxmldump.cfg`
+| :file:`etc/global.cfg`
+| :file:`etc/scxmldump.cfg`
+| :file:`~/.seiscomp/global.cfg`
+| :file:`~/.seiscomp/scxmldump.cfg`
+
+scxmldump inherits :ref:`global options<global-configuration>`.
+
+
+
+
+Command-Line Options
+====================
+
+.. program:: scxmldump
+
+:program:`scxmldump [options]`
+
+
+Generic
+-------
+
+.. option:: -h, --help
+
+   Show help message.
+
+.. option:: -V, --version
+
+   Show version information.
+
+.. option:: --config-file file
+
+   The alternative module configuration file. When this option
+   is used, the module configuration is only read from the
+   given file and no other configuration stage is considered.
+   Therefore, all configuration including the definition of
+   plugins must be contained in that file or given along with
+   other command\-line options such as \-\-plugins.
+
+.. option:: --plugins arg
+
+   Load given plugins.
+
+.. option:: -D, --daemon
+
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
+
+.. option:: --auto-shutdown arg
+
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with
+   \-\-start\-stop\-msg for the master module\).
+
+.. option:: --shutdown-master-module arg
+
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
+
+.. option:: --shutdown-master-username arg
+
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
+
+
+Verbosity
+---------
+
+.. option:: --verbosity arg
+
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
+
+.. option:: -v, --v
+
+   Increase verbosity level \(may be repeated, e.g., \-vv\).
+
+.. option:: -q, --quiet
+
+   Quiet mode: no logging output.
+
+.. option:: --component arg
+
+   Limit the logging to a certain component. This option can
+   be given more than once.
+
+.. option:: -s, --syslog
+
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
+
+.. option:: -l, --lockfile arg
+
+   Path to lock file.
+
+.. option:: --console arg
+
+   Send log output to stdout.
+
+.. option:: --debug
+
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
+
+.. option:: --log-file arg
+
+   Use alternative log file.
+
+
+Messaging
+---------
+
+.. option:: -u, --user arg
+
+   Overrides configuration parameter :confval:`connection.username`.
+
+
+.. option:: -H, --host arg
+
+   Overrides configuration parameter :confval:`connection.server`.
+
+
+.. option:: -t, --timeout arg
+
+   Overrides configuration parameter :confval:`connection.timeout`.
+
+
+.. option:: -g, --primary-group arg
+
+   Overrides configuration parameter :confval:`connection.primaryGroup`.
+
+
+.. option:: -S, --subscribe-group arg
+
+   A group to subscribe to.
+   This option can be given more than once.
+
+.. option:: --content-type arg
+
+   Overrides configuration parameter :confval:`connection.contentType`.
+
+   Default: ``binary``
+
+
+.. option:: --start-stop-msg arg
+
+   Default: ``0``
+
+   Set sending of a start and a stop message.
+
+
+Database
+--------
+
+.. option:: --db-driver-list
+
+   List all supported database drivers.
+
+.. option:: -d, --database arg
+
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
+
+.. option:: --config-module arg
+
+   The config module to use.
+
+.. option:: --inventory-db arg
+
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
+
+.. option:: --config-db arg
+
+   Load the configuration from the given database or file,
+   format: [service:\/\/]location .
+
+
+Dump
+----
+
+.. option:: -I, --inventory
+
+   Dump the inventory.
+
+.. option:: --without-station-groups
+
+   Remove all station groups from inventory.
+
+.. option:: --stations sta-list
+
+   If inventory is dumped, filter the stations to dump.
+   Wildcards are supported. Format of each item: net[.{sta\|\*}].
+
+.. option:: -C, --config
+
+   Dump the configuration \(bindings\).
+
+.. option:: -J, --journal
+
+   Dump the journal. In combination with \-E only corresponding
+   journal entries are included.
+
+.. option:: -R, --routing
+
+   Dump the routing.
+
+.. option:: -Y, --availability
+
+   Dump data availability information.
+
+.. option:: --with-segments
+
+   Dump individual data segments. Requires
+   \"\-\-availability\".
+
+.. option:: --listen
+
+   Listen to the message server for incoming events. Otherwise
+   scxmldump reads from database.
+
+.. option:: -E, --event ID
+
+   Event public ID\(s\) to dump. Multiple events may be specified
+   as a comma\-separated list. Use \"\-\" for reading the IDs as
+   individual lines from stdin.
+
+.. option:: -O, --origin ID
+
+   Origin public ID\(s\) to dump. Multiple origins may be specified
+   as a comma\-separated list. Use \"\-\" for reading the IDs as
+   individual lines from stdin
+
+.. option:: -P, --with-picks
+
+   Add picks associated to origins.
+
+.. option:: -A, --with-amplitudes
+
+   Add amplitudes associated to magnitudes.
+
+.. option:: -M, --with-magnitudes
+
+   Add station magnitudes associated to origins.
+
+.. option:: -F, --with-focal-mechanism
+
+   Add focal mechanisms associated to events.
+
+.. option:: -a, --ignore-arrivals
+
+   Do not dump arrivals of origins.
+
+.. option:: --ignore-magnitudes
+
+   Do not dump \(network\) magnitudes of origins. This
+   option is most useful in combination with \-O to only
+   dump the location information.
+
+.. option:: -p, --preferred-only
+
+   When dumping events only the preferred origin, the preferred
+   magnitude and the preferred focal mechanism will be dumped.
+
+.. option:: -m, --all-magnitudes
+
+   If only the preferred origin is dumped, all magnitudes for
+   this origin will be dumped.
+
+.. option:: --pick ID
+
+   ID\(s\) of pick\(s\) to dump. Use '\-' to read the IDs as
+   individual lines from stdin.
+
+.. option:: --public-id ID
+
+   ID\(s\) of any object\(s\) to dump. Use '\-' to read the IDs as
+   individual lines from stdin. No parent objects are dumped.
+
+.. option:: --with-children
+
+   Dump also all child objects of dumped objects. Valid only in
+   combination with \-\-public\-id.
+
+.. option:: --with-root
+
+   Whether to add the container of exported PublicObjects or
+   not. Objects which are not a direct child of
+   EventParameters, Inventory and so on, also referred to as
+   top\-level objects, will not be exported.
+   Valid in combination with \-\-public\-id.
+
+
+Output
+------
+
+.. option:: -f, --formatted
+
+   Use formatted XML output. Otherwise all XML is printed
+   on one line.
+
+.. option:: -o, --output
+
+   Name of output file. If not given, output is sent to
+   stdout.
+
+.. option:: --prepend-datasize
+
+   Prepend a line with the length of the XML data.
+

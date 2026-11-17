@@ -1,0 +1,16 @@
+pkgname=sceval
+pkgver=2026.028
+pkgrel=6
+pkgdesc=('Origin evaluation in real time (commercial)')
+pkgkeywords=('earthquake monitoring EEW induced earthquake intensity local monitoring microseismic monitoring origin evaluation QC quality control seismic harzard shake map teleseismic monitoring')
+pkgchangelog=('share/doc/sceval/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('6faeff92f873cdfed746cd32466aaab0557fa13c3ed23d06e34e6bc49c140920')
+pkgsize=('10472913')
+pkginstallsize=('12796589')
+filename=('sceval-2026.028-seiscomp-6-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-05-01 22:24:22')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

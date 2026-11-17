@@ -1,0 +1,16 @@
+pkgname=recordstream
+pkgver=2026.180
+pkgrel=nightly
+pkgdesc=('Plugins providing RecordStreams for routing and failover (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('bcaf390d44fcedae42d3e6dd6ece963669fbe7f8d28b0e67bc3c35c843e19521')
+pkgsize=('812122')
+pkginstallsize=('2672396')
+filename=('recordstream-2026.180-seiscomp-nightly-ubuntu-22.04-aarch64.tar.gz')
+builddate=('2026-07-21 23:37:18')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

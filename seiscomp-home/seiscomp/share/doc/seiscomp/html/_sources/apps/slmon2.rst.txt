@@ -1,0 +1,148 @@
+.. highlight:: rst
+
+.. _slmon2:
+
+######
+slmon2
+######
+
+**SeedLink monitor creating web pages**
+
+.. _slmon2_configuration:
+
+Module Configuration
+====================
+
+
+.. note::
+
+   slmon2 is a :term:`standalone module` and does not inherit :ref:`global options       <global-configuration>`.
+
+
+| :file:`etc/defaults/slmon2.cfg`
+| :file:`etc/slmon2.cfg`
+| :file:`~/.seiscomp/slmon2.cfg`
+
+
+
+.. confval:: title
+
+   Default: ``"SeedLink Monitor"``
+
+   Type: *string*
+
+   Title of the web page used as heading.
+
+
+.. confval:: refresh
+
+   Default: ``180``
+
+   Type: *double*
+
+   Unit: *s*
+
+   Refresh interval of the generated web page used by the browser.
+   The interval should be similar to the interval for starting slmon.
+   If empty, the web page must be manually refreshed from within
+   the browser.
+
+
+.. confval:: address
+
+   Default: ``127.0.0.1``
+
+   Type: *string*
+
+   Host of the Seedlink server to connect to. If the acquisition
+   is running on one system nothing needs to be changed.
+
+
+.. confval:: port
+
+   Default: ``18000``
+
+   Type: *int*
+
+   The port of the Seedlink server to connect to. If the acquisition
+   is running on one system this port must match the configured
+   local Seedlink port.
+
+
+.. confval:: email
+
+   Type: *string*
+
+   e\-mail address added to web pages.
+
+
+.. confval:: wwwdir
+
+   Default: ``@ROOTDIR@/var/run/@NAME@``
+
+   Type: *string*
+
+   Output directory of the web pages.
+
+
+.. confval:: icon
+
+   Default: ``http://www.gfz-potsdam.de/favicon.ico``
+
+   Type: *string*
+
+   Favicon URL of the web pages. Not mandatory.
+
+
+.. confval:: linkname
+
+   Default: ``GEOFON``
+
+   Type: *string*
+
+   Name of Link shown in footer of web pages.
+
+
+.. confval:: linkurl
+
+   Default: ``http://www.gfz-potsdam.de/geofon/``
+
+   Type: *string*
+
+   URL referred to by linkname in footer of web pages.
+
+
+.. confval:: liveurl
+
+   Default: ``http://geofon.gfz-potsdam.de/waveform/liveseis.php?station=%s``
+
+   Type: *string*
+
+   URL to live seismograms. %s will be replaced by station name.
+   Not mandatory.
+
+
+.. confval:: fdsnws_url
+
+   Default: ``http://localhost:8080/fdsnws/``
+
+   Type: *string*
+
+   FDSNWS base URL. Used to get station coordinates.
+
+
+
+Bindings Parameters
+===================
+
+
+
+.. confval:: group
+
+   Default: ``local``
+
+   Type: *string*
+
+   Defines the group of the station that is monitored.
+
+

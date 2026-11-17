@@ -1,0 +1,17 @@
+pkgname=report-generators
+pkgver=2026.083
+pkgrel=5
+pkgdesc=('Report generators (commercial)')
+pkgkeywords=('report shard sigma')
+pkgchangelog=('share/doc/rgsm/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('287da41d3c53ec121e1c05ac2f1130bb45e9e089c374bd098837ea4571bf2f2d')
+pkgsize=('13009922')
+pkginstallsize=('14673349')
+filename=('report-generators-2026.083-seiscomp-5-debian-11-x86_64.tar.gz')
+builddate=('2026-04-27 22:22:27')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')
+osinstallscripts=('install-report-generators.sh')

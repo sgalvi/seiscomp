@@ -1,0 +1,1356 @@
+# Change Log
+
+All notable changes to gempa software manger(GSM) will be documented in this file.
+
+## 2026.301 1.8.1
+
+### Added
+
+-   `gsm print nagios licenses` nagios check to verify the validity of the licenses
+
+### Changed
+
+-   Improved gsm info output
+-   `license_info_days = 0` switches the notice about a license that ends soon
+    off (`update`, `print nagios licenses`); an expired license is still reported
+
+### Fixed
+
+-   `gsm show <package>` the output is better on smaller terminals
+
+## 2026.300 1.8.0
+
+### Added
+
+-   More options to shell-completion
+-   More detailed log information. Use --debug command line switch for more verbose
+    logging information.
+-   Show history of a package
+
+    ```
+    gsm show history package
+    ```
+
+### Changed
+
+-   Rework the terminal output
+-   Configuration packages are updated if none of their files was edited;
+    modified files are kept and the new version is written as `<file>.gsmnew`
+-   User name and password are sent only to `base_url` and `db_url`
+-   Report every Important entry newer than the installed version
+
+### Fixed
+
+-   Option `--downloadonly` when upgrading release
+-   Licenses are fetched again if missing, expired or too old for the new
+    version
+-   In offline mode gsm is updated only if the new gsm package has been downloaded
+-   Removing or updating `slabs-rum` and `slabs-usgs` failed after an
+    installation with gsm 1.7
+-   Interrupted copies and backups left half files behind
+-   Broken sync cache after core.db could not be unpacked
+-   `gsm alias create` accepted a name with a line break
+-   Migration 0.2 -> 0.3 turned `var/sync` into `var/var/sync` when running twice
+
+## 2026.202 1.7.2
+
+### Added
+
+-   Option to run gsm setup non interactive
+
+    ```
+    gsm setup -y
+    ```
+
+-   Add '-f' to localinstall, force a package reinstall even if the
+    package version is lower than the currently installed version.
+
+### Fixed
+
+-   Broken --showurls option
+-   Restore feature revised and made more robust
+-   Optional dependency handling
+
+## 2026.177 1.7.1
+
+### Fixed
+
+-   Upgrade support for releases that do not have migration 0.3 applied
+
+## 2026.173 1.7.0
+
+### Important
+
+-   The following error messages appear during the update and can be ignored:
+
+    ```
+    ./gsm: line 104: nge: command not found
+    ./gsm: line 116: run_gsm: command not found
+    ```
+
+### Added
+
+-   Option to print Nagios crontab entry and service
+-   Linux Mint support
+-   New Option --to (for do-release-upgrade and do-release-downgrade) that allows
+    to select the target release directly
+-   Show history (search the log file for a package to find relevant entries)
+
+### Changed
+
+-   Drop SeisComP3 support
+
+## 2026.139 1.6.17
+
+### Fixed
+
+-   3rd-party library compatibility issue with timedinput
+
+## 2026.054 1.6.16
+
+### Important
+
+-   Please run `gsm reinstall` after the update to complete the installation.
+
+### Added
+
+-   Some users have multiple SeisComP installations on the same
+    system, each installation required a separate GSM installation.
+    With this release we have introduced alias support in GSM which
+    allows users to manage any number of installations using a single
+    GSM instance. A new alias can be created as follows:
+
+    ```
+    gsm alias create <name>
+    ```
+
+-   Display download sizes of optional packages
+-   If gsm is in your $PATH which is now checked during setup you can use tab completion.
+    To do this, the file located at: share/shell-completion/gsm.bash must be
+    included in $HOME/.bashrc
+    This can be added to $HOME/.bashrc as follows (just an example):
+
+    ```
+    source "/home/xxx/install/gsm/share/shell-completion/gsm.bash"
+    ```
+
+### Changed
+
+-   This is the last GSM release that still supports an upgrade
+    from SeisComP3 to a new release. This feature will be removed in the next release.
+-   Track core.db modification time in a extra file as some users
+    had issues when the core.db file modification time has been
+    modified, e.g., by Git.
+-   The following directories and files have been moved as follows:
+
+    ```
+    gsm.conf --> etc/gsm.conf
+    libs --> lib
+    sync --> var/sync
+    packages --> var/packages
+    venv --> var/venv
+    log --> var/log
+    CHANGELOG --> share/doc/gsm/CHANGELOG
+    ```
+
+### Fixed
+
+-   Problems with release up- or downgrade when packages are not available for
+    the target release.
+
+## 2025.335 1.6.15
+
+### Changed
+
+-   Show SeisComP changelog before release update
+
+## 2025.322 1.6.14
+
+### Changed
+
+-   Set default release to SeisComP 7
+
+### Fixed
+
+## 2025.322 1.6.13
+
+### Fixed
+
+-   Minor issues
+
+## 2025.309 1.6.12
+
+### Fixed
+
+-   Data directory access tests
+
+### Changed
+
+-   GSM can run clean packages without valid login data in gsm.conf
+    (username/pw/url)
+
+## 2025.286 1.6.11
+
+### Added
+
+-   Support to install packages from self hosted file
+    repository. To read the packages from **/tmp/repo**
+    use the following configuration settings:
+
+    ```console
+base_url = file:///tmp/repo
+db_url = file:///tmp/repo
+    ```
+
+    The directory **/tmp/repo** must contain the core.db
+    file and the module directories.
+    You can download the core.db from
+    [https://data.gempa.de/repo/core.db](https://data.gempa.de/repo/core.db)
+
+```text"
+/tmp/repo
+
+├── core.db
+├── licenses
+│   ├── xxx.crt
+│   └── xxx-license.txt
+└── seiscomp
+    ├── 4
+    ├── 5
+    └── 6
+        ├── debian
+        ├── rhel
+        │   └── 9
+        │       └── x86_64
+        │           ├── ...
+        │           ├── seiscomp-6.9.1-rhel-9-x86_64.tar.gz
+        │           ├── seiscomp-6.9.1-rhel-9-x86_64.tar.gz.dsc
+        │           └── seiscomp-6.9.1-rhel-9-x86_64.tar.gz.sig
+        └── ubuntu
+```
+
+-   Add file://
+
+## 2025.282 1.6.10
+
+### Added
+
+-   GSM itself can now be put on hold
+
+### Fixed
+
+-   OS detection for AArch64 on setup dialog
+-   Check whether a dependency is available in the repository
+
+## 2025.233 1.6.9
+
+### Changed
+
+-   Release and operating system cannot be changed in the setup dialog after
+    initial setup. Instead please use the commands do-release-upgrade/downgrade
+    and switch-os for these use cases.
+
+## 2025.213 1.6.8
+
+### Changed
+
+-   Skip data packages on do-release-down/upgrade/switch-os
+
+### Fixed
+
+-   Update management with expired license keys
+
+## 2025.161 1.6.7
+
+### Important
+
+-   Please run ./gsm reinstall gsm
+
+### Changed
+
+-   Print more information
+
+## 2025.140 1.6.6
+
+### Fixed
+
+-   Broken migration scripts due to Python venv changes
+
+## 2025.139 1.6.5
+
+### Added
+
+-   The installation of dependencies has been greatly simplified.
+    Required dependencies are now automatically installed in a
+    virtual environment (venv) so that they can be managed separately
+    from other applications.
+-   GSM can be called from anywhere if set in the path
+
+### Fixed
+
+-   AlmaLinux support
+
+### Changed
+
+-   The default behavior of gsm update has been changed so that
+    the installation of package updates must be explicitly requested
+
+## 2025.038 1.6.4
+
+### Fixed
+
+-   GnuPG import error
+
+### Added
+
+-   Support for new elevation package
+
+## 2025.030 1.6.3
+
+### Fixed
+
+-   Fix migrations
+
+## 2025.023 1.6.2
+
+### Fixed
+
+-   Python < 3.8 support
+
+## 2025.022 1.6.1
+
+### Fixed
+
+-   Create install directory (velocity packages) if not exists
+
+## 2025.022 1.6.0
+
+### Fixed
+
+-   Removal of unused dependencies (pip install from configparser)
+
+### Added
+
+-   More logs to log/gsm.log file
+-   Option to backup downloaded package files. By default this feature
+    is disabled. The backup can be enabled in the gsm.conf as follows:
+
+    ```console
+    backup_package_enable = [True/False]
+    backup_package_path = /home/data/gsm/backup
+    ```
+
+-   Option to clean backups
+
+    ```console
+    gsm clean backups
+    ```
+
+-   Optional package verification with gpg signature. The verification
+    check can be enabled in the gsm configuration as shown below.
+
+    ```console
+    gpgverify = [True/False]
+    ```
+
+-   Option to display configuration option for the gsm.conf
+
+    ```console
+    gsm help config
+    ```
+
+-   Dependency installation of packages
+
+## 2025.016 1.5.2
+
+### Fixed
+
+-   Delayed execution on systems with connection proxy
+
+## 2024.310 1.5.1
+
+### Fixed
+
+-   Library link creation
+
+## 2024.292 1.5.0
+
+### Fixed
+
+-   Install location permission check
+
+## 2024.246 1.4.9
+
+### Fixed
+
+-   Broken `switch-os` functionality
+-   File modification time of description files
+-   Missing gsm update check before installing packages
+
+## 2024.226 1.4.8
+
+### Added
+
+-   Option to show activated and public modules
+-   Setup input validation checks
+
+### Fixed
+
+-   Reinstallation of packages in offline mode
+-   Missing update before release up- or downgrade
+
+## 2024.088 1.4.7
+
+### Added
+
+-   Option to list dependencies of installed modules, e.g.,
+
+    ```console
+    gsm info deps [package]
+    ```
+
+-   Option `hold files`. This command set files on hold and
+    these files are not touched when packages are updated or removed.
+
+## 2023.353 1.4.6
+
+### Fixed
+
+-   Reinstall output messages
+-   Initial setup run
+
+## 2023.354 1.4.5
+
+### Added
+
+-   Add option `info short`. This command makes it easier to copy the names of
+    the installed packages and the output can be used as input for gsm commands.
+-   gsm shows a hint when the selected OS/release is not supported anymore.
+-   gsm suggests related packages during installation
+-   Rename option `install-licenses` to `install licenses`
+-   Rename option `showall` to `show all`
+-   Allow the installation of licences even if the corresponding package is not
+    installed. Use command line gsm install licenses -f
+
+## 2023.353 1.4.4
+
+### Fixed
+
+-   Tarfile security warning
+-   GSM update
+
+## 2023.333 1.4.2
+
+### Changed
+
+-   Change default release to SeisComP 6
+-   Improve data package installation
+
+### Fixed
+
+-   Rework switch-os output
+
+## 2023.325 1.4.1
+
+### Changed
+
+-   Display of the info texts changed
+
+## 2023.325 1.4.0
+
+### Added
+
+-   Display progress indicator when checking checksums
+-   Add option to do a release downgrade, e.g., to
+    switch from nightly to a stable release.
+
+### Fixed
+
+-   Map installation
+
+### Changed
+
+-   Improve custom package installation, used new package description files
+
+## 2023.293 1.3.9
+
+### Fixed
+
+-   Hotfix after removing SeisComP3
+
+## 2023.293 1.3.8
+
+### Fixed
+
+-   Version number comparison
+
+## 2023.240 1.3.7
+
+### Changed
+
+-   Improve custom package installation
+
+## 2023.228 1.3.6
+
+### Changed
+
+-   Improve custom package installation
+
+### Fixed
+
+-   Conflict evaluation
+
+## 2023.227 1.3.5
+
+### Changed
+
+-   Improve custom package installation
+
+## 2023.223 1.3.4
+
+### Added
+
+-   Packages can be installed when calling update
+-   Display packages to be installed
+
+### Fixed
+
+-   gsm info was not displayed correctly when there is no sync directory
+
+## 2023.209 1.3.3
+
+### Fixed
+
+-   Update data packages
+
+## 2023.208 1.3.2
+
+### Added
+
+-   Display message when a new SeisComP release is available
+-   The list of packages to be updated shows the period allowed for installing
+    updates and the period until the license expires.
+
+    ```console
+    quakelink (2023.047) --> 2023.151 [License expires in 10 days (2023-06-15)]
+    ```
+
+    gsm info now also shows the expiration time for the license and the update
+
+    ```console
+    Installed packages  Version  Valid until  Updates until
+    ------------------  -------  -----------  --------------
+    ...
+    quakelink           2023.047 2024-03-20   2024-03-20
+    ...
+    ```
+
+## 2023.195 1.3.1
+
+### Changed
+
+-   Evaluate installPath package option for all packages
+
+## 2023.129 1.3.0
+
+### Added
+
+-   New option to install packages from local file
+
+    ```console
+    gsm localinstall scanloc-2023.128-seiscomp-5-rhel-8-x86_64.tar.gz
+    ```
+
+## 2023.109 1.2.9
+
+### Added
+
+-   Support to select the public SeisComP repository in setup
+
+### Fixed
+
+-   Install path issue
+
+## 2023.072 1.2.8
+
+### Added
+
+-   Offline mode to allow the installation of packages on systems without
+    internet access. A usecase is given in the section "Offline workflow"
+    in README.
+
+### Changed
+
+-   Follow webserver redirections
+
+## 2023.016 1.2.7
+
+### Changed
+
+-   Minor changes
+
+## 2023.002 1.2.6
+
+### Added
+
+-   New option to upgrade all installed packages for a new operating system
+
+    ```console
+    gsm switch-os
+    ```
+
+-   Improved gsm updater. The new version includes a migration feature that will
+    help to run future gsm updates smoother. gsm displays a notice if unapplied
+    migrations have been found. Those can be run as follows:
+
+    ```console
+    gsm migrate
+    ```
+
+-   Notice when the login credentials are wrong
+
+### Changed
+
+-   Improved release upgrade
+-   Take checksum into account when looking for package updates
+-   Updated install instructions
+
+## 2022-07-11 1.2.5
+
+### Changed
+
+-   do-release upgrade checks licenses before upgrade
+
+## 2022-06-22 1.2.4
+
+### Changed
+
+-   Show only available packages depending on settings
+
+## 2022-06-22 1.2.3
+
+### Fixed
+
+-   Install exit code
+
+## 2022-06-03 1.2.2
+
+### Changed
+
+-   Use x86_64 as default system architecture
+
+## 2022-06-03 1.2.1
+
+### Changed
+
+-   Suggest to update gsm before updating packages when there is a new
+    gsm package available
+
+## 2022-06-03 1.2.0
+
+### Changed
+
+-   Minor optimizations
+
+## 2022-03-24
+
+### Added
+
+-   SeedLink server update instructions
+
+## 2022-02-14
+
+### Important
+
+-   Support for Python2 was dropped. If Python3 is not installed on your system
+    you need to install it including all **gsm** dependencies.
+
+### Changed
+
+-   Remove psutil dependency
+-   Installation of updates without stopping of running modules.
+    **Note**: The module still needs to be restarted to run the latest version.
+-   Move large data packages from the download to installation directory:
+    -   Rationale: Save disk space.
+    -   Precondition: The download and installation directory must reside on
+        the same file system.
+-   Suppress traceback on KeyboardInterrupt (Ctrl+C)
+
+### Fixed
+
+-   `seiscomp-wrapper` creation
+-   greensfunction installation folder
+-   Application crashes for running modules sharing a library with module being
+    installed.
+
+## 2021-09-08
+
+### Changed
+
+-   Rework of the do-release-upgrade function. The new implementation checks for
+    running processes and downloads new packages before the upgrade is started.
+
+## 2021-08-12
+
+### Added
+
+-   Option to hold/unhold packages. Use the hold command to mark a package as
+    held back, which will prevent the package from being automatically installed
+    or upgraded. For instance:
+
+    ```console
+    gsm hold scanloc
+    ```
+
+-   Option to show packages on hold
+
+## 2021-08-06
+
+### Fixed
+
+-   `install` command
+
+## 2021-08-02
+
+### Added
+
+-   Show a hint when a package is no longer supported.
+
+## 2021-07-27
+
+### Fixed
+
+-   `reinstall` command
+
+## 2021-07-19
+
+### Fixed
+
+-   `do-release-upgrade` command
+
+## 2021-07-15
+
+### Fixed
+
+-   Trailing path separators were not handled correctly and problems occurred
+    when installing packages.
+
+## 2021-07-02
+
+### Important
+
+We have fixed a typo in the package description format. The new package database
+is already in place and breaks existing **gsm** installations. It is necessary
+to install the gsm release 1.0.1 so that packages can be installed as usual.
+Unfortunately, the update could not be done automatically and requires user
+interaction. Please follow the migration guide below.
+
+1.   Download the latest version with
+
+     ```console
+     cd install
+     wget https://data.gempa.de/gsm/gempa-gsm.tar.gz
+     ```
+
+1.   Extract the package
+
+     ```console
+     tar xvfz gempa-gsm.tar.gz
+     ```
+
+1.   Remove the sync cache
+
+     ```console
+     cd gsm
+     rm -rf sync
+     ```
+
+1.   Update the package cache
+
+     ```console
+     ./gsm update
+     ```
+
+### Fixed
+
+-   Typo in package descriptions
+
+### Changed
+
+-   `gsm info gsm` shows N/A for some properties as long as no update has been
+    done.
+
+## 2021-07-01
+
+### Changed
+
+-   Bump version to 1.0.0
+
+## 2021-06-29
+
+### Fixed
+
+-   The program can not be started without configuration file.
+
+## 2021-06-28
+
+### Added
+
+-   Support to define conflicts in package description
+
+## 2021-06-23
+
+### Fixed
+
+-   Show package command
+
+### Added
+
+-   Support to install **slabs-rum** and **slabs-usgs** package
+
+## 2021-06-15
+
+### Fixed
+
+-   Sync cache package reading
+
+## 2021-06-14
+
+### Changed
+
+-   Rework of the do-release-upgrade feature
+
+## 2021-06-08
+
+### Changed
+
+-   All packages except configuration packages are removed before an update is
+    installed.
+
+## 2021-06-01
+
+### Fixed
+
+-   Installation of map packages
+
+## 2021-05-27
+
+### Fixed
+
+-   License handling
+-   Package download error handling
+
+## 2021-04-30
+
+### Fixed
+
+-   Detect OS on Raspbian (arm)
+-   Show SeisComP minor and patch updates when running `gsm update`
+
+## 2021-04-14
+
+### Added
+
+-   Do release upgrade feature
+
+    ```console
+    gsm do-release-upgrade
+    ```
+
+## 2021-03-19
+
+### Fixed
+
+-   Install dir write permission check
+
+## 2021-02-15
+
+### Fixed
+
+-   OS detection. The previous approach did not work with Debian.
+
+### Added
+
+-   Support to install *oq-engine* package
+
+### Changed
+
+-   Update install instructions
+
+## 2021-01-08
+
+### Important
+
+#### Discontinuation of CentOS 8 support by RedHat**
+
+The CentOS team recently announced the switch from CentOS to CentOS Streams:
+
+-   <https://blog.centos.org/2020/12/future-is-centos-stream/>
+-   <https://www.redhat.com/en/blog/centos-stream-building-innovative-future-enterprise-linux>
+
+Therein the following end of life (EOL) dates are announced:
+
+-   CentOS 8: December 31, 2021
+-   CentOS 7: June 30th, 2024
+
+As a consequence we do not recommend our customers to upgrade from CentOS 7 to 8
+for now. Ultimately, there will be a successor of CentOS, e.g. Rocky Linux,
+which offers an upgrade path from CentOS. Also there are already RHEL compatible
+and free alternatives, with Oracle Linux being probably among the most suitable
+candidates.
+
+gempa will continue to support RHEL 7, 8, and newer versions, as it is the
+current industry standard. However, we will not be able to support CentOS
+Streams because of it's rolling release cycle and because it is not binary
+compatible to RHEL.
+
+To clarify our support for RHEL we renamed gempa's package directory structure
+and package file names from centos to rhel. For users of the gempa software
+manger (gsm) this change is transparent as gsm will automatically convert an
+existing configuration respectively detect a new CentOS installation to be a
+RHEL compatible distribution.
+
+## 2020-12-14
+
+### Fixed
+
+-   Show help page only once
+-   Show important changes
+
+## 2020-12-01
+
+### Fixed
+
+-   Nightly build update issues
+
+## 2020-11-23
+
+### Fixed
+
+-   Self update issues
+
+## 2020-11-03
+
+### Fixed
+
+-   The running module check did not check the full path. This led to that in
+    case of more than one SeisComP installation packages might not install.
+-   The display of important changelog information
+
+### Changed
+
+-   With this release you can search modules by keywords, e.g.,
+    `data acquisition` or `tsunami`.
+
+    ```console
+    gsm search data acquisition
+    ```
+
+-   Show only a warning message if the `license.txt` could not be downloaded
+-   **gsm** creates the `seiscomp-python` script if it does not exist
+-   Updated help page
+
+## 2020-09-02
+
+### Fixed
+
+-   `gsm update` displays new **gsm** releases. There is no longer the need
+    to run the command twice.
+-   Display error message when a file cannot be removed from disk. e.g.,
+    `File not found`
+-   Show Important changes only if necessary
+
+## 2020-08-19
+
+### Added
+
+-   Some Python package manager e.g. **pip** needs superuser rights to install
+    the `psutil` package. In order that packages can be installed even an user
+    has no superuser rights we ask the user if he wants to skip the running
+    module check if the `psutils` package couldn't be found.
+
+## 2020-08-07
+
+### Changed
+
+-   Before installing or removing packages we check if there are any errors,
+    e.g., a package cannot be downloaded. In case of an error user interaction
+    is **required**.
+-   Show packages sorted when running `gsm install`
+
+### Fixed
+
+-   Show important update information
+-   Uninstall in case of package downgrade
+-   OS detection e.g. CentOS 8
+
+## 2020-07-30
+
+### Changed
+
+-   Show detailed information if a file download fails
+-   Show relevant information of the changelog only if a module has been
+    installed before.
+-   Option to confirm package installation only once
+
+### Fixed
+
+-   Improved check if a module is running.
+-   OS detection
+
+## 2020-07-08
+
+### Important
+
+-   The new version requires the `psutil` Python package. See the README
+    for install instructions.
+
+### Changed
+
+-   Don't allow to install updates when the specific application is running.
+
+### Fixed
+
+-   `show changelog` command
+
+## 2020-06-30
+
+### Important
+
+-   The new version requires the `humanize` Python package. See the README for
+    install instructions.
+
+### Added
+
+-   New configuration option `install_path`. Previously, applications were
+    always installed in the `seiscomp3` or `seiscomp`directory. Use this option
+    to set a user-defined root path, e.g., `install_path=/home/sysop/seiscomp4`
+
+    ```console
+    /home/sysop/seiscomp4
+    bin
+    etc
+    ...
+    ```
+
+-   Support for `jakarta-nightly` builds. At the moment nightly builds does not
+    have an explicit version number so the command
+
+    ```console
+    ./gsm install seiscomp3
+    ```
+
+    installs always the latest available version without any user interaction.
+    The builds does not appear in the update list either.
+
+### Changed
+
+-   Package installation summary shows more useful information e.g. the install
+    dir.
+
+## 2020-05-26
+
+### Important
+
+-   The new version requires the `natsort` Python package. See the README for
+    install instructions.
+
+### Changed
+
+-   Show summary after package install
+
+### Fixed
+
+-   Install the licenses of all given modules
+
+## 2020-05-26
+
+### Changed
+
+-   Prepared the introduction of library versions
+
+### Fixed
+
+-   Show human readable error description when the data directory couldn't be
+    created.
+
+## 2020-05-18
+
+### Added
+
+-   New commandline option `assumeyes`. With this option **gsm** assumes that
+    the answer to any question which would be asked is yes.
+
+    ```console
+    gsm -y install scanloc
+    ```
+
+### Fixed
+
+-   Non zero exit code on success. With this release **gsm** returns zero on
+    success.
+
+## 2020-05-11
+
+### Changed
+
+-   We have improved the source code and introduced unit tests to make **gsm**
+    more stable.
+
+## 2020-04-28
+
+### Fixed
+
+-   `core.db` download
+-   Broken install command under Python 3
+
+## 2020-04-22
+
+### Fixed
+
+-   Handle incomplete download
+
+## 2020-03-19
+
+### Fixed
+
+-   So far `./gsm update` had to be called twice to see the latest package
+    update list.
+-   Handle corrupt local package cache
+
+## 2020-03-09
+
+### Fixed
+
+-   Handle incomplete file structure, e.g., if a file has been removed from
+    local cache from outside.
+
+## 2020-02-25
+
+### Changed
+
+-   `gsm reinstall` re-installs all installed packages
+-   `gsm.conf` option `packages` is no longer taken into account. From now on we
+    read the installed package information from the local cache only.
+
+## 2020-02-17
+
+### Added
+
+-   Added `install-licenses` command. Without further arguments the licenses of
+    the installed modules are updated, e.g.,
+
+    ```console
+    gsm install-licenses
+    ```
+
+## 2020-01-31
+
+### Fixed
+
+-   Broken license installation
+
+## 2020-01-23
+
+### Changed
+
+-   License check takes local licenses into account
+
+## 2020-01-22
+
+### Fixed
+
+-   Broken `gsm install` command. When no package is specified gsm reads the
+    packages from the `gsm.conf`.
+
+## 2020-01-17
+
+### Added
+
+-   `reinstall` command. With this command installed packages can be reinstalled
+    if necessary, e.g.,
+
+    ```console
+    gsm reinstall scanloc
+    ```
+
+-   Show important update information if necessary.
+
+### Changed
+
+-   Make code PEP 8 style guide compatible
+
+### Fixed
+
+-   Missing python dependency
+
+## 2019-12-05
+
+### Fixed
+
+-   Corrected typos. This change breaks existing installations. Please run the
+    following commands to migrate the local package file database.
+
+    ```console
+    cd gsm/local
+    find -name desc | xargs -i  sed -i 's/pgkinstallsize/pkginstallsize/g' {}
+    find -name desc | xargs -i  sed -i 's/pgksize/pkgsize/g' {}
+    ```
+
+## 2019-12-04
+
+### Added
+
+-   Python3 support
+-   Install log available at `gsm/log/gsm.log`
+
+## 2019-11-06
+
+### Added
+
+-   Support to install data files like maps, greensfunctions and velocity files,
+    e.g.,
+
+    ```console
+    gsm install world-final-zoom10
+    ```
+
+## 2019-11-04
+
+### Fixed
+
+-   Correct typos
+
+## 2019-10-23
+
+### Changed
+
+-   Default SeisComP3 release to 2018.327
+-   More logging
+
+### Fixed
+
+-   Handling of default values of input fields
+
+## 2019-10-21
+
+### Fixed
+
+-   Progress bar
+-   Make remove operation more stable
+
+## 2019-10-16
+
+### Changed
+
+-   Show download speed
+
+## 2019-10-15
+
+### Changed
+
+-   New **gsm** major release. The new release contains the following features:
+    -   Tracking of installed packages
+    -   Support to remove installed packages
+    -   Support to download data files e.g. greensfunctions or maps
+    -   Support to install a specific version
+
+        ```console
+        gsm install gds=2019.287
+        ```
+
+    -   SeisComP3 patch release support
+    -   Shows list of modules that can be updated
+    -   Update **gsm** with **gsm**
+
+## 2019-05-23
+
+### Fixed
+
+-   Do not show a warning if a license file can not be found on server side.
+    This is a workaround because we do not know which modules require a license.
+
+### Added
+
+-   New command line option `version` that displays version information
+
+## 2019-04-18
+
+### Fixed
+
+-   `install-licenses` command. The previous version did not download the
+    license files properly.
+
+### Added
+
+-   New command line option `show-urls`. Use this option to display the full
+    URLs
+
+### Changed
+
+-   Command line output
+
+## 2019-03-27
+
+### Changed
+
+-   Remove license install option. With this version we install the licenses for
+    all selected packages.
+
+## 2019-02-13
+
+### Added
+
+-   Show error message for unsupported SeisComP3 release
+
+## 2019-01-08
+
+### Fixed
+
+-   README
+
+## 2018-04-19
+
+### Added
+
+-   Support to add script to system path
+
+## 2018-04-03
+
+### Fixed
+
+-   Package name parser
+
+### Added
+
+-   Show download progress
+
+## 2017-01-08
+
+### Added
+
+-   Support to download and install license files via the command
+
+    ```console
+    gsm install licenses
+    ```
+
+    all available license files will be downloaded and installed
+
+## 2017-06-21
+
+### Fixed
+
+-   Show all available modules even packages are selected by configuration
+
+## 2017-04-25
+
+### Added
+
+-   Show full download URLs
+
+## 2017-04-24
+
+### Added
+
+-   Support to view module change log

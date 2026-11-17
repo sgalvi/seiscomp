@@ -1,0 +1,17 @@
+pkgname=report-generators
+pkgver=2026.252
+pkgrel=nightly
+pkgdesc=('Report generators (commercial)')
+pkgkeywords=('report shard sigma')
+pkgchangelog=('share/doc/rgsm/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('5675acda827a88c8cd0a105e425b78eadeb17b28a88579564bf8aff36a82c536')
+pkgsize=('13015362')
+pkginstallsize=('14752600')
+filename=('report-generators-2026.252-seiscomp-nightly-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-09-12 00:46:49')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')
+osinstallscripts=('install-report-generators.sh')

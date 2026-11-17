@@ -1,0 +1,17 @@
+pkgname=gds
+pkgver=2026.285
+pkgrel=7
+pkgdesc=('Modular expandable dissemination and publication server (commercial)')
+pkgkeywords=('decision support dissemination EEW induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('share/doc/gds/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('563abf7278d4bfcf55d2b157009588ff1e5deeb7a843101c683a7f3e5ece0634')
+pkgsize=('18381716')
+pkginstallsize=('25289207')
+pkgfilecount=('486')
+filename=('gds-2026.285-seiscomp-7-ubuntu-26.04-aarch64.tar.gz')
+builddate=('2026-11-07 00:16:04')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

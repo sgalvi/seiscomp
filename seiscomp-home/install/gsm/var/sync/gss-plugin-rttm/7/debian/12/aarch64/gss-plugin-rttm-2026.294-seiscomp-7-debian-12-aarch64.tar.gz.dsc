@@ -1,0 +1,16 @@
+pkgname=gss-plugin-rttm
+pkgver=2026.294
+pkgrel=7
+pkgdesc=('GNS Science simulation plugin for Rapid Tsunami Threat Map (RTTM) generation by W.L. Power (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simrttm/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('daeba868857d59fc7bbf590dc2097f88645fbb5c7045ecf56f61a956c8e5d14f')
+pkgsize=('4635367')
+pkginstallsize=('10795077')
+filename=('gss-plugin-rttm-2026.294-seiscomp-7-debian-12-aarch64.tar.gz')
+builddate=('2026-10-31 00:16:15')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

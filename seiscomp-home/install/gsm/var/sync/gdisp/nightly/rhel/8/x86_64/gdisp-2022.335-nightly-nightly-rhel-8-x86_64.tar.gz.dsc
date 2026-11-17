@@ -1,0 +1,17 @@
+pkgname=gdisp
+pkgver=2022.335
+pkgrel=nightly
+pkgdesc=('Get events from messaging and compute GNSS displacements.')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('9e2cdc274d39aec1951edff24905db912fa293c92a72ae600ccd376acb87c315')
+pkgsize=('9174')
+pkginstallsize=('40244')
+filename=('gdisp-2022.335-nightly-nightly-rhel-8-x86_64.tar.gz')
+builddate=('2022-12-05 21:08:25')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

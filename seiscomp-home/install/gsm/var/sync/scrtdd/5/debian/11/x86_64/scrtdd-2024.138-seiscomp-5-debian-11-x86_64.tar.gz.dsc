@@ -1,0 +1,16 @@
+pkgname=scrtdd
+pkgver=2024.138
+pkgrel=5
+pkgdesc=('A module for real-time double difference relocation of events (public)')
+pkgkeywords=('scrtdd')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('bd8f786a847f3c52a91d3c556107f03b0963e844f6bcdf04ea7bdd07753accfd')
+pkgsize=('11955686')
+pkginstallsize=('14740073')
+filename=('scrtdd-2024.138-seiscomp-5-debian-11-x86_64.tar.gz')
+builddate=('2024-11-19 22:56:38')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

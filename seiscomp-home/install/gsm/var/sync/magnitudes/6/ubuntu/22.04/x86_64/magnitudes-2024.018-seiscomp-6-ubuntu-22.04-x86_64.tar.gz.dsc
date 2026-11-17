@@ -1,0 +1,17 @@
+pkgname=magnitudes
+pkgver=2024.018
+pkgrel=6
+pkgdesc=('Plugins providing magnitudes and yield estimates (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('d5a5d3216a33f54ce6ac0c20bb1a27e1375d41566974b6171ce8f86248939b50')
+pkgsize=('21415')
+pkginstallsize=('101512')
+filename=('magnitudes-2024.018-seiscomp-6-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2024-06-25 22:45:31')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

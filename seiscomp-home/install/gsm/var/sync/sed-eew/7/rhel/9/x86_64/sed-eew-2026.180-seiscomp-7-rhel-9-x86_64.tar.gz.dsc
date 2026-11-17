@@ -1,0 +1,17 @@
+pkgname=sed-eew
+pkgver=2026.180
+pkgrel=7
+pkgdesc=('Software package provided for ETH Zurich (https://www.seismo.ethz.ch) (public)')
+pkgkeywords=('sed eew')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('b95bd05e38b32e5d068477d13038b720e1a0ef7d08b28386718411175632efac')
+pkgsize=('11183696')
+pkginstallsize=('33493500')
+pkgfilecount=('146')
+filename=('sed-eew-2026.180-seiscomp-7-rhel-9-x86_64.tar.gz')
+builddate=('2026-11-17 00:02:44')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

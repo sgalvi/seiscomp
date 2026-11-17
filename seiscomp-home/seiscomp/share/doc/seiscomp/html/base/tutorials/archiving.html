@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html  lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Maintain waveform archives &#8212; SeisComP Release documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/seiscomp.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+    <script type="text/javascript" src="../../_static/seiscomp.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Configure real-time processing" href="processing.html" />
+    <link rel="prev" title="Get real-time data from a remote Seedlink server (single station)" href="waveforms.html" /> 
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="brand">
+          <img class="logo" src="../../_static/brands/seiscomp/text/white.svg"/>
+           <!-- span class="title">SeisComP Release</span -->
+          <span class="version">7.4.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="container">
+        <div class="content"><a class="pull-right" id="sidebar-toggle">TOC</a>
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <ul>
+        <li class="right">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">
+            index
+          </a>
+        </li>
+        <li class="right">
+          <a href="processing.html" title="Configure real-time processing"
+             accesskey="N">
+            next
+          </a>
+        </li>
+        <li class="right">
+          <a href="waveforms.html" title="Get real-time data from a remote Seedlink server (single station)"
+             accesskey="P">
+            previous
+          </a>
+        </li>
+        <li class="nav-item nav-item-0">
+          <a href="../../index.html">Home</a>
+        </li>
+        <li class="nav-item nav-item-1">
+          <a href="../tutorials.html" accesskey="U">Tutorials</a>
+        </li> 
+      </ul>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="fitted content" id="anchors-container">
+        <div class="body" role="main">
+          
+  <section id="maintain-waveform-archives">
+<span id="tutorials-archiving"></span><h1>Maintain waveform archives<a class="headerlink" href="#maintain-waveform-archives" title="Permalink to this heading">¶</a></h1>
+<p>You will …</p>
+<ul class="simple">
+<li><p>Set up <a class="reference internal" href="../../apps/slarchive.html#slarchive"><span class="std std-ref">slarchive</span></a> with its necessary bindings</p></li>
+<li><p>Control the life-time of waveforms</p></li>
+<li><p>Access waveforms</p></li>
+</ul>
+<p>Pre-requisites for this tutorial:</p>
+<ul class="simple">
+<li><p>Have SeisComP installed</p></li>
+<li><p>Tutorial on <a class="reference internal" href="addstation.html#tutorials-addstation"><span class="std std-ref">adding a new station</span></a></p></li>
+<li><p>Tutorial on <a class="reference internal" href="geofon_waveforms.html#tutorials-geofon-waveforms"><span class="std std-ref">real-time data acquisition</span></a>
+so that you have local data for GE stations.
+Alternatively you may already obtain real-time waveform data from
+somewhere else (see <a class="reference internal" href="waveforms.html#tutorials-waveforms"><span class="std std-ref">Get real-time data from a remote Seedlink server (single station)</span></a>).</p></li>
+</ul>
+<p>Afterwards/Results/Outcomes:</p>
+<ul class="simple">
+<li><p>Save real-time data in a local archive for later processing.</p></li>
+<li><p>See <a class="reference internal" href="../glossary.html#term-miniSeed"><span class="xref std std-term">miniSEED</span></a> day files for GE stations in your local
+<a class="reference internal" href="../concepts/waveformarchives.html#concepts-waveformarchives"><span class="std std-ref">waveform archive</span></a>.</p></li>
+</ul>
+<p>Time range estimate:</p>
+<ul class="simple">
+<li><p>20 minutes</p></li>
+</ul>
+<p>Related tutorial(s):</p>
+<ul class="simple">
+<li><p>Tutorial on <a class="reference internal" href="servefdsnws.html#tutorials-servefdsnws"><span class="std std-ref">Enable local FDSNWS server</span></a></p></li>
+<li><p>Tutorial on <a class="reference internal" href="waveformplayback.html#tutorials-waveformplayback"><span class="std std-ref">Play back archived waveforms</span></a></p></li>
+</ul>
+<hr class="docutils" />
+<section id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this heading">¶</a></h2>
+<p>Without activating waveform archiving, your local <a class="reference internal" href="../../apps/seedlink.html#seedlink"><span class="std std-ref">Seedlink server</span></a>
+will only keep waveforms for a short period of time.
+This makes it hard to review old events, for example.
+<a class="reference internal" href="../../apps/slarchive.html#slarchive"><span class="std std-ref">slarchive</span></a> is therefore set up and used for archiving real-time waveforms
+from a seedlink server.
+In this example, we’ll arrange for keeping waveforms for one week.</p>
+<p>Before starting, you’ll need ensure to have access to readl-time data from a
+<a class="reference internal" href="../../apps/seedlink.html#seedlink"><span class="std std-ref">seedlink</span></a> server. To make seedlink bindings for your stations see the
+tutorials <a class="reference internal" href="geofon_waveforms.html#tutorials-geofon-waveforms"><span class="std std-ref">Add real-time stations from GEOFON</span></a> or <a class="reference internal" href="waveforms.html#tutorials-waveforms"><span class="std std-ref">Get real-time data from a remote Seedlink server (single station)</span></a>.</p>
+</section>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference internal" href="../../apps/slarchive.html#slarchive"><span class="std std-ref">slarchive</span></a> collects data and archives it locally in the directory defined
+by <a class="reference internal" href="../../apps/slarchive.html#confval-archive"><code class="xref std std-confval docutils literal notranslate"><span class="pre">archive</span></code></a> using a <a class="reference internal" href="../glossary.html#term-SDS"><span class="xref std std-term">SDS</span></a> file
+system structure of nested subdirectories and systematically named files. For
+working with the archived data, read the section on
+<a class="reference internal" href="#tutorials-archiving-access"><span class="std std-ref">Access to Archived Data</span></a>.</p>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference internal" href="../../apps/slarchive.html#slarchive"><span class="std std-ref">slarchive</span></a> requires a module configuration and bindings.
+You may configure slarchive using <a class="reference internal" href="../../apps/scconfig.html#scconfig"><span class="std std-ref">scconfig</span></a> or by command-line actions.</p>
+<section id="in-scconfig">
+<h3>In scconfig<a class="headerlink" href="#in-scconfig" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p>Under the Modules tab, go to Acquisition, and select <strong class="program">slarchive</strong>.
+Here you can see the default parameters used.
+By default, <strong class="program">slarchive</strong> connects to your local Seedlink server,
+and archives to your local disk.</p></li>
+<li><p>Under the System tab, select the line for <strong class="program">slarchive</strong>, and click
+“Enable module(s)” button at the top.</p></li>
+<li><p>Under Bindings:
+On RHS right-click “slarchive” to add an slarchive profile.
+Name it ‘week’, to keep waveforms for 7 days, and click ‘Ok’.
+The new profile appears in the (bottom right corner of <strong class="program">scconfig</strong>.
+Double click on the profile to open its settings.
+Unlock the box labeled “keep”, and change the default from 30 to 7.</p>
+<p>Once you have a binding profile, drag it over all the stations it
+should apply to, under “Networks” on the left-hand side of the
+bindings tool.</p>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The name ‘week’ is just a label.
+Its functionality comes from changing the value of the <cite>keep</cite> parameter.
+Changing the <em>name</em> of a binding profile does not change its function.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also choose which channels should be archived,
+using the “<a class="reference internal" href="../../apps/slarchive.html#confval-selectors"><code class="xref std std-confval docutils literal notranslate"><span class="pre">selectors</span></code></a>” box.
+For instance, you may collect data at several sample rates,
+and only wish to archive the highest rate.
+If you collect LH, BH, HH streams at 0.1, 20, and 100 samples
+per second, respectively, you might retain only the HH streams,
+by setting “<a class="reference internal" href="../../apps/slarchive.html#confval-selectors"><code class="xref std std-confval docutils literal notranslate"><span class="pre">selectors</span></code></a>” to “HH”.</p>
+</div>
+<ol class="arabic simple">
+<li><p>Then return to System, and click ‘Update configuration’.
+Make sure the <strong class="program">slarchive</strong> module, or no module, is selected.</p></li>
+<li><p>Restart <strong class="program">slarchive</strong>.</p></li>
+<li><p>Adjust the <a class="reference internal" href="../concepts/recordstream.html#concepts-recordstream"><span class="std std-ref">RecordStream</span></a> for making use of the archived waveforms
+from within a <a class="reference internal" href="../glossary.html#term-GUI"><span class="xref std std-term">GUI</span></a> or automatic data processing modules.</p></li>
+</ol>
+</section>
+<section id="command-line">
+<h3>Command line<a class="headerlink" href="#command-line" title="Permalink to this heading">¶</a></h3>
+<p>You will need to edit each of your top-level key files to refer to
+a new binding profile.
+e.g.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/seiscomp/etc/key
+$<span class="w"> </span>vi<span class="w"> </span>station_GR_CLL
+</pre></div>
+</div>
+<p>Add the line <cite>slarchive:week</cite> to whatever lines are already there.
+Afterwards it will look something like this</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Binding references</span>
+<span class="na">global</span><span class="o">:</span><span class="s">BH</span>
+<span class="na">scautopick</span><span class="o">:</span><span class="s">default</span>
+<span class="na">seedlink</span><span class="o">:</span><span class="s">geofon</span>
+<span class="na">slarchive</span><span class="o">:</span><span class="s">week</span>
+</pre></div>
+</div>
+<p>Repeat this for the top-level key file of each station
+you wish this binding to apply to.
+Now create the binding profile in the key directory.
+This is a file with a name corresponding to the binding profile name; here: ‘week’</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/seiscomp/etc/key
+$<span class="w"> </span>mkdir<span class="w"> </span>slarchive
+$<span class="w"> </span>vi<span class="w"> </span>slarchive/profile_week
+<span class="c1"># Number of days the data is kept in the archive. This requires purge_datafile</span>
+<span class="c1"># to be run as cronjob.</span>
+<span class="nv">keep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">7</span>
+
+$<span class="w"> </span>seiscomp<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>slarchive
+$<span class="w"> </span>seiscomp<span class="w"> </span>update-config<span class="w"> </span>slarchive
+$<span class="w"> </span>seiscomp<span class="w"> </span>restart<span class="w"> </span>slarchive
+slarchive<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>running
+starting<span class="w"> </span>slarchive
+</pre></div>
+</div>
+</section>
+<section id="data-life-cycle">
+<h3>Data life cycle<a class="headerlink" href="#data-life-cycle" title="Permalink to this heading">¶</a></h3>
+<p>Left unattended, your disk will eventually fill up with archived data since
+<a class="reference internal" href="../../apps/slarchive.html#slarchive"><span class="std std-ref">slarchive</span></a> itself does not delete any data.</p>
+<section id="deleting-files">
+<h4>Deleting files<a class="headerlink" href="#deleting-files" title="Permalink to this heading">¶</a></h4>
+<p>To prevent your file system from filling up you may delete data using a script
+like <cite>purge_database</cite>, provided with <cite>SeisComP</cite>. The script considers duration set
+by the <em>keep</em> parameter in slarchive bindings for defining the number of days to
+keep the data in your archive.
+The script can be run once per day using the <cite>cron</cite> feature of your system.
+The command</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>seiscomp<span class="w"> </span>print<span class="w"> </span>crontab
+</pre></div>
+</div>
+<p>will print a number of lines with suggested actions to the terminal. Type
+<cite>crontab -e</cite> and insert these lines into the crontab file for your user (typically <cite>sysop</cite>).
+Exit your crontab editor.
+Displaying your crontab should now show a line for <cite>purge_database</cite>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>crontab<span class="w"> </span>-l
+<span class="m">20</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>/home/sysop/seiscomp/var/lib/slarchive/purge_datafiles<span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+<span class="o">[</span>There<span class="w"> </span>may<span class="w"> </span>be<span class="w"> </span>other<span class="w"> </span>lines<span class="w"> </span>too.<span class="o">]</span>
+</pre></div>
+</div>
+<p>This shows you that the <cite>purge_datafiles</cite> script will run every day at 3:20 a.m.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you examine the <cite>purge_datafiles</cite> script, you will see that all it does
+is looking for files with a last modified time older than a certain number
+of days ago.
+The number of days to keep can be set station-by-station using the
+ARCH_KEEP feature.
+A convenient way to do this for many stations is with
+multiple slarchive binding profiles, one for each length of time desired.</p>
+</div>
+</section>
+<section id="extending-disk-space">
+<h4>Extending disk space<a class="headerlink" href="#extending-disk-space" title="Permalink to this heading">¶</a></h4>
+<p>In case your file system fills up with data and you do not wish to delete
+old ones, you may add an additional harddisk and configure <a class="reference internal" href="../../apps/slarchive.html#confval-archive"><code class="xref std std-confval docutils literal notranslate"><span class="pre">archive</span></code></a>
+of <strong class="program">slarchive</strong> to store the new data there. Thereafter you may
+configure the <em>combined</em> or the <em>sdsarchive</em> <a class="reference internal" href="../../apps/global_recordstream.html#global-recordstream"><span class="std std-ref">RecordStream</span></a> to read
+the data from both sources.</p>
+</section>
+</section>
+<section id="verification">
+<h3>Verification<a class="headerlink" href="#verification" title="Permalink to this heading">¶</a></h3>
+<ul>
+<li><p>If <a class="reference internal" href="../../apps/seedlink.html#seedlink"><span class="std std-ref">seedlink</span></a> is configured correctly, a new station’s streams
+appear in output from <a class="reference internal" href="../../apps/slinktool.html#slinktool"><span class="std std-ref">slinktool</span></a></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>slinktool<span class="w"> </span>-Q<span class="w"> </span>:<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>CLL
+GR<span class="w"> </span>CLL<span class="w">      </span>HHZ<span class="w"> </span>D<span class="w"> </span><span class="m">2020</span>/04/01<span class="w"> </span><span class="m">01</span>:11:57.6649<span class="w">  </span>-<span class="w">  </span><span class="m">2020</span>/04/01<span class="w"> </span><span class="m">07</span>:28:49.0299
+GR<span class="w"> </span>CLL<span class="w">      </span>HHE<span class="w"> </span>D<span class="w"> </span><span class="m">2020</span>/04/01<span class="w"> </span><span class="m">01</span>:11:57.6649<span class="w">  </span>-<span class="w">  </span><span class="m">2020</span>/04/01<span class="w"> </span><span class="m">07</span>:28:45.0299
+GR<span class="w"> </span>CLL<span class="w">      </span>HHN<span class="w"> </span>D<span class="w"> </span><span class="m">2020</span>/04/01<span class="w"> </span><span class="m">01</span>:11:57.6649<span class="w">  </span>-<span class="w">  </span><span class="m">2020</span>/04/01<span class="w"> </span><span class="m">07</span>:28:39.2299
+</pre></div>
+</div>
+<p>This shows three streams being acquired from station ‘CLL’.
+The second time shown is the time of the most recent data for each stream.</p>
+</li>
+<li><p>If <a class="reference internal" href="../../apps/slarchive.html#slarchive"><span class="std std-ref">slarchive</span></a> is configured correctly, waveform data for the
+station appears in <strong class="program">slarchive</strong>’s SDS archive directory:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>seiscomp/var/lib/archive/2020/GR/CLL
+total<span class="w"> </span><span class="m">12</span>
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>user<span class="w"> </span>user<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Apr<span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">06</span>:30<span class="w"> </span>HHE.D
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>user<span class="w"> </span>user<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Apr<span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">06</span>:30<span class="w"> </span>HHN.D
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>user<span class="w"> </span>user<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Apr<span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">06</span>:30<span class="w"> </span>HHZ.D
+
+$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>seiscomp/var/lib/archive/2020/GR/CLL/HHZ.D/
+total<span class="w"> </span><span class="m">12728</span>
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>user<span class="w"> </span>user<span class="w"> </span><span class="m">5492224</span><span class="w"> </span>Mar<span class="w"> </span><span class="m">31</span><span class="w"> </span><span class="m">00</span>:04<span class="w"> </span>GR.CLL..BHZ.D.2020.090
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>user<span class="w"> </span>user<span class="w"> </span><span class="m">7531008</span><span class="w"> </span>Apr<span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>GR.CLL..BHZ.D.2020.091
+</pre></div>
+</div>
+<p>You may read these data files directly using <a class="reference internal" href="../../apps/scrttv.html#scrttv"><span class="std std-ref">scrttv</span></a>, e.g.:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>scrttv<span class="w"> </span>seiscomp/var/lib/archive/2020/GR/CLL/HHZ.D/*
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="access-to-archived-data">
+<span id="tutorials-archiving-access"></span><h2>Access to Archived Data<a class="headerlink" href="#access-to-archived-data" title="Permalink to this heading">¶</a></h2>
+<p>Archived waveforms can be read or provided in multiple ways depending on the
+application.</p>
+<ul>
+<li><p>Offline reading with <a class="reference internal" href="../../apps/scrttv.html#scrttv"><span class="std std-ref">scrttv</span></a>:  Read miniSEED files directly using
+<a class="reference internal" href="../../apps/scrttv.html#scrttv"><span class="std std-ref">scrttv</span></a>, e.g.:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>scrttv<span class="w"> </span>seiscomp/var/lib/archive/2020/GR/CLL/HHZ.D/*
+</pre></div>
+</div>
+</li>
+<li><p>Automatically for data processing: <cite>SeisComP</cite> modules such as
+<a class="reference internal" href="../../apps/scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a> or <a class="reference internal" href="../../apps/scolv.html#scolv"><span class="std std-ref">scolv</span></a> can read data from SDS
+archive with the <em>sdsarchive</em> <a class="reference internal" href="../../apps/global_recordstream.html#global-recordstream"><span class="std std-ref">RecordStream</span></a> when running on the
+same computer.</p></li>
+<li><p>External clients: You may provide the data to clients on other
+computers using <a class="reference internal" href="../../apps/scwfas.html#scwfas"><span class="std std-ref">scwfas</span></a> or <a class="reference internal" href="../../apps/fdsnws.html#fdsnws"><span class="std std-ref">fdsnws</span></a> both providing data via
+<span id="id1"><em>FDSNWS</em> [<a class="reference internal" href="../references.html#id136" title="FDSNWS. International Federation of Digital Seismograph Networks. URL: http://www.fdsn.org/webservices/.">8</a>]</span>.</p></li>
+<li><p>Direct file access: For directly fetching <a class="reference internal" href="../glossary.html#term-miniSeed"><span class="xref std std-term">miniSEED</span></a> waveform data from
+archive you may use <a class="reference internal" href="../../apps/scart.html#scart"><span class="std std-ref">scart</span></a> or Linux commands. You may combine scart
+with other modules avoiding redundant file storage. Examples:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>scart<span class="w"> </span>-dEsv<span class="w"> </span>-t<span class="w"> </span><span class="m">2025</span>-02-01T01:00~2025-02-01T01:00<span class="w"> </span>/archive<span class="w"> </span><span class="p">|</span><span class="w"> </span>scrttv<span class="w"> </span>-
+$<span class="w"> </span>scart<span class="w"> </span>-dEsv<span class="w"> </span>-t<span class="w"> </span><span class="m">2025</span>-02-01T01:00~2025-02-01T01:00<span class="w"> </span>/archive<span class="w"> </span><span class="p">|</span><span class="w"> </span>scautopick<span class="w"> </span>-I<span class="w"> </span>-<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>--ep<span class="w"> </span>--playback
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+          <div id="anchors-bottom"></div>
+        </div>
+        
+      <div class="sidebar" role="navigation" aria-label="main navigation">
+        <div id="anchors-top"></div>
+        <div id="anchors" class="content">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Maintain waveform archives</a><ul>
+<li><a class="reference internal" href="#motivation">Motivation</a></li>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#setup">Setup</a><ul>
+<li><a class="reference internal" href="#in-scconfig">In scconfig</a></li>
+<li><a class="reference internal" href="#command-line">Command line</a></li>
+<li><a class="reference internal" href="#data-life-cycle">Data life cycle</a><ul>
+<li><a class="reference internal" href="#deleting-files">Deleting files</a></li>
+<li><a class="reference internal" href="#extending-disk-space">Extending disk space</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#verification">Verification</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#access-to-archived-data">Access to Archived Data</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="waveforms.html"
+                          title="previous chapter">Get real-time data from a remote Seedlink server (single station)</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="processing.html"
+                          title="next chapter">Configure real-time processing</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/base/tutorials/archiving.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="horizontal layout content">
+        <a class="fade-in" href="https://www.gempa.de" target="_blank">
+          <img class="brand" src="../../_static/brands/gempa.svg"/>
+        </a>
+        <div class="stretched align-center fitted content">
+          <div>
+		  Version <b>7.4.0</b> Release
+          </div>
+            <div class="copyright">
+              Copyright &copy; gempa GmbH, GFZ Potsdam.
+            </div>
+        </div>
+        <a class="fade-in" href="https://www.gfz-potsdam.de" target="_blank">
+          <img class="brand" src="../../_static/brands/gfz.svg"/>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+FROM seiscomp-tmp
+
+COPY --chown=seiscomp:seiscomp seiscomp-home/ /home/seiscomp/
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY index.html /usr/share/novnc/index.html
+
+EXPOSE 6080
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

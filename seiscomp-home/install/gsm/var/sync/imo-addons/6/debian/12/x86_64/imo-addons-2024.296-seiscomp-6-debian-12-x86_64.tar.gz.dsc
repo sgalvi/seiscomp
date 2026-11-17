@@ -1,0 +1,16 @@
+pkgname=imo-addons
+pkgver=2024.296
+pkgrel=6
+pkgdesc=('Icelandic Meteorological Office (IMO) specific modules and plugins (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('d00a91dd240ecfdd9301c75f9d8de97b71865a17412bc15f1d8a2f023e83008a')
+pkgsize=('23233')
+pkginstallsize=('88124')
+filename=('imo-addons-2024.296-seiscomp-6-debian-12-x86_64.tar.gz')
+builddate=('2025-02-21 23:22:37')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

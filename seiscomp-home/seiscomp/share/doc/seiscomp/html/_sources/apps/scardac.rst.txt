@@ -1,0 +1,550 @@
+.. highlight:: rst
+
+.. _scardac:
+
+#######
+scardac
+#######
+
+**Waveform archive data availability collector.**
+
+
+Description
+===========
+
+scardac scans an :term:`SDS waveform archive <SDS>`, e.g.,
+created by :ref:`slarchive` or :ref:`scart` for available
+:term:`miniSEED <miniSeed>` data. It will collect information about
+
+* ``DataExtents`` -- the earliest and latest times data is available
+  for a particular channel,
+* ``DataAttributeExtents`` -- the earliest and latest times data is available
+  for a particular channel, quality and sampling rate combination,
+* ``DataSegments`` -- continuous data segments sharing the same quality and
+  sampling rate attributes.
+
+scardac is intended to be executed periodically, e.g., as a cronjob.
+
+The availability data information is stored in the SeisComP database under the
+root element :ref:`DataAvailability <api-datamodel-python>`. Access to the
+availability data is provided by the :ref:`fdsnws` module via the services:
+
+* :ref:`/fdsnws/station <sec-station>` (extent information only, see
+  ``matchtimeseries`` and ``includeavailability`` request parameters).
+* :ref:`/fdsnws/ext/availability <sec-avail>` (extent and segment information
+  provided in different formats)
+
+
+.. _scarcac_non-sds:
+
+Non-SDS archives
+----------------
+
+scardac can be extended by plugins to scan non-SDS archives. For example the
+``daccaps`` plugin provided by :cite:t:`caps` allows scanning archives generated
+by a CAPS server. Plugins are added to the global module configuration, e.g.:
+
+.. code-block:: properties
+
+   plugins = ${plugins}, daccaps
+
+
+.. _scarcac_workflow:
+
+Definitions
+-----------
+
+* ``Record`` -- continuous waveform data of same sampling rate and quality bound
+  by a start and end time. scardac will only read the record's meta data and not
+  the actual samples.
+* ``Chunk`` -- container for records, e.g., a :term:`miniSEED <miniSeed>` file,
+  with the following properties:
+
+  - overall, theoretical time range of records it may contain
+  - contains at least one record, otherwise it must be absent
+  - each record of a chunk must fulfill the following conditions:
+
+    - `record start < record end`
+    - `chunk start <= record start < chunk end`
+    - `chunk start < record end < next chunk end`
+  - a record stored in chunk N may have an end time greater than the start time
+    of chunk N+1 but no more than :confval:`maxChunkOverlap` samples should strech
+    into the next chunk else unnecessary reads are triggered
+  - chunks do not overlap, end time of current chunk equals start time of
+    successive chunk, otherwise a ``chunk gap`` is declared
+  - records may occur unordered within a chunk or across chunk boundaries,
+    resulting in `DataSegments` marked as ``outOfOrder``
+* ``Jitter`` -- maximum allowed deviation between the end time of the current
+  record and the start time of the next record in multiples of the current's
+  record sampling rate. E.g., assuming a sampling rate of 100Hz and a jitter
+  of 0.5 will allow for a maximum end to start time difference of 50ms. If
+  exceeded a new `DataSegment` is created.
+* ``Mtime`` -- time the content of a chunk was last modified. It is used to
+
+  - decided whether a chunk needs to be read in a secondary application run
+  - calculate the ``updated`` time stamp of a `DataSegment`,
+    `DataAttributeExtent` and `DataExtent`
+* ``Scan window`` -- time window limiting the synchronization of the archive
+  with the database configured via :confval:`filter.time.start` and
+  :confval:`filter.time.end` respectively :option:`--start` and :option:`--end`.
+  The restriction is enforced symmetrically on chunks, on individual segments
+  and on existing database segments:
+
+  - chunks lying entirely outside the scan window are skipped,
+  - for chunks that straddle a scan-window boundary, only the segments
+    inside the window are considered,
+  - existing `DataSegments` outside the scan window are left untouched in
+    the database.
+
+  The scan window is useful to
+
+  - reduce the scan time of larger archives. Depending on the size and storage
+    type of the archive it may take some time to just list available chunks and
+    their mtime.
+  - prevent deletion of availability information even though parts of the
+    archive have been deleted or moved to a different location
+* ``Modification window`` -- the mtime of a chunk is compared with this time
+  window to decide whether it needs to be read or not. It is configured via
+  :confval:`mtime.start` and :confval:`mtime.end` repectively
+  :option:`--modified-since` and :option:`--modified-until`. If no lower bound
+  is defined then the ``lastScan`` time stored in the `DataExtent` is used
+  instead.  The mtime check may be disabled using :confval:`mtime.ignore` or
+  :option:`--deep-scan`.
+  **Note:** Chunks in front or right after a chunk gap are read in any case
+  regardless of the mtime settings.
+
+Workflow
+--------
+
+#. Read existing `DataExtents` from database.
+#. Collect a list of available stream IDs either by
+
+   * scanning the archive for available IDs or
+   * reading an ID file defined by :confval:`nslcFile`.
+#. Identify extents to add, update or remove respecting `scan window`,
+   :confval:`filter.nslc.include` and :confval:`filter.nslc.exclude`.
+#. Subsequently process the `DataExtents` using :confval:`threads` number of
+   parallel threads. For each `DataExtent`:
+
+   #. Capture the current time as the prospective new ``lastScan`` value, so
+      chunks modified during the scan are picked up on the next run.
+   #. Collect all available chunks of the stream from the archive and, if the
+      extent already exists, load existing `DataSegments` inside the
+      `scan window` from the database.
+   #. **PLAN phase** -- for each chunk decide whether to **READ** or
+      **SKIP** it based on the `scan window`, `modification window` and
+      ``lastScan``. A chunk is also re-read when no existing DB segment SPANS or
+      STARTS within its window, so chunks reappearing in the archive with their
+      original mtime are picked up even though that mtime is older than the
+      previous scan. Afterwards, propagate **READ** to neighboring chunks
+      whenever a database segment straddles their common boundary, so a
+      boundary-spanning segment is either re-derived from fresh records on both
+      sides or copied verbatim from the database on both sides, but never mixed.
+   #. **BUILD phase** -- assemble the desired segment list:
+
+      * for a **READ** chunk parse its records, derive chunk segments by
+        analyzing gaps/overlaps with respect to :confval:`jitter`, sampling
+        rate and quality changes, and drop chunk segments lying outside the
+        `scan window`,
+      * for a **SKIP** chunk copy database segments starting in the chunk's
+        window,
+      * adjacent segments that are contiguous within :confval:`jitter` and
+        share sampling rate and quality are merged across chunk boundaries.
+
+   #. **DIFF phase** -- compare the desired segment list against the
+      previously loaded database segments and derive the resulting insert,
+      update and remove operations. Segments outside the `scan window` are
+      never considered for removal.
+
+   #. Apply the collected operations to the database and recompute
+      `DataAttributeExtents` and the overall `DataExtent`.
+
+Examples
+--------
+
+#. Get command line help or execute scardac with default parameters and informative
+   debug output:
+
+   .. code-block:: sh
+
+      scardac -h
+      scardac --debug
+
+#. Synchronize the availability of waveform data files existing in the standard
+   :term:`SDS` archive with the seiscomp database and create an XML file using
+   :ref:`scxmldump`:
+
+   .. code-block:: sh
+
+      scardac -d mysql://sysop:sysop@localhost/seiscomp -a $SEISCOMP_ROOT/var/lib/archive --debug
+      scxmldump -Yf -d mysql://sysop:sysop@localhost/seiscomp -o availability.xml
+
+#. Synchronize the availability of waveform data files existing in the standard
+   :term:`SDS` archive with the seiscomp database. Use :ref:`fdsnws` to fetch a flat file containing a list
+   of periods of available data from stations of the CX network sharing the same
+   quality and sampling rate attributes:
+
+   .. code-block:: sh
+
+      scardac -d mysql://sysop:sysop@localhost/seiscomp -a $SEISCOMP_ROOT/var/lib/archive
+      wget -O availability.txt 'http://localhost:8080/fdsnws/ext/availability/1/query?network=CX'
+
+   .. note::
+
+      The |scname| module :ref:`fdsnws` must be running for executing this
+      example.
+
+
+.. _scardac_configuration:
+
+Module Configuration
+====================
+
+| :file:`etc/defaults/global.cfg`
+| :file:`etc/defaults/scardac.cfg`
+| :file:`etc/global.cfg`
+| :file:`etc/scardac.cfg`
+| :file:`~/.seiscomp/global.cfg`
+| :file:`~/.seiscomp/scardac.cfg`
+
+scardac inherits :ref:`global options<global-configuration>`.
+
+
+
+.. confval:: archive
+
+   Default: ``@SEISCOMP_ROOT@/var/lib/archive``
+
+   Type: *directory*
+
+   The URL to the waveform archive where all data is stored.
+   
+   Format: [service:\/\/]location[#type]
+   
+   \"service\": The type of the archive. If not given,
+   \"sds:\/\/\" is implied assuming an SDS archive. The SDS
+   archive structure is defined as
+   YEAR\/NET\/STA\/CHA\/NET.STA.LOC.CHA.YEAR.DAYFYEAR, e.g.
+   2018\/GE\/APE\/BHZ.D\/GE.APE..BHZ.D.2018.125
+   
+   Other archive types may be considered by plugins.
+
+
+.. confval:: threads
+
+   Default: ``1``
+
+   Type: *int*
+
+   Number of threads scanning the archive in parallel.
+
+
+.. confval:: jitter
+
+   Default: ``0.5``
+
+   Type: *float*
+
+   Acceptable derivation of end time and start time of successive
+   records in multiples of sample time.
+
+
+.. confval:: maxSegments
+
+   Default: ``1000000``
+
+   Type: *int*
+
+   Maximum number of segments per stream. If the limit is reached
+   no more segments are added to the database and the corresponding
+   extent is flagged as too fragmented. Set this parameter to 0 to
+   disable any limits.
+
+
+.. confval:: maxChunkOverlap
+
+   Default: ``500``
+
+   Type: *int*
+
+   A record entirely stored in chunk N may have an end time
+   exceeding the chunk's time window. This parameter defines
+   maximum number of samples overlapping the chunks end time.
+   
+   The parameter is used to evaluate if a chunk needs to be read in
+   a corner case where a chunk was moved out of the archive during
+   a previous scan \(causing surrounding segments to be split at the
+   chunk's boundaries\) and then later moved back with its original
+   mtime. In that situation the chunk's mtime stays older than
+   lastScan and no READ would be triggered otherwise.
+   
+   If set to values greater than the expected samples per record
+   unnecessary reads of chunks and possible neighbouring chunks are
+   triggered.
+
+
+.. confval:: nslcFile
+
+   Type: *file*
+
+   Line\-based text file of form NET.STA.LOC.CHA defining available
+   stream IDs. Depending on the archive type, size and storage
+   media used this file may offer a significant performance
+   improvement compared to collecting the available streams on each
+   startup. Filters defined under `filter.nslc` still apply.
+
+
+.. note::
+   **filter.\***
+   *Parameters of this section limit the data processing to either*
+   **
+   *- Reduce the scan time of larger archives or to*
+   **
+   *- Prevent deletion of availability information even though parts*
+   *of the archive have been deleted or moved to a different*
+   *location.*
+
+
+
+.. note::
+   **filter.time.\***
+   *Limit the processing by record time.*
+
+
+
+.. confval:: filter.time.start
+
+   Type: *string*
+
+   Start of data availability check given as date string or
+   as number of days before now.
+
+
+.. confval:: filter.time.end
+
+   Type: *string*
+
+   End of data availability check given as date string or
+   as number of days before now.
+
+
+.. note::
+   **filter.nslc.\***
+   *Limit the processing by stream IDs.*
+
+
+
+.. confval:: filter.nslc.include
+
+   Type: *list:string*
+
+   Comma\-separated list of stream IDs to process. If
+   empty all streams are accepted unless an exclude filter
+   is defined. The following wildcards are supported: '\*'
+   and '?'.
+
+
+.. confval:: filter.nslc.exclude
+
+   Type: *list:string*
+
+   Comma\-separated list of stream IDs to exclude from
+   processing. Excludes take precedence over includes. The
+   following wildcards are supported: '\*' and '?'.
+
+
+.. note::
+   **mtime.\***
+   *Parameters of this section control the rescan of data chunks.*
+   *By default the last update time of the extent is compared with*
+   *the record file modification time to read only files modified*
+   *since the list run.*
+
+
+
+.. confval:: mtime.ignore
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   If set to true, all data chunks are read independent of
+   their mtime.
+
+
+.. confval:: mtime.start
+
+   Type: *string*
+
+   Only read chunks modified after specific date given as date
+   string or as number of days before now.
+
+
+.. confval:: mtime.end
+
+   Type: *string*
+
+   Only read chunks modified before specific date given as date
+   string or as number of days before now.
+
+
+
+Command-Line Options
+====================
+
+.. program:: scardac
+
+:program:`scardac [OPTION]...`
+
+
+
+
+Generic
+-------
+
+.. option:: -h, --help
+
+   Show help message.
+
+.. option:: -V, --version
+
+   Show version information.
+
+.. option:: --config-file file
+
+   The alternative module configuration file. When this option
+   is used, the module configuration is only read from the
+   given file and no other configuration stage is considered.
+   Therefore, all configuration including the definition of
+   plugins must be contained in that file or given along with
+   other command\-line options such as \-\-plugins.
+
+.. option:: --plugins arg
+
+   Load given plugins.
+
+
+Verbosity
+---------
+
+.. option:: --verbosity arg
+
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
+
+.. option:: -v, --v
+
+   Increase verbosity level \(may be repeated, e.g., \-vv\).
+
+.. option:: -q, --quiet
+
+   Quiet mode: no logging output.
+
+.. option:: --print-component arg
+
+   For each log entry print the component right after the
+   log level. By default the component output is enabled
+   for file output but disabled for console output.
+
+.. option:: --component arg
+
+   Limit the logging to a certain component. This option can
+   be given more than once.
+
+.. option:: -s, --syslog
+
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
+
+.. option:: -l, --lockfile arg
+
+   Path to lock file.
+
+.. option:: --console arg
+
+   Send log output to stdout.
+
+.. option:: --debug
+
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
+
+.. option:: --trace
+
+   Execute in trace mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 \-\-print\-component\=1
+   \-\-print\-context\=1 .
+
+.. option:: --log-file arg
+
+   Use alternative log file.
+
+
+Collector
+---------
+
+.. option:: -a, --archive arg
+
+   Overrides configuration parameter :confval:`archive`.
+
+
+.. option:: --threads arg
+
+   Overrides configuration parameter :confval:`threads`.
+
+
+.. option:: -j, --jitter arg
+
+   Overrides configuration parameter :confval:`jitter`.
+
+
+.. option:: --nslc arg
+
+   Overrides configuration parameter :confval:`nslcFile`.
+
+
+.. option:: --start arg
+
+   Overrides configuration parameter :confval:`filter.time.start`.
+
+
+.. option:: --end arg
+
+   Overrides configuration parameter :confval:`filter.time.end`.
+
+
+.. option:: --include arg
+
+   Overrides configuration parameter :confval:`filter.nslc.include`.
+
+
+.. option:: --exclude arg
+
+   Overrides configuration parameter :confval:`filter.nslc.exclude`.
+
+
+.. option:: --deep-scan
+
+   Overrides configuration parameter :confval:`mtime.ignore`.
+
+
+.. option:: --modified-since arg
+
+   Overrides configuration parameter :confval:`mtime.start`.
+
+
+.. option:: --modified-until arg
+
+   Overrides configuration parameter :confval:`mtime.end`.
+
+
+.. option:: --generate-test-data arg
+
+   Do not scan the archive but generate test data for each
+   stream in the inventory. Format:
+   days,gaps,gapsLen,overlaps,overlapLen. E.g., the following
+   parameter list would generate test data for 100 days
+   \(starting from now\(\)\-100 days\) which includes 150 gaps with a
+   length of 2.5 s followed by 50 overlaps with an overlap of
+   5 s: \-\-generate\-test\-data\=100,150,2.5,50,5
+

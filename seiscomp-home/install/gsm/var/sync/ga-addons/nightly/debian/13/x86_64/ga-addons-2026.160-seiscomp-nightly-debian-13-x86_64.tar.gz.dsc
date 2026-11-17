@@ -1,0 +1,16 @@
+pkgname=ga-addons
+pkgver=2026.160
+pkgrel=nightly
+pkgdesc=('Custom package used by GA (commercial)')
+pkgkeywords=('web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('b1b4efa7773c79c3aab97e1018493330112914322699f71dea928c8a532fb082')
+pkgsize=('115033')
+pkginstallsize=('415322')
+filename=('ga-addons-2026.160-seiscomp-nightly-debian-13-x86_64.tar.gz')
+builddate=('2026-06-25 23:17:35')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

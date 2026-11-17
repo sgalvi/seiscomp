@@ -1,0 +1,16 @@
+pkgname=npeval
+pkgver=2026.232
+pkgrel=7
+pkgdesc=('Seismic network performance evaluation (commercial)')
+pkgkeywords=('earthquake monitoring EEW induced earthquake local monitoring microseismic monitoring network configuration network evaluation quality control teleseismic monitoring volcano monitoring')
+pkgchangelog=('share/doc/npeval/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('074bb436676b03b1103b1c241823e1376297d4542c8949b53b120042603a6fa5')
+pkgsize=('12460843')
+pkginstallsize=('15766595')
+filename=('npeval-2026.232-seiscomp-7-ubuntu-24.04-aarch64.tar.gz')
+builddate=('2026-10-15 00:58:30')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

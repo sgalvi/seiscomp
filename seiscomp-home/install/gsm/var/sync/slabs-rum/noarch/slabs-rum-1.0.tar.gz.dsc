@@ -1,0 +1,17 @@
+pkgname=slabs-rum
+pkgver=1.0
+pkgdesc=('Slabs from RUM model: Gudmundsson, O. & Sambridge, M. A regionalized upper mantle (RUM) seismic model. J. Geophys. Res., 1998, 103, 7121-7136 (commercial)')
+pkgkeywords=('slabs RUM')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('59078e78d279616a825754f4bf88ea846302158ff375efe688a99e61c11489c6')
+pkgsize=('199770')
+pkginstallsize=('559189')
+pkgfilecount=('217')
+filename=('slabs-rum-1.0.tar.gz')
+pkgfilepath=('slabs/rum')
+builddate=('2021-06-17 00:00:00')
+pkgos=('')
+pkgosversion=('')
+pkgtype=data

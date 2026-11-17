@@ -1,0 +1,16 @@
+pkgname=seedlink-plugins
+pkgver=2026.203
+pkgrel=6
+pkgdesc=('seedlink-plugins')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('8c1c71e8349f436719ed73137ba369d1bddd1676ff50460bf7c3cdf3add502c6')
+pkgsize=('711908')
+pkginstallsize=('2102449')
+filename=('seedlink-plugins-2026.203-seiscomp-6-rhel-9-x86_64.tar.gz')
+builddate=('2026-08-18 22:23:21')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

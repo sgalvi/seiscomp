@@ -1,0 +1,17 @@
+pkgname=mt
+pkgver=2026.286
+pkgrel=5
+pkgdesc=('Automatic and interactive moment tensor analysis (commercial)')
+pkgkeywords=('decision support earthquake monitoring Greens function intensity moment tensor teleseismic monitoring tsunami simulation MT')
+pkgchangelog=('share/doc/MT/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('7ea2d79f5380ea8a3e3a4ac753655f436266486600c81c18adb33d536acc59c4')
+pkgsize=('20777956')
+pkginstallsize=('29109401')
+filename=('mt-2026.286-seiscomp-5-rhel-9-x86_64.tar.gz')
+builddate=('2026-10-30 21:25:24')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')
+osinstallscripts=('install-mt.sh')

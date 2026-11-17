@@ -1,0 +1,16 @@
+pkgname=caps-plugins-crex
+pkgver=2024.178
+pkgrel=6
+pkgdesc=('CAPS plugin for CREX data import (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('b9540cdc6d1e67f3b3e217e6a6770649427bc39cae64f0c473691472c1cfcfea')
+pkgsize=('887534')
+pkginstallsize=('7177965')
+filename=('caps-plugins-crex-2024.178-seiscomp-6-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-05-01 22:39:14')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+
+<html  lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>scconfig &#8212; SeisComP Release documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <script type="text/javascript" src="../_static/seiscomp.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scesv" href="scesv.html" />
+    <link rel="prev" title="Graphical User Interfaces" href="../gui.html" /> 
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="brand">
+          <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
+           <!-- span class="title">SeisComP Release</span -->
+          <span class="version">7.4.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="container">
+        <div class="content"><a class="pull-right" id="sidebar-toggle">TOC</a>
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <ul>
+        <li class="right">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">
+            index
+          </a>
+        </li>
+        <li class="right">
+          <a href="scesv.html" title="scesv"
+             accesskey="N">
+            next
+          </a>
+        </li>
+        <li class="right">
+          <a href="../gui.html" title="Graphical User Interfaces"
+             accesskey="P">
+            previous
+          </a>
+        </li>
+        <li class="nav-item nav-item-0">
+          <a href="../index.html">Home</a>
+        </li>
+        <li class="nav-item nav-item-1">
+          <a href="../gui.html" accesskey="U">Graphical User Interfaces</a>
+        </li> 
+      </ul>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="fitted content" id="anchors-container">
+        <div class="body" role="main">
+          
+  <section id="scconfig">
+<span id="id1"></span><h1>scconfig<a class="headerlink" href="#scconfig" title="Permalink to this heading">¶</a></h1>
+<p><strong>Configuration and system management frontend.</strong></p>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
+<div class="four column layout"><figure class="align-default" id="id11">
+<img alt="scconfig: system panel" src="../_images/panel-system-raw.png" />
+<figcaption>
+<p><span class="caption-text">System panel</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id12">
+<img alt="scconfig: modules panel" src="../_images/panel-modules-raw.png" />
+<figcaption>
+<p><span class="caption-text">Modules panel</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id13">
+<img alt="scconfig: bindings panel" src="../_images/panel-bindings-raw.png" />
+<figcaption>
+<p><span class="caption-text">Bindings panel</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id14">
+<img alt="scconfig: inventory panel" src="../_images/panel-inventory-raw.png" />
+<figcaption>
+<p><span class="caption-text">Inventory panel</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><p>scconfig is a graphical user interface which allows to</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#scconfig-system"><span class="std std-ref">Control modules</span></a> (start/stop/check/enable/disable) and
+access logging file,</p></li>
+<li><p>Create and adjust the <a class="reference internal" href="../base/concepts/configuration.html#concepts-configuration"><span class="std std-ref">configuration</span></a> of
+<a class="reference internal" href="#scconfig-modules"><span class="std std-ref">modules</span></a> and <a class="reference internal" href="#scconfig-bindings"><span class="std std-ref">bindings</span></a> for
+all configurable <cite>SeisComP</cite> modules including all
+<a class="reference internal" href="../base/glossary.html#term-trunk"><span class="xref std std-term">trunk</span></a> and <a class="reference internal" href="../base/glossary.html#term-standalone-module"><span class="xref std std-term">standalone</span></a> modules,</p></li>
+<li><p><a class="reference internal" href="#scconfig-inventory"><span class="std std-ref">Import, check, synchronize and remove</span></a>
+<a class="reference internal" href="../base/concepts/inventory.html#concepts-inventory"><span class="std std-ref">station meta data/inventory</span></a>,</p></li>
+<li><p>Retrieve <a class="reference internal" href="#scconfig-information"><span class="std std-ref">information</span></a> about the installed <cite>SeisComP</cite>
+system,</p></li>
+<li><p>Access the <a class="reference internal" href="#scconfig-documentation"><span class="std std-ref">documentation and the changelog</span></a>.</p></li>
+</ul>
+<p>These actions are available in separate panels which are described below.</p>
+<p>The modules are usually programs part of the <cite>SeisComP</cite> system and have two
+distinct types of configuration (see section <a class="reference internal" href="../base/concepts/configuration.html#concepts-configuration"><span class="std std-ref">Configuration</span></a> for
+a more complete documentation):</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#scconfig-modules"><span class="std std-ref">Modules configuration</span></a> stored in configuration
+files like <code class="file docutils literal notranslate"><span class="pre">scautopick.cfg</span></code>.</p></li>
+<li><p><a class="reference internal" href="#scconfig-bindings"><span class="std std-ref">Bindings</span></a>, that are sets of parameters to configure
+how the module will treat a certain station. I.e. station-specific
+configurations per module. Bindings can be configured using profiles, or
+directly per station. A profile is a named set of parameters for a certain
+module that can be conveniently attributed to more than one station. Using
+profiles makes it easier to maintain large number of station configuration.
+When two stations are configured by the same profile, both will have the same
+parameter set for a certain module.</p></li>
+</ul>
+<p>scconfig does not know anything about the <cite>SeisComP</cite> database. It actually only
+reads and writes the content of files from <code class="file docutils literal notranslate"><span class="pre">etc/</span></code> and
+<code class="file docutils literal notranslate"><span class="pre">~/.seiscomp</span></code> folder. scconfig allows you to manage this information in an
+organized and friendly manner and supports you in generating clean
+configurations and operating modules. Also, it relies on other applications
+like the proper <a class="reference internal" href="seiscomp.html#seiscomp"><span class="std std-ref">seiscomp</span></a> tool to complete the system configuration.</p>
+<section id="first-start">
+<span id="scconfig-first-start"></span><h3>First start<a class="headerlink" href="#first-start" title="Permalink to this heading">¶</a></h3>
+<p>If started for the first time, scconfig will ask the user to setup essential
+configurations.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/scconfig-first-start.png"><img alt="../_images/scconfig-first-start.png" src="../_images/scconfig-first-start.png" style="width: 10cm;" /></a>
+</figure>
+<p>The setup steps will allow you to (read also <a class="reference internal" href="../base/getting-started.html#getting-started"><span class="std std-ref">Getting Started with SeisComP</span></a>):</p>
+<ul class="simple">
+<li><p>Configure general IDs such as the agency ID which will be written to the
+global module configuration in <code class="file docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;/global.cfg</span></code>,</p></li>
+<li><p>Setup a <cite>SeisComP</cite> database,</p></li>
+<li><p>Configure the <a class="reference internal" href="scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a> module with the <cite>SeisComP</cite> database
+(<code class="file docutils literal notranslate"><span class="pre">&#64;SYSTEMCONFIGDIR&#64;/scmaster.cfg</span></code>).</p></li>
+</ul>
+<p>If done already with the <a class="reference internal" href="../base/getting-started.html#getting-started-setup"><span class="std std-ref">command line interface</span></a>,
+this step can be skipped. Whether the setup was done before is indicated by
+the presence of the file <code class="file docutils literal notranslate"><span class="pre">var/run/seiscomp.init</span></code>.</p>
+<p>If you wish to run the setup, continue by pressing <strong>Yes</strong>. The wizard will be
+started and will configure exactly the same parameters as described in
+<a class="reference internal" href="../base/getting-started.html#getting-started"><span class="std std-ref">Getting Started with SeisComP</span></a>.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/scconfig-wizard-start.png"><img alt="../_images/scconfig-wizard-start.png" src="../_images/scconfig-wizard-start.png" style="width: 10cm;" /></a>
+</figure>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/scconfig-wizard-finish.png"><img alt="../_images/scconfig-wizard-finish.png" src="../_images/scconfig-wizard-finish.png" style="width: 10cm;" /></a>
+</figure>
+<p>Pressing <strong>Finish</strong> will run the setup and show the progress. Any issue
+requiring actions or causing the setup to fail will be reported. A success
+message is printed upon complete setup.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/scconfig-wizard-done.png"><img alt="../_images/scconfig-wizard-done.png" src="../_images/scconfig-wizard-done.png" style="width: 10cm;" /></a>
+</figure>
+<p>Pressing <strong>Close</strong> will launch the main configuration window.</p>
+</section>
+<section id="options">
+<span id="scconfig-first-cmd"></span><h3>Options<a class="headerlink" href="#options" title="Permalink to this heading">¶</a></h3>
+<p>By command-line options scconfig supports you in quickly navigating to panels, modules
+and stations. Read the <a class="reference internal" href="#scconfig-cmd-options"><span class="std std-ref">documentation of command-line options</span></a>
+to learn about your options or call:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scconfig<span class="w"> </span>-h
+</pre></div>
+</div>
+</section>
+<section id="main-window">
+<span id="scconfig-mainwindow"></span><h3>Main Window<a class="headerlink" href="#main-window" title="Permalink to this heading">¶</a></h3>
+<p>The layout of the main window is always the same regardless of what panel
+is selected.</p>
+<figure class="align-center" id="id15">
+<span id="fig-scconfig-mainwindow"></span><a class="reference internal image-reference" href="../_images/panel-main.png"><img alt="../_images/panel-main.png" src="../_images/panel-main.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Main window of scconfig: Frame title, action buttons, mode indicator (red),
+panel selection (yellow), panel title and information (green), panel content
+(blue).</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The window is divided into main areas:</p>
+<ul class="simple">
+<li><p>Frame title,</p></li>
+<li><p>Buttons for common and expert actions,</p></li>
+<li><p>Red: Mode indicator, <span class="xref std std-ref">system and user mode</span> are
+indicate by a screen and an avatar, respectively,</p></li>
+<li><p>Yellow: Panel switch,</p></li>
+<li><p>Green: Title and description of current panel,</p></li>
+<li><p>Blue: The content and interactive screen of the current panel.</p></li>
+</ul>
+<section id="frame-title">
+<h4>Frame title<a class="headerlink" href="#frame-title" title="Permalink to this heading">¶</a></h4>
+<p>The frame title shows general information on the current SeisComP version and
+the configuration mode (system or user) along with the directory to store module
+configurations. The hostname is additionally displayed when starting scconfig
+on a remote host.</p>
+</section>
+<section id="actions">
+<h4>Actions<a class="headerlink" href="#actions" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Saving (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">S</kbd></kbd>): Store changed parameters and value in configuration
+in files.</p></li>
+<li><p>Reset all (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">R</kbd></kbd>): Load the configuration currently available in
+files resetting all unsaved changes.</p></li>
+<li><p>Help (<kbd class="kbd docutils literal notranslate">F1</kbd>): Open the HTML documentation of scconfig.</p></li>
+<li><p>Wizard (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">N</kbd></kbd>): Start the <a class="reference internal" href="#scconfig-first-start"><span class="std std-ref">inital setup</span></a>.</p></li>
+<li><p>Switch mode: Change the mode of configuration, see section
+<span class="xref std std-ref">scconfig-mode</span>. The current mode is indicated by the mode area:</p>
+<ul>
+<li><p>screen: System mode</p></li>
+<li><p>avatar: User mode</p></li>
+</ul>
+</li>
+<li><p>Quit: Finish scconfig.</p></li>
+</ul>
+</section>
+</section>
+<section id="system-panel">
+<span id="scconfig-system"></span><h3>System panel<a class="headerlink" href="#system-panel" title="Permalink to this heading">¶</a></h3>
+<p>The system panel is a graphical frontend for the <a class="reference internal" href="seiscomp.html#seiscomp"><span class="std std-ref">seiscomp</span></a> script. Read
+also section <a class="reference internal" href="../base/management.html#system-management"><span class="std std-ref">System management</span></a>  for more details.</p>
+<figure class="align-center" id="id16">
+<a class="reference internal image-reference" href="../_images/panel-system.png"><img alt="../_images/panel-system.png" src="../_images/panel-system.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">System panel: Overview</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>It is divided into 3 parts: the toolbar on the top (red), the module list (green)
+and the log window (blue).
+The log window shows the output of all external programs called such as <strong class="program">seiscomp</strong>.
+The standard output is colored black and standard error is colored brown.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Due to the buffering of the GUI it can happen that standard output and
+standard error logs are not in perfect order.</p>
+</div>
+<section id="id2">
+<h4>Actions<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h4>
+<p>The toolbar gives access to the available operations. All operations
+will affect the currently selected modules (rows). If no row is selected, all
+modules are affected and the corresponding call to <strong class="program">seiscomp &lt;arg&gt;</strong> is
+done without any module. Also read the documentation of <a class="reference internal" href="seiscomp.html#seiscomp"><span class="std std-ref">seiscomp</span></a> for more
+details.</p>
+<dl class="simple">
+<dt><em>Reload</em></dt><dd><p>Updates the current module state. The action is useful in case the module state
+was changed by external actions. Calls <strong class="program">seiscomp --csv status</strong>.</p>
+</dd>
+<dt><em>Start</em></dt><dd><p>Starts all selected modules. If no module is selected, all enabled modules are
+started. Calls <strong class="program">seiscomp start</strong>.</p>
+</dd>
+<dt><em>Stop</em></dt><dd><p>Stops all selected modules. If no module is selected, all started modules are
+stopped. Calls <strong class="program">seiscomp stop</strong>.</p>
+</dd>
+<dt><em>Restart</em></dt><dd><p>Restarts (stops and starts) all selected modules. If no module is selected,
+all started modules are stopped and all enabled modules are started. Calls
+<strong class="program">seiscomp restart</strong>.</p>
+</dd>
+<dt><em>Check</em></dt><dd><p>Tests all selected modules if they have stopped unexpectedly. Such modules are
+started. If no module is selected, all started modules are checked. Calls
+<strong class="program">seiscomp check</strong>.</p>
+</dd>
+<dt><em>Reload</em></dt><dd><p>Reloads the configuration of all selected modules. If no module is selected,
+the configuration of all modules is reloaded. The action is only applicable
+to selected modules. Calls <strong class="program">seiscomp reload</strong>.</p>
+</dd>
+<dt><em>Enable</em></dt><dd><p>Enables all selected modules for autostart when running
+<strong class="program">seiscomp start</strong> or <strong class="program">seiscomp restart</strong>.
+At least one module must be selected. Calls <strong class="program">seiscomp enable</strong>.</p>
+</dd>
+<dt><em>Disable</em></dt><dd><p>Disables all selected modules for autostart.
+At least one module must be selected. Calls <strong class="program">seiscomp disable</strong>.</p>
+</dd>
+<dt><em>Update config</em></dt><dd><p>Starts <a class="reference internal" href="scmaster.html#scmaster"><span class="std std-ref">scmaster</span></a>, synchronizes the inventory and sends configuration of
+bindings and <a class="reference internal" href="../base/glossary.html#term-standalone-module"><span class="xref std std-term">standalone modules</span></a> to the messaging.
+Perform this important action after the module configuration or bindings have
+changed and before restarting the affected modules. Calls
+<strong class="program">seiscomp update-config</strong>.</p>
+</dd>
+</dl>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>For applying an action to all modules deselect any modules selection pressing
+<kbd class="kbd docutils literal notranslate">ESC</kbd> and press the corresponding action button. When one or multiple
+modules are selected, the action is only applied to those.</p>
+</div>
+</section>
+<section id="diagnosing">
+<h4>Diagnosing<a class="headerlink" href="#diagnosing" title="Permalink to this heading">¶</a></h4>
+<p>For diagnosing module performances you may read module log files. The latest
+log files can be directly accessed from the system panel:</p>
+<ol class="arabic simple">
+<li><p>Right click on the module name for which to read the log entries.</p></li>
+<li><p>Select the type of log to read. Only available logs can be selected. Normally
+you would want to read the module log which is by default written per
+module to <code class="file docutils literal notranslate"><span class="pre">$HOME/.seiscomp/log/[module].log</span></code>.</p></li>
+</ol>
+<figure class="align-center" id="id17">
+<a class="reference internal image-reference" href="../_images/panel-system-module-log.png"><img alt="../_images/panel-system-module-log.png" src="../_images/panel-system-module-log.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Right-click on a module to open log files</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>The logging level is configurable per module by <a class="reference internal" href="global.html#confval-logging.level"><code class="xref std std-confval docutils literal notranslate"><span class="pre">logging.level</span></code></a>.</p>
+</div>
+</section>
+</section>
+<section id="modules-panel">
+<span id="scconfig-modules"></span><h3>Modules panel<a class="headerlink" href="#modules-panel" title="Permalink to this heading">¶</a></h3>
+<p>The Modules panel allows the configuration of all registered modules.</p>
+<figure class="align-center" id="id18">
+<a class="reference internal image-reference" href="../_images/panel-modules.png"><img alt="../_images/panel-modules.png" src="../_images/panel-modules.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Modules panel: Overview</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The left/green part shows the list of available modules grouped by defined
+categories and the right/blue part shows the current active module configuration.
+The active configuration corresponds to the selected module in the list.</p>
+<section id="adjust-module-configuration">
+<h4>Adjust module configuration<a class="headerlink" href="#adjust-module-configuration" title="Permalink to this heading">¶</a></h4>
+<p>Read section <a class="reference internal" href="../base/concepts/configuration.html#global-modules-config"><span class="std std-ref">Module configuration</span></a> for details on module configuration.
+See also section <a class="reference internal" href="#scconfig-editing"><span class="std std-ref">Editing parameters</span></a> for further information on editing parameters.</p>
+</section>
+<section id="id3">
+<h4>Adjust module configuration<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h4>
+<p>Read section <a class="reference internal" href="../base/concepts/configuration.html#global-modules-config"><span class="std std-ref">Module configuration</span></a> for details on module configuration.
+See also section <a class="reference internal" href="#scconfig-editing"><span class="std std-ref">Editing parameters</span></a> for further information on editing parameters.</p>
+</section>
+<section id="system-user-mode">
+<span id="scconfig-modes"></span><h4>System/user mode<a class="headerlink" href="#system-user-mode" title="Permalink to this heading">¶</a></h4>
+<p>The module configuration content that is displayed depends on the current
+configuration mode. Two modes exist:</p>
+<ul class="simple">
+<li><p>System mode: Module configurations are stored in files per modules like
+<code class="file docutils literal notranslate"><span class="pre">etc/&lt;module&gt;.cfg</span></code>. This is the default and usually, the preferred
+configuration mode.</p></li>
+<li><p>User mode the files are stored as <code class="file docutils literal notranslate"><span class="pre">$HOME/.seiscomp/&lt;module&gt;.cfg</span></code>.
+Parameter values set in user mode override system-mode configurations.</p></li>
+</ul>
+<p>You may change the mode by pressing the action button <strong>Switch mode</strong> (section
+<a class="reference internal" href="#scconfig-mainwindow"><span class="std std-ref">Main Window</span></a>). The mode is indicated by the mode indicator
+widget (section <a class="reference internal" href="#scconfig-mainwindow"><span class="std std-ref">Main Window</span></a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Bindings configurations (section <a class="reference internal" href="#scconfig-bindings"><span class="std std-ref">Bindings panel</span></a>) are not affected
+by mode changes.</p>
+</div>
+<p>It may happen that a configuration parameter is editable but editing will not
+have any affect on the module configuration. This is caused by the different
+configuration stages. If the system configuration is active but a parameter has
+been set in the user configuration it cannot be overridden in the system
+configuration. The user configuration is always of higher priority. scconfig
+will detect such problems and will color the input widget red in such situations.</p>
+<figure class="align-center" id="id19">
+<a class="reference internal image-reference" href="../_images/panel-modules-use-config-value.png"><img alt="../_images/panel-modules-use-config-value.png" src="../_images/panel-modules-use-config-value.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Warning in case a value is overridden by user configuration.</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The value in the edit widget will show the currently configured value in the
+active configuration file but the tooltip will show the evaluated value, the
+location of the definition and a warning.</p>
+</section>
+</section>
+<section id="bindings-panel">
+<span id="scconfig-bindings"></span><h3>Bindings panel<a class="headerlink" href="#bindings-panel" title="Permalink to this heading">¶</a></h3>
+<p>The binding panel configures a station for a module providing station-specific
+configuration such as data acquisition or processing. Read section
+<a class="reference internal" href="../base/concepts/configuration.html#global-bindings-config"><span class="std std-ref">Bindings configuration</span></a> for details on bindings configuration.
+See also section <a class="reference internal" href="#scconfig-editing"><span class="std std-ref">Editing parameters</span></a> for further information on editing parameters.</p>
+<p>You may configure station
+bindings or binding profiles. The profiles are typically applied to a set of
+stations. Any change in the profile parameters is applied to all stations bound
+to it.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<ul class="simple">
+<li><p>Working with <a class="reference internal" href="#scconfig-bindings-profile"><span class="std std-ref">bindings profiles</span></a> allows to
+maintain a single set of binding parameters for one or multiple stations.
+<a class="reference internal" href="#scconfig-bindings-station"><span class="std std-ref">Station bindings</span></a> are useful if a set of
+binding parameters are applied only to a single station. Otherwise configure
+<a class="reference internal" href="#scconfig-bindings-profile"><span class="std std-ref">binding profiles</span></a>.
+<a class="reference internal" href="#scconfig-bindings-profile"><span class="std std-ref">Profiles</span></a> are therefore usually preferred
+over <a class="reference internal" href="#scconfig-bindings-station"><span class="std std-ref">station bindings</span></a>.</p></li>
+<li><p>Creating or modifying bindings or bindings parameters requires to run
+<strong class="program">seiscomp update-config</strong> and to restart the affected modules in
+order for the changes to take an effect.</p></li>
+</ul>
+</div>
+<figure class="align-center" id="id20">
+<a class="reference internal image-reference" href="../_images/panel-bindings.png"><img alt="../_images/panel-bindings.png" src="../_images/panel-bindings.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Bindings panel: Overview</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The binding panel is separated into 3 main areas:</p>
+<ul class="simple">
+<li><p>Station tree (green + yellow). In the upper (green) part you may select an item of
+which the content is displayed in the lower (yellow) section.</p></li>
+<li><p>Binding parameter content (blue) where you may adjust parameter values.</p></li>
+<li><p>Module tree (red + orange). In the upper (red) part you may select a module
+of which the profiles are displayed in the lower (orange) section.</p></li>
+</ul>
+<p>The station tree (green) shows a tree of all available networks and their
+stations. Each stations contains nodes of its configured bindings. The lower
+view (yellow) represents the content of the currently selected item in the
+station tree.</p>
+<p>The binding parameter content (blue) shows the content of a binding and is
+similar to the module configuration content. A <a class="reference internal" href="#scconfig-modules-search"><span class="std std-ref">search function</span></a>
+as for module configuration parameters exists. See section <a class="reference internal" href="#scconfig-editing"><span class="std std-ref">Editing parameters</span></a>
+for further information about this panel.</p>
+<p>The module tree contains all modules which can be used along with bindings.
+The upper (red) window contains the modules and all available binding profiles
+for each module and the lower (orange) part shows all binding profiles of the
+currently selected module. This view is used to add new profiles and delete
+existing profiles.</p>
+<section id="profiles">
+<span id="scconfig-bindings-profile"></span><h4>Profiles<a class="headerlink" href="#profiles" title="Permalink to this heading">¶</a></h4>
+<section id="create-a-profile">
+<h5>Create a profile<a class="headerlink" href="#create-a-profile" title="Permalink to this heading">¶</a></h5>
+<p>For creating a binding profile select a module in the module tree (red)
+and right-click on the module or select the “add” button in the lower (orange)
+panel. Provide a descriptive name. Clicking on the name of the profile opens the
+profile allowing to adjust the parameters.</p>
+<figure class="align-center" id="id21">
+<a class="reference internal image-reference" href="../_images/panel-bindings-empty.png"><img alt="../_images/panel-bindings-empty.png" src="../_images/panel-bindings-empty.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Create a binding profile</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="create-bindings">
+<h5>Create bindings<a class="headerlink" href="#create-bindings" title="Permalink to this heading">¶</a></h5>
+<p>Assigning a binding profile to one or more stations creates one or more bindings.
+To assign a binding profile to</p>
+<ul class="simple">
+<li><p>A single station,</p></li>
+<li><p>A single network including all stations or</p></li>
+<li><p>All networks.</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Select a profile by mouse click</p></li>
+<li><p>Drag the selected profile from the right part (red or orange)
+to the target in the left part (green or yellow).</p></li>
+</ol>
+<p>Multi-selection of networks and stations is supported by holding the keys
+<kbd class="kbd docutils literal notranslate">Shift</kbd> or <kbd class="kbd docutils literal notranslate">Ctrl</kbd> while clicking on a network or a station.</p>
+<p>It is not possible to drag and drop multiple profiles with one action.</p>
+</section>
+</section>
+<section id="station-bindings">
+<span id="scconfig-bindings-station"></span><h4>Station bindings<a class="headerlink" href="#station-bindings" title="Permalink to this heading">¶</a></h4>
+<p>To create an exclusive station binding for a module, it must be opened in the
+binding view (yellow) by either selecting a station in the station tree
+(green) or opening/clicking that station in the binding view (yellow). The
+binding view will then contain all currently configured bindings.</p>
+<figure class="align-center" id="id22">
+<a class="reference internal image-reference" href="../_images/panel-bindings-add-sb.png"><img alt="../_images/panel-bindings-add-sb.png" src="../_images/panel-bindings-add-sb.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Add a station binding</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Clicking with the right mouse button into the free area will open a menu which
+allows to add a binding for a module which has not yet been added. Adding
+a binding will activate it and bring its content into the content panel.</p>
+<p>To convert an existing profile into a station binding, right click on the
+binding icon and select <span class="menuselection">Change profile ‣ None</span>. The existing
+profile will be converted into a station binding and activated for editing.</p>
+<figure class="align-center" id="id23">
+<a class="reference internal image-reference" href="../_images/panel-bindings-bp2sb.png"><img alt="../_images/panel-bindings-bp2sb.png" src="../_images/panel-bindings-bp2sb.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Convert a binding profile to a station binding</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Reversely, you may select a profile for binding it to a station.</p>
+<figure class="align-center" id="id24">
+<a class="reference internal image-reference" href="../_images/panel-bindings-sb2bp.png"><img alt="../_images/panel-bindings-sb2bp.png" src="../_images/panel-bindings-sb2bp.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Convert a station binding to a binding profile. The current configuration is
+highlighted.</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="apply-bindings">
+<h4>Apply bindings<a class="headerlink" href="#apply-bindings" title="Permalink to this heading">¶</a></h4>
+<p>The bindings parameters must be additionally written to the database or as for a
+<a class="reference internal" href="../base/glossary.html#term-standalone-module"><span class="xref std std-term">standalone module</span></a> converted to the specific module configuration by
+updating the configuration. You may update configuration for all modules or just
+the specific one. To this end, change to the
+<a class="reference internal" href="#scconfig-system"><span class="std std-ref">System panel</span></a> select the specific module or none and
+press the button “<em>Update configuration</em>”.</p>
+<p>Alternatively, execute the <a class="reference internal" href="seiscomp.html#seiscomp"><span class="std std-ref">seiscomp</span></a> script on the command line for all or
+the specific module:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>seiscomp<span class="w"> </span>update-config
+seiscomp<span class="w"> </span>update-config<span class="w"> </span>module
+</pre></div>
+</div>
+</section>
+</section>
+<section id="editing-parameters">
+<span id="scconfig-editing"></span><h3>Editing parameters<a class="headerlink" href="#editing-parameters" title="Permalink to this heading">¶</a></h3>
+<p>The content panel of a configuration is organized as a tree. Each module/binding
+name is a top-level item and all namespaces are titles of sections which can be
+expanded or collapsed.
+Namespaces are separated by dot in the configuration file, e.g.
+<code class="file docutils literal notranslate"><span class="pre">scautopick.cfg</span></code> which also reads <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code> would end up in a tree
+like this:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>+<span class="w"> </span>global
+<span class="p">|</span><span class="w">  </span><span class="p">|</span>
+<span class="p">|</span><span class="w">  </span>+--<span class="w"> </span>connection
+<span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">    </span><span class="p">|</span>
+<span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">    </span>+--<span class="w"> </span>server<span class="w"> </span><span class="o">(</span>global.cfg:<span class="w"> </span>connection.server<span class="o">)</span>
+<span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">    </span><span class="p">|</span>
+<span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">    </span>+--<span class="w"> </span>username<span class="w"> </span><span class="o">(</span>global.cfg:<span class="w"> </span>connection.username<span class="o">)</span>
+<span class="p">|</span><span class="w">  </span><span class="p">|</span>
+<span class="p">|</span><span class="w">  </span>+--<span class="w"> </span>database<span class="w"> </span><span class="o">(</span>global.cfg:<span class="w"> </span>database<span class="o">)</span>
+<span class="p">|</span>
++<span class="w"> </span>scautopick
+<span class="w">   </span><span class="p">|</span>
+<span class="w">   </span>+--<span class="w"> </span>connection
+<span class="w">   </span><span class="p">|</span><span class="w">    </span><span class="p">|</span>
+<span class="w">   </span><span class="p">|</span><span class="w">    </span>+--<span class="w"> </span>server<span class="w"> </span><span class="o">(</span>scautopick.cfg:<span class="w"> </span>connection.server<span class="o">)</span>
+<span class="w">   </span><span class="p">|</span><span class="w">    </span><span class="p">|</span>
+<span class="w">   </span><span class="p">|</span><span class="w">    </span>+--<span class="w"> </span>username<span class="w"> </span><span class="o">(</span>scautopick.cfg:<span class="w"> </span>connection.username<span class="o">)</span>
+<span class="w">   </span><span class="p">|</span>
+<span class="w">   </span>+--<span class="w"> </span>database<span class="w"> </span><span class="o">(</span>scautopick.cfg:<span class="w"> </span>database<span class="o">)</span>
+</pre></div>
+</div>
+<p>The Figure <a class="reference internal" href="#fig-scconfig-modules-global"><span class="std std-ref">Content panel layout</span></a> describes each item in the content
+panel.</p>
+<p>When configuring module configuration parameters (in contrast to bindings), the
+parameters can can be set in system and user mode. While system  mode is the
+default and usually used, parameters set in user mode override system mode. Read
+section <span class="xref std std-ref">scconfig-mode</span> for the details.</p>
+<section id="searching">
+<span id="scconfig-modules-search"></span><h4>Searching<a class="headerlink" href="#searching" title="Permalink to this heading">¶</a></h4>
+<p>Searching parameters by name, value or description (tooltip) in the modules
+configuration panel is easy by the advanced search function:</p>
+<ol class="arabic simple">
+<li><p>Click on the lens in the parameter section or press <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">F</kbd></kbd> for
+activating the search mask.</p></li>
+<li><p>Enter the string you wish to search for.</p></li>
+<li><p>Hit enter to search. The first match is highlighted.</p></li>
+<li><p>Once a string is found, you may continue to search up and down the list of
+matches by clicking on the arrow up and down buttons, respectively.</p></li>
+</ol>
+<figure class="align-center" id="id25">
+<a class="reference internal image-reference" href="../_images/panel-modules-search.png"><img alt="../_images/panel-modules-search.png" src="../_images/panel-modules-search.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Advanced search function. The section containing a match is highlighted.</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="adjust-values">
+<h4>Adjust values<a class="headerlink" href="#adjust-values" title="Permalink to this heading">¶</a></h4>
+<p>Without further configuration, the parameters show the currently loaded value. This may
+be the default value or a value previously loaded from global configuration. The
+content panel shows information and actions for adjusting parameter values.</p>
+<figure class="align-center" id="id26">
+<span id="fig-scconfig-modules-global"></span><a class="reference internal image-reference" href="../_images/panel-modules-editing.png"><img alt="../_images/panel-modules-editing.png" src="../_images/panel-modules-editing.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Content panel layout</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>In order to adjust a module or binding parameter:</p>
+<ol class="arabic">
+<li><p>Click on the edit button above the parameter field (pen) to activate the value field.</p></li>
+<li><p>Enter or select the value in either way:</p>
+<ul>
+<li><p>Enter the value directly into the value field. While entering, the parameter is
+evaluated.</p>
+<figure class="align-center" id="id27">
+<span id="fig-scconfig-modules-global-field"></span><a class="reference internal image-reference" href="../_images/panel-modules-editing-field.png"><img alt="../_images/panel-modules-editing-field.png" src="../_images/panel-modules-editing-field.png" style="width: 10cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Value field: Enter the value into the open field</span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Parameter values may be long and difficult to enter into the value field. Instead of
+entering the value in the value field you may alternatively click on the parameter
+name which opens a line editor for entering the parameter. Apply your changes and
+click <em>OK</em> to accept the changes. You may copy and paste any text string from the
+editor window. For copying the parameter along with its value elsewhere, click on
+<em>Copy parameter</em>.</p>
+<figure class="align-center" id="id28">
+<span id="fig-scconfig-modules-global-line"></span><a class="reference internal image-reference" href="../_images/panel-modules-editing-line.png"><img alt="../_images/panel-modules-editing-line.png" src="../_images/panel-modules-editing-line.png" style="width: 10cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Line editor: Enter the value into the open field</span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>For files and directories a selection button may be visible. Click on the button
+to select the file or directory.</p>
+<figure class="align-center" id="id29">
+<span id="fig-scconfig-modules-global-file"></span><a class="reference internal image-reference" href="../_images/panel-modules-editing-file.png"><img alt="../_images/panel-modules-editing-file.png" src="../_images/panel-modules-editing-file.png" style="width: 10cm;" /></a>
+<figcaption>
+<p><span class="caption-text">File and directory selector</span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</li>
+</ul>
+</li>
+<li><p>Save the configuration: Click on the <em>Save</em> button or press <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">S</kbd></kbd>.</p></li>
+<li><p>To finally apply the change you need to restart the module. In case bindings
+were changed, update the configuration is required before restarting. Navigate to the
+<a class="reference internal" href="#scconfig-system"><span class="std std-ref">System panel</span></a> for these actions.</p></li>
+</ol>
+<p>You may later revert changes:</p>
+<ul class="simple">
+<li><p>Remove a value effectively returning to default by pressing the remove button (pen
+with red line).</p></li>
+<li><p>Before saving a changed value, you may reset this value to the previously saved state
+by pressing the reset button (blue circular arrows).</p></li>
+<li><p>Revert the changed values of all parameters to the saved stated by pressing
+<em>Reset all</em> (<kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">R</kbd></kbd>).</p></li>
+</ul>
+</section>
+<section id="evaluation">
+<h4>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this heading">¶</a></h4>
+<p>The content of the input field (except for boolean types which are mapped
+to a simple checkbox) is the parameter value.
+While typing an evaluation box pops up which contains the parsed and interpreted
+content as read by an application. It shows the number of parsed list items, possible
+errors or warnings and the content of each list item. The full list of value
+types and options to be tested is documented in the
+<a class="reference internal" href="../base/contributing-docs.html#xml-configuration-parameter"><span class="std std-ref">table of description parameters</span></a>.</p>
+<figure class="align-center" id="id30">
+<a class="reference internal image-reference" href="../_images/panel-modules-evaluation.png"><img alt="../_images/panel-modules-evaluation.png" src="../_images/panel-modules-evaluation.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Examples of value syntax evaluation</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="inventory-panel">
+<span id="scconfig-inventory"></span><h3>Inventory panel<a class="headerlink" href="#inventory-panel" title="Permalink to this heading">¶</a></h3>
+<p>The inventory panel allows to import, check and synchronize inventory files as
+well as to inspect the content or to rename or remove the files. The panel shows
+a list of inventory XML files located in folder <code class="file docutils literal notranslate"><span class="pre">etc/inventory</span></code>. Only
+<a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> files can be used as source for inventory data but various importers
+exist to integrate inventory data from other formats. After the first start
+the list is empty and contains only a README file.</p>
+<figure class="align-center" id="id31">
+<a class="reference internal image-reference" href="../_images/panel-inventory.png"><img alt="../_images/panel-inventory.png" src="../_images/panel-inventory.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Inventory panel: List of files and actions</span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Importing station meta data is outlined in the
+<a class="reference internal" href="../base/tutorials/addstation.html#tutorials-addstation"><span class="std std-ref">tutorial on adding a station</span></a>.</p>
+<p>Servers running FDSNWS <span id="id4">[<a class="reference internal" href="../base/references.html#id136" title="FDSNWS. International Federation of Digital Seismograph Networks. URL: http://www.fdsn.org/webservices/.">8</a>]</span> as operated at <span id="id5"><em>GEOFON</em> [<a class="reference internal" href="../base/references.html#id150" title="GEOFON. GFZ German Resarch Center for Geosciences. URL: https://geofon.gfz.de.">9</a>]</span> or other
+data centers <span id="id6">[<a class="reference internal" href="../base/references.html#id138" title="FDSN data centers. International Federation of Digital Seismograph Networks. URL: https://www.fdsn.org/webservices/datacenters/.">6</a>]</span> are modern sources of inventory
+information. In scconfig you may fetch inventory directly from FDSN servers.
+Alternatively, you may navigate to such servers, download the inventory
+files and integrate the into <cite>SeisComP</cite>. Both ways are supported by scconfig.</p>
+<p>Depending on configuration and architecture, FDSN servers provide
+inventory in <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> and/or FDSN station XML <span id="id7">[<a class="reference internal" href="../base/references.html#id137" title="FDSN Web Service Specifications. International Federation of Digital Seismograph Networks. URL: http://www.fdsn.org/webservices/FDSN-WS-Specifications-1.2.pdf.">5</a>]</span> but other
+sources may provide other formats. <cite>SeisComP</cite> supports reading inventory in a
+variety of different formats such as:</p>
+<ul class="simple">
+<li><p>scml: <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a></p></li>
+<li><p>fdsnxml: FDSN station XML <span id="id8">[<a class="reference internal" href="../base/references.html#id137" title="FDSN Web Service Specifications. International Federation of Digital Seismograph Networks. URL: http://www.fdsn.org/webservices/FDSN-WS-Specifications-1.2.pdf.">5</a>]</span></p></li>
+<li><p>dlsv: dataless SEED volume</p></li>
+<li><p>arclink: Arclink XML</p></li>
+</ul>
+<p>Ultimately, the inventory must be converted into <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> which is
+supported by scconfig.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Ensure to provide full inventory including responses for the time period of
+interest for data processing. Waveform data without corresponding inventory
+cannot be processed.</p>
+</div>
+<section id="toolbar-actions">
+<h4>Toolbar actions<a class="headerlink" href="#toolbar-actions" title="Permalink to this heading">¶</a></h4>
+<p>The toolbar supports various actions:</p>
+<dl>
+<dt><em>Import</em></dt><dd><p>You may upload and integrate the inventory from file in any supported original
+format. Read section <a class="reference internal" href="#scconfig-inventory-file"><span class="std std-ref">Import from file</span></a>.</p>
+</dd>
+<dt><em>FDSNWS</em></dt><dd><p>You may connect to any FDSN server providing station information and integrate
+the requested meta data into your <cite>SeisComP</cite> configuration.  Read section
+<a class="reference internal" href="#scconfig-inventory-fdsnws"><span class="std std-ref">Import from FDSNWS</span></a>.</p>
+</dd>
+<dt><em>Check</em></dt><dd><p>The inventory is checked for issues including inconsistencies which are reported.
+The tests are based on <a class="reference internal" href="scinv.html#scinv"><span class="std std-ref">scinv</span></a> and listed in the documentation of this
+module. Adjust sensitivity by configuring <a class="reference internal" href="scinv.html#scinv"><span class="std std-ref">scinv</span></a>.</p>
+<p>The equivalent command-line action is</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scinv<span class="w"> </span>check
+</pre></div>
+</div>
+</dd>
+<dt><em>Sync keys</em></dt><dd><p>This action is part of sync but can be called also standalone. It merges all
+inventory XML files and creates key files in <code class="file docutils literal notranslate"><span class="pre">etc/key/station_*</span></code> if a
+key file does not yet exist. Existing key files are not touched unless the
+station is not part of the inventory anymore.</p>
+<p>The equivalent command-line action is</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scinv<span class="w"> </span>keys
+</pre></div>
+</div>
+<p>As a result, all stations in inventory will have a corresponding key file and
+each key file will have a corresponding station in inventory.</p>
+</dd>
+<dt><em>Test sync</em></dt><dd><p>The inventory XML files are not used directly with <cite>SeisComP</cite>. They need to
+be synchronized with the database first (see <a class="reference internal" href="global.html#global-stations"><span class="std std-ref">Station meta data</span></a>).
+Synchronization needs to merge all existing XML files and create differences
+against the existing database tables. While merging conflicts can occur such
+as duplicate stations with different content (e.g. different description).
+This action is a dry-run of the actual synchronization. It performs merging
+and creates differences but does not send any update. This actions is useful
+to test all your existing inventory files before actually modifying the
+database.</p>
+<p>The equivalent command-line action is</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scinv<span class="w"> </span>sync<span class="w"> </span>--test
+</pre></div>
+</div>
+<figure class="align-center" id="id32">
+<a class="reference internal image-reference" href="../_images/panel-inventory-sync-passed.png"><img alt="../_images/panel-inventory-sync-passed.png" src="../_images/panel-inventory-sync-passed.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Synchronize inventory: Success</span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</dd>
+<dt><em>Sync</em></dt><dd><p>Almost identical to <em>Test sync</em> but it does send updates to the database and
+additionally synchronizes key files and resource files.</p>
+<p>The equivalent command-line action is</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scinv<span class="w"> </span>sync
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><em>Sync</em> and <em>Sync keys</em> will cause a reload of the configuration to refresh the
+current binding tree (see <a class="reference internal" href="#scconfig-bindings"><span class="std std-ref">Bindings panel</span></a>).</p>
+</section>
+<section id="import-from-fdsnws">
+<span id="scconfig-inventory-fdsnws"></span><h4>Import from FDSNWS<a class="headerlink" href="#import-from-fdsnws" title="Permalink to this heading">¶</a></h4>
+<p>Inventory files can be directly imported from FDSN server by pressing the
+<strong>FDSNWS</strong> button in the toolbar on the top. Pressing the button will open a
+popup allowing to enter the FDSN server address and the inventory constraints.
+Include responses and set the time period by Start and End. Unset values do not
+impose any limit. When done</p>
+<ol class="arabic simple">
+<li><p>Press <strong>Fetch</strong></p></li>
+<li><p>Inspect the stream table</p></li>
+<li><p>Press <strong>OK</strong> to download and integrate the inventory.</p></li>
+</ol>
+<figure class="align-center" id="id33">
+<a class="reference internal image-reference" href="../_images/panel-inventory-fdsnws.png"><img alt="../_images/panel-inventory-fdsnws.png" src="../_images/panel-inventory-fdsnws.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Import inventory: After fetching from FDSN server and before integration the
+stream list can be inspected.</span><a class="headerlink" href="#id33" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>File names must end on <em>.xml</em>. It is recommended to use consistent file
+names, e.g., <code class="file docutils literal notranslate"><span class="pre">inventory_[networkCode].xml</span></code>.</p>
+</div>
+</section>
+<section id="import-from-file">
+<span id="scconfig-inventory-file"></span><h4>Import from file<a class="headerlink" href="#import-from-file" title="Permalink to this heading">¶</a></h4>
+<p>External inventory files can be imported by pressing the <strong>Import</strong>
+button in the toolbar on the top. Pressing the button will open a popup allowing
+to select for input format.</p>
+<figure class="align-center" id="id34">
+<a class="reference internal image-reference" href="../_images/panel-inventory-import-format.png"><img alt="../_images/panel-inventory-import-format.png" src="../_images/panel-inventory-import-format.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Import inventory: File format selection</span><a class="headerlink" href="#id34" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>If <em>fdsnws</em> is selected, the source location should then point to the FDSN
+stations XML file downloaded before.</p>
+<figure class="align-center" id="id35">
+<a class="reference internal image-reference" href="../_images/panel-inventory-import-file.png"><img alt="../_images/panel-inventory-import-file.png" src="../_images/panel-inventory-import-file.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Import inventory: File selection</span><a class="headerlink" href="#id35" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>If successfully imported a window will popup with the execution result and
+the import output.</p>
+<figure class="align-center" id="id36">
+<a class="reference internal image-reference" href="../_images/panel-inventory-import-finished.png"><img alt="../_images/panel-inventory-import-finished.png" src="../_images/panel-inventory-import-finished.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Import inventory: Success</span><a class="headerlink" href="#id36" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>After closing the popup, the imported inventory file will show up in the list of
+files. Right-clicking a file allows:</p>
+<ul class="simple">
+<li><p>Checking (quality control),</p></li>
+<li><p>Renaming,</p></li>
+<li><p>Deleting,</p></li>
+<li><p>Inspecting the content of</p></li>
+</ul>
+<p>the file.</p>
+<figure class="align-center" id="id37">
+<a class="reference internal image-reference" href="../_images/panel-inventory-import-access-file.png"><img alt="../_images/panel-inventory-import-access-file.png" src="../_images/panel-inventory-import-access-file.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Right-click on file name to select actions on the file</span><a class="headerlink" href="#id37" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>File names must end on <em>.xml</em>. It is recommended to use consistent file
+names, e.g., <code class="file docutils literal notranslate"><span class="pre">inventory_[networkCode].xml</span></code>.</p>
+</div>
+</section>
+</section>
+<section id="information-panel">
+<span id="scconfig-information"></span><h3>Information panel<a class="headerlink" href="#information-panel" title="Permalink to this heading">¶</a></h3>
+<p>This panel shows information about the <cite>SeisComP</cite> environment including system
+variables and the <cite>SeisComP</cite> variable related to the currently executed instance
+of scconfig.</p>
+<figure class="align-center" id="id38">
+<span id="id9"></span><a class="reference internal image-reference" href="../_images/panel-information.png"><img alt="../_images/panel-information.png" src="../_images/panel-information.png" style="width: 15cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Information panel showing variables and software information</span><a class="headerlink" href="#id38" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>All <cite>SeisComP</cite> variables can be used as placeholders in most of the configuration
+parameters which define directories or files. The variables are encapsulated by
+<strong>&#64;</strong>. Example:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>autoloc.grid<span class="w"> </span><span class="o">=</span><span class="w"> </span>@CONFIGDIR@/autoloc/local.grid
+</pre></div>
+</div>
+</section>
+<section id="documentation-and-changelog">
+<span id="scconfig-documentation"></span><h3>Documentation and changelog<a class="headerlink" href="#documentation-and-changelog" title="Permalink to this heading">¶</a></h3>
+<p>Access the documentation and the changelog of any installed package from the
+Docs panel. Double-click on the red or blue button to open the documentation
+or the changelog, respectively.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/panel-documentation.png"><img alt="../_images/panel-documentation.png" src="../_images/panel-documentation.png" style="width: 15cm;" /></a>
+</figure>
+</section>
+<section id="shortcuts-hotkeys">
+<span id="scconfig-hotkeys"></span><h3>Shortcuts / Hotkeys<a class="headerlink" href="#shortcuts-hotkeys" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-left">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Hotkey</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>General</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Switch to System panel</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Switch to Modules panel</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>Switch to Bindings panel</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Switch to Inventory panel</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>Switch to Information panel</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>Switch to Docs panel</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl + N</p></td>
+<td><p>Start wizard for setting up initial global parameters, database and messaging</p></td>
+</tr>
+<tr class="row-even"><td><p>Ctrl + Q</p></td>
+<td><p>Quit scconfig. Changed parameters may be saved file before eventually quitting.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl + R</p></td>
+<td><p>Reset all changed parameters to values saved on disk</p></td>
+</tr>
+<tr class="row-even"><td><p>Ctrl + S</p></td>
+<td><p>Save parameter values</p></td>
+</tr>
+<tr class="row-odd"><td><p>F1</p></td>
+<td><p>Open locally installed HTML documentation of scconfig</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Bindings panel</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl + F</p></td>
+<td><p>Search parameters and descriptions</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Module panel</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl + F</p></td>
+<td><p>Search parameters and descriptions</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Inventory panel</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Del</p></td>
+<td><p>Delete selected file</p></td>
+</tr>
+<tr class="row-even"><td><p>F2</p></td>
+<td><p>Rename selected file</p></td>
+</tr>
+<tr class="row-odd"><td><p>F3</p></td>
+<td><p>Check the selected file executing <em>scinv check</em></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="command-line-options">
+<span id="scconfig-cmd-options"></span><h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this heading">¶</a></h2>
+<p><strong class="program">scconfig [options]</strong></p>
+<section id="generic">
+<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scconfig-h">
+<span id="cmdoption-scconfig-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scconfig-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show help message.</p>
+</dd></dl>
+
+</section>
+<section id="verbosity">
+<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scconfig-debug">
+<span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scconfig-debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute in debug mode.
+Equivalent to --verbosity=4 --console=1 .</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scconfig-V">
+<span id="cmdoption-scconfig-version"></span><span class="sig-name descname"><span class="pre">-V</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scconfig-V" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show version information.</p>
+</dd></dl>
+
+</section>
+<section id="id10">
+<h3>Options<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scconfig-m">
+<span id="cmdoption-scconfig-module"></span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scconfig-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Name of module for which to open the configuration at startup given by
+the module name, e.g. scautopick. Requires --panel and is supported by
+the Modules and Bindings panels. In the Bindings panel all profiles of
+the module are shown and, when used with --station, the parameters for
+that station also show.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scconfig-p">
+<span id="cmdoption-scconfig-panel"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--panel</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scconfig-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Panel to open at startup given by its number, e.g. 2, or its name, e.g.
+Modules. The number corresponds to the panel shortcut key.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scconfig-parameter">
+<span class="sig-name descname"><span class="pre">--parameter</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scconfig-parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Name of parameter or parameter section to navigate to at startup
+given by its full name, e.g., connection.server or database.
+Requires --panel and -module for Modules panel or --panel, --module
+and --station for Bindings panel.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scconfig-s">
+<span id="cmdoption-scconfig-station"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--station</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scconfig-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Station to show the bindings of at startup given as NET.STA, e.g.
+GE.APE. Requires --panel and is supported by the Bindings panel. If
+combined with --module, the parameters of the module binding at that
+station also show.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+          <div id="anchors-bottom"></div>
+        </div>
+        
+      <div class="sidebar" role="navigation" aria-label="main navigation">
+        <div id="anchors-top"></div>
+        <div id="anchors" class="content">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">scconfig</a><ul>
+<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#first-start">First start</a></li>
+<li><a class="reference internal" href="#options">Options</a></li>
+<li><a class="reference internal" href="#main-window">Main Window</a><ul>
+<li><a class="reference internal" href="#frame-title">Frame title</a></li>
+<li><a class="reference internal" href="#actions">Actions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#system-panel">System panel</a><ul>
+<li><a class="reference internal" href="#id2">Actions</a></li>
+<li><a class="reference internal" href="#diagnosing">Diagnosing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#modules-panel">Modules panel</a><ul>
+<li><a class="reference internal" href="#adjust-module-configuration">Adjust module configuration</a></li>
+<li><a class="reference internal" href="#id3">Adjust module configuration</a></li>
+<li><a class="reference internal" href="#system-user-mode">System/user mode</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bindings-panel">Bindings panel</a><ul>
+<li><a class="reference internal" href="#profiles">Profiles</a><ul>
+<li><a class="reference internal" href="#create-a-profile">Create a profile</a></li>
+<li><a class="reference internal" href="#create-bindings">Create bindings</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#station-bindings">Station bindings</a></li>
+<li><a class="reference internal" href="#apply-bindings">Apply bindings</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#editing-parameters">Editing parameters</a><ul>
+<li><a class="reference internal" href="#searching">Searching</a></li>
+<li><a class="reference internal" href="#adjust-values">Adjust values</a></li>
+<li><a class="reference internal" href="#evaluation">Evaluation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#inventory-panel">Inventory panel</a><ul>
+<li><a class="reference internal" href="#toolbar-actions">Toolbar actions</a></li>
+<li><a class="reference internal" href="#import-from-fdsnws">Import from FDSNWS</a></li>
+<li><a class="reference internal" href="#import-from-file">Import from file</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#information-panel">Information panel</a></li>
+<li><a class="reference internal" href="#documentation-and-changelog">Documentation and changelog</a></li>
+<li><a class="reference internal" href="#shortcuts-hotkeys">Shortcuts / Hotkeys</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
+<li><a class="reference internal" href="#generic">Generic</a></li>
+<li><a class="reference internal" href="#verbosity">Verbosity</a></li>
+<li><a class="reference internal" href="#id10">Options</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../gui.html"
+                          title="previous chapter">Graphical User Interfaces</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="scesv.html"
+                          title="next chapter">scesv</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/apps/scconfig.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="horizontal layout content">
+        <a class="fade-in" href="https://www.gempa.de" target="_blank">
+          <img class="brand" src="../_static/brands/gempa.svg"/>
+        </a>
+        <div class="stretched align-center fitted content">
+          <div>
+		  Version <b>7.4.0</b> Release
+          </div>
+            <div class="copyright">
+              Copyright &copy; gempa GmbH, GFZ Potsdam.
+            </div>
+        </div>
+        <a class="fade-in" href="https://www.gfz-potsdam.de" target="_blank">
+          <img class="brand" src="../_static/brands/gfz.svg"/>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

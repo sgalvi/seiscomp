@@ -1,0 +1,17 @@
+pkgname=gss-plugin-gnsthreat
+pkgver=2026.306
+pkgrel=6
+pkgdesc=('GNS Science threat model database simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simgnsthreat/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('ad3de7f5431d880a67858fe86135cc82e0c9506de41c8bfc6e832a9c7fbad4be')
+pkgsize=('3995218')
+pkginstallsize=('9566515')
+pkgfilecount=('107')
+filename=('gss-plugin-gnsthreat-2026.306-seiscomp-6-debian-13-aarch64.tar.gz')
+builddate=('2026-11-17 02:19:52')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

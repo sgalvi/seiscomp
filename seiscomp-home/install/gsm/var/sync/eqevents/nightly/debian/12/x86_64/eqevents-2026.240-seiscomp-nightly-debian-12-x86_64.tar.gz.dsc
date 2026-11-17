@@ -1,0 +1,16 @@
+pkgname=eqevents
+pkgver=2026.240
+pkgrel=nightly
+pkgdesc=('Static websites showing events information, maps and images (commercial)')
+pkgkeywords=('dissemination earthquake monitoring induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('e9cfec510240a684a9220273923be42fe12052e0bdc6cfedb4ca8629a7ca5f7d')
+pkgsize=('14182898')
+pkginstallsize=('16554737')
+filename=('eqevents-2026.240-seiscomp-nightly-debian-12-x86_64.tar.gz')
+builddate=('2026-10-15 21:49:20')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

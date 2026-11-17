@@ -1,0 +1,29 @@
+2026/11/17 12:40:58 [notice/Application] Starting scolv 
+2026/11/17 12:40:58 [notice/Application]   Framework   : 7.4.0 Release
+2026/11/17 12:40:58 [notice/Application]   API Version : 17.4.0
+2026/11/17 12:40:58 [notice/Application]   Version     : GIT HEAD: 789503ef
+Compiler: c++ (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+Build system: Linux 6.12.101+deb13-arm64
+OS: Ubuntu 24.04 LTS / Linux
+2026/11/17 12:40:58 [error/Application] Connection error: Failed to connect
+2026/11/17 12:40:58 [error/Application] Could not connect to message system
+2026/11/17 12:44:03 [error/Application] Connection went away...
+2026/11/17 12:44:26 [notice/Application] Shutdown
+2026/11/17 12:44:32 [notice/Application] Starting scolv 
+2026/11/17 12:44:32 [notice/Application]   Framework   : 7.4.0 Release
+2026/11/17 12:44:32 [notice/Application]   API Version : 17.4.0
+2026/11/17 12:44:32 [notice/Application]   Version     : GIT HEAD: 789503ef
+Compiler: c++ (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+Build system: Linux 6.12.101+deb13-arm64
+OS: Ubuntu 24.04 LTS / Linux
+2026/11/17 12:44:32 [error/Application] Connection error: Failed to connect
+2026/11/17 12:44:32 [error/Application] Could not connect to message system
+2026/11/17 12:45:23 [notice/Application] Starting scolv 
+2026/11/17 12:45:23 [notice/Application]   Framework   : 7.4.0 Release
+2026/11/17 12:45:23 [notice/Application]   API Version : 17.4.0
+2026/11/17 12:45:23 [notice/Application]   Version     : GIT HEAD: 789503ef
+Compiler: c++ (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+Build system: Linux 6.12.101+deb13-arm64
+OS: Ubuntu 24.04 LTS / Linux
+2026/11/17 12:45:23 [error/Application] Connection error: Failed to connect
+2026/11/17 12:45:23 [error/Application] Could not connect to message system

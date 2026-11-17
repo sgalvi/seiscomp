@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+
+<html  lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>scevent &#8212; SeisComP Release documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <script type="text/javascript" src="../_static/seiscomp.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scmag" href="scmag.html" />
+    <link rel="prev" title="scautopick" href="scautopick.html" /> 
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="brand">
+          <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
+           <!-- span class="title">SeisComP Release</span -->
+          <span class="version">7.4.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="container">
+        <div class="content"><a class="pull-right" id="sidebar-toggle">TOC</a>
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <ul>
+        <li class="right">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">
+            index
+          </a>
+        </li>
+        <li class="right">
+          <a href="scmag.html" title="scmag"
+             accesskey="N">
+            next
+          </a>
+        </li>
+        <li class="right">
+          <a href="scautopick.html" title="scautopick"
+             accesskey="P">
+            previous
+          </a>
+        </li>
+        <li class="nav-item nav-item-0">
+          <a href="../index.html">Home</a>
+        </li>
+        <li class="nav-item nav-item-1">
+          <a href="../modules.html" >Modules</a>
+        </li>
+        <li class="nav-item nav-item-2">
+          <a href="../toc/processing.html" accesskey="U">Processing</a>
+        </li> 
+      </ul>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="fitted content" id="anchors-container">
+        <div class="body" role="main">
+          
+  <section id="scevent">
+<span id="id1"></span><h1>scevent<a class="headerlink" href="#scevent" title="Permalink to this heading">¶</a></h1>
+<p><strong>Associate an Origin to an Event or form a new Event if no match is found.
+Select the preferred origin, magnitude and focal mechanism.</strong></p>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
+<p>As a consequence of a real-time system the <cite>SeisComP</cite> modules creates several
+<a class="reference internal" href="../base/glossary.html#term-origin"><span class="xref std std-term">origins</span></a> (results of localization processes) for one earthquake
+or other seismic events because as time
+goes by more seismic phases are available. scevent receives these origins and
+associates the origins to <a class="reference internal" href="../base/glossary.html#term-event"><span class="xref std std-term">events</span></a>. It is also possible to import
+and associate origins from other agencies.</p>
+<p>The main tasks of scevent are:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#scevent-assocorg"><span class="std std-ref">Create new events or associate origins</span></a> to existing events.</p></li>
+<li><p>Set the <a class="reference internal" href="#scevent-eventid"><span class="std std-ref">ID of events</span></a>.</p></li>
+<li><p>Set the <a class="reference internal" href="#scevent-preforg"><span class="std std-ref">preferred origin</span></a> from all available origins.</p></li>
+<li><p>Set the <a class="reference internal" href="#scevent-prefmag"><span class="std std-ref">preferred magnitude</span></a> from all available magnitudes.</p></li>
+<li><p>Set the <a class="reference internal" href="#scevent-preffm"><span class="std std-ref">preferred focal mechanism</span></a> from all available focal mechanisms.</p></li>
+<li><p><em>Optional:</em> Set the event type of automatic origins by plugins:</p>
+<ul>
+<li><p><a class="reference internal" href="scevent_regioncheck.html#scevent-regioncheck"><span class="std std-ref">evrc</span></a>: Type based on hypocenter,</p></li>
+<li><p><a class="reference internal" href="scevent_eventtype.html#scevent-eventtype"><span class="std std-ref">evtype</span></a>: Type based on comments added to picks,
+e.g., by <a class="reference internal" href="scautopick.html#scautopick"><span class="std std-ref">scautopick</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="origin-association">
+<span id="scevent-assocorg"></span><h2>Origin Association<a class="headerlink" href="#origin-association" title="Permalink to this heading">¶</a></h2>
+<p>scevent associates origins to event objects by searching for the best match of the new
+(incoming) origin to other origins for existing events:</p>
+<ul class="simple">
+<li><p>Create new <cite>SeisComP</cite> events for origins which cannot be associated to an
+existing event object and associate the origin to this new event.</p></li>
+<li><p>Associate origins to existing event objects: Origins belonging to <strong>the same seismic
+event</strong> shall be associated to the same event object.</p></li>
+</ul>
+<p>Origins can be filtered/ignored based on</p>
+<ul class="simple">
+<li><p>ID of agency which has created the origin:
+<a class="reference internal" href="global.html#confval-processing.blacklist.agencies"><code class="xref std std-confval docutils literal notranslate"><span class="pre">processing.blacklist.agencies</span></code></a>,
+<a class="reference internal" href="global.html#confval-processing.whitelist.agencies"><code class="xref std std-confval docutils literal notranslate"><span class="pre">processing.whitelist.agencies</span></code></a> (global parameters),</p></li>
+<li><p>Hypocenter parameters: <a class="reference internal" href="#confval-eventAssociation.region.rect"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.region.rect</span></code></a>,
+<a class="reference internal" href="#confval-eventAssociation.region.minDepth"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.region.minDepth</span></code></a>,
+<a class="reference internal" href="#confval-eventAssociation.region.maxDepth"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.region.maxDepth</span></code></a>.</p></li>
+</ul>
+<section id="origin-match">
+<h3>Origin match<a class="headerlink" href="#origin-match" title="Permalink to this heading">¶</a></h3>
+<p>The new origin is matched to existing origins by comparing differences in epicenter,
+origin time, and <a class="reference internal" href="../base/glossary.html#term-arrival"><span class="xref std std-term">arrivals</span></a> (associated picks).
+The new origin is matched to an existing origin which has the highest rank in
+the following three groups (1, 2, 3):</p>
+<ol class="arabic">
+<li><p>Location and Time (lowest)</p>
+<p>The difference in horizontal location is less than
+<a class="reference internal" href="#confval-eventAssociation.maximumDistance"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.maximumDistance</span></code></a> (degrees)
+and the difference in origin times is less than
+<a class="reference internal" href="#confval-eventAssociation.maximumTimeSpan"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.maximumTimeSpan</span></code></a>.</p>
+</li>
+<li><p>Picks</p>
+<p>The two origins have more than <a class="reference internal" href="#confval-eventAssociation.minimumMatchingArrivals"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.minimumMatchingArrivals</span></code></a>
+matching picks. Picks are matched either by ID or by time depending
+on <a class="reference internal" href="#confval-eventAssociation.maximumMatchingArrivalTimeDiff"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.maximumMatchingArrivalTimeDiff</span></code></a>.</p>
+</li>
+<li><p>Picks and Location and Time (highest)</p>
+<p>This is the best match, for which both the location-and-time and picks
+criteria above are satisfied.</p>
+</li>
+</ol>
+<p>If more than one origin is found in the highest ranking class, then the first
+one of them is chosen.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For efficiency events in the cache are scanned first and if no matches are found,
+the database is scanned for the time window <a class="reference internal" href="#confval-eventAssociation.eventTimeBefore"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.eventTimeBefore</span></code></a> -
+<a class="reference internal" href="#confval-eventAssociation.eventTimeAfter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.eventTimeAfter</span></code></a>
+around the incoming Origin time. The cached events are ordered by eventID and
+thus in time.</p>
+</div>
+</section>
+<section id="no-origin-match">
+<h3>No origin match<a class="headerlink" href="#no-origin-match" title="Permalink to this heading">¶</a></h3>
+<p>If no event with an origin that matches the incoming origin is found, then a
+new event is formed and the origin is associated to that event. The following
+criteria are applied to allow the creation of the new event:</p>
+<ul class="simple">
+<li><p>The agency for the origin is not black listed (<a class="reference internal" href="global.html#confval-processing.blacklist.agencies"><code class="xref std std-confval docutils literal notranslate"><span class="pre">processing.blacklist.agencies</span></code></a>).</p></li>
+<li><p>The origin is automatic and it has more than <a class="reference internal" href="#confval-eventAssociation.minimumDefiningPhases"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.minimumDefiningPhases</span></code></a>
+<a class="reference internal" href="../base/glossary.html#term-arrival"><span class="xref std std-term">arrivals</span></a> (associated picks).</p></li>
+</ul>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/Association_of_an_origin_by_matching_picks.jpg"><img alt="alternate association of an origin by matching picks." src="../_images/Association_of_an_origin_by_matching_picks.jpg" style="width: 529.0px; height: 397.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Association of an origin to an event by matching picks.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="preferred-origin">
+<span id="scevent-preforg"></span><h2>Preferred Origin<a class="headerlink" href="#preferred-origin" title="Permalink to this heading">¶</a></h2>
+<p>The preferred origin is set by ranking of all associated origins. The ranking
+is controlled by <a class="reference internal" href="#confval-eventAssociation.priorities"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.priorities</span></code></a> and related configuration
+parameters.</p>
+</section>
+<section id="preferred-magnitude">
+<span id="scevent-prefmag"></span><h2>Preferred Magnitude<a class="headerlink" href="#preferred-magnitude" title="Permalink to this heading">¶</a></h2>
+<p>The preferred magnitude is set by ranking of the
+<a class="reference internal" href="scmag.html#scmag-summarym"><span class="std std-ref">summary magnitude</span></a> and all <a class="reference internal" href="scmag.html#scmag-networkm"><span class="std std-ref">network magnitudes</span></a>
+of the preferred origin. The ranking is mainly controlled by
+<a class="reference internal" href="#confval-eventAssociation.magTypes"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.magTypes</span></code></a> and <a class="reference internal" href="#confval-eventAssociation.minimumMagnitudes"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.minimumMagnitudes</span></code></a>
+and related configuration parameters.</p>
+<p>Magnitudes where the evaluation mode is ‘rejected’ are ignored.</p>
+</section>
+<section id="preferred-focal-mechanism">
+<span id="scevent-preffm"></span><h2>Preferred Focal Mechanism<a class="headerlink" href="#preferred-focal-mechanism" title="Permalink to this heading">¶</a></h2>
+<p>The most recent manual focal mechanism or, if no manual ones are unavailable, the
+most recent automatic focal mechnisms becomes preferred.</p>
+</section>
+<section id="scevent-eventid">
+<span id="id-of-events"></span><h2>ID of Events<a class="headerlink" href="#scevent-eventid" title="Permalink to this heading">¶</a></h2>
+<p>The ID of an event or eventID uniquely identifies an event. The ID is derived from
+the time of occurrence of the event within a year. As configured by <a class="reference internal" href="#confval-eventIDPattern"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDPattern</span></code></a>
+it typically consists of a prefix configured by <a class="reference internal" href="#confval-eventIDPrefix"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDPrefix</span></code></a> and a
+string containing the year and a set of characters or numbers defining the time.</p>
+</section>
+<section id="distributed-event-id-allocation">
+<span id="scevent-eventid-sync"></span><h2>Distributed Event ID Allocation<a class="headerlink" href="#distributed-event-id-allocation" title="Permalink to this heading">¶</a></h2>
+<p>When several <strong class="program">scevent</strong> instances process origins in parallel, each instance
+independently sees origins arriving from its processing pipeline and would, without
+coordination, pick its own event ID for the same earthquake. Event IDs are
+derived from origin times with finite resolution of time slots. The length and the
+number of available time slots are defined by <a class="reference internal" href="#confval-eventIDPattern"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDPattern</span></code></a> and
+<a class="reference internal" href="#confval-eventIDLookupMargin"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDLookupMargin</span></code></a>. Due to differences in configuration but also in
+seismicity, two <strong class="program">scevent</strong> instances starting from the same origin time can
+quickly diverge to different event IDs which shall be avoided by distributed allocation
+of event IDs.</p>
+<p>This concept affects two kinds of <cite>SeisComP</cite> system deployments:</p>
+<ul class="simple">
+<li><p><strong>Redundant systems:</strong> Two or more instances run <em>the same configuration</em> for high
+availability, and must agree on one event ID so that a failover is transparent to
+downstream consumers.</p></li>
+<li><p><strong>Distributed systems:</strong> Instances run <em>different configurations</em> with different
+detection goals or focus (for example a global network alongside a dense regional
+network, or a fast automatic system alongside a more thorough one). The systems
+observe</p>
+<ul>
+<li><p>the same earthquakes but with slightly different origin parameters due to their
+differences in configuration. Both systems should still assign a single, globally
+unique event ID to that earthquake rather than minting a separate ID on each system.</p></li>
+<li><p>different earthquakes within the same time slot. Mutually unique IDs shall be given
+by the systems.</p></li>
+</ul>
+</li>
+</ul>
+<p>To achieve this, one instance is designated the <strong>main</strong> instance and the others act as
+<strong>secondary instances</strong>. Each secondary instance asks the main instance, over the REST
+API, which event ID to use for a new origin; the main instance either returns the ID of
+an event it has already formed or reserves a fresh ID and keeps it cached for a
+configurable amount of time. The main instance does not create an event for an incoming
+secondary-instance request — it only reserves the ID. When the main instance’s own
+processing later sees a matching local origin, it picks up the cached ID and creates its
+event with that same ID. The two instances therefore converge on the same event ID
+without any explicit coordination between their messaging buses.</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../_images/scevent_main_secondary_sync.svg"><img alt="Main and secondary scevent instances exchanging event IDs over the REST API" src="../_images/scevent_main_secondary_sync.svg" width="80%" /></a>
+<figcaption>
+<p><span class="caption-text">Two <strong class="program">scevent</strong> instances synchronizing event IDs. The secondary instance
+posts each incoming origin to the main instance’s
+<code class="docutils literal notranslate"><span class="pre">/api/1/try-to-associate?allocate</span></code> endpoint and uses the returned event ID for its
+local event creation.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>If the main instance cannot be reached, or does not respond in time, the secondary
+instance falls back to local event ID allocation. This preserves availability at the
+cost of a possible (and recoverable) ID divergence during the outage.</p>
+<p>The behavior is controlled by the parameters in the <code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync</span></code> group:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#confval-eventIDSync.main"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.main</span></code></a> — URL of the main instance’s REST API. Leave empty on the
+main instance (or on a standalone instance); set on each secondary instance.</p></li>
+<li><p><a class="reference internal" href="#confval-eventIDSync.mainTimeout"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.mainTimeout</span></code></a> — how long a secondary instance waits for the main
+instance’s response before falling back to local allocation (default: 5 s).</p></li>
+<li><p><a class="reference internal" href="#confval-eventIDSync.cacheRetention"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.cacheRetention</span></code></a> — how long the main instance keeps a reserved ID
+and the associated foreign origin in its in-memory cache so that a matching local
+origin can reuse it (default: 1800 s).</p></li>
+<li><p><a class="reference internal" href="#confval-eventIDSync.db"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.db</span></code></a> — optional path to an SQLite database file. When set, the
+main instance persists every reserved event ID (together with the origin time, origin
+public ID and the origin/picks as SCML) so that reservations survive a restart and can
+cover a much larger set than the in-memory cache. Leave empty to keep the
+in-memory-only behavior.</p></li>
+<li><p><a class="reference internal" href="#confval-eventIDSync.databaseRetention"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.databaseRetention</span></code></a> — how long persisted reservations are kept,
+by origin time. A negative value (the default) keeps them indefinitely; a positive
+value should be at least as large as <a class="reference internal" href="#confval-eventIDSync.cacheRetention"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.cacheRetention</span></code></a>.</p></li>
+</ul>
+<p>When <a class="reference internal" href="#confval-eventIDSync.db"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.db</span></code></a> is set, a try-to-associate request that does not match an
+in-memory reservation additionally consults the database. The lookup first tries a
+direct match on the incoming origin’s public ID (a fast path that immediately reuses the
+stored event ID), and otherwise loads all stored origins whose time lies between
+<a class="reference internal" href="#confval-eventAssociation.eventTimeBefore"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.eventTimeBefore</span></code></a> before and
+<a class="reference internal" href="#confval-eventAssociation.eventTimeAfter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.eventTimeAfter</span></code></a> after the incoming origin time and compares
+them by epicenter and shared picks — the same strategy scevent uses against the SeisComP
+database.</p>
+<p>The matching criteria used to decide whether a local origin “is” the same earthquake as
+a cached foreign origin are the same as those used for ordinary event association:
+origin time difference within <a class="reference internal" href="#confval-eventAssociation.maximumTimeSpan"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.maximumTimeSpan</span></code></a>, epicenter
+distance within <a class="reference internal" href="#confval-eventAssociation.maximumDistance"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.maximumDistance</span></code></a> and, if pick information is
+available on both sides, at least <a class="reference internal" href="#confval-eventAssociation.minimumMatchingArrivals"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.minimumMatchingArrivals</span></code></a>
+matching picks.</p>
+<section id="roles-and-configuration">
+<h3>Roles and configuration<a class="headerlink" href="#roles-and-configuration" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Role</p></th>
+<th class="head"><p>Configuration</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Standalone</strong></p></td>
+<td><p><a class="reference internal" href="#confval-eventIDSync.main"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.main</span></code></a> empty, <a class="reference internal" href="#confval-restAPI"><code class="xref std std-confval docutils literal notranslate"><span class="pre">restAPI</span></code></a> unset. Local ID
+allocation only. This is the historical behavior and the default.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Main</strong></p></td>
+<td><p><a class="reference internal" href="#confval-eventIDSync.main"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.main</span></code></a> empty, <a class="reference internal" href="#confval-restAPI"><code class="xref std std-confval docutils literal notranslate"><span class="pre">restAPI</span></code></a> set. Allocates IDs
+locally and additionally serves <code class="docutils literal notranslate"><span class="pre">/api/1/try-to-associate?allocate</span></code>
+and <code class="docutils literal notranslate"><span class="pre">/api/1/allocate</span></code> requests from secondary instances. Read also
+section <a class="reference internal" href="#scevent-restapi"><span class="std std-ref">REST API</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Secondary</strong></p></td>
+<td><p><a class="reference internal" href="#confval-eventIDSync.main"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.main</span></code></a> set to the main instance’s REST URL.
+Queries the main instance for each new event and falls back to local
+allocation on failure. Read also section <a class="reference internal" href="#scevent-restapi"><span class="std std-ref">REST API</span></a>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="example-deployment">
+<h3>Example deployment<a class="headerlink" href="#example-deployment" title="Permalink to this heading">¶</a></h3>
+<p>For a two-host redundant deployment with hosts <code class="docutils literal notranslate"><span class="pre">host-a</span></code> (running the main instance)
+and <code class="docutils literal notranslate"><span class="pre">host-b</span></code> (running a secondary instance):</p>
+<p>On the main instance:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># /etc/seiscomp/scevent.cfg on &#39;host-a&#39;</span>
+<span class="na">restAPI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">18182</span>
+<span class="na">eventIDSync.cacheRetention</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1800</span>
+</pre></div>
+</div>
+<p>On the secondary instance:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># /etc/seiscomp/scevent.cfg on &#39;host-b&#39;</span>
+<span class="na">eventIDSync.main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">http://host-a:18182</span>
+<span class="na">eventIDSync.mainTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">5</span>
+</pre></div>
+</div>
+<p>At startup each instance logs its role; for example, the secondary
+instance prints:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eventID synchronization: secondary mode, main=http://host-a:18182, main timeout=5s
+</pre></div>
+</div>
+<p>and the main instance prints:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eventID synchronization: main mode (allocations cached for 1800s)
+</pre></div>
+</div>
+</section>
+</section>
+<section id="journals">
+<span id="scevent-journals"></span><h2>Journals<a class="headerlink" href="#journals" title="Permalink to this heading">¶</a></h2>
+<p>scevent can be commanded by journals to do a certain action. Journal entries are being
+received via the messaging bus to any of the subscribed groups. A journal entry
+contains an action, a subject (a publicID of an object) and optional parameters.
+Journals can be interactively sent to the messaging by <a class="reference internal" href="scsendjournal.html#scsendjournal"><span class="std std-ref">scsendjournal</span></a>.</p>
+<p>If scevent has handled an action, it will send a reply journal entry with
+an action formed from the origin action name plus <strong>OK</strong> or <strong>Failed</strong>. The
+parameters of the journal entry contain a possible reason.</p>
+<p>The following actions are supported by scevent:</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="EvGrabOrg">
+<span class="sig-name descname"><span class="pre">EvGrabOrg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvGrabOrg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Grabs an origin and associates it to the given event. If the origin is
+already associated with another event then its reference to this event
+will be removed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event</p></li>
+<li><p><strong>parameters</strong> – The ID of the origin to be grabbed</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvMerge">
+<span class="sig-name descname"><span class="pre">EvMerge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvMerge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merges an event (source) into another event (target). After successful
+completion the source event will be deleted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event (target)</p></li>
+<li><p><strong>parameters</strong> – The ID of an existing event (source)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvName">
+<span class="sig-name descname"><span class="pre">EvName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds or updates the event description with type “earthquake name”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event</p></li>
+<li><p><strong>parameters</strong> – An event name</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvFeltReport">
+<span class="sig-name descname"><span class="pre">EvFeltReport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvFeltReport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds or updates the event description with type “felt report”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event</p></li>
+<li><p><strong>parameters</strong> – A felt report</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvNewEvent">
+<span class="sig-name descname"><span class="pre">EvNewEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvNewEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new event based on a given origin. The origin must not yet be
+associated with another event.</p>
+<p>On a secondary instance (<a class="reference internal" href="#confval-eventIDSync.main"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.main</span></code></a> set) the event ID for
+the new event is obtained from the main instance through its
+<a class="reference internal" href="#scevent-restapi-allocate"><span class="std std-ref">/api/1/allocate</span></a> endpoint, so that main and
+secondary instances stay synchronized; on failure the secondary falls back to
+local allocation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The origin publicID of the origin which will be used to
+create the new event.</p></li>
+<li><p><strong>parameters</strong> – Unused</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvOpComment">
+<span class="sig-name descname"><span class="pre">EvOpComment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvOpComment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds or updates the event comment text with id “Operator”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event</p></li>
+<li><p><strong>parameters</strong> – The comment text</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvPrefFocMecID">
+<span class="sig-name descname"><span class="pre">EvPrefFocMecID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvPrefFocMecID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the preferred focal mechanism ID of an event. If a focal mechanism ID
+is passed then it will be fixed as preferred solution for this event and
+any subsequent focal mechanism associations will not cause a change of the
+preferred focal mechanism.</p>
+<p>If an empty focal mechanism ID is passed then this is considered as “unfix”
+and scevent will switch back to automatic preferred selection mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event</p></li>
+<li><p><strong>parameters</strong> – The focal mechanism ID which will become preferred or empty.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvPrefMagType">
+<span class="sig-name descname"><span class="pre">EvPrefMagType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvPrefMagType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the preferred magnitude of the event matching the requested magnitude
+type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event</p></li>
+<li><p><strong>parameters</strong> – The desired preferred magnitude type</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvPrefMw">
+<span class="sig-name descname"><span class="pre">EvPrefMw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvPrefMw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the moment magnitude (Mw) of the preferred focal mechanism as
+preferred magnitude of the event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event</p></li>
+<li><p><strong>parameters</strong> – Boolean flag, either “true” or “false”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvPrefOrgAutomatic">
+<span class="sig-name descname"><span class="pre">EvPrefOrgAutomatic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvPrefOrgAutomatic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Releases the fixed origin constraint. This call is equal to <code class="code docutils literal notranslate"><span class="pre">EvPrefOrgID(eventID,</span> <span class="pre">'')</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event</p></li>
+<li><p><strong>parameters</strong> – Unused</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvPrefOrgEvalMode">
+<span class="sig-name descname"><span class="pre">EvPrefOrgEvalMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvPrefOrgEvalMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the preferred origin based on an evaluation mode. The configured
+priorities are still valid. If an empty evaluation mode is passed then
+scevent releases this constraint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event</p></li>
+<li><p><strong>parameters</strong> – The evaluation mode (“automatic”, “manual”) or empty</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvPrefOrgID">
+<span class="sig-name descname"><span class="pre">EvPrefOrgID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvPrefOrgID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the preferred origin ID of an event. If an origin ID is passed then
+it will be fixed as preferred solution for this event and any subsequent
+origin associations will not cause a change of the preferred origin.</p>
+<p>If an empty origin ID is passed then this is considered as “unfix” and
+scevent will switch back to automatic preferred selection mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event</p></li>
+<li><p><strong>parameters</strong> – The origin ID which will become preferred or empty.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvRefresh">
+<span class="sig-name descname"><span class="pre">EvRefresh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvRefresh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refreshes the event information. This operation can be useful if the
+configured fep region files have changed on disc and scevent should
+update the region information. Changed plugin parameters can be another
+reason to refresh the event status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event</p></li>
+<li><p><strong>parameters</strong> – Unused</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvSplitOrg">
+<span class="sig-name descname"><span class="pre">EvSplitOrg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvSplitOrg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove an origin reference from an event and create a new event for
+this origin.</p>
+<p>On a secondary instance (<a class="reference internal" href="#confval-eventIDSync.main"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.main</span></code></a> set) the event ID for
+the new event is obtained from the main instance through its
+<a class="reference internal" href="#scevent-restapi-allocate"><span class="std std-ref">/api/1/allocate</span></a> endpoint, so that main and
+secondary instances stay synchronized; on failure the secondary falls back to
+local allocation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event holding a reference to the
+given origin ID.</p></li>
+<li><p><strong>parameters</strong> – The ID of the origin to be split</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvType">
+<span class="sig-name descname"><span class="pre">EvType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the event type to the passed value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event</p></li>
+<li><p><strong>parameters</strong> – The event type</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EvTypeCertainty">
+<span class="sig-name descname"><span class="pre">EvTypeCertainty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objectID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#EvTypeCertainty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the event type certainty to the passed value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objectID</strong> – The ID of an existing event</p></li>
+<li><p><strong>parameters</strong> – The event type certainty</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="rest-api">
+<span id="scevent-restapi"></span><h2>REST API<a class="headerlink" href="#rest-api" title="Permalink to this heading">¶</a></h2>
+<p>For generating unique event IDs across multiple <cite>SeisComP</cite> systems (read section
+<a class="reference internal" href="#scevent-eventid-sync"><span class="std std-ref">Distributed Event ID Allocation</span></a>) <strong class="program">scevent</strong> provides a HTTP REST API which may be
+enabled by defining a bind address under <a class="reference internal" href="#confval-restAPI"><code class="xref std std-confval docutils literal notranslate"><span class="pre">restAPI</span></code></a>. The available endpoints are
+listed below.</p>
+<section id="try-to-associate">
+<span id="scevent-restapi-associate"></span><h3>try-to-associate<a class="headerlink" href="#try-to-associate" title="Permalink to this heading">¶</a></h3>
+<p>Query the ID of the event a provided origin can be associated to. An event ID is
+returned if a matching event is found. By default no event is ever created and no event
+ID is allocated. When the optional query parameter <code class="docutils literal notranslate"><span class="pre">allocate</span></code> is given and no existing
+event matches the supplied origin, the receiving <strong class="program">scevent</strong> instance reserves a
+new event ID on behalf of the caller; this mode is used internally by secondary
+instances to obtain an event ID from a main instance.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Request/Response</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Location</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/api/1/try-to-associate</span></code> (lookup only) or
+<code class="docutils literal notranslate"><span class="pre">/api/1/try-to-associate?allocate</span></code> (lookup and reserve if no
+match)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>HTTP Methods</strong></p></td>
+<td><p>POST</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Request data</strong></p></td>
+<td><p><a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> containing an <a class="reference internal" href="../base/api-python.html#api-python-datamodel-eventparameters"><span class="std std-ref">EventParameters</span></a> element with one and only
+one <a class="reference internal" href="../base/api-python.html#api-python-datamodel-origin"><span class="std std-ref">Origin</span></a>. <a class="reference internal" href="../base/api-python.html#api-python-datamodel-pick"><span class="std std-ref">Pick</span></a> objects associated with the origin’s
+arrivals may be included so that the receiver can match by pick IDs
+in addition to time and location.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Request header</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">text/xml</span></code> (no subtype allowed)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Response data</strong></p></td>
+<td><p>Event ID string</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Response code</strong></p></td>
+<td><p><strong>200</strong> (matching event found or new event ID reserved in
+<code class="docutils literal notranslate"><span class="pre">allocate</span></code> mode), <strong>204</strong> (no matching event found and no
+reservation made), <strong>400</strong> (invalid input)</p></td>
+</tr>
+</tbody>
+</table>
+<p>The following example demonstrates how to query the event ID for an origin defined in
+<code class="file docutils literal notranslate"><span class="pre">origin.xml</span></code> using the command-line program <strong class="program">curl</strong>. The request header
+<code class="docutils literal notranslate"><span class="pre">Content-Type</span></code> must be specified. It is assumed that <strong class="program">scevent</strong> is configured
+with <code class="docutils literal notranslate"><span class="pre">restAPI</span> <span class="pre">=</span> <span class="pre">18182</span></code>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-v<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:18182/api/1/try-to-associate<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: text/xml&quot;</span><span class="w"> </span>-d<span class="w"> </span>@origin.xml
+</pre></div>
+</div>
+<p>To additionally let the receiver reserve a new event ID when no existing event matches
+the supplied origin, append the <code class="docutils literal notranslate"><span class="pre">allocate</span></code> query parameter:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-v<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;http://localhost:18182/api/1/try-to-associate?allocate&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: text/xml&quot;</span><span class="w"> </span>-d<span class="w"> </span>@origin.xml
+</pre></div>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">allocate</span></code> mode the reserved ID is cached together with the supplied origin for
+<a class="reference internal" href="#confval-eventIDSync.cacheRetention"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.cacheRetention</span></code></a> seconds (and, if <a class="reference internal" href="#confval-eventIDSync.db"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.db</span></code></a> is set,
+also stored in the persistent database for <a class="reference internal" href="#confval-eventIDSync.databaseRetention"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.databaseRetention</span></code></a>
+seconds, or indefinitely when that is negative). A local origin processed by the
+receiving instance which matches the cached or stored foreign origin (same time,
+distance and optionally matching pick IDs) will then reuse the reserved ID instead of
+allocating a new one, ensuring that the main instance and the secondary instance
+converge on the same event ID for the same earthquake.</p>
+</section>
+<section id="allocate">
+<span id="scevent-restapi-allocate"></span><h3>allocate<a class="headerlink" href="#allocate" title="Permalink to this heading">¶</a></h3>
+<p>Reserve a brand-new, distinct event ID for a provided origin. Unlike
+<a class="reference internal" href="#scevent-restapi-associate"><span class="std std-ref">try-to-associate</span></a>, this endpoint never matches the
+origin against existing events: it always allocates and reserves a fresh event ID, even
+when the origin would match an event that already exists. It is used internally by a
+secondary instance when it must form a <em>separate</em> event for an origin that is already
+associated elsewhere — the <a class="reference internal" href="#EvSplitOrg" title="EvSplitOrg"><code class="xref py py-func docutils literal notranslate"><span class="pre">EvSplitOrg()</span></code></a> (split an origin into its own event) and
+<a class="reference internal" href="#EvNewEvent" title="EvNewEvent"><code class="xref py py-func docutils literal notranslate"><span class="pre">EvNewEvent()</span></code></a> (force a new event) journal commands. In those cases querying
+<code class="docutils literal notranslate"><span class="pre">try-to-associate</span></code> would return the ID of the very event the origin already belongs
+to, which is not what a split or forced new event needs.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Request/Response</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Location</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/api/1/allocate</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>HTTP Methods</strong></p></td>
+<td><p>POST</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Request data</strong></p></td>
+<td><p><a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> containing an <a class="reference internal" href="../base/api-python.html#api-python-datamodel-eventparameters"><span class="std std-ref">EventParameters</span></a> element with one and only
+one <a class="reference internal" href="../base/api-python.html#api-python-datamodel-origin"><span class="std std-ref">Origin</span></a>. <a class="reference internal" href="../base/api-python.html#api-python-datamodel-pick"><span class="std std-ref">Pick</span></a> objects associated with the origin’s
+arrivals may be included so that the receiver can match by pick IDs
+in addition to time and location.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Request header</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">text/xml</span></code> (no subtype allowed)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Response data</strong></p></td>
+<td><p>Event ID string</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Response code</strong></p></td>
+<td><p><strong>200</strong> (new event ID reserved), <strong>204</strong> (no event ID could be
+allocated), <strong>400</strong> (invalid input)</p></td>
+</tr>
+</tbody>
+</table>
+<p>The following example reserves a new event ID for an origin defined in
+<code class="file docutils literal notranslate"><span class="pre">origin.xml</span></code>. It is assumed that <strong class="program">scevent</strong> is configured with
+<code class="docutils literal notranslate"><span class="pre">restAPI</span> <span class="pre">=</span> <span class="pre">18182</span></code>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-v<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:18182/api/1/allocate<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: text/xml&quot;</span><span class="w"> </span>-d<span class="w"> </span>@origin.xml
+</pre></div>
+</div>
+<p>The reserved ID is cached (and, if <a class="reference internal" href="#confval-eventIDSync.db"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.db</span></code></a> is set, persisted) exactly
+as in the <code class="docutils literal notranslate"><span class="pre">allocate</span></code> mode of <a class="reference internal" href="#scevent-restapi-associate"><span class="std std-ref">try-to-associate</span></a>, so a
+repeated request for the same origin returns the same reserved ID rather than allocating
+a second one.</p>
+</section>
+</section>
+<section id="plugins">
+<h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><a class="reference internal" href="scevent_eventtype.html#scevent-eventtype"><span class="std std-ref">EventType</span></a></p>
+<p>evtype plugin for scevent</p>
+</li>
+<li><p><a class="reference internal" href="scevent_regioncheck.html#scevent-regioncheck"><span class="std std-ref">RegionCheck</span></a></p>
+<p>evrc plugin for scevent</p>
+</li>
+</ul>
+</section>
+<section id="module-configuration">
+<span id="scevent-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/global.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/scevent.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/global.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/scevent.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/global.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/scevent.cfg</span></code></div>
+</div>
+<p>scevent inherits <a class="reference internal" href="global.html#global-configuration"><span class="std std-ref">global options</span></a>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventIDPrefix">
+<span class="sig-name descname"><span class="pre">eventIDPrefix</span></span><a class="headerlink" href="#confval-eventIDPrefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Prefix for all Event IDs</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventIDPattern">
+<span class="sig-name descname"><span class="pre">eventIDPattern</span></span><a class="headerlink" href="#confval-eventIDPattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">%p%Y%04c</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Defines the pattern to generate an event ID.</p>
+<p>%p : prefix</p>
+<p>%Y : year</p>
+<p>%[w]c: alpha character</p>
+<p>%[w]C: upper case alpha character</p>
+<p>%[w]d: decimal</p>
+<p>%[w]x: hexadecimal</p>
+<p>%[w]X: upper case hexadecimal</p>
+<p>[w] is an optional width parameter.</p>
+<p>The time of the event within one year is roughly encoded
+by the combination of characters or the decimal or hexadecimal
+value. The year (%Y) must therefore not be dropped from the pattern.</p>
+<p>The number of possible event IDs, hence SeisComP events, during one
+calender year equals the number of possible combinations of [w]
+characters or the largest number with [w] decimal or hexadecimal
+places. The length of one time slot for one event ID is determined
+as:</p>
+<p>Length = (1 year) / (number of time slots)</p>
+<p>If multiple events occur within one time slot, the next available
+ID is consumed.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventIDLookupMargin">
+<span class="sig-name descname"><span class="pre">eventIDLookupMargin</span></span><a class="headerlink" href="#confval-eventIDLookupMargin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-1</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Configures the number of event ID slots to look back and
+forth when an event ID is already taken. The default in
+previous versions was 5. Now -1 means that the margin is
+determined automatically based on
+&quot;eventAssociation.eventTimeBefore&quot; and
+&quot;eventAssociation.eventTimeAfter&quot;. According to the
+configured &quot;eventIDPattern&quot; a fixed time range per slot
+can be computed and with that width the number of look
+ahead slots and look back slots can be computed based on
+the given time ranges for event association.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-populateFERegion">
+<span class="sig-name descname"><span class="pre">populateFERegion</span></span><a class="headerlink" href="#confval-populateFERegion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>If enabled, then the EventDescription with type ‘Flinn-Engdahl region’
+will be populated with the Flinn-Engdahl region name. The EventDescription
+with type ‘region name’ will only be populated with a custom region name
+if one exists. If the latter does not exist, an existing EventDescription
+with type ‘region name’ will be removed.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-restAPI">
+<span class="sig-name descname"><span class="pre">restAPI</span></span><a class="headerlink" href="#confval-restAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>host-with-port</em></p>
+<p>Defines the bind address of the REST API of form [address:]port. This
+API provides the endpoints /api/1/try-to-associate, which allows to
+query for possible event associations of origin candidates, and
+/api/1/allocate, which reserves a new, distinct event ID for an
+origin.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-processing.blacklist.eventIDs">
+<span class="sig-name descname"><span class="pre">processing.blacklist.eventIDs</span></span><a class="headerlink" href="#confval-processing.blacklist.eventIDs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>Defines a list of event ID patterns to be blocked. The
+items of this list are only matched against %c, %C, %d,
+%x and %X of the eventIDPattern description. Year (%Y)
+and prefix (%p) are not matched. The match is
+case-sensitive, so ‘abcd’ would only by blocked in
+combination with %c. If %C is used, ‘ABCD’ is matched.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>eventAssociation.*</strong>
+<em>Criteria defining if Origins are associated to an event</em>
+<em>and which Origins and magnitudes become preferred.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.minimumDefiningPhases">
+<span class="sig-name descname"><span class="pre">eventAssociation.minimumDefiningPhases</span></span><a class="headerlink" href="#confval-eventAssociation.minimumDefiningPhases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Minimum number of Picks for an Origin that is automatic
+and cannot be associated with an Event to be allowed to
+form an new Event.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.minimumScore">
+<span class="sig-name descname"><span class="pre">eventAssociation.minimumScore</span></span><a class="headerlink" href="#confval-eventAssociation.minimumScore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>double</em></p>
+<p>Minimum score of an automatic Origin to be allowed to
+form an new Event. This requires an activated score
+plugin and a score processor. Configure &quot;score&quot;
+for defining the score processor and the score processor
+parameters. If minimumScore is defined, &quot;minimumDefiningPhases&quot;
+has no effect on association as this phase check will be
+superseded by the score check. It is the task of the score
+processor to evaluate a proper score for all input Origins.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.ignoreFMDerivedOrigins">
+<span class="sig-name descname"><span class="pre">eventAssociation.ignoreFMDerivedOrigins</span></span><a class="headerlink" href="#confval-eventAssociation.ignoreFMDerivedOrigins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Ignore and do not associate Origins derived
+from CMT/MT inversions.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.eventTimeBefore">
+<span class="sig-name descname"><span class="pre">eventAssociation.eventTimeBefore</span></span><a class="headerlink" href="#confval-eventAssociation.eventTimeBefore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1800</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>s</em></p>
+<p>Time range before the Origin time of an incoming Origin to
+search for matching events.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.eventTimeAfter">
+<span class="sig-name descname"><span class="pre">eventAssociation.eventTimeAfter</span></span><a class="headerlink" href="#confval-eventAssociation.eventTimeAfter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1800</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>s</em></p>
+<p>Time range after the Origin time of an incoming Origin to
+search for matching events.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.minimumMatchingArrivals">
+<span class="sig-name descname"><span class="pre">eventAssociation.minimumMatchingArrivals</span></span><a class="headerlink" href="#confval-eventAssociation.minimumMatchingArrivals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Minimum number of matching picks between two Origins to be
+associated to the same event.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.maximumMatchingArrivalTimeDiff">
+<span class="sig-name descname"><span class="pre">eventAssociation.maximumMatchingArrivalTimeDiff</span></span><a class="headerlink" href="#confval-eventAssociation.maximumMatchingArrivalTimeDiff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-1</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>s</em></p>
+<p>Negative time window: compare only pickIDs to find
+matching arrivals. A non negative
+value (including 0) compares pick times regardless
+of the pickID. Pass: |pick1.time - pick2.time| &lt;= threshold</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.compareAllArrivalTimes">
+<span class="sig-name descname"><span class="pre">eventAssociation.compareAllArrivalTimes</span></span><a class="headerlink" href="#confval-eventAssociation.compareAllArrivalTimes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>This parameter is only used in conjunction with
+&quot;eventAssociation.maximumMatchingArrivalTimeDiff&quot;.
+If a station has multiple associated arrivals for a
+particular event, this flag defines if the time distance
+of a new pick to all arrivals must be within
+&quot;eventAssociation.maximumMatchingArrivalTimeDiff&quot;
+or if one matching arrival is enough.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.allowLooseAssociatedArrivals">
+<span class="sig-name descname"><span class="pre">eventAssociation.allowLooseAssociatedArrivals</span></span><a class="headerlink" href="#confval-eventAssociation.allowLooseAssociatedArrivals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Allows to match picks that are associated with weight 0.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.maximumTimeSpan">
+<span class="sig-name descname"><span class="pre">eventAssociation.maximumTimeSpan</span></span><a class="headerlink" href="#confval-eventAssociation.maximumTimeSpan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">60</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>s</em></p>
+<p>Associates an Origin with an existing event if the Origin
+time differs not more than 60 seconds unless
+&quot;eventAssociation.minimumMatchingArrivals&quot; matches.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.maximumDistance">
+<span class="sig-name descname"><span class="pre">eventAssociation.maximumDistance</span></span><a class="headerlink" href="#confval-eventAssociation.maximumDistance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>degrees</em></p>
+<p>Allowed location difference between an incoming Origin
+compared with preferred Origins to get associated.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.magTypes">
+<span class="sig-name descname"><span class="pre">eventAssociation.magTypes</span></span><a class="headerlink" href="#confval-eventAssociation.magTypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">M</span></code></p>
+<p>Type: <em>list:string</em></p>
+<p>List of magnitude types considered for computing priorities
+in order to declare the preferred magnitude of an event.
+Magnitudes not listed have a priority of 0 and are ranked
+by station count only.</p>
+<p>Magnitudes must meet
+&quot;eventAssociation.minimumMagnitudes&quot; and
+&quot;eventAssociation.minMwCount&quot; unless
+&quot;eventAssociation.enableFallbackMagnitude&quot; is true.
+If listed, Mw-/Mw()-type magnitudes are preferred over all
+others. Next, the magnitude type with the largest station
+count wins (default) unless
+&quot;eventAssociation.magPriorityOverStationCount&quot; is
+true. If the station count is equal, priority is highest
+for the magnitude earliest in the list.</p>
+<p>If &quot;eventAssociation.magPriorityOverStationCount&quot; is
+true, highest priority is first given to magnitude types
+earliest in the list before testing the station count.</p>
+<p>Example:</p>
+<p>M, mBc, Mw(mB), Mwp, ML, MLv, mb</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.minimumMagnitudes">
+<span class="sig-name descname"><span class="pre">eventAssociation.minimumMagnitudes</span></span><a class="headerlink" href="#confval-eventAssociation.minimumMagnitudes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">4</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Minimum number of station magnitudes required for
+considering non-Mw or non-Mw() magnitudes, as
+preferred magnitude.</p>
+<p>Also consider
+&quot;eventAssociation.enableFallbackMagnitude&quot;.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.minMwCount">
+<span class="sig-name descname"><span class="pre">eventAssociation.minMwCount</span></span><a class="headerlink" href="#confval-eventAssociation.minMwCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">8</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Minimum number of station magnitudes required for
+considering Mw or any derived moment magnitude, Mw(), as
+preferred magnitude. The moment magnitudes must also meet
+&quot;eventAssociation.minimumMagnitudes&quot;.</p>
+<p>Also consider
+&quot;eventAssociation.enableFallbackMagnitude&quot;.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.enableFallbackMagnitude">
+<span class="sig-name descname"><span class="pre">eventAssociation.enableFallbackMagnitude</span></span><a class="headerlink" href="#confval-eventAssociation.enableFallbackMagnitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>If true, one magnitude will be preferred even if magnitude
+criteria (&quot;eventAssociation.minimumMagnitudes&quot;,
+&quot;eventAssociation.minMwCount&quot;) are not fulfilled
+by any magnitude.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.mbOverMwCount">
+<span class="sig-name descname"><span class="pre">eventAssociation.mbOverMwCount</span></span><a class="headerlink" href="#confval-eventAssociation.mbOverMwCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">30</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Minimum number of station magnitudes which ensures that
+Mw(mB) will be preferred and not mb.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.mbOverMwValue">
+<span class="sig-name descname"><span class="pre">eventAssociation.mbOverMwValue</span></span><a class="headerlink" href="#confval-eventAssociation.mbOverMwValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">6</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Average between mb and Mw(mB) which must be exceeded to
+become Mw(mB) preferred.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.magPriorityOverStationCount">
+<span class="sig-name descname"><span class="pre">eventAssociation.magPriorityOverStationCount</span></span><a class="headerlink" href="#confval-eventAssociation.magPriorityOverStationCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>If false, then the station count rules out the magnitude priority
+which is only taken into account if two magnitudes have the
+same station count.</p>
+<p>If true, then the priority rules out the station count
+which is only taken into account if two magnitudes have the
+same priority.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.priorities">
+<span class="sig-name descname"><span class="pre">eventAssociation.priorities</span></span><a class="headerlink" href="#confval-eventAssociation.priorities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">AGENCY,STATUS,PHASES_AUTOMATIC,TIME_AUTOMATIC</span></code></p>
+<p>Type: <em>list:string</em></p>
+<p>Values: <code class="docutils literal notranslate"><span class="pre">'',AGENCY,AUTHOR,MODE,PHASES,PHASES_AUTOMATIC,RMS,RMS_AUTOMATIC,SCORE,STATUS,TIME,TIME_AUTOMATIC</span></code></p>
+<p>The general priority list to decide if new Origins become
+preferred.</p>
+<p>Tokens are processed in the given order. Each token in the
+list corresponds to a check that is performed. Each check
+computes a score of the incoming Origin (s1) and the
+currently preferred Origin (s2). The origin with the higher
+score becomes preferred for the event. If s1 equals s2, the
+next check in the list is performed. Once a check prefers an
+origin, all subsequent checks are ignored.</p>
+<p>Available tokens (checks):</p>
+<p>* AGENCY: check based on agency priorities</p>
+<p>* AUTHOR: check based on author priorities</p>
+<p>* MODE: priority from evaluation mode. Priority values are</p>
+<p>0 : unset</p>
+<p>1 : automatic</p>
+<p>2 : manual, manual over-rules automatic</p>
+<p>* STATUS: priority combined from evaluation status and
+evaluation mode. Priority values are</p>
+<p>-100 : status is rejected</p>
+<p>-1 : status is reported</p>
+<p>0 : status is preliminary or status is unset and mode is automatic</p>
+<p>1 : status is confirmed or status is unset and mode is manual</p>
+<p>2 : status is reviewed</p>
+<p>3 : status is final</p>
+<p>* METHOD: priority based on the methods defined in &quot;eventAssociation.methods&quot;</p>
+<p>* PHASES: higher phase count = higher priority</p>
+<p>* PHASES_AUTOMATIC: only checks phase priorities for incoming
+automatic Origins. Higher phase count = higher priority.</p>
+<p>* RMS: lower RMS = higher priority.</p>
+<p>* RMS_AUTOMATIC: only check RMS on incoming automatic Origins.
+Lower RMS = higher priority.</p>
+<p>* TIME: more recent Origins (creationTime) have higher priorities.</p>
+<p>* TIME_AUTOMATIC: only check creationTime of incoming
+automatic Origins. More recent Origins (creationTime) have higher priorities.</p>
+<p>* SCORE: priority based on the score according to a configured
+ScoreProcessor and prefers the Origin/FocalMechanism with
+the highest score.</p>
+<p>Empty priority list replicates the hard-wired default
+behavior: AGENCY,STATUS,PHASES_AUTOMATIC,TIME_AUTOMATIC</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.agencies">
+<span class="sig-name descname"><span class="pre">eventAssociation.agencies</span></span><a class="headerlink" href="#confval-eventAssociation.agencies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>The priority list of agency IDs. When scevent comes to the
+point to select a preferred Origin based on AGENCY it orders
+all Origins by its agency priority selecting the best one
+among the highest priority agency. It also defines the
+agency priority for custom priority checks.</p>
+<p>The parameter is only considered when AGENCY is used in
+&quot;eventAssociation.priorities&quot;.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.authors">
+<span class="sig-name descname"><span class="pre">eventAssociation.authors</span></span><a class="headerlink" href="#confval-eventAssociation.authors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>The author priority list. When scevent comes to the
+point to select a preferred Origin based on AUTHOR it orders
+all Origins by its author priority and selects then the best
+one among the highest priority author. It also defines the
+author priority for custom priority checks.</p>
+<p>The parameter is only considered when AUTHOR is used
+in &quot;eventAssociation.priorities&quot;.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.methods">
+<span class="sig-name descname"><span class="pre">eventAssociation.methods</span></span><a class="headerlink" href="#confval-eventAssociation.methods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>The method priority list. When the scevent comes to the
+point to select a preferred Origin based on METHOD it orders
+all Origins by its methodID priority and selects then the
+best one among the highest priority method. It also defines
+the method priority for custom priority checks. A defined
+method string must match exactly the string in
+Origin.methodID.</p>
+<p>The parameter is only considered when METHODS is used
+in &quot;eventAssociation.priorities&quot;.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.score">
+<span class="sig-name descname"><span class="pre">eventAssociation.score</span></span><a class="headerlink" href="#confval-eventAssociation.score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Defines the ScoreProcessor interface to be used along
+with priority &quot;SCORE&quot; when defined in
+&quot;eventAssociation.priorities&quot;.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.enablePreferredFMSelection">
+<span class="sig-name descname"><span class="pre">eventAssociation.enablePreferredFMSelection</span></span><a class="headerlink" href="#confval-eventAssociation.enablePreferredFMSelection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Enables the selection of the preferred FocalMechanism. If set
+to false then only explicit commands will have effect on the
+preferred FocalMechanism selection, namely the EvPrefFocMecID
+command.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.declareFakeEventForRejectedOrigin">
+<span class="sig-name descname"><span class="pre">eventAssociation.declareFakeEventForRejectedOrigin</span></span><a class="headerlink" href="#confval-eventAssociation.declareFakeEventForRejectedOrigin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>If the preferred Origin has evaluation status ‘rejected’, the
+Event type will be set to ‘not existing’ unless the Event
+type has been fixed by an operator or the preferred Origin
+has been fixed.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.delayTimeSpan">
+<span class="sig-name descname"><span class="pre">eventAssociation.delayTimeSpan</span></span><a class="headerlink" href="#confval-eventAssociation.delayTimeSpan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Unit: <em>s</em></p>
+<p>The timespan to delay Event creation from new Origins which
+cannot be associated to an existing Event.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>eventAssociation.region.*</strong>
+<em>Region filter for creating events. Use with care! Origins</em>
+<em>outside may be ignored even if they would become preferred</em>
+<em>otherwise. Empty value deactivates testing this parameter.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.region.rect">
+<span class="sig-name descname"><span class="pre">eventAssociation.region.rect</span></span><a class="headerlink" href="#confval-eventAssociation.region.rect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Region by geographic coordinates. Empty value
+deactivates testing this parameter.</p>
+<p>Format: &quot;South,East,North,West&quot;</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.region.minDepth">
+<span class="sig-name descname"><span class="pre">eventAssociation.region.minDepth</span></span><a class="headerlink" href="#confval-eventAssociation.region.minDepth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>double</em></p>
+<p>Unit: <em>km</em></p>
+<p>Minimum depth. Empty value deactivates testing this
+parameter.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.region.maxDepth">
+<span class="sig-name descname"><span class="pre">eventAssociation.region.maxDepth</span></span><a class="headerlink" href="#confval-eventAssociation.region.maxDepth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>double</em></p>
+<p>Unit: <em>km</em></p>
+<p>Maximum depth. Empty value deactivates testing this
+parameter.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>eventAssociation.delayFilter.*</strong>
+<em>Configure an Origin filter to delay Origin for being</em>
+<em>processed. If more than one filter is given they are</em>
+<em>combined with AND. The application requires</em>
+<em>eventAssociation.delayTimeSpan &gt; 0.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.delayFilter.agencyID">
+<span class="sig-name descname"><span class="pre">eventAssociation.delayFilter.agencyID</span></span><a class="headerlink" href="#confval-eventAssociation.delayFilter.agencyID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>The agency ID of the Origin to be delayed.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.delayFilter.author">
+<span class="sig-name descname"><span class="pre">eventAssociation.delayFilter.author</span></span><a class="headerlink" href="#confval-eventAssociation.delayFilter.author" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>The author of the Origin to be delayed.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventAssociation.delayFilter.evaluationMode">
+<span class="sig-name descname"><span class="pre">eventAssociation.delayFilter.evaluationMode</span></span><a class="headerlink" href="#confval-eventAssociation.delayFilter.evaluationMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Values: <code class="docutils literal notranslate"><span class="pre">automatic,manual</span></code></p>
+<p>The evaluation mode of the Origin to be delayed.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>eventIDSync.*</strong>
+<em>Parameters controlling the synchronization of event IDs between several</em>
+<em>distributed :program:`scevent` instances deployed for redundancy. One</em>
+<em>instance is designated the main instance and allocates event IDs on</em>
+<em>behalf of all the secondary instances; each secondary instance asks the</em>
+<em>main instance via its REST API before creating a new event so that all</em>
+<em>instances converge on the same ID for the same earthquake.</em>
+**
+<em>When :confval:`eventIDSync.main` is empty this instance acts as a main</em>
+<em>instance (or as a standalone instance if no secondary instance ever</em>
+<em>connects). When set, it acts as a secondary instance. See</em>
+<em>:ref:`scevent-eventid-sync` in the documentation for the full mechanism,</em>
+<em>including the /api/1/try-to-associate?allocate endpoint used internally</em>
+<em>for the handshake and the /api/1/allocate endpoint used for the</em>
+<em>split-origin and forced new-event commands.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventIDSync.main">
+<span class="sig-name descname"><span class="pre">eventIDSync.main</span></span><a class="headerlink" href="#confval-eventIDSync.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>URL of the main instance’s REST API, for example
+&quot;<a class="reference external" href="http://event-main.example.org:18182">http://event-main.example.org:18182</a>&quot;. Leave empty to make this
+instance a main instance (or a standalone instance). When set, this
+instance acts as a secondary instance and asks the configured main
+instance for an event ID before creating a new event. If the main
+instance cannot be reached within <a class="reference internal" href="#confval-eventIDSync.mainTimeout"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.mainTimeout</span></code></a>
+seconds the secondary instance falls back to local event ID
+allocation.</p>
+<p>The URL may include an explicit path; if no path is given,
+&quot;/api/1/try-to-associate&quot; is used. Both &quot;http&quot; and &quot;https&quot; schemes
+are supported.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventIDSync.mainTimeout">
+<span class="sig-name descname"><span class="pre">eventIDSync.mainTimeout</span></span><a class="headerlink" href="#confval-eventIDSync.mainTimeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Unit: <em>s</em></p>
+<p>Maximum number of seconds a secondary instance waits for the main
+instance’s response before falling back to local event ID
+allocation. Only effective when <a class="reference internal" href="#confval-eventIDSync.main"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.main</span></code></a> is set.
+Must be greater than zero.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventIDSync.cacheRetention">
+<span class="sig-name descname"><span class="pre">eventIDSync.cacheRetention</span></span><a class="headerlink" href="#confval-eventIDSync.cacheRetention" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">1800</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Unit: <em>s</em></p>
+<p>Number of seconds a main instance keeps a reserved event ID in its
+in-memory cache, together with the foreign origin that triggered the
+reservation. While the entry is cached, a local origin matching that
+foreign origin is assigned the same event ID instead of allocating a
+new one. After this time the entry is dropped from the cache and the
+event ID may be reused by subsequent allocations. Must be greater
+than zero.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventIDSync.db">
+<span class="sig-name descname"><span class="pre">eventIDSync.db</span></span><a class="headerlink" href="#confval-eventIDSync.db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Path to an SQLite database file used by a main instance to keep the
+event IDs it reserves on behalf of secondary instances beyond the
+lifetime of the in-memory cache. When empty (the default) the
+reservations live only in memory and are lost when scevent restarts.
+When set, reservations survive restarts and may cover a much larger
+origin/event-ID set than the in-memory cache: on a try-to-associate
+request the main instance looks up the incoming origin both by its
+public ID (fast path) and by a windowed epicenter/shared-pick
+comparison over all stored origins around the incoming origin time
+(bounded by <a class="reference internal" href="#confval-eventAssociation.eventTimeBefore"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.eventTimeBefore</span></code></a> and
+<a class="reference internal" href="#confval-eventAssociation.eventTimeAfter"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventAssociation.eventTimeAfter</span></code></a>), mirroring the strategy
+used against the SeisComP database. Only relevant in main mode
+(<a class="reference internal" href="#confval-eventIDSync.main"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.main</span></code></a> empty).</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventIDSync.databaseRetention">
+<span class="sig-name descname"><span class="pre">eventIDSync.databaseRetention</span></span><a class="headerlink" href="#confval-eventIDSync.databaseRetention" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-1</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Unit: <em>s</em></p>
+<p>Number of seconds a reserved event ID is kept in the persistent
+database given by <a class="reference internal" href="#confval-eventIDSync.db"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.db</span></code></a>, measured by origin
+time. Should be at least as large as
+<a class="reference internal" href="#confval-eventIDSync.cacheRetention"><code class="xref std std-confval docutils literal notranslate"><span class="pre">eventIDSync.cacheRetention</span></code></a>; a larger value lets the main
+instance keep answering secondary-instance requests for older
+origins after a restart. Rows older than this are pruned at startup
+and periodically at runtime. A negative value (the default)
+disables pruning, keeping reservations indefinitely.</p>
+</dd></dl>
+
+<section id="eventtype-extension">
+<span id="scevent-eventtype"></span><h3>EventType extension<a class="headerlink" href="#eventtype-extension" title="Permalink to this heading">¶</a></h3>
+<p>evtype plugin for scevent</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>eventType.*</strong>
+<em>Set the event type based on type comments of picks. Add the</em>
+<em>plugin “evtype” to the list of plugins in the order</em>
+<em>of priority to make this feature available.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventType.setEventType">
+<span class="sig-name descname"><span class="pre">eventType.setEventType</span></span><a class="headerlink" href="#confval-eventType.setEventType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Allow setting the event type.
+The type of events which have manual origins will
+not be changed unless configured explicitely by
+&quot;overwriteManual&quot;.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventType.overwriteEventType">
+<span class="sig-name descname"><span class="pre">eventType.overwriteEventType</span></span><a class="headerlink" href="#confval-eventType.overwriteEventType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Allow overwriting existing event types set by other modules.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventType.overwriteManual">
+<span class="sig-name descname"><span class="pre">eventType.overwriteManual</span></span><a class="headerlink" href="#confval-eventType.overwriteManual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Allow setting the event type if the mode of the preferred
+origin is manual or if the event type was set manually.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventType.pickCommentIDs">
+<span class="sig-name descname"><span class="pre">eventType.pickCommentIDs</span></span><a class="headerlink" href="#confval-eventType.pickCommentIDs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">scrttv:eventTypeHint,deepc:eventTypeHint</span></code></p>
+<p>Type: <em>list:string</em></p>
+<p>Consider comments of picks which have one of the
+given values. An empty list disables setting the type.</p>
+</dd></dl>
+
+</section>
+<section id="regioncheck-extension">
+<span id="scevent-regioncheck"></span><h3>RegionCheck extension<a class="headerlink" href="#regioncheck-extension" title="Permalink to this heading">¶</a></h3>
+<p>evrc plugin for scevent</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>rc.*</strong>
+<em>Test if events lie within or outside geographic regions defined</em>
+<em>by polygons.</em>
+<em>Events within a region are flagged as positive, outside as negative.</em>
+<em>The event type is set accordingly. Add the</em>
+<em>plugin “evrc” to the plugins parameter in the</em>
+<em>order of priority to make this feature available. Read the</em>
+<em>documentation of the RegionCheck for more details.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-rc.setEventType">
+<span class="sig-name descname"><span class="pre">rc.setEventType</span></span><a class="headerlink" href="#confval-rc.setEventType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Allow setting the event type.
+The type of events which have manual origins will
+not be changed unless configured explicitely by
+&quot;overwriteManual&quot;.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-rc.overwriteEventType">
+<span class="sig-name descname"><span class="pre">rc.overwriteEventType</span></span><a class="headerlink" href="#confval-rc.overwriteEventType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Allow overwriting existing event types. Disabling does not
+allow accounting for changes in source region.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-rc.overwriteManual">
+<span class="sig-name descname"><span class="pre">rc.overwriteManual</span></span><a class="headerlink" href="#confval-rc.overwriteManual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Allow setting the event type if the mode of the preferred
+origin is manual or if the event type was set manually.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-rc.regions">
+<span class="sig-name descname"><span class="pre">rc.regions</span></span><a class="headerlink" href="#confval-rc.regions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">!reject</span></code></p>
+<p>Type: <em>list:string</em></p>
+<p>The list of closed polygon names defining regions for
+flagging event as positive or negative.
+A polygon name defines a positive region but names with
+prefix !  (exclamation mark) define negative regions.
+Evaluation is done in the order of the polygons. The last
+matching criteria applies and the event type is set
+accordingly.</p>
+<p>Default: If events are not positive or are negative regions
+the event type is set to &quot;outside of network
+interest&quot;. Default:
+&quot;!reject&quot;, use &quot;accecpt&quot; to overwrite
+the default.</p>
+<p>Examples:</p>
+<p>Events are flagged positive within the polygon
+&quot;germany&quot;:</p>
+<p>germany</p>
+<p>All events are flagged positive but events within the
+polygon &quot;quarries&quot; are negative:</p>
+<p>accept,!quarries</p>
+<p>Events within the polygon &quot;germany&quot; are flagged
+positive but all other events and events within the polygon
+&quot;quarries&quot; are negaitve:</p>
+<p>germany,!quarries</p>
+<p>All events are flagged positive but events within the
+polygon &quot;germany&quot; are negative and all events
+within the polygon &quot;saxony&quot; are positive:</p>
+<p>accept,!germany,saxony</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-rc.readEventTypeFromBNA">
+<span class="sig-name descname"><span class="pre">rc.readEventTypeFromBNA</span></span><a class="headerlink" href="#confval-rc.readEventTypeFromBNA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Consider the event type, minDepth and maxDepth values from
+the polygons defined by GeoJSON or BNA files. Read the
+documentation of the RegionCheck plugin for the details.</p>
+<p>When eventType is defined in the polygons, the value
+supersedes values of ‘eventTypePositive’ and
+‘eventTypeNegative’.
+If not set, ‘eventTypePositive’ and ‘eventTypeNegative’ are
+considered.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-rc.eventTypePositive">
+<span class="sig-name descname"><span class="pre">rc.eventTypePositive</span></span><a class="headerlink" href="#confval-rc.eventTypePositive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>New type of an event which is flagged positive. Ignored
+if ‘readEventTypeFromBNA’ is active and the polygons
+define eventType.</p>
+<p>Empty: Do not set type.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-rc.eventTypeNegative">
+<span class="sig-name descname"><span class="pre">rc.eventTypeNegative</span></span><a class="headerlink" href="#confval-rc.eventTypeNegative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&quot;outside</span> <span class="pre">of</span> <span class="pre">network</span> <span class="pre">interest&quot;</span></code></p>
+<p>Type: <em>string</em></p>
+<p>New type of an event which is flagged negative. Ignored
+if ‘readEventTypeFromBNA’ is active and the polygons
+define eventType.</p>
+<p>Empty means default: &quot;outside of network interest&quot;</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this heading">¶</a></h2>
+<section id="generic">
+<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-h">
+<span id="cmdoption-scevent-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show help message.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-V">
+<span id="cmdoption-scevent-version"></span><span class="sig-name descname"><span class="pre">-V</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-V" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show version information.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-config-file">
+<span class="sig-name descname"><span class="pre">--config-file</span></span><span class="sig-prename descclassname"> <span class="pre">file</span></span><a class="headerlink" href="#cmdoption-scevent-config-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The alternative module configuration file. When this option
+is used, the module configuration is only read from the
+given file and no other configuration stage is considered.
+Therefore, all configuration including the definition of
+plugins must be contained in that file or given along with
+other command-line options such as --plugins.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-plugins">
+<span class="sig-name descname"><span class="pre">--plugins</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-plugins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load given plugins.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-D">
+<span id="cmdoption-scevent-daemon"></span><span class="sig-name descname"><span class="pre">-D</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--daemon</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run as daemon. This means the application will fork itself
+and doesn’t need to be started with &amp;.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-auto-shutdown">
+<span class="sig-name descname"><span class="pre">--auto-shutdown</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-auto-shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable/disable self-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with
+--start-stop-msg for the master module).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-shutdown-master-module">
+<span class="sig-name descname"><span class="pre">--shutdown-master-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the name of the master-module used for auto-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-shutdown-master-username">
+<span class="sig-name descname"><span class="pre">--shutdown-master-username</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the name of the master-username of the messaging
+used for auto-shutdown. If &quot;shutdown-master-module&quot; is
+given as well, this parameter is ignored.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-x">
+<span id="cmdoption-scevent-expiry"></span><span class="sig-name descname"><span class="pre">-x</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--expiry</span></span><span class="sig-prename descclassname"> <span class="pre">time</span></span><a class="headerlink" href="#cmdoption-scevent-x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time span in hours after which objects expire.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-O">
+<span id="cmdoption-scevent-origin-id"></span><span class="sig-name descname"><span class="pre">-O</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--origin-id</span></span><span class="sig-prename descclassname"> <span class="pre">publicID</span></span><a class="headerlink" href="#cmdoption-scevent-O" title="Permalink to this definition">¶</a></dt>
+<dd><p>Origin ID to be associated. When given no messages are sent.
+Only the status of the association is written to stdout.</p>
+</dd></dl>
+
+</section>
+<section id="verbosity">
+<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-verbosity">
+<span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-verbosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-v">
+<span id="cmdoption-scevent-v"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--v</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increase verbosity level (may be repeated, e.g., -vv).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-q">
+<span id="cmdoption-scevent-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quiet mode: no logging output.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-component">
+<span class="sig-name descname"><span class="pre">--component</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Limit the logging to a certain component. This option can
+be given more than once.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-s">
+<span id="cmdoption-scevent-syslog"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--syslog</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use syslog logging backend. The output usually goes to
+/var/lib/messages.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-l">
+<span id="cmdoption-scevent-lockfile"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--lockfile</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to lock file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-console">
+<span class="sig-name descname"><span class="pre">--console</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-console" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send log output to stdout.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-debug">
+<span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute in debug mode.
+Equivalent to --verbosity=4 --console=1 .</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-log-file">
+<span class="sig-name descname"><span class="pre">--log-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-log-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use alternative log file.</p>
+</dd></dl>
+
+</section>
+<section id="messaging">
+<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-u">
+<span id="cmdoption-scevent-user"></span><span class="sig-name descname"><span class="pre">-u</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--user</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-u" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.username"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.username</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-H">
+<span id="cmdoption-scevent-host"></span><span class="sig-name descname"><span class="pre">-H</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--host</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-H" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.server"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.server</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-t">
+<span id="cmdoption-scevent-timeout"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--timeout</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.timeout"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.timeout</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-g">
+<span id="cmdoption-scevent-primary-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--primary-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-g" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.primaryGroup"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.primaryGroup</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-S">
+<span id="cmdoption-scevent-subscribe-group"></span><span class="sig-name descname"><span class="pre">-S</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subscribe-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-S" title="Permalink to this definition">¶</a></dt>
+<dd><p>A group to subscribe to.
+This option can be given more than once.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-start-stop-msg">
+<span class="sig-name descname"><span class="pre">--start-stop-msg</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-start-stop-msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Set sending of a start and a stop message.</p>
+</dd></dl>
+
+</section>
+<section id="database">
+<h3>Database<a class="headerlink" href="#database" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-db-driver-list">
+<span class="sig-name descname"><span class="pre">--db-driver-list</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-db-driver-list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all supported database drivers.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-d">
+<span id="cmdoption-scevent-database"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--database</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>The database connection string, format:
+<a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
+&quot;service&quot; is the name of the database driver which
+can be queried with &quot;--db-driver-list&quot;.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-config-module">
+<span class="sig-name descname"><span class="pre">--config-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-config-module" title="Permalink to this definition">¶</a></dt>
+<dd><p>The config module to use.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-inventory-db">
+<span class="sig-name descname"><span class="pre">--inventory-db</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scevent-inventory-db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the inventory from the given database or file, format:
+[<a class="reference external" href="service://]location">service://]location</a> .</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-db-disable">
+<span class="sig-name descname"><span class="pre">--db-disable</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-db-disable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not use the database at all</p>
+</dd></dl>
+
+</section>
+<section id="input">
+<h3>Input<a class="headerlink" href="#input" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-ep">
+<span class="sig-name descname"><span class="pre">--ep</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-ep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event parameters XML file for offline processing of all
+contained origins. Use ‘-’ to read from stdin.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-reprocess">
+<span class="sig-name descname"><span class="pre">--reprocess</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-reprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reprocess event parameters ignoring all event and journal
+objects in input file. Works only in combination with ‘--ep’.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-update-event-id">
+<span class="sig-name descname"><span class="pre">--update-event-id</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-update-event-id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update IDs of events if they already exist. Works only in
+combination with ‘--ep’.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-clear-cache">
+<span class="sig-name descname"><span class="pre">--clear-cache</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-clear-cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a clear cache message and quit.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-disable-info-log">
+<span class="sig-name descname"><span class="pre">--disable-info-log</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-disable-info-log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not populate the scevent-processing-info.log file.</p>
+</dd></dl>
+
+</section>
+<section id="output">
+<h3>Output<a class="headerlink" href="#output" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scevent-f">
+<span id="cmdoption-scevent-formatted"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--formatted</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scevent-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use formatted XML output along with ‘--ep’. Otherwise XML
+is unformatted.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+          <div id="anchors-bottom"></div>
+        </div>
+        
+      <div class="sidebar" role="navigation" aria-label="main navigation">
+        <div id="anchors-top"></div>
+        <div id="anchors" class="content">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">scevent</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#origin-association">Origin Association</a><ul>
+<li><a class="reference internal" href="#origin-match">Origin match</a></li>
+<li><a class="reference internal" href="#no-origin-match">No origin match</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#preferred-origin">Preferred Origin</a></li>
+<li><a class="reference internal" href="#preferred-magnitude">Preferred Magnitude</a></li>
+<li><a class="reference internal" href="#preferred-focal-mechanism">Preferred Focal Mechanism</a></li>
+<li><a class="reference internal" href="#scevent-eventid">ID of Events</a></li>
+<li><a class="reference internal" href="#distributed-event-id-allocation">Distributed Event ID Allocation</a><ul>
+<li><a class="reference internal" href="#roles-and-configuration">Roles and configuration</a></li>
+<li><a class="reference internal" href="#example-deployment">Example deployment</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#journals">Journals</a><ul>
+<li><a class="reference internal" href="#EvGrabOrg"><code class="docutils literal notranslate"><span class="pre">EvGrabOrg()</span></code></a></li>
+<li><a class="reference internal" href="#EvMerge"><code class="docutils literal notranslate"><span class="pre">EvMerge()</span></code></a></li>
+<li><a class="reference internal" href="#EvName"><code class="docutils literal notranslate"><span class="pre">EvName()</span></code></a></li>
+<li><a class="reference internal" href="#EvFeltReport"><code class="docutils literal notranslate"><span class="pre">EvFeltReport()</span></code></a></li>
+<li><a class="reference internal" href="#EvNewEvent"><code class="docutils literal notranslate"><span class="pre">EvNewEvent()</span></code></a></li>
+<li><a class="reference internal" href="#EvOpComment"><code class="docutils literal notranslate"><span class="pre">EvOpComment()</span></code></a></li>
+<li><a class="reference internal" href="#EvPrefFocMecID"><code class="docutils literal notranslate"><span class="pre">EvPrefFocMecID()</span></code></a></li>
+<li><a class="reference internal" href="#EvPrefMagType"><code class="docutils literal notranslate"><span class="pre">EvPrefMagType()</span></code></a></li>
+<li><a class="reference internal" href="#EvPrefMw"><code class="docutils literal notranslate"><span class="pre">EvPrefMw()</span></code></a></li>
+<li><a class="reference internal" href="#EvPrefOrgAutomatic"><code class="docutils literal notranslate"><span class="pre">EvPrefOrgAutomatic()</span></code></a></li>
+<li><a class="reference internal" href="#EvPrefOrgEvalMode"><code class="docutils literal notranslate"><span class="pre">EvPrefOrgEvalMode()</span></code></a></li>
+<li><a class="reference internal" href="#EvPrefOrgID"><code class="docutils literal notranslate"><span class="pre">EvPrefOrgID()</span></code></a></li>
+<li><a class="reference internal" href="#EvRefresh"><code class="docutils literal notranslate"><span class="pre">EvRefresh()</span></code></a></li>
+<li><a class="reference internal" href="#EvSplitOrg"><code class="docutils literal notranslate"><span class="pre">EvSplitOrg()</span></code></a></li>
+<li><a class="reference internal" href="#EvType"><code class="docutils literal notranslate"><span class="pre">EvType()</span></code></a></li>
+<li><a class="reference internal" href="#EvTypeCertainty"><code class="docutils literal notranslate"><span class="pre">EvTypeCertainty()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rest-api">REST API</a><ul>
+<li><a class="reference internal" href="#try-to-associate">try-to-associate</a></li>
+<li><a class="reference internal" href="#allocate">allocate</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#plugins">Plugins</a></li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a><ul>
+<li><a class="reference internal" href="#eventtype-extension">EventType extension</a></li>
+<li><a class="reference internal" href="#regioncheck-extension">RegionCheck extension</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
+<li><a class="reference internal" href="#generic">Generic</a></li>
+<li><a class="reference internal" href="#verbosity">Verbosity</a></li>
+<li><a class="reference internal" href="#messaging">Messaging</a></li>
+<li><a class="reference internal" href="#database">Database</a></li>
+<li><a class="reference internal" href="#input">Input</a></li>
+<li><a class="reference internal" href="#output">Output</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="scautopick.html"
+                          title="previous chapter">scautopick</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="scmag.html"
+                          title="next chapter">scmag</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/apps/scevent.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="horizontal layout content">
+        <a class="fade-in" href="https://www.gempa.de" target="_blank">
+          <img class="brand" src="../_static/brands/gempa.svg"/>
+        </a>
+        <div class="stretched align-center fitted content">
+          <div>
+		  Version <b>7.4.0</b> Release
+          </div>
+            <div class="copyright">
+              Copyright &copy; gempa GmbH, GFZ Potsdam.
+            </div>
+        </div>
+        <a class="fade-in" href="https://www.gfz-potsdam.de" target="_blank">
+          <img class="brand" src="../_static/brands/gfz.svg"/>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

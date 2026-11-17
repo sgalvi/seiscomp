@@ -1,0 +1,17 @@
+pkgname=slabs-usgs
+pkgver=1.0
+pkgdesc=('Slab contours are from: Hayes, G., 2018, Slab2 - A Comprehensive Subduction Zone Geometry Model: U.S. Geological Survey data release https://doi.org/10.5066/F7PV6JNV, bna filestructure for Seiscomp created by gempa GmbH, A. Hoechner, 10.2019 (public)')
+pkgkeywords=('slabs slab2')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('083badb2122a3f8755b18d59fc9ad9c332220032f0f3277fe2553a660316cc82')
+pkgsize=('384150')
+pkginstallsize=('1290932')
+pkgfilecount=('202')
+filename=('slabs-usgs-1.0.tar.gz')
+pkgfilepath=('slabs/usgs')
+builddate=('2021-06-17 00:00:00')
+pkgos=('')
+pkgosversion=('')
+pkgtype=data

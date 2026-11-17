@@ -1,0 +1,1 @@
+../../../global_vs30/noarch/global_vs30.grd.dsc

@@ -1,0 +1,17 @@
+pkgname=caps-plugins-crex
+pkgver=2024.018
+pkgrel=5
+pkgdesc=('CAPS plugin for CREX data import (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('ba94f33f6489034a0ba0c3d51e6fc10afbe11654c6539b9bf11bb02fc9b11d3d')
+pkgsize=('897204')
+pkginstallsize=('7254648')
+filename=('caps-plugins-crex-2024.018-seiscomp-5-rhel-8-x86_64.tar.gz')
+builddate=('2024-06-25 22:34:14')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

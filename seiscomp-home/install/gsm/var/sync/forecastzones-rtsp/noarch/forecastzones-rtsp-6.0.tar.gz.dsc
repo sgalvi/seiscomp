@@ -1,0 +1,16 @@
+pkgname=forecastzones-rtsp
+pkgver=6.0
+pkgdesc=('Tsunami forecast zones in TOAST for RTSP (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('5df69030af2ab00dde9267b83727b55dbc06d1ef2d5eea3949c767e56484e4db')
+pkgsize=('25719741')
+pkginstallsize=('53904935')
+pkgfilecount=('13')
+filename=('forecastzones-rtsp-6.0.tar.gz')
+pkgfilepath=('forecastzones/rtsp')
+builddate=('2020-03-12 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

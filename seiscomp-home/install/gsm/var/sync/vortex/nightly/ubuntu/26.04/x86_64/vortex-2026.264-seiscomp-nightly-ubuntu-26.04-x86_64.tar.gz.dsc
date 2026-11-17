@@ -1,0 +1,17 @@
+pkgname=vortex
+pkgver=2026.264
+pkgrel=nightly
+pkgdesc=('Volcano monitoring GUI (commercial)')
+pkgkeywords=('multi-sensor RSAM SSAM volcano monitoring')
+pkgchangelog=('share/doc/vortex/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('eadf202bffe20fb224c6559e31b13bda8a7defdad42f3c68142d55ded06a53d9')
+pkgsize=('25706566')
+pkginstallsize=('32501266')
+filename=('vortex-2026.264-seiscomp-nightly-ubuntu-26.04-x86_64.tar.gz')
+builddate=('2026-10-30 21:03:45')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')
+optional=('elevation')

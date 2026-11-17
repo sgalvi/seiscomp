@@ -1,0 +1,17 @@
+pkgname=gds
+pkgver=2026.314
+pkgrel=nightly
+pkgdesc=('Modular expandable dissemination and publication server (commercial)')
+pkgkeywords=('decision support dissemination EEW induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('share/doc/gds/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('c6da3ad6a0947b1b8fa910928a9a1ca44c968225b40fd1ebabc6866b32bd38a5')
+pkgsize=('18328867')
+pkginstallsize=('25179201')
+pkgfilecount=('486')
+filename=('gds-2026.314-seiscomp-nightly-debian-13-aarch64.tar.gz')
+builddate=('2026-11-17 00:46:49')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

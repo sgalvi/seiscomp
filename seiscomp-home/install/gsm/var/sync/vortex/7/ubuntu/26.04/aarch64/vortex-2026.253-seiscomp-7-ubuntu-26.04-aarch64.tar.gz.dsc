@@ -1,0 +1,17 @@
+pkgname=vortex
+pkgver=2026.253
+pkgrel=7
+pkgdesc=('Volcano monitoring GUI (commercial)')
+pkgkeywords=('multi-sensor RSAM SSAM volcano monitoring')
+pkgchangelog=('share/doc/vortex/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('531ae39a49fb08c0569af32c6c4eb02164e3811f87d47cbaaa65ef3e6ac0b85b')
+pkgsize=('25638130')
+pkginstallsize=('32414648')
+filename=('vortex-2026.253-seiscomp-7-ubuntu-26.04-aarch64.tar.gz')
+builddate=('2026-09-21 09:16:46')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')
+optional=('elevation')

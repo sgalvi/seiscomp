@@ -1,0 +1,19 @@
+pkgname=seiscomp
+pkgver=5.5.18
+pkgrel=5
+pkgdesc=('SeisComP including data acquisition, processing, distribution and interactive analysis, version >=4.0.0 (public)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/seiscomp/CHANGELOG')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('23410e3c14930f661461f552cdebf0ee04fd748fa9226d8ecd79cc8a11b53c0c')
+pkgsize=('63809138')
+pkginstallsize=('202767885')
+filename=('seiscomp-5.5.18-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2024-05-14 05:40:50')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')
+conflicts=('seiscomp-headless' 'seiscomp-acqui' 'seiscomp-debug')
+osinstallscripts=('install-base.sh' 'install-fdsnws.sh' 'install-gui.sh' 'install-mariadb-server.sh' 'install-mysql-server.sh' 'install-postgresql-server.sh')

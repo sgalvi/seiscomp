@@ -1,0 +1,16 @@
+pkgname=texnet-addons
+pkgver=2025.051
+pkgrel=7
+pkgdesc=('Custom package used by TexNet (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('6909dd6deaa1db0ce69be522b209a605077f968828c06ed772a6c3b53dbf5d4f')
+pkgsize=('879124')
+pkginstallsize=('2423981')
+filename=('texnet-addons-2025.051-7-7.1.0-debian-13-aarch64.tar.gz')
+builddate=('2026-02-13 03:40:05')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

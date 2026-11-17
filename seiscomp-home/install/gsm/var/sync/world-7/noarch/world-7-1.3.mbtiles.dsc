@@ -1,0 +1,16 @@
+pkgname=world-7
+pkgver=1.3
+pkgdesc=('gempa map tiles in Pseudo-Mercator projection up to zoom level 7 (1.2 km/pixel, 443.4 MiB) (commercial)')
+pkgkeywords=('map world-7.mbtiles')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('a39e68d0789122e815d0c8a86ff0be2529d7dce08fd506e6bc3a398632153038')
+pkgsize=('464982016')
+pkginstallsize=('464982016')
+filename=('world-7-1.3.mbtiles')
+pkgfilepath=('maps/world-7')
+builddate=('2020-08-05 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

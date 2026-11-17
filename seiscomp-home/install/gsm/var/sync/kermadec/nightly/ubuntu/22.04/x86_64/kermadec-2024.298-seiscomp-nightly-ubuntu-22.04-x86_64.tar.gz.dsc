@@ -1,0 +1,17 @@
+pkgname=kermadec
+pkgver=2024.298
+pkgrel=nightly
+pkgdesc=('GNS Science threat model database simulation plugin for the Kermadec region (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simkermadec/CHANGELOG')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('4849e866aaee73d463c1af57a62a85c858232df74a975624223735e9cb832514')
+pkgsize=('2465904')
+pkginstallsize=('6203713')
+filename=('kermadec-2024.298-seiscomp-nightly-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2024-11-14 22:11:18')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

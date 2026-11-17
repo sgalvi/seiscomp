@@ -1,0 +1,16 @@
+pkgname=gdisp
+pkgver=2023.004
+pkgrel=7
+pkgdesc=('Get events from messaging and compute GNSS displacements. (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/gdisp/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('42de90c83653f3fa39729bac593b982a00f4ec41d0be4b526e861b3f344750c5')
+pkgsize=('11083')
+pkginstallsize=('46845')
+filename=('gdisp-2023.004-7-7.2.3-rhel-10-aarch64.tar.gz')
+builddate=('2026-06-04 00:42:53')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

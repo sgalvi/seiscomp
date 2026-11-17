@@ -1,0 +1,16 @@
+pkgname=lambda
+pkgver=2026.244
+pkgrel=7
+pkgdesc=('Seismic and infrasound array analysis (commercial)')
+pkgkeywords=('array earthquake monitoring induced earthquake infrasound local monitoring microseismic monitoring teleseismic monitoring')
+pkgchangelog=('share/doc/lambda/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('580a36ce10fa356a497cd5207f9a6a7fca762504522abeb1b0a12198eb1caead')
+pkgsize=('56627415')
+pkginstallsize=('65819759')
+filename=('lambda-2026.244-seiscomp-7-rhel-10-aarch64.tar.gz')
+builddate=('2026-10-30 23:51:00')
+pkgos=('rhel')
+pkgosversion=('10')
+pkgfileversion=('0.1')

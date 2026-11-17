@@ -1,0 +1,16 @@
+pkgname=scanloc
+pkgver=2026.300
+pkgrel=7
+pkgdesc=('Local earthquake monitoring based on clustering and P and S phase picks (commercial)')
+pkgkeywords=('earthquake monitoring EEW induced earthquake intensity local monitoring microseismic monitoring seismic harzard shake map teleseismic monitoring')
+pkgchangelog=('share/doc/scanloc/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('a78122ef1e26b99b20686209416174f688430d0f3c2eb0ce103070dfd605da43')
+pkgsize=('14465707')
+pkginstallsize=('20732321')
+filename=('scanloc-2026.300-seiscomp-7-ubuntu-26.04-x86_64.tar.gz')
+builddate=('2026-10-28 21:30:16')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

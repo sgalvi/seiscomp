@@ -1,0 +1,17 @@
+pkgname=caps-plugins-v4l
+pkgver=2026.015
+pkgrel=6
+pkgdesc=('Retrieve video data from cameras and push to CAPS (commercial)')
+pkgkeywords=('data acquisition')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('c481e2081505c6fb366bf892b2f83b9bf64175192ef3fb0351d9a1cc580d22d0')
+pkgsize=('164812')
+pkginstallsize=('470316')
+pkgfilecount=('3')
+filename=('caps-plugins-v4l-2026.015-seiscomp-6-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-11-16 22:40:20')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

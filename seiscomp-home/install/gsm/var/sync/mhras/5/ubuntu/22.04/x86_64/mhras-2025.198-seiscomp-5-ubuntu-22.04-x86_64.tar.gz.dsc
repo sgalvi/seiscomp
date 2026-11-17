@@ -1,0 +1,17 @@
+pkgname=mhras
+pkgver=2025.198
+pkgrel=5
+pkgdesc=('MHRAS tsunami simulation backend (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('e6c98d7607ee352b8ada559fa9efba2c87c9edd477ed1d44ea43dce6746bfda6')
+pkgsize=('2684157')
+pkginstallsize=('7988333')
+pkgfilecount=('34')
+filename=('mhras-2025.198-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-14 20:39:50')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

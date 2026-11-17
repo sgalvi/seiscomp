@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+
+<html  lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>scxmldump &#8212; SeisComP Release documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <script type="text/javascript" src="../_static/seiscomp.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scxmlmerge" href="scxmlmerge.html" />
+    <link rel="prev" title="scvoice" href="scvoice.html" /> 
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="brand">
+          <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
+           <!-- span class="title">SeisComP Release</span -->
+          <span class="version">7.4.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="container">
+        <div class="content"><a class="pull-right" id="sidebar-toggle">TOC</a>
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <ul>
+        <li class="right">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">
+            index
+          </a>
+        </li>
+        <li class="right">
+          <a href="scxmlmerge.html" title="scxmlmerge"
+             accesskey="N">
+            next
+          </a>
+        </li>
+        <li class="right">
+          <a href="scvoice.html" title="scvoice"
+             accesskey="P">
+            previous
+          </a>
+        </li>
+        <li class="nav-item nav-item-0">
+          <a href="../index.html">Home</a>
+        </li>
+        <li class="nav-item nav-item-1">
+          <a href="../modules.html" >Modules</a>
+        </li>
+        <li class="nav-item nav-item-2">
+          <a href="../toc/utilities.html" accesskey="U">Utilities</a>
+        </li> 
+      </ul>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="fitted content" id="anchors-container">
+        <div class="body" role="main">
+          
+  <section id="scxmldump">
+<span id="id1"></span><h1>scxmldump<a class="headerlink" href="#scxmldump" title="Permalink to this heading">¶</a></h1>
+<p><strong>Dump objects from database or messaging to XML.</strong></p>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
+<p>scxmldump reads SeisComP objects from database or messaging and writes them
+in SeisComP XML (<a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a>) to stdout or into a file (<code class="xref std std-option docutils literal notranslate"><span class="pre">-o</span></code>).</p>
+<ul class="simple">
+<li><p>Dumping from a SeisComP database supports various
+<a class="reference internal" href="../base/api-python.html#api-datamodel-python"><span class="std std-ref">objects</span></a>:</p>
+<ul>
+<li><p>Availability,</p></li>
+<li><p>Config (bindings parameters),</p></li>
+<li><p>Event parameters,</p></li>
+<li><p>Inventory,</p></li>
+<li><p>Journal,</p></li>
+<li><p>Routing.</p></li>
+</ul>
+</li>
+<li><p>Dumping from a SeisComP messaging (<code class="xref std std-option docutils literal notranslate"><span class="pre">--listen</span></code>) considers only event
+parameters.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Waveform quality control (QC) parameters can be read from databases using
+<span class="xref std std-ref">scqcquery</span>.</p>
+</div>
+<ul class="simple">
+<li><p>Furthermore any object carrying a publicID can be retrieved from the database
+including its hierarchie or not. See <a class="reference internal" href="#scxmldump-public-objects"><span class="std std-ref">PublicObjects</span></a>.</p></li>
+</ul>
+<section id="event-parameters">
+<h3>Event parameters<a class="headerlink" href="#event-parameters" title="Permalink to this heading">¶</a></h3>
+<p>To get event, origin or pick information from the database without using SQL
+commands is an important task for the user. <a class="reference internal" href="#scxmldump"><span class="std std-ref">scxmldump</span></a> queries the
+database and transforms that information into XML. Events and origins can be
+treated further by <a class="reference internal" href="scbulletin.html#scbulletin"><span class="std std-ref">scbulletin</span></a> for generating bulletins or conversion
+into other formats including KML.</p>
+<p>Many processing modules, e.g., <a class="reference internal" href="scevent.html#scevent"><span class="std std-ref">scevent</span></a> support the on-demand processing
+of dumped event parameters by the command-line option <code class="xref std std-option docutils literal notranslate"><span class="pre">--ep</span></code>.
+Importing event parameters into another database is possible with <a class="reference internal" href="scdb.html#scdb"><span class="std std-ref">scdb</span></a>
+and sending to a SeisComP messaging is provided by <a class="reference internal" href="scdispatch.html#scdispatch"><span class="std std-ref">scdispatch</span></a>.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Events, origins and picks are referred to by their public IDs. IDs of events
+and origins can be provided by <a class="reference internal" href="scevtls.html#scevtls"><span class="std std-ref">scevtls</span></a> and <a class="reference internal" href="scorgls.html#scorgls"><span class="std std-ref">scorgls</span></a>,
+respectively. Event, origin and pick IDs can also be read from graphical
+tools like <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a> or used database queries assisted by <a class="reference internal" href="scquery.html#scquery"><span class="std std-ref">scquery</span></a>.</p>
+</div>
+</section>
+<section id="publicobjects">
+<span id="scxmldump-public-objects"></span><h3>PublicObjects<a class="headerlink" href="#publicobjects" title="Permalink to this heading">¶</a></h3>
+<p>The option <code class="xref std std-option docutils literal notranslate"><span class="pre">--public-id</span></code> defines a list of publicIDs to be retrieved
+from the database. As the data model is extendable via plugins and custom code,
+scxmldump cannot know all of those object types and how to retrieve them
+from the database. If a publicID belongs to a type for which the code resides
+in another library or plugin, then scxmldump must load this plugin or library
+in order to find the correct database tables. For example, if a strong motion
+object should be dumped, then the plugin dmsm must be loaded into scxmldump.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scxmldump<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>--plugins<span class="w"> </span>dbmysql,dmsm<span class="w"> </span>--public-id<span class="w"> </span>StrongMotionOrigin/123456
+</pre></div>
+</div>
+<p>This command would only export the StrongMotionOrigin itself without all
+child objects. Option <code class="xref std std-option docutils literal notranslate"><span class="pre">--with-children</span></code> must be passed to export the
+full hierarchy:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scxmldump<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>--plugins<span class="w"> </span>dbmysql,dmsm<span class="w"> </span>--public-id<span class="w"> </span>StrongMotionOrigin/123456<span class="w"> </span>--with-children
+</pre></div>
+</div>
+<p>If the extension code resides in a library then LD_PRELOAD can be used to inject
+the code into scxmldump:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">LD_PRELOAD</span><span class="o">=</span>/home/sysop/seiscomp/lib/libseiscomp_datamodel_sm.so<span class="w"> </span>scxmldump<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>--public-id<span class="w"> </span>StrongMotionOrigin/123456<span class="w"> </span>--with-children
+</pre></div>
+</div>
+</section>
+<section id="format-conversion">
+<h3>Format conversion<a class="headerlink" href="#format-conversion" title="Permalink to this heading">¶</a></h3>
+<p>Conversion of <a class="reference internal" href="../base/glossary.html#term-SCML"><span class="xref std std-term">SCML</span></a> into other formats is supported by <a class="reference internal" href="sccnv.html#sccnv"><span class="std std-ref">sccnv</span></a>.
+An XSD schema of the XML output can be found under
+<code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/share/xml/</span></code>.</p>
+</section>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
+<ul>
+<li><p>Dump inventory</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scxmldump<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@localhost/seiscomp<span class="w"> </span>-fI<span class="w"> </span>-o<span class="w"> </span>inventory.xml
+</pre></div>
+</div>
+</li>
+<li><p>Dump config (bindings parameters)</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scxmldump<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>-fC<span class="w"> </span>-o<span class="w"> </span>config.xml
+</pre></div>
+</div>
+</li>
+<li><p>Dump full event data including the relevant journal entries</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scxmldump<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>-fPAMFJ<span class="w"> </span>-E<span class="w"> </span>test2012abcd<span class="w"> </span>-o<span class="w"> </span>test2012abcd.xml
+</pre></div>
+</div>
+</li>
+<li><p>Dump full event data. Event IDs are provided by <a class="reference internal" href="scevtls.html#scevtls"><span class="std std-ref">scevtls</span></a> and received
+from stdin</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scevtls<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>--begin<span class="w"> </span><span class="m">2025</span>-01-01<span class="w"> </span><span class="p">|</span><span class="se">\</span>
+scxmldump<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>-fPAMF<span class="w"> </span>-E<span class="w"> </span>-<span class="w"> </span>-o<span class="w"> </span>events.xml
+</pre></div>
+</div>
+</li>
+<li><p>Dump summary event data</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scxmldump<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>-fap<span class="w"> </span>-E<span class="w"> </span>test2012abcd<span class="w"> </span>-o<span class="w"> </span>test2012abcd.xml
+</pre></div>
+</div>
+</li>
+<li><p>Create bulletin from an event using <a class="reference internal" href="scbulletin.html#scbulletin"><span class="std std-ref">scbulletin</span></a></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scxmldump<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>-fPAMF<span class="w"> </span>-E<span class="w"> </span>test2012abcd<span class="w"> </span><span class="p">|</span><span class="w"> </span>scbulletin
+</pre></div>
+</div>
+</li>
+<li><p>Copy event parameters to another database</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scxmldump<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>-fPAMF<span class="w"> </span>-E<span class="w"> </span>test2012abcd<span class="w"> </span><span class="p">|</span><span class="se">\</span>
+scdb<span class="w"> </span>-i<span class="w"> </span>-<span class="w"> </span>-d<span class="w"> </span>mysql://sysop:sysop@archive-db/seiscomp
+</pre></div>
+</div>
+</li>
+<li><p>Dump the entire journal:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scxmldump<span class="w"> </span>-d<span class="w"> </span>localhost<span class="w"> </span>-fJ<span class="w"> </span>-o<span class="w"> </span>journal.xml
+</pre></div>
+</div>
+</li>
+<li><p>Dump events received from messaging on local computer:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scxmldump<span class="w"> </span>-H<span class="w"> </span>localhost/production<span class="w"> </span>--listen
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="module-configuration">
+<span id="scxmldump-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/global.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/scxmldump.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/global.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/scxmldump.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/global.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/scxmldump.cfg</span></code></div>
+</div>
+<p>scxmldump inherits <a class="reference internal" href="global.html#global-configuration"><span class="std std-ref">global options</span></a>.</p>
+</section>
+<section id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this heading">¶</a></h2>
+<p><strong class="program">scxmldump [options]</strong></p>
+<section id="generic">
+<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-h">
+<span id="cmdoption-scxmldump-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show help message.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-V">
+<span id="cmdoption-scxmldump-version"></span><span class="sig-name descname"><span class="pre">-V</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-V" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show version information.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-config-file">
+<span class="sig-name descname"><span class="pre">--config-file</span></span><span class="sig-prename descclassname"> <span class="pre">file</span></span><a class="headerlink" href="#cmdoption-scxmldump-config-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The alternative module configuration file. When this option
+is used, the module configuration is only read from the
+given file and no other configuration stage is considered.
+Therefore, all configuration including the definition of
+plugins must be contained in that file or given along with
+other command-line options such as --plugins.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-plugins">
+<span class="sig-name descname"><span class="pre">--plugins</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-plugins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load given plugins.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-D">
+<span id="cmdoption-scxmldump-daemon"></span><span class="sig-name descname"><span class="pre">-D</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--daemon</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run as daemon. This means the application will fork itself
+and doesn’t need to be started with &amp;.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-auto-shutdown">
+<span class="sig-name descname"><span class="pre">--auto-shutdown</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-auto-shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable/disable self-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with
+--start-stop-msg for the master module).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-shutdown-master-module">
+<span class="sig-name descname"><span class="pre">--shutdown-master-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the name of the master-module used for auto-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-shutdown-master-username">
+<span class="sig-name descname"><span class="pre">--shutdown-master-username</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the name of the master-username of the messaging
+used for auto-shutdown. If &quot;shutdown-master-module&quot; is
+given as well, this parameter is ignored.</p>
+</dd></dl>
+
+</section>
+<section id="verbosity">
+<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-verbosity">
+<span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-verbosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-v">
+<span id="cmdoption-scxmldump-v"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--v</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increase verbosity level (may be repeated, e.g., -vv).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-q">
+<span id="cmdoption-scxmldump-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quiet mode: no logging output.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-component">
+<span class="sig-name descname"><span class="pre">--component</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Limit the logging to a certain component. This option can
+be given more than once.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-s">
+<span id="cmdoption-scxmldump-syslog"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--syslog</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use syslog logging backend. The output usually goes to
+/var/lib/messages.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-l">
+<span id="cmdoption-scxmldump-lockfile"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--lockfile</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to lock file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-console">
+<span class="sig-name descname"><span class="pre">--console</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-console" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send log output to stdout.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-debug">
+<span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute in debug mode.
+Equivalent to --verbosity=4 --console=1 .</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-log-file">
+<span class="sig-name descname"><span class="pre">--log-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-log-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use alternative log file.</p>
+</dd></dl>
+
+</section>
+<section id="messaging">
+<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-u">
+<span id="cmdoption-scxmldump-user"></span><span class="sig-name descname"><span class="pre">-u</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--user</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-u" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.username"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.username</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-H">
+<span id="cmdoption-scxmldump-host"></span><span class="sig-name descname"><span class="pre">-H</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--host</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-H" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.server"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.server</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-t">
+<span id="cmdoption-scxmldump-timeout"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--timeout</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.timeout"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.timeout</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-g">
+<span id="cmdoption-scxmldump-primary-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--primary-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-g" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.primaryGroup"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.primaryGroup</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-S">
+<span id="cmdoption-scxmldump-subscribe-group"></span><span class="sig-name descname"><span class="pre">-S</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subscribe-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-S" title="Permalink to this definition">¶</a></dt>
+<dd><p>A group to subscribe to.
+This option can be given more than once.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-content-type">
+<span class="sig-name descname"><span class="pre">--content-type</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-content-type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.contentType"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.contentType</span></code></a>.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">binary</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-start-stop-msg">
+<span class="sig-name descname"><span class="pre">--start-stop-msg</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-start-stop-msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Set sending of a start and a stop message.</p>
+</dd></dl>
+
+</section>
+<section id="database">
+<h3>Database<a class="headerlink" href="#database" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-db-driver-list">
+<span class="sig-name descname"><span class="pre">--db-driver-list</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-db-driver-list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all supported database drivers.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-d">
+<span id="cmdoption-scxmldump-database"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--database</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>The database connection string, format:
+<a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
+&quot;service&quot; is the name of the database driver which
+can be queried with &quot;--db-driver-list&quot;.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-config-module">
+<span class="sig-name descname"><span class="pre">--config-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-config-module" title="Permalink to this definition">¶</a></dt>
+<dd><p>The config module to use.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-inventory-db">
+<span class="sig-name descname"><span class="pre">--inventory-db</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-inventory-db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the inventory from the given database or file, format:
+[<a class="reference external" href="service://]location">service://]location</a> .</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-config-db">
+<span class="sig-name descname"><span class="pre">--config-db</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scxmldump-config-db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the configuration from the given database or file,
+format: [<a class="reference external" href="service://]location">service://]location</a> .</p>
+</dd></dl>
+
+</section>
+<section id="dump">
+<h3>Dump<a class="headerlink" href="#dump" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-I">
+<span id="cmdoption-scxmldump-inventory"></span><span class="sig-name descname"><span class="pre">-I</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--inventory</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-I" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump the inventory.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-without-station-groups">
+<span class="sig-name descname"><span class="pre">--without-station-groups</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-without-station-groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all station groups from inventory.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-stations">
+<span class="sig-name descname"><span class="pre">--stations</span></span><span class="sig-prename descclassname"> <span class="pre">sta-list</span></span><a class="headerlink" href="#cmdoption-scxmldump-stations" title="Permalink to this definition">¶</a></dt>
+<dd><p>If inventory is dumped, filter the stations to dump.
+Wildcards are supported. Format of each item: net[.{sta|*}].</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-C">
+<span id="cmdoption-scxmldump-config"></span><span class="sig-name descname"><span class="pre">-C</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--config</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-C" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump the configuration (bindings).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-J">
+<span id="cmdoption-scxmldump-journal"></span><span class="sig-name descname"><span class="pre">-J</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--journal</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-J" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump the journal. In combination with -E only corresponding
+journal entries are included.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-R">
+<span id="cmdoption-scxmldump-routing"></span><span class="sig-name descname"><span class="pre">-R</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--routing</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-R" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump the routing.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-Y">
+<span id="cmdoption-scxmldump-availability"></span><span class="sig-name descname"><span class="pre">-Y</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--availability</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-Y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump data availability information.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-with-segments">
+<span class="sig-name descname"><span class="pre">--with-segments</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-with-segments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump individual data segments. Requires
+&quot;--availability&quot;.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-listen">
+<span class="sig-name descname"><span class="pre">--listen</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-listen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Listen to the message server for incoming events. Otherwise
+scxmldump reads from database.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-E">
+<span id="cmdoption-scxmldump-event"></span><span class="sig-name descname"><span class="pre">-E</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--event</span></span><span class="sig-prename descclassname"> <span class="pre">ID</span></span><a class="headerlink" href="#cmdoption-scxmldump-E" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event public ID(s) to dump. Multiple events may be specified
+as a comma-separated list. Use &quot;-&quot; for reading the IDs as
+individual lines from stdin.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-O">
+<span id="cmdoption-scxmldump-origin"></span><span class="sig-name descname"><span class="pre">-O</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--origin</span></span><span class="sig-prename descclassname"> <span class="pre">ID</span></span><a class="headerlink" href="#cmdoption-scxmldump-O" title="Permalink to this definition">¶</a></dt>
+<dd><p>Origin public ID(s) to dump. Multiple origins may be specified
+as a comma-separated list. Use &quot;-&quot; for reading the IDs as
+individual lines from stdin</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-P">
+<span id="cmdoption-scxmldump-with-picks"></span><span class="sig-name descname"><span class="pre">-P</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--with-picks</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-P" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add picks associated to origins.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-A">
+<span id="cmdoption-scxmldump-with-amplitudes"></span><span class="sig-name descname"><span class="pre">-A</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--with-amplitudes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-A" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add amplitudes associated to magnitudes.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-M">
+<span id="cmdoption-scxmldump-with-magnitudes"></span><span class="sig-name descname"><span class="pre">-M</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--with-magnitudes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-M" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add station magnitudes associated to origins.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-F">
+<span id="cmdoption-scxmldump-with-focal-mechanism"></span><span class="sig-name descname"><span class="pre">-F</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--with-focal-mechanism</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-F" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add focal mechanisms associated to events.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-a">
+<span id="cmdoption-scxmldump-ignore-arrivals"></span><span class="sig-name descname"><span class="pre">-a</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--ignore-arrivals</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not dump arrivals of origins.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-ignore-magnitudes">
+<span class="sig-name descname"><span class="pre">--ignore-magnitudes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-ignore-magnitudes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not dump (network) magnitudes of origins. This
+option is most useful in combination with -O to only
+dump the location information.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-p">
+<span id="cmdoption-scxmldump-preferred-only"></span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--preferred-only</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>When dumping events only the preferred origin, the preferred
+magnitude and the preferred focal mechanism will be dumped.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-m">
+<span id="cmdoption-scxmldump-all-magnitudes"></span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--all-magnitudes</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>If only the preferred origin is dumped, all magnitudes for
+this origin will be dumped.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-pick">
+<span class="sig-name descname"><span class="pre">--pick</span></span><span class="sig-prename descclassname"> <span class="pre">ID</span></span><a class="headerlink" href="#cmdoption-scxmldump-pick" title="Permalink to this definition">¶</a></dt>
+<dd><p>ID(s) of pick(s) to dump. Use ‘-’ to read the IDs as
+individual lines from stdin.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-public-id">
+<span class="sig-name descname"><span class="pre">--public-id</span></span><span class="sig-prename descclassname"> <span class="pre">ID</span></span><a class="headerlink" href="#cmdoption-scxmldump-public-id" title="Permalink to this definition">¶</a></dt>
+<dd><p>ID(s) of any object(s) to dump. Use ‘-’ to read the IDs as
+individual lines from stdin. No parent objects are dumped.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-with-children">
+<span class="sig-name descname"><span class="pre">--with-children</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-with-children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump also all child objects of dumped objects. Valid only in
+combination with --public-id.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-with-root">
+<span class="sig-name descname"><span class="pre">--with-root</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-with-root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to add the container of exported PublicObjects or
+not. Objects which are not a direct child of
+EventParameters, Inventory and so on, also referred to as
+top-level objects, will not be exported.
+Valid in combination with --public-id.</p>
+</dd></dl>
+
+</section>
+<section id="output">
+<h3>Output<a class="headerlink" href="#output" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-f">
+<span id="cmdoption-scxmldump-formatted"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--formatted</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use formatted XML output. Otherwise all XML is printed
+on one line.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-o">
+<span id="cmdoption-scxmldump-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of output file. If not given, output is sent to
+stdout.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scxmldump-prepend-datasize">
+<span class="sig-name descname"><span class="pre">--prepend-datasize</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scxmldump-prepend-datasize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepend a line with the length of the XML data.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+          <div id="anchors-bottom"></div>
+        </div>
+        
+      <div class="sidebar" role="navigation" aria-label="main navigation">
+        <div id="anchors-top"></div>
+        <div id="anchors" class="content">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">scxmldump</a><ul>
+<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#event-parameters">Event parameters</a></li>
+<li><a class="reference internal" href="#publicobjects">PublicObjects</a></li>
+<li><a class="reference internal" href="#format-conversion">Format conversion</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+<li><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
+<li><a class="reference internal" href="#generic">Generic</a></li>
+<li><a class="reference internal" href="#verbosity">Verbosity</a></li>
+<li><a class="reference internal" href="#messaging">Messaging</a></li>
+<li><a class="reference internal" href="#database">Database</a></li>
+<li><a class="reference internal" href="#dump">Dump</a></li>
+<li><a class="reference internal" href="#output">Output</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="scvoice.html"
+                          title="previous chapter">scvoice</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="scxmlmerge.html"
+                          title="next chapter">scxmlmerge</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/apps/scxmldump.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="horizontal layout content">
+        <a class="fade-in" href="https://www.gempa.de" target="_blank">
+          <img class="brand" src="../_static/brands/gempa.svg"/>
+        </a>
+        <div class="stretched align-center fitted content">
+          <div>
+		  Version <b>7.4.0</b> Release
+          </div>
+            <div class="copyright">
+              Copyright &copy; gempa GmbH, GFZ Potsdam.
+            </div>
+        </div>
+        <a class="fade-in" href="https://www.gfz-potsdam.de" target="_blank">
+          <img class="brand" src="../_static/brands/gfz.svg"/>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

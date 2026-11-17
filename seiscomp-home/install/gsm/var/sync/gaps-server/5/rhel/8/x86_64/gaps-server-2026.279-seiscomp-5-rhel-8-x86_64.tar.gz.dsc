@@ -1,0 +1,17 @@
+pkgname=gaps-server
+pkgver=2026.279
+pkgrel=5
+pkgdesc=('Web based earthquake monitoring (server) (commercial)')
+pkgkeywords=('earthquake monitoring induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('share/doc/gaps/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+pkglicensefile=('gaps')
+sha256=('422efc89bb3902de5b25ce2f200d588239715f9f5d88a4c6b027540160dac9de')
+pkgsize=('25218989')
+pkginstallsize=('30063600')
+filename=('gaps-server-2026.279-seiscomp-5-rhel-8-x86_64.tar.gz')
+builddate=('2026-10-06 21:38:10')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

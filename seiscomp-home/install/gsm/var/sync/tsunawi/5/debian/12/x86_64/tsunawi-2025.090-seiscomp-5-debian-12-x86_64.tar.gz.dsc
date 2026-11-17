@@ -1,0 +1,16 @@
+pkgname=tsunawi
+pkgver=2025.090
+pkgrel=5
+pkgdesc=('Tsunami simulation plugin for TOAST that gets data from precalculated database provided by AWI (commercial)')
+pkgkeywords=('TEW tsunami simulation')
+pkgchangelog=('share/doc/simtsunawi/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('0526bc38fb98d7c9f5ab8a9e12fa4cf29aba774977422885763874863cefdefe')
+pkgsize=('2274173')
+pkginstallsize=('5877610')
+filename=('tsunawi-2025.090-seiscomp-5-debian-12-x86_64.tar.gz')
+builddate=('2025-07-12 21:07:34')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

@@ -1,0 +1,16 @@
+pkgname=imo-addons
+pkgver=2025.125
+pkgrel=nightly
+pkgdesc=('Icelandic Meteorological Office (IMO) specific modules and plugins (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('601d22684bc5efbfa293e80add82728f0aeeed66a66065003720b79a9cdcf55b')
+pkgsize=('24101')
+pkginstallsize=('92460')
+filename=('imo-addons-2025.125-seiscomp-nightly-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2025-11-04 00:52:11')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

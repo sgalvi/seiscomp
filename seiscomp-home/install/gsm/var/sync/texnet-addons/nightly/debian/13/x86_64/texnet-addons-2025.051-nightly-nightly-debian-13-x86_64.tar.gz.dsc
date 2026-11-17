@@ -1,0 +1,17 @@
+pkgname=texnet-addons
+pkgver=2025.051
+pkgrel=nightly
+pkgdesc=('Custom package used by TexNet (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('f0c8e03aee292ebac2c84e0f9cb315bed785110f16524502f82383b79a48dd35')
+pkgsize=('946086')
+pkginstallsize=('2548773')
+pkgfilecount=('7')
+filename=('texnet-addons-2025.051-nightly-nightly-debian-13-x86_64.tar.gz')
+builddate=('2026-11-17 00:00:45')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

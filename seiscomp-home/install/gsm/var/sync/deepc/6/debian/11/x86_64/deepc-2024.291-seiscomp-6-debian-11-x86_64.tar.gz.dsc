@@ -1,0 +1,17 @@
+pkgname=deepc
+pkgver=2024.291
+pkgrel=6
+pkgdesc=('Deep Learning Phase Classifier Plugin, uses TorchScript models to classify picks')
+pkgkeywords=('classification decision support deep learning')
+pkgchangelog=('share/doc/deepc/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+depends=('')
+sha256=('f450e75fcb2076153a2b7be4860c066d642afb10b0eddb79f82ba34ca6aae706')
+pkgsize=('130720540')
+pkginstallsize=('488801681')
+filename=('deepc-2024.291-seiscomp-6-debian-11-x86_64.tar.gz')
+builddate=('2024-10-17 23:20:02')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

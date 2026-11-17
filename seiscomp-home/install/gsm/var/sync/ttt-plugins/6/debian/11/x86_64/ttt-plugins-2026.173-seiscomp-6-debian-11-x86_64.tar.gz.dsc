@@ -1,0 +1,16 @@
+pkgname=ttt-plugins
+pkgver=2026.173
+pkgrel=6
+pkgdesc=('Package for different ttt plugins (commercial)')
+pkgkeywords=('ttt custom hycolo')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('2094933b2be2fcae7cd93c3f136b54264ae31af7bf97c689284151af15d1569b')
+pkgsize=('16020')
+pkginstallsize=('52976')
+filename=('ttt-plugins-2026.173-seiscomp-6-debian-11-x86_64.tar.gz')
+builddate=('2026-06-22 07:13:00')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

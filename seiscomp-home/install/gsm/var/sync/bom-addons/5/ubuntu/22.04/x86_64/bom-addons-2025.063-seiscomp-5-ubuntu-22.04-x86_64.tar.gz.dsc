@@ -1,0 +1,16 @@
+pkgname=bom-addons
+pkgver=2025.063
+pkgrel=5
+pkgdesc=('Custom package used by BOM (comercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('24a22b5b71cdec234ae2b7aa92966b80aeb7b81d5f87b0fa51fd08442746ccd0')
+pkgsize=('4566721')
+pkginstallsize=('7508137')
+filename=('bom-addons-2025.063-seiscomp-5-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2025-04-02 22:47:56')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

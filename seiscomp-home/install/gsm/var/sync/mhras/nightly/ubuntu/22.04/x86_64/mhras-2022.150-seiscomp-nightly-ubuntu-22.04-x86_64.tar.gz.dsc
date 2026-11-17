@@ -1,0 +1,17 @@
+pkgname=mhras
+pkgver=2022.150
+pkgrel=nightly
+pkgdesc=('mhras')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+depends=('')
+sha256=('8a59b1b21d4588cf2f18357318eb81ff60e3293f2d11a5a2abe734c0aefdd2d0')
+pkgsize=('2458778')
+pkginstallsize=('7286554')
+filename=('mhras-2022.150-seiscomp-nightly-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2022-06-09 22:52:07')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

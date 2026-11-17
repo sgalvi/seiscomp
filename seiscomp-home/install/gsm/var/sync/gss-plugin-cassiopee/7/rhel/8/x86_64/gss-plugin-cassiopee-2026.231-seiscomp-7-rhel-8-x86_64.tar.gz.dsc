@@ -1,0 +1,16 @@
+pkgname=gss-plugin-cassiopee
+pkgver=2026.231
+pkgrel=7
+pkgdesc=('Cassiopee tsunami travel time calculation simulation plugin (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/simcassiopee/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('3cee187a4e0555a50b313ca694ceb1624700401e1925a8b3bd3190f9f5ee993f')
+pkgsize=('3256157')
+pkginstallsize=('9572430')
+filename=('gss-plugin-cassiopee-2026.231-seiscomp-7-rhel-8-x86_64.tar.gz')
+builddate=('2026-10-20 22:23:56')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')

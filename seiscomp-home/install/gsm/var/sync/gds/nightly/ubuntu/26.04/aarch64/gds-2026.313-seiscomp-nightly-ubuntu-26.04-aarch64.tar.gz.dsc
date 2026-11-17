@@ -1,0 +1,17 @@
+pkgname=gds
+pkgver=2026.313
+pkgrel=nightly
+pkgdesc=('Modular expandable dissemination and publication server (commercial)')
+pkgkeywords=('decision support dissemination EEW induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('share/doc/gds/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('3fe82bd82a8030eee66694b7c2382506df39445dbd6cb96ed9d9a1baa2dc272c')
+pkgsize=('18385429')
+pkginstallsize=('25296716')
+pkgfilecount=('486')
+filename=('gds-2026.313-seiscomp-nightly-ubuntu-26.04-aarch64.tar.gz')
+builddate=('2026-11-10 00:33:38')
+pkgos=('ubuntu')
+pkgosversion=('26.04')
+pkgfileversion=('0.1')

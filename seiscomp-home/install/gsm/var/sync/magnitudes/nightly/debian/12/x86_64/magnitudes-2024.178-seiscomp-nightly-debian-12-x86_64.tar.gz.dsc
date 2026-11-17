@@ -1,0 +1,16 @@
+pkgname=magnitudes
+pkgver=2024.178
+pkgrel=nightly
+pkgdesc=('Plugins providing magnitudes and yield estimates (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('d9ab7ad410cf73c05d3f7fbce45621689b545d487deeeb7d367eefa854173657')
+pkgsize=('18005')
+pkginstallsize=('100624')
+filename=('magnitudes-2024.178-seiscomp-nightly-debian-12-x86_64.tar.gz')
+builddate=('2025-02-19 22:34:48')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

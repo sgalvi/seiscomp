@@ -1,0 +1,16 @@
+pkgname=scqceval
+pkgver=2026.124
+pkgrel=5
+pkgdesc=('Station quality evaluation and selection (commercial)')
+pkgkeywords=('array earthquake monitoring EEW induced earthquake local monitoring microseismic monitoring network configuration QC quality control teleseismic monitoring configuration')
+pkgchangelog=('share/doc/scqceval/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('c4f9ec8200dae69fcc9ef756fe440cc26be4fc044c1db9744b704362da086d15')
+pkgsize=('10307399')
+pkginstallsize=('13159778')
+filename=('scqceval-2026.124-seiscomp-5-debian-11-x86_64.tar.gz')
+builddate=('2026-07-21 21:05:01')
+pkgos=('debian')
+pkgosversion=('11')
+pkgfileversion=('0.1')

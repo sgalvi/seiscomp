@@ -1,0 +1,16 @@
+pkgname=scqceval
+pkgver=2026.203
+pkgrel=7
+pkgdesc=('Station quality evaluation and selection (commercial)')
+pkgkeywords=('array earthquake monitoring EEW induced earthquake local monitoring microseismic monitoring network configuration QC quality control teleseismic monitoring configuration')
+pkgchangelog=('share/doc/scqceval/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('bc68a706d31aa0e19c9833fabd4ffa2d36f7de33127a970a5f8c4312961f55df')
+pkgsize=('10283649')
+pkginstallsize=('13158966')
+filename=('scqceval-2026.203-seiscomp-7-rhel-9-aarch64.tar.gz')
+builddate=('2026-08-19 00:59:03')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

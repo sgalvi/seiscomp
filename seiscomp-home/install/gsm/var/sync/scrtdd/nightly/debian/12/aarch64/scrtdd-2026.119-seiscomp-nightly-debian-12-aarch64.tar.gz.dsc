@@ -1,0 +1,16 @@
+pkgname=scrtdd
+pkgver=2026.119
+pkgrel=nightly
+pkgdesc=('A module for real-time double difference relocation of events (public)')
+pkgkeywords=('scrtdd')
+pkgchangelog=('None')
+arch=('aarch64')
+license=('None')
+sha256=('4612b6ab2fdd91847dcc8420e348f5e0aa0b91c09db218edc56f8f3f504053bd')
+pkgsize=('8158549')
+pkginstallsize=('10770917')
+filename=('scrtdd-2026.119-seiscomp-nightly-debian-12-aarch64.tar.gz')
+builddate=('2026-04-30 03:59:46')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

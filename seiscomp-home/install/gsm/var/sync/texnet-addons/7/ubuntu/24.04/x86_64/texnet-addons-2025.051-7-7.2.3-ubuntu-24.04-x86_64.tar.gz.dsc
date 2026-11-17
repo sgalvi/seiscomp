@@ -1,0 +1,16 @@
+pkgname=texnet-addons
+pkgver=2025.051
+pkgrel=7
+pkgdesc=('Custom package used by TexNet (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('e451f7857a0b2729b92bde0554ad965ea8f670930d4ca076e578bffccebd12a3')
+pkgsize=('926245')
+pkginstallsize=('2558389')
+filename=('texnet-addons-2025.051-7-7.2.3-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-06-03 23:14:26')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

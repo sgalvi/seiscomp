@@ -1,0 +1,16 @@
+pkgname=gdisp
+pkgver=2023.004
+pkgrel=7
+pkgdesc=('Get events from messaging and compute GNSS displacements. (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/gdisp/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('62f2f9b80b2a9527ba73c0227e0f8580508cb2f445ed01a8f8ffbd8bb291e6da')
+pkgsize=('11277')
+pkginstallsize=('46845')
+filename=('gdisp-2023.004-7-7.2.1-debian-13-x86_64.tar.gz')
+builddate=('2026-03-27 23:10:55')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

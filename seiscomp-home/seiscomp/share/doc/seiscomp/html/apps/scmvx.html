@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+
+<html  lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>scmvx &#8212; SeisComP Release documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <script type="text/javascript" src="../_static/seiscomp.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scolv" href="scolv.html" />
+    <link rel="prev" title="scmv" href="scmv.html" /> 
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="brand">
+          <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
+           <!-- span class="title">SeisComP Release</span -->
+          <span class="version">7.4.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="container">
+        <div class="content"><a class="pull-right" id="sidebar-toggle">TOC</a>
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <ul>
+        <li class="right">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">
+            index
+          </a>
+        </li>
+        <li class="right">
+          <a href="scolv.html" title="scolv"
+             accesskey="N">
+            next
+          </a>
+        </li>
+        <li class="right">
+          <a href="scmv.html" title="scmv"
+             accesskey="P">
+            previous
+          </a>
+        </li>
+        <li class="nav-item nav-item-0">
+          <a href="../index.html">Home</a>
+        </li>
+        <li class="nav-item nav-item-1">
+          <a href="../gui.html" accesskey="U">Graphical User Interfaces</a>
+        </li> 
+      </ul>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="fitted content" id="anchors-container">
+        <div class="body" role="main">
+          
+  <section id="scmvx">
+<span id="id1"></span><h1>scmvx<a class="headerlink" href="#scmvx" title="Permalink to this heading">¶</a></h1>
+<p><strong>Map view showing maps with stations and events. Issues related to
+configuration of stations are indicated.</strong></p>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
+<div class="four column layout"><figure class="align-default" id="id4">
+<img alt="scmvx events tab" src="../_images/scmvx-events-tab.png" />
+<figcaption>
+<p><span class="caption-text">Events tab</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id5">
+<img alt="scmvx network tab" src="../_images/scmvx-tabs-network.png" />
+<figcaption>
+<p><span class="caption-text">Network tab</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id6">
+<img alt="scmvx ground motion tab" src="../_images/scmvx-tabs-gm.png" />
+<figcaption>
+<p><span class="caption-text">Ground motion tab</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id7">
+<img alt="scmvx quality control tab" src="../_images/scmvx-tabs-qc.png" />
+<figcaption>
+<p><span class="caption-text">Quality control tab</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><p>scmvx (SeisComP map view extended) provides maps that visualize information of
+stations, <span class="xref std std-term">events</span> and phase picks at stations. Events are
+received and updated in real time or loaded from a <cite>SeisComP</cite> database. Stations
+are loaded from inventory independent of bindings but compared with bindings.
+Station information include:</p>
+<ul class="simple">
+<li><p>Location (not sensor location) along with network, station and full
+stream code. The latter is defined by global bindings.</p></li>
+<li><p>Current ground motion.</p></li>
+<li><p>Current station quality.</p></li>
+<li><p>Current trigger status.</p></li>
+<li><p>Instantaneous waveforms.</p></li>
+<li><p>Station inventory and bindings configuration issues.</p></li>
+</ul>
+<p>The maps can be customized by global <code class="xref std std-confval docutils literal notranslate"><span class="pre">scheme.map</span></code> parameters and
+additional layers can be added as outlined in the
+<a class="reference internal" href="global_gui.html#global-gui"><span class="std std-ref">GUI documentation</span></a>.</p>
+<p><strong class="program">scmvx</strong> shows all information in tabes which are outlined in section
+<a class="reference internal" href="#sec-scmvx-tabs"><span class="std std-ref">Tabs</span></a>. More applications and use cases are described in section
+<a class="reference internal" href="#sec-scmvx-use-cases"><span class="std std-ref">Use Cases</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>scmvx is the next generation of <a class="reference internal" href="scmv.html#scmv"><span class="std std-ref">scmv</span></a> which is deprecated but shipped
+along with the <cite>SeisComP</cite> package for maintaining backwards compatibility.</p>
+</div>
+</section>
+<section id="tabs">
+<span id="sec-scmvx-tabs"></span><h2>Tabs<a class="headerlink" href="#tabs" title="Permalink to this heading">¶</a></h2>
+<p>scmvx provides multiple <a class="reference internal" href="#sec-scmvx-tabs"><span class="std std-ref">tabs</span></a> for visualizing stations
+along with station parameters or issues and for showing events updated in
+real time or read from the <cite>SeisComP</cite> database:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#sec-scmvx-network-tab"><span class="std std-ref">Network</span></a>: Map showing events and network
+information including station configuration and inventory issues.</p></li>
+<li><p><a class="reference internal" href="#sec-scmvx-gm-tab"><span class="std std-ref">Ground motion</span></a>: Map with events and stations. The
+color of stations symbols represents recent ground motion calculated by scmvx
+in a configurable time window.</p></li>
+<li><p><a class="reference internal" href="#sec-scmvx-qc-tab"><span class="std std-ref">Quality control</span></a>: Map with events and stations. The
+color of stations symbols represents recent waveform quality control
+parameters calculated by <a class="reference internal" href="scqc.html#scqc"><span class="std std-ref">scqc</span></a>.</p></li>
+<li><p><a class="reference internal" href="#sec-scmvx-events-tab"><span class="std std-ref">Events</span></a>: Event list updated in real time and
+allowing to filter events and to load historic events from database.</p></li>
+</ul>
+<p>Stations with recent phase picks are blinking with red triangles.
+When a new event arrives, the details are shown and updated in the latest event
+field. Yellow and blue circles indicate the predicted wavefronts of P and S
+phases, respectively. The wavefronts fade out and disappear depending on
+magnitude.</p>
+<p>Any tab can be shown in full-screen mode (<kbd class="kbd docutils literal notranslate">F11</kbd>) where it is detached
+from the main window and shown without any frame.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following figures show maps which are optimized for file size (134 MByte)
+and coloring and made available by <span id="id2"><em>gempa GmbH</em> [<a class="reference internal" href="../base/references.html#id149" title="gempa GmbH. The SeisComP development and maintenance company. URL: https://www.gempa.de.">32</a>]</span>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Downloads
+wget<span class="w"> </span>-O<span class="w"> </span>/tmp/maps.tar<span class="w"> </span><span class="s2">&quot;https://data.gempa.de/packages/Public/maps/gempa-minimal/gempa-minimal.tar&quot;</span>
+<span class="nb">cd</span><span class="w"> </span><span class="nv">$SEISCOMP_ROOT</span>/..
+tar<span class="w"> </span>-xvf<span class="w"> </span>/tmp/maps.tar
+rm<span class="w"> </span>/tmp/maps.tar
+</pre></div>
+</div>
+<p>You may add the maps to your global configuration
+(<code class="file docutils literal notranslate"><span class="pre">$SEISCOMP_ROOT/etc/global.cfg</span></code>):</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">map.location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@DATADIR@/maps/world%s.png</span>
+<span class="na">map.format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">mercator</span>
+</pre></div>
+</div>
+</div>
+<section id="network">
+<span id="sec-scmvx-network-tab"></span><h3>Network<a class="headerlink" href="#network" title="Permalink to this heading">¶</a></h3>
+<p>The network tab shows all stations available with the loaded inventory.
+Station symbols (triangles) and event (circles) are color-coded according to
+network code and source depth, respectively. Activate the legend (right-click
+on map) for the color-coding. Stations having issues in global bindings or
+inventory are highlighted by error symbols.</p>
+<figure class="align-center" id="id8">
+<span id="fig-scmvx-network-tab"></span><a class="reference internal image-reference" href="../_images/scmvx-tabs-network.png"><img alt="../_images/scmvx-tabs-network.png" src="../_images/scmvx-tabs-network.png" style="width: 16cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Network tab showing stations and events. Two events were received
+recently. The yellow and blue circles indicate the predicted wavefronts of
+P and S phases, respectively, with their degrees of epicentral distance shown
+next to the circles.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Clicking on a station opens the details view showing stations details and
+waveforms. Issues are explained.</p>
+<figure class="align-center" id="id9">
+<span id="fig-scmvx-network-tab-issue"></span><a class="reference internal image-reference" href="../_images/scmvx-tabs-network-issue.png"><img alt="../_images/scmvx-tabs-network-issue.png" src="../_images/scmvx-tabs-network-issue.png" style="width: 16cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Network tab explaining a conflict of a station binding configuration with
+loaded inventory. Click on the corresponding station symbol for opening the
+details view.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id10">
+<span id="fig-scmvx-network-tab-issue-no-gb"></span><a class="reference internal image-reference" href="../_images/scmvx-tabs-network-issue-no-gb.png"><img alt="../_images/scmvx-tabs-network-issue-no-gb.png" src="../_images/scmvx-tabs-network-issue-no-gb.png" style="width: 16cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Network tab indicating a station with missing global bindings.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="ground-motion">
+<span id="sec-scmvx-gm-tab"></span><h3>Ground motion<a class="headerlink" href="#ground-motion" title="Permalink to this heading">¶</a></h3>
+<p>The ground motion tab shows the current ground motion situation at a station.
+Station symbols (triangles) and event (circles) are color-coded according to
+recent ground motion and source depth, respectively.</p>
+<figure class="align-center" id="id11">
+<span id="fig-scmvx-gm-tab"></span><a class="reference internal image-reference" href="../_images/scmvx-tabs-gm.png"><img alt="../_images/scmvx-tabs-gm.png" src="../_images/scmvx-tabs-gm.png" style="width: 16cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Ground motion tab with stations (triangles) and events.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id12">
+<span id="fig-scmvx-gm-tab-event"></span><a class="reference internal image-reference" href="../_images/scmvx-tabs-gm-event.png"><img alt="../_images/scmvx-tabs-gm-event.png" src="../_images/scmvx-tabs-gm-event.png" style="width: 16cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Ground motion tab. Clicking on an event symbol (circle) opens the object
+inspector in which the event details can be read.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id13">
+<span id="id3"></span><a class="reference internal image-reference" href="../_images/scmvx-tabs-gm-station.png"><img alt="../_images/scmvx-tabs-gm-station.png" src="../_images/scmvx-tabs-gm-station.png" style="width: 16cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Ground motion tab. Clicking on a station symbol (triangle) opens the details
+view in which station details and waveforms can be read.</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="quality-control">
+<span id="sec-scmvx-qc-tab"></span><h3>Quality control<a class="headerlink" href="#quality-control" title="Permalink to this heading">¶</a></h3>
+<p>The quality control tab shows current waveform QC parameters as computed by
+<a class="reference internal" href="scqc.html#scqc"><span class="std std-ref">scqc</span></a> which must be running for showing the values.</p>
+<figure class="align-center" id="id14">
+<span id="fig-scmvx-qc-tab"></span><a class="reference internal image-reference" href="../_images/scmvx-tabs-qc.png"><img alt="../_images/scmvx-tabs-qc.png" src="../_images/scmvx-tabs-qc.png" style="width: 16cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Quality control (QC) tab. The QC parameter type may be selected in the View
+menu. Here, the maps are greyed out interactively (<kbd class="kbd docutils literal notranslate">G</kbd>).</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="events">
+<span id="sec-scmvx-events-tab"></span><h3>Events<a class="headerlink" href="#events" title="Permalink to this heading">¶</a></h3>
+<p>Events are shown as they arrive in real time and may be interactively loaded
+from database and filtered thereafter in the Events tab.
+During startup events from within a period of time are loaded and shown
+according the configuration of <a class="reference internal" href="#confval-readEventsNotOlderThan"><code class="xref std std-confval docutils literal notranslate"><span class="pre">readEventsNotOlderThan</span></code></a>.
+More events are added in real time as they arrive.
+Historic events can be loaded from database for time spans and other filter
+criteria.
+The loaded events can be sorted interactively by clicking on the table header.
+Events out of scope can be hidden based on region, event type or agency ID.
+In contrast to other event lists, e.g. in <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a> or <a class="reference internal" href="scesv.html#scesv"><span class="std std-ref">scesv</span></a>, this
+event list only gives access to parameter of the preferred but no other origins
+of events.</p>
+<figure class="align-center" id="id15">
+<span id="fig-scmvx-events-tab"></span><a class="reference internal image-reference" href="../_images/scmvx-events-tab.png"><img alt="../_images/scmvx-events-tab.png" src="../_images/scmvx-events-tab.png" style="width: 16cm;" /></a>
+<figcaption>
+<p><span class="caption-text">Events tab with events loaded from database and updated in real time.</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="hotkeys">
+<h3>Hotkeys<a class="headerlink" href="#hotkeys" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Hotkey</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>Center map around latest event upon event update</p></td>
+</tr>
+<tr class="row-odd"><td><p>G</p></td>
+<td><p>Show map base layer in gray scale</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">F1</kbd></p></td>
+<td><p>Open SeisComP documentation in default browser</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Shift</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">F1</kbd></kbd></p></td>
+<td><p>Open scmvx documentation in default browser</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">F2</kbd></p></td>
+<td><p>Open dialog for connecting to database and messaging</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">F6</kbd></p></td>
+<td><p>Toggle latest event information on map</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">F7</kbd></p></td>
+<td><p>Toggle legend</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">F8</kbd></p></td>
+<td><p>Toggle station issues in Network tab</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Shift</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">F8</kbd></kbd></p></td>
+<td><p>Toggle stations without global bindings</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">F9</kbd></p></td>
+<td><p>Toggle station annotation</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">F10</kbd></p></td>
+<td><p>Switch to event list (Events tab)</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">F11</kbd></p></td>
+<td><p>Toggle full screen mode</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">F</kbd></kbd></p></td>
+<td><p>Search station</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">N</kbd></kbd></p></td>
+<td><p>Reset view to default</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">O</kbd></kbd></p></td>
+<td><p>Open event parameter XML file</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">Q</kbd></kbd></p></td>
+<td><p>Quit scmvx</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">left</kbd>, <kbd class="kbd docutils literal notranslate">right</kbd>, <kbd class="kbd docutils literal notranslate">up</kbd>, <kbd class="kbd docutils literal notranslate">down</kbd></p></td>
+<td><p>Move focus of map left, right, up, down</p></td>
+</tr>
+<tr class="row-odd"><td><p>Double mouse click</p></td>
+<td><p>Center map</p></td>
+</tr>
+<tr class="row-even"><td><p>Mouse wheel</p></td>
+<td><p>Zoom in or out in map</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">+</kbd></p></td>
+<td><p>Zoom in into map around current center</p></td>
+</tr>
+<tr class="row-even"><td><p><kbd class="kbd docutils literal notranslate">-</kbd></p></td>
+<td><p>Zoom out in map around current center</p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd class="kbd docutils literal notranslate">Shift</kbd> + Hold left mouse button + Drag</p></td>
+<td><p>Select a map area and zoom into it</p></td>
+</tr>
+<tr class="row-even"><td><p>Right mouse button</p></td>
+<td><p>Open context menu</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="use-cases">
+<span id="sec-scmvx-use-cases"></span><h2>Use Cases<a class="headerlink" href="#use-cases" title="Permalink to this heading">¶</a></h2>
+<section id="identify-networks">
+<h3>Identify networks<a class="headerlink" href="#identify-networks" title="Permalink to this heading">¶</a></h3>
+<p>Application:</p>
+<ul class="simple">
+<li><p>Identify a network on map.</p></li>
+</ul>
+<p>Procedure:</p>
+<ol class="arabic simple">
+<li><p>Navigate to the <a class="reference internal" href="#sec-scmvx-network-tab"><span class="std std-ref">Network tab</span></a>.</p></li>
+<li><p>Activate the legend: Right-click on map, select <em>Show legend(s)</em>.</p></li>
+<li><p>Identify all stations by the color of the corresponding network.</p></li>
+</ol>
+</section>
+<section id="search-stations">
+<h3>Search stations<a class="headerlink" href="#search-stations" title="Permalink to this heading">¶</a></h3>
+<p>Application:</p>
+<ul class="simple">
+<li><p>Identify a station on map.</p></li>
+</ul>
+<p>Procedure:</p>
+<ol class="arabic simple">
+<li><p>Press <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">CTRL</kbd> <kbd class="kbd docutils literal notranslate"></kbd>+<kbd class="kbd docutils literal notranslate"></kbd> <kbd class="kbd docutils literal notranslate">F</kbd></kbd> to open the search window.</p></li>
+<li><p>Type any string from a station and/or network name in the input field or just
+select a station from the list.</p></li>
+<li><p>Double click in a station in the list to center the map at this location.</p></li>
+</ol>
+</section>
+<section id="get-station-information-detail-issues">
+<h3>Get station information, detail issues<a class="headerlink" href="#get-station-information-detail-issues" title="Permalink to this heading">¶</a></h3>
+<p>Application:</p>
+<ul class="simple">
+<li><p>Read station information.</p></li>
+<li><p>Identify and read station inventory and bindings configuration issues (in
+<a class="reference internal" href="#sec-scmvx-network-tab"><span class="std std-ref">Network tab</span></a>).</p></li>
+<li><p>View instantaneous waveforms.</p></li>
+</ul>
+<p>Procedure:</p>
+<ol class="arabic simple">
+<li><p>Navigate to the <a class="reference internal" href="#sec-scmvx-network-tab"><span class="std std-ref">Network tab</span></a>.</p></li>
+<li><p>Position the mouse above a triangle representing a station. The selected
+station is highlighted. Zoom in if stations are overlapping.</p></li>
+<li><p>Click your left mouse button for opening the station info widget.
+Data and potential configuration issues are shown.</p></li>
+</ol>
+</section>
+<section id="search-for-and-show-an-event">
+<h3>Search for and show an event<a class="headerlink" href="#search-for-and-show-an-event" title="Permalink to this heading">¶</a></h3>
+<p>Application:</p>
+<ul class="simple">
+<li><p>Browse event catalogs in <cite>SeisComP</cite> database.</p></li>
+<li><p>Search the list of loaded events.</p></li>
+</ul>
+<p>Procedure:</p>
+<ol class="arabic simple">
+<li><p>Navigate to the <a class="reference internal" href="#sec-scmvx-events-tab"><span class="std std-ref">Events tab</span></a> load events from
+database in a relevant time range. You may narrow down the database search
+through the filter button. After events are loaded the list may be limited by
+hiding irrelevant events and you may change the sorting of the event table by
+clicking on the header.</p></li>
+<li><p>Identify the event and double-click on the event line to load the parameters.
+You will immediately switch to a map centered around the selected event.</p></li>
+</ol>
+</section>
+<section id="get-event-information">
+<h3>Get event information<a class="headerlink" href="#get-event-information" title="Permalink to this heading">¶</a></h3>
+<p>Application:</p>
+<ul class="simple">
+<li><p>View event details.</p></li>
+<li><p>Send origin information to other applications, e.g., <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a> for further
+processing.</p></li>
+</ul>
+<p>Procedure:</p>
+<ol class="arabic simple">
+<li><p>Position the mouse above a circle representing the location of an event.
+Zoom in if events are overlapping.</p></li>
+<li><p>Click the left mouse button for opening the event object inspector.</p></li>
+<li><p>Click on <strong>Show details</strong> for sending the origin to the messaging for further
+processing, e.g., by <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a>.</p></li>
+</ol>
+</section>
+<section id="set-artificial-origin">
+<h3>Set artificial origin<a class="headerlink" href="#set-artificial-origin" title="Permalink to this heading">¶</a></h3>
+<p>Application:</p>
+<ul class="simple">
+<li><p>Identify an event of interest, e.g., by blinking stations.</p></li>
+<li><p>Send origin information to other applications, e.g. <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a> for further
+processing from scratch.</p></li>
+</ul>
+<p>Procedure:</p>
+<ol class="arabic simple">
+<li><p>Position the mouse in the map.</p></li>
+<li><p>Press the middle mouse button.</p></li>
+<li><p>Set date &amp; time and latitude, longitude &amp; depth.</p></li>
+<li><p>Press “Create” to open the origin in another GUI, e.g., <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a> which
+must be running already.</p></li>
+</ol>
+</section>
+</section>
+<section id="command-line-examples">
+<h2>Command-Line Examples<a class="headerlink" href="#command-line-examples" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p>Real-time view of events and stations on a local server</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">scmvx</span><span class="w"> </span><span class="s">-H localhost -I slink://localhost --debug</span>
+</pre></div>
+</div>
+</li>
+<li><p>Offline view of event parameters given in an XML file. Inventory is read from
+database.</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">scmvx</span><span class="w"> </span><span class="s">-d localhost -i events.xml --debug</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="module-configuration">
+<span id="scmvx-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/global.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/defaults/scmvx.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/global.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">etc/scmvx.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/global.cfg</span></code></div>
+<div class="line"><code class="file docutils literal notranslate"><span class="pre">~/.seiscomp/scmvx.cfg</span></code></div>
+</div>
+<p>scmvx inherits <a class="reference internal" href="global.html#global-configuration"><span class="std std-ref">global options</span></a>.</p>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-displaymode">
+<span class="sig-name descname"><span class="pre">displaymode</span></span><a class="headerlink" href="#confval-displaymode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">network</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Values: <code class="docutils literal notranslate"><span class="pre">groundmotion,network,qualitycontrol</span></code></p>
+<p>Set one of the available display modes used during startup for
+defining which tab is shown. When empty, the Network tab is
+shown.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-readEventsNotOlderThan">
+<span class="sig-name descname"><span class="pre">readEventsNotOlderThan</span></span><a class="headerlink" href="#confval-readEventsNotOlderThan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">86400</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>s</em></p>
+<p>Sets the time span before current time to read events initially
+from database.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-centerOrigins">
+<span class="sig-name descname"><span class="pre">centerOrigins</span></span><a class="headerlink" href="#confval-centerOrigins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>If a new origin/event is set/selected, this option defines if
+the map is centered or not at the origin location.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-annotations">
+<span class="sig-name descname"><span class="pre">annotations</span></span><a class="headerlink" href="#confval-annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Enables/disabled drawing of station annotations at startup.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-annotationsWithChannels">
+<span class="sig-name descname"><span class="pre">annotationsWithChannels</span></span><a class="headerlink" href="#confval-annotationsWithChannels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Show full stream codes with station annotations including
+location and channel codes as NET.STA.LOC.CHA.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-showUnboundStations">
+<span class="sig-name descname"><span class="pre">showUnboundStations</span></span><a class="headerlink" href="#confval-showUnboundStations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Enable/disable drawing of stations which are not bound with
+global bindings.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-mapLegendPosition">
+<span class="sig-name descname"><span class="pre">mapLegendPosition</span></span><a class="headerlink" href="#confval-mapLegendPosition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">topright</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Values: <code class="docutils literal notranslate"><span class="pre">topleft,topright,bottomright,bottomleft</span></code></p>
+<p>The legend location for station symbols (network, QC, ground motion).</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-eventLegendPosition">
+<span class="sig-name descname"><span class="pre">eventLegendPosition</span></span><a class="headerlink" href="#confval-eventLegendPosition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">bottomleft</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Values: <code class="docutils literal notranslate"><span class="pre">topleft,topright,bottomright,bottomleft</span></code></p>
+<p>The legend location for event symbols.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>display.*</strong>
+<em>The initial rectangular region for the map. The eventual region</em>
+<em>is also scaled to the dimension of the opened map widget.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-display.latmin">
+<span class="sig-name descname"><span class="pre">display.latmin</span></span><a class="headerlink" href="#confval-display.latmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-90.0</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>deg</em></p>
+<p>Range: <code class="docutils literal notranslate"><span class="pre">-90..90</span></code></p>
+<p>Minimum latitude in degrees.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-display.lonmin">
+<span class="sig-name descname"><span class="pre">display.lonmin</span></span><a class="headerlink" href="#confval-display.lonmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">-180.0</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>deg</em></p>
+<p>Range: <code class="docutils literal notranslate"><span class="pre">-360..360</span></code></p>
+<p>Minimum longitude in degrees.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-display.latmax">
+<span class="sig-name descname"><span class="pre">display.latmax</span></span><a class="headerlink" href="#confval-display.latmax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">90.0</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>deg</em></p>
+<p>Range: <code class="docutils literal notranslate"><span class="pre">-90..90</span></code></p>
+<p>Maximum latitude in degrees.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-display.lonmax">
+<span class="sig-name descname"><span class="pre">display.lonmax</span></span><a class="headerlink" href="#confval-display.lonmax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">180.0</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>deg</em></p>
+<p>Range: <code class="docutils literal notranslate"><span class="pre">-360..360</span></code></p>
+<p>Maximum longitude in degrees.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>events.*</strong>
+<em>The initial configuration for events. The visibiliy of events</em>
+<em>can be set by configuration of the global parameter</em>
+<em>“map.layers.events.visible”.</em></p>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-events.showLatestEventWidget">
+<span class="sig-name descname"><span class="pre">events.showLatestEventWidget</span></span><a class="headerlink" href="#confval-events.showLatestEventWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Show the latest event widget. The widget can
+be toggelt interactively by the View menu.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-stations.amplitudeTimeSpan">
+<span class="sig-name descname"><span class="pre">stations.amplitudeTimeSpan</span></span><a class="headerlink" href="#confval-stations.amplitudeTimeSpan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>s</em></p>
+<p>Time span for forming the maximum value as envelope to the
+traces in the trace window for a station.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-stations.groundMotionRecordLifeSpan">
+<span class="sig-name descname"><span class="pre">stations.groundMotionRecordLifeSpan</span></span><a class="headerlink" href="#confval-stations.groundMotionRecordLifeSpan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">600</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>s</em></p>
+<p>Time to keep waveform data in memory.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-stations.triggerTimeout">
+<span class="sig-name descname"><span class="pre">stations.triggerTimeout</span></span><a class="headerlink" href="#confval-stations.triggerTimeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">900</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>s</em></p>
+<p>Time span to show phase picks of a station by a blinking
+triangle.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-stations.triggerFrameSize">
+<span class="sig-name descname"><span class="pre">stations.triggerFrameSize</span></span><a class="headerlink" href="#confval-stations.triggerFrameSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>Type: <em>int</em></p>
+<p>Unit: <em>px</em></p>
+<p>The size of the frame of a station symbol if in trigger mode.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-stations.groundMotionFilter">
+<span class="sig-name descname"><span class="pre">stations.groundMotionFilter</span></span><a class="headerlink" href="#confval-stations.groundMotionFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">ITAPER(60)&gt;&gt;BW_HP(4,0.5)</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Sets the filter applied to determine ground motion.</p>
+</dd></dl>
+
+</section>
+<section id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this heading">¶</a></h2>
+<p><strong class="program">scmvx [options]</strong></p>
+<section id="verbosity">
+<h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-verbosity">
+<span class="sig-name descname"><span class="pre">--verbosity</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-verbosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-v">
+<span id="cmdoption-scmvx-v"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--v</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scmvx-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increase verbosity level (may be repeated, e.g., -vv).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-q">
+<span id="cmdoption-scmvx-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scmvx-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quiet mode: no logging output.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-component">
+<span class="sig-name descname"><span class="pre">--component</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Limit the logging to a certain component. This option can
+be given more than once.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-s">
+<span id="cmdoption-scmvx-syslog"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--syslog</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scmvx-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use syslog logging backend. The output usually goes to
+/var/lib/messages.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-l">
+<span id="cmdoption-scmvx-lockfile"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--lockfile</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to lock file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-console">
+<span class="sig-name descname"><span class="pre">--console</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-console" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send log output to stdout.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-debug">
+<span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scmvx-debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute in debug mode.
+Equivalent to --verbosity=4 --console=1 .</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-log-file">
+<span class="sig-name descname"><span class="pre">--log-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-log-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use alternative log file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-print-component">
+<span class="sig-name descname"><span class="pre">--print-component</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-print-component" title="Permalink to this definition">¶</a></dt>
+<dd><p>For each log entry print the component right after the
+log level. By default the component output is enabled
+for file output but disabled for console output.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-trace">
+<span class="sig-name descname"><span class="pre">--trace</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scmvx-trace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute in trace mode.
+Equivalent to --verbosity=4 --console=1 --print-component=1
+--print-context=1 .</p>
+</dd></dl>
+
+</section>
+<section id="generic">
+<h3>Generic<a class="headerlink" href="#generic" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-h">
+<span id="cmdoption-scmvx-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scmvx-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show help message.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-V">
+<span id="cmdoption-scmvx-version"></span><span class="sig-name descname"><span class="pre">-V</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scmvx-V" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show version information.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-config-file">
+<span class="sig-name descname"><span class="pre">--config-file</span></span><span class="sig-prename descclassname"> <span class="pre">file</span></span><a class="headerlink" href="#cmdoption-scmvx-config-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The alternative module configuration file. When this option
+is used, the module configuration is only read from the
+given file and no other configuration stage is considered.
+Therefore, all configuration including the definition of
+plugins must be contained in that file or given along with
+other command-line options such as --plugins.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-plugins">
+<span class="sig-name descname"><span class="pre">--plugins</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-plugins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load given plugins.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-auto-shutdown">
+<span class="sig-name descname"><span class="pre">--auto-shutdown</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-auto-shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable/disable self-shutdown because a master module shutdown.
+This only works when messaging is enabled and the master
+module sends a shutdown message (enabled with
+--start-stop-msg for the master module).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-shutdown-master-module">
+<span class="sig-name descname"><span class="pre">--shutdown-master-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-shutdown-master-module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the name of the master-module used for auto-shutdown.
+This is the application name of the module actually
+started. If symlinks are used, then it is the name of
+the symlinked application.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-shutdown-master-username">
+<span class="sig-name descname"><span class="pre">--shutdown-master-username</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-shutdown-master-username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the name of the master-username of the messaging
+used for auto-shutdown. If &quot;shutdown-master-module&quot; is
+given as well, this parameter is ignored.</p>
+</dd></dl>
+
+</section>
+<section id="messaging">
+<h3>Messaging<a class="headerlink" href="#messaging" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-u">
+<span id="cmdoption-scmvx-user"></span><span class="sig-name descname"><span class="pre">-u</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--user</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-u" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.username"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.username</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-H">
+<span id="cmdoption-scmvx-host"></span><span class="sig-name descname"><span class="pre">-H</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--host</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-H" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.server"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.server</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-t">
+<span id="cmdoption-scmvx-timeout"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--timeout</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.timeout"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.timeout</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-g">
+<span id="cmdoption-scmvx-primary-group"></span><span class="sig-name descname"><span class="pre">-g</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--primary-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-g" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.primaryGroup"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.primaryGroup</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-S">
+<span id="cmdoption-scmvx-subscribe-group"></span><span class="sig-name descname"><span class="pre">-S</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--subscribe-group</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-S" title="Permalink to this definition">¶</a></dt>
+<dd><p>A group to subscribe to.
+This option can be given more than once.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-content-type">
+<span class="sig-name descname"><span class="pre">--content-type</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-content-type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="global.html#confval-connection.contentType"><code class="xref std std-confval docutils literal notranslate"><span class="pre">connection.contentType</span></code></a>.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">binary</span></code></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-start-stop-msg">
+<span class="sig-name descname"><span class="pre">--start-stop-msg</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-start-stop-msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Set sending of a start and a stop message.</p>
+</dd></dl>
+
+</section>
+<section id="database">
+<h3>Database<a class="headerlink" href="#database" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-db-driver-list">
+<span class="sig-name descname"><span class="pre">--db-driver-list</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scmvx-db-driver-list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all supported database drivers.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-d">
+<span id="cmdoption-scmvx-database"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--database</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>The database connection string, format:
+<a class="reference external" href="service://user:pwd&#64;host/database">service://user:pwd&#64;host/database</a>.
+&quot;service&quot; is the name of the database driver which
+can be queried with &quot;--db-driver-list&quot;.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-config-module">
+<span class="sig-name descname"><span class="pre">--config-module</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-config-module" title="Permalink to this definition">¶</a></dt>
+<dd><p>The config module to use.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-inventory-db">
+<span class="sig-name descname"><span class="pre">--inventory-db</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-inventory-db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the inventory from the given database or file, format:
+[<a class="reference external" href="service://]location">service://]location</a> .</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-db-disable">
+<span class="sig-name descname"><span class="pre">--db-disable</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scmvx-db-disable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not use the database at all.</p>
+</dd></dl>
+
+</section>
+<section id="records">
+<h3>Records<a class="headerlink" href="#records" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-record-driver-list">
+<span class="sig-name descname"><span class="pre">--record-driver-list</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scmvx-record-driver-list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all supported record stream drivers.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-I">
+<span id="cmdoption-scmvx-record-url"></span><span class="sig-name descname"><span class="pre">-I</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--record-url</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-I" title="Permalink to this definition">¶</a></dt>
+<dd><p>The RecordStream source URL. Format:
+[<a class="reference external" href="service://">service://</a>]location[#type].
+&quot;service&quot; is the name of the RecordStream driver
+which can be queried with &quot;--record-driver-list&quot;.
+If &quot;service&quot; is not given, &quot;<a class="reference external" href="file://">file://</a>&quot; is
+used and simply the name of a miniSEED file can be given.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-record-file">
+<span class="sig-name descname"><span class="pre">--record-file</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-record-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify a file as record source.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-record-type">
+<span class="sig-name descname"><span class="pre">--record-type</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-record-type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify a type for the records being read.</p>
+</dd></dl>
+
+</section>
+<section id="cities">
+<h3>Cities<a class="headerlink" href="#cities" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-city-xml">
+<span class="sig-name descname"><span class="pre">--city-xml</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-city-xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>file</em></p>
+<p>The path to the cities XML file. This overrides the default
+paths. Compare with the global parameter &quot;citiesXML&quot;.</p>
+</dd></dl>
+
+</section>
+<section id="user-interface">
+<h3>User interface<a class="headerlink" href="#user-interface" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-F">
+<span id="cmdoption-scmvx-full-screen"></span><span class="sig-name descname"><span class="pre">-F</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--full-screen</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scmvx-F" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the application filling the entire screen.
+This only works with GUI applications.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-N">
+<span id="cmdoption-scmvx-non-interactive"></span><span class="sig-name descname"><span class="pre">-N</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--non-interactive</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scmvx-N" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use non-interactive presentation mode. This only works with
+GUI applications.</p>
+</dd></dl>
+
+</section>
+<section id="mapviewx">
+<h3>MapviewX<a class="headerlink" href="#mapviewx" title="Permalink to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-display-mode">
+<span class="sig-name descname"><span class="pre">--display-mode</span></span><span class="sig-prename descclassname"> <span class="pre">arg</span></span><a class="headerlink" href="#cmdoption-scmvx-display-mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides configuration parameter <a class="reference internal" href="#confval-displaymode"><code class="xref std std-confval docutils literal notranslate"><span class="pre">displaymode</span></code></a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-i">
+<span id="cmdoption-scmvx-input-file"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--input-file</span></span><span class="sig-prename descclassname"> <span class="pre">file</span></span><a class="headerlink" href="#cmdoption-scmvx-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load events in given XML file during startup and switch to
+offline mode.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-offline">
+<span class="sig-name descname"><span class="pre">--offline</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scmvx-offline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not connect to a messaging server and do not subscribe
+channel data.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-scmvx-with-legend">
+<span class="sig-name descname"><span class="pre">--with-legend</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-scmvx-with-legend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the map legends.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+          <div id="anchors-bottom"></div>
+        </div>
+        
+      <div class="sidebar" role="navigation" aria-label="main navigation">
+        <div id="anchors-top"></div>
+        <div id="anchors" class="content">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">scmvx</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#tabs">Tabs</a><ul>
+<li><a class="reference internal" href="#network">Network</a></li>
+<li><a class="reference internal" href="#ground-motion">Ground motion</a></li>
+<li><a class="reference internal" href="#quality-control">Quality control</a></li>
+<li><a class="reference internal" href="#events">Events</a></li>
+<li><a class="reference internal" href="#hotkeys">Hotkeys</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#use-cases">Use Cases</a><ul>
+<li><a class="reference internal" href="#identify-networks">Identify networks</a></li>
+<li><a class="reference internal" href="#search-stations">Search stations</a></li>
+<li><a class="reference internal" href="#get-station-information-detail-issues">Get station information, detail issues</a></li>
+<li><a class="reference internal" href="#search-for-and-show-an-event">Search for and show an event</a></li>
+<li><a class="reference internal" href="#get-event-information">Get event information</a></li>
+<li><a class="reference internal" href="#set-artificial-origin">Set artificial origin</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#command-line-examples">Command-Line Examples</a></li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+<li><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
+<li><a class="reference internal" href="#verbosity">Verbosity</a></li>
+<li><a class="reference internal" href="#generic">Generic</a></li>
+<li><a class="reference internal" href="#messaging">Messaging</a></li>
+<li><a class="reference internal" href="#database">Database</a></li>
+<li><a class="reference internal" href="#records">Records</a></li>
+<li><a class="reference internal" href="#cities">Cities</a></li>
+<li><a class="reference internal" href="#user-interface">User interface</a></li>
+<li><a class="reference internal" href="#mapviewx">MapviewX</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="scmv.html"
+                          title="previous chapter">scmv</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="scolv.html"
+                          title="next chapter">scolv</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/apps/scmvx.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="horizontal layout content">
+        <a class="fade-in" href="https://www.gempa.de" target="_blank">
+          <img class="brand" src="../_static/brands/gempa.svg"/>
+        </a>
+        <div class="stretched align-center fitted content">
+          <div>
+		  Version <b>7.4.0</b> Release
+          </div>
+            <div class="copyright">
+              Copyright &copy; gempa GmbH, GFZ Potsdam.
+            </div>
+        </div>
+        <a class="fade-in" href="https://www.gfz-potsdam.de" target="_blank">
+          <img class="brand" src="../_static/brands/gfz.svg"/>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

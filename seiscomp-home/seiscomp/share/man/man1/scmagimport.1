@@ -1,0 +1,285 @@
+.\" Man page generated from reStructuredText.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "SCMAGIMPORT" "1" "Sep 04, 2026" "7.4.0" "SeisComP"
+.SH NAME
+scmagimport \- SeisComP Documentation
+.sp
+\fBImports a foreign magnitude from a SCML event file into SeisComP.\fP
+.SH DESCRIPTION
+.sp
+scmagimport imports a foreign \fI\%Magnitude\fP from a
+\fI\%SCML\fP \fI\%Event\fP file into \fISeisComP\fP\&.
+.sp
+Processing steps performed:
+.INDENT 0.0
+.IP 1. 3
+Extract the preferred \fI\%Origin\fP and magnitude from
+the SCML event file.
+.IP 2. 3
+Check if the foreign magnitude is of a specific type, e.g., M(USGS).
+.IP 3. 3
+Use \fI\%scevent\fP to associate the origin to an SeisComP event. In this step
+the foreign origin is send via HTTP POST to the \fI\%scevent\fP REST API
+\fI/api/1/try\-to\-associate\fP which responds with an event ID if the association
+was successful.
+.IP 4. 3
+Retrieve the event and the preferred origin from the local \fISeisComP\fP system.
+.IP 5. 3
+Copy the foreign magnitude to the preferred origin.
+.IP 6. 3
+Send the magnitude copy via a notifier message to \fI\%scmaster\fP\&.
+.IP 7. 3
+Let \fI\%scevent\fP decide whether the new magnitude becomes preferred.
+.UNINDENT
+.sp
+Examples:
+.INDENT 0.0
+.IP \(bu 2
+Read preferred origin and magnitude from \fI\%SCML\fP file
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+scmagimport \-i /path/to/seiscomp_event.xml
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Use xalan and a XSLT file to convert \fI\%QuakeML\fP file to \fI\%SCML\fP and
+pass it to the importer on stdin
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+xalan \-in /path/to/quakeml_event.xml \-xsl $SEISCOMP_ROOT/share/xml/0.14/quakeml__scml_0.14.xsl | scmagimport \-i \-
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.SH COMMAND-LINE OPTIONS
+.sp
+\fBscmagimport [OPTIONS] source\fP
+.SS Generic
+.INDENT 0.0
+.TP
+.B \-h, \-\-help
+Show help message.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-V, \-\-version
+Show version information.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config\-file file
+The alternative module configuration file. When this option
+is used, the module configuration is only read from the
+given file and no other configuration stage is considered.
+Therefore, all configuration including the definition of
+plugins must be contained in that file or given along with
+other command\-line options such as \-\-plugins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-plugins arg
+Load given plugins.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-D, \-\-daemon
+Run as daemon. This means the application will fork itself
+and doesn\(aqt need to be started with &.
+.UNINDENT
+.SS Verbosity
+.INDENT 0.0
+.TP
+.B \-\-verbosity arg
+Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+4:debug.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-v, \-\-v
+Increase verbosity level (may be repeated, e.g., \-vv).
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-q, \-\-quiet
+Quiet mode: no logging output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-print\-component arg
+For each log entry print the component right after the
+log level. By default the component output is enabled
+for file output but disabled for console output.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-component arg
+Limit the logging to a certain component. This option can
+be given more than once.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-s, \-\-syslog
+Use syslog logging backend. The output usually goes to
+/var/lib/messages.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-l, \-\-lockfile arg
+Path to lock file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-console arg
+Send log output to stdout.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-debug
+Execute in debug mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 .
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-trace
+Execute in trace mode.
+Equivalent to \-\-verbosity=4 \-\-console=1 \-\-print\-component=1
+\-\-print\-context=1 .
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-log\-file arg
+Use alternative log file.
+.UNINDENT
+.SS Messaging
+.INDENT 0.0
+.TP
+.B \-u, \-\-user arg
+Overrides configuration parameter \fI\%connection.username\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-H, \-\-host arg
+Overrides configuration parameter \fI\%connection.server\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-t, \-\-timeout arg
+Overrides configuration parameter \fI\%connection.timeout\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-g, \-\-primary\-group arg
+Overrides configuration parameter \fI\%connection.primaryGroup\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-S, \-\-subscribe\-group arg
+A group to subscribe to.
+This option can be given more than once.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-start\-stop\-msg arg
+Default: \fB0\fP
+.sp
+Set sending of a start and a stop message.
+.UNINDENT
+.SS Database
+.INDENT 0.0
+.TP
+.B \-\-db\-driver\-list
+List all supported database drivers.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-d, \-\-database arg
+The database connection string, format:
+\fI\%service://user:pwd@host/database\fP\&.
+\(dqservice\(dq is the name of the database driver which
+can be queried with \(dq\-\-db\-driver\-list\(dq.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config\-module arg
+The config module to use.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-inventory\-db arg
+Load the inventory from the given database or file, format:
+[\fI\%service://]location\fP .
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-db\-disable
+Do not use the database at all.
+.UNINDENT
+.SS Processing
+.INDENT 0.0
+.TP
+.B \-i, \-\-input arg
+Type: \fIfile\fP
+.sp
+SeisComP XML file containing an event with a preferred origin and
+magnitude to import. Use \(aq\-\(aq to read from stdin instead of file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-a, \-\-associate\-api arg
+Default: \fBhttp://localhost:18182/api/1/try\-to\-associate\fP
+.sp
+Type: \fIstring\fP
+.sp
+scevent API URL for event association.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-mag\-type arg
+Default: \fBM(USGS)\fP
+.sp
+Type: \fIstring\fP
+.sp
+Magnitude type to use for the imported magnitude.
+.UNINDENT
+.SH AUTHOR
+gempa GmbH, GFZ Potsdam
+.SH COPYRIGHT
+gempa GmbH, GFZ Potsdam
+.\" Generated by docutils manpage writer.
+.

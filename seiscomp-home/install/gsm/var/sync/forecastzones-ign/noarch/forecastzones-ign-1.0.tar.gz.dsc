@@ -1,0 +1,16 @@
+pkgname=forecastzones-ign
+pkgver=1.0
+pkgdesc=('Tsunami forecast zones in TOAST for IGN (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('b08c9b0fe7a4964cc2ad412f62bc44b850d03570508047e4a680b2b49262f25f')
+pkgsize=('857628')
+pkginstallsize=('150837')
+pkgfilecount=('4')
+filename=('forecastzones-ign-1.0.tar.gz')
+pkgfilepath=('forecastzones/ign')
+builddate=('2025-04-03 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

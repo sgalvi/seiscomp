@@ -1,0 +1,16 @@
+pkgname=forecastzones-ineter
+pkgver=1.0
+pkgdesc=('Tsunami forecast zones in TOAST for INETER (commercial)')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('d3e96ab6e4a1750d5a7067392b6dc4a87099eb43a661f1449a7ee66d2827f225')
+pkgsize=('239937')
+pkginstallsize=('934822')
+pkgfilecount=('4')
+filename=('forecastzones-ineter-1.0.tar.gz')
+pkgfilepath=('forecastzones/ineter')
+builddate=('2020-03-12 00:00:00')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

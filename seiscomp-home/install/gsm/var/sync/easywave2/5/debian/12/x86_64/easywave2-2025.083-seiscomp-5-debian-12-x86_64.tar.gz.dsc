@@ -1,0 +1,16 @@
+pkgname=easywave2
+pkgver=2025.083
+pkgrel=5
+pkgdesc=('On-the-fly tsunami simulation backend (commercial)')
+pkgkeywords=('bathymetry TEW tsunami simulation')
+pkgchangelog=('share/doc/simeasywave2/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('78b41223739394a8421a4986cc6537038625592cae91829b569a70d3806bda7b')
+pkgsize=('2999042')
+pkginstallsize=('8788296')
+filename=('easywave2-2025.083-seiscomp-5-debian-12-x86_64.tar.gz')
+builddate=('2025-03-24 22:26:11')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

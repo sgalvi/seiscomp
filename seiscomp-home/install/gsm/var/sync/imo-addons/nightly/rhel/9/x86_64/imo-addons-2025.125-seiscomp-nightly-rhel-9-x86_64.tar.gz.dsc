@@ -1,0 +1,16 @@
+pkgname=imo-addons
+pkgver=2025.125
+pkgrel=nightly
+pkgdesc=('Icelandic Meteorological Office (IMO) specific modules and plugins (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('eb428542a4412ab8bac971cbb39193a5cd5190680b064ba2fb248e56762f2e8f')
+pkgsize=('23868')
+pkginstallsize=('89180')
+filename=('imo-addons-2025.125-seiscomp-nightly-rhel-9-x86_64.tar.gz')
+builddate=('2025-11-04 00:51:43')
+pkgos=('rhel')
+pkgosversion=('9')
+pkgfileversion=('0.1')

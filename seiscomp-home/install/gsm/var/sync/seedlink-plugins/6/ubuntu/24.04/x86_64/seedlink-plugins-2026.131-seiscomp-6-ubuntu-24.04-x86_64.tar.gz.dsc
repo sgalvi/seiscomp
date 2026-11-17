@@ -1,0 +1,16 @@
+pkgname=seedlink-plugins
+pkgver=2026.131
+pkgrel=6
+pkgdesc=('seedlink-plugins')
+pkgkeywords=('[]')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('235d76d1f2685f43d33604a75c268b5ca39e7a7f2f50ed3a668aebd3368d43c5')
+pkgsize=('671000')
+pkginstallsize=('2005201')
+filename=('seedlink-plugins-2026.131-seiscomp-6-ubuntu-24.04-x86_64.tar.gz')
+builddate=('2026-07-21 21:45:23')
+pkgos=('ubuntu')
+pkgosversion=('24.04')
+pkgfileversion=('0.1')

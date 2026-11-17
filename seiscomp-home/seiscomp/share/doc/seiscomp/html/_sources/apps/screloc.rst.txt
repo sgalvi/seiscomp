@@ -1,0 +1,552 @@
+.. highlight:: rst
+
+.. _screloc:
+
+#######
+screloc
+#######
+
+**Automatic relocator.**
+
+
+Description
+===========
+
+screloc is an automatic relocator that receives origins from realtime
+locators such as scautoloc and relocates them with a configurable locator.
+screloc can be conveniently used to test different locators and velocity models
+or to relocate events with updated velocity models. Check the
+:ref:`Example applications <screloc-example>` for screloc.
+
+screloc processes any incoming automatic origin but does not yet listen to event
+information nor does it skip origins for that a more recent one exists.
+
+To run screloc along with all processing modules add it to the list of
+clients in the seiscomp configuration frontend.
+
+
+.. code-block:: sh
+
+   seiscomp enable screloc
+   seiscomp start screloc
+
+Descriptions of parameters for screloc:
+
+.. code-block:: sh
+
+   seiscomp exec screloc -h
+
+Test the performance of screloc and learn from debug output:
+
+.. code-block:: sh
+
+   seiscomp exec screloc --debug
+
+Setup
+=====
+
+The following example configuration shows a setup of screloc for
+:ref:`NonLinLoc <global_nonlinloc>`:
+
+.. code-block:: sh
+
+   plugins = ${plugins}, locnll
+
+   # Define the locator algorithm to use
+   reloc.locator = NonLinLoc
+
+   # Define a suffix appended to the publicID of the origin to be relocated
+   # to form the new publicID.
+   # This helps to identify pairs of origins before and after relocation.
+   # However, new publicIDs are unrelated to the time of creation.
+   # If not defined, a new publicID will be generated automatically.
+   reloc.originIDSuffix = "#relocated"
+
+   ########################################################
+   ################ NonLinLoc configuration################
+   ########################################################
+   NLLROOT = ${HOME}/nll/data
+
+   NonLinLoc.outputPath = ${NLLROOT}/output/
+
+   # Define the default control file if no profile specific
+   # control file is defined.
+   NonLinLoc.controlFile = ${NLLROOT}/NLL.default.conf
+
+   # Set the default pick error in seconds passed to NonLinLoc
+   # if no SeisComP pick uncertainty is available.
+   NonLinLoc.defaultPickError = 0.1
+
+   # Define the available NonLinLoc location profiles. The order
+   # implicitly defines the priority for overlapping regions
+   #NonLinLoc.profiles = swiss_3d, swiss_1d, global
+   NonLinLoc.profiles = swiss_3d, global
+
+   # The earthModelID is copied to earthModelID attribute of the
+   # resulting origin
+   NonLinLoc.profile.swiss_1d.earthModelID = "swiss regional 1D"
+
+   # Specify the velocity model table path as used by NonLinLoc
+   NonLinLoc.profile.swiss_1d.tablePath = ${NLLROOT}/time_1d_regio/regio
+
+   # Specify the region valid for this profile
+   NonLinLoc.profile.swiss_1d.region = 41.2, 3.8, 50.1, 16.8
+
+   # The NonLinLoc default control file to use for this profile
+   NonLinLoc.profile.swiss_1d.controlFile = ${NLLROOT}/NLL.swiss_1d.conf
+
+   # Configure the swiss_3d profile
+   NonLinLoc.profile.swiss_3d.earthModelID = "swiss regional 3D"
+   NonLinLoc.profile.swiss_3d.tablePath = ${NLLROOT}/time_3d/ch
+   NonLinLoc.profile.swiss_3d.region = 45.15, 5.7, 48.3, 11.0
+   NonLinLoc.profile.swiss_3d.controlFile = ${NLLROOT}/NLL.swiss_3d.conf
+
+   # And the global profile
+   NonLinLoc.profile.global.earthModelID = iaspei91
+   NonLinLoc.profile.global.tablePath = ${NLLROOT}/iasp91/iasp91
+   NonLinLoc.profile.global.controlFile = ${NLLROOT}/NLL.global.conf
+
+
+.. _screloc-example:
+
+Examples
+========
+
+* Relocate all origins given in an :term:`SCML` file according to the
+  configuration of :program:`screloc`. Write all output to unformatted SCML.
+
+  .. code-block:: sh
+
+     screloc -d localhost --ep origins.xml > origins_screloc.xml
+
+* Relocate the previously preferred origins of all events (:ref:`scevtls`)
+  within some period of time using a specific :ref:`locator <concepts_locators>`
+  and locator profile.
+  Use some userID and authorID for uniquely recognizing the relocation.
+  Configuring the ref:`scevent` parameter :confval:`eventAssociation.priorities`
+  to TIME_AUTOMATIC before running the example will prefer the latest origin
+  (which will be created by screloc) for the event the new origin is associated
+  to. The new origins are automatically sent to the messaging.
+
+  .. code-block:: sh
+
+    #!/bin/bash
+
+    # locator type
+    locator=[your_locator]
+    # locator profile
+    profile=[your_profile]
+    # set some userID
+    userID=[your_user]
+    # set some authorID
+    authorID=[screloc]
+
+    IFS=',' read -ra events <<< `scevtls -d localhost -p -D , --begin 2025-01-01 --end 2025-02-01`
+    for event in "${events[@]}"; do
+        preferredOrigin=$(echo $event | awk '{print $2}')
+        screloc -d localhost -O $preferredOrigin --locator $locator --profile $profile -u $userID --author=$authorID
+    done
+
+
+.. _screloc_configuration:
+
+Module Configuration
+====================
+
+| :file:`etc/defaults/global.cfg`
+| :file:`etc/defaults/screloc.cfg`
+| :file:`etc/global.cfg`
+| :file:`etc/screloc.cfg`
+| :file:`~/.seiscomp/global.cfg`
+| :file:`~/.seiscomp/screloc.cfg`
+
+screloc inherits :ref:`global options<global-configuration>`.
+
+
+
+.. confval:: reloc.locator
+
+   Type: *string*
+
+   Defines the locator to be used such as NonLinLoc.
+
+
+.. confval:: reloc.profile
+
+   Type: *string*
+
+   The locator profile to use.
+
+
+.. confval:: reloc.ignoreRejectedOrigins
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Ignores origins with status REJECTED.
+
+
+.. confval:: reloc.allowAnyStatus
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Triggers processing on origins with any evaluation status.
+   Overrides \"allowPreliminaryOrigins\" but not
+   \"ignoreRejectedOrigins\".
+
+
+.. confval:: reloc.allowPreliminaryOrigins
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Triggers processing also on origins with status PRELIMINARY.
+   Origins with any other status is ignored anyway. The parameter
+   is overridden by \"allowAnyStatus\".
+
+
+.. confval:: reloc.allowManualOrigins
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Triggers processing also on origins with evaluatuion mode
+   MANUAL. Otherwise only origins with mode AUTOMATIC are
+   considered. The triggering may be limited due to an evaluation
+   status, see \"allowPreliminaryOrigins\".
+
+
+.. confval:: reloc.useWeight
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Whether to use the weight of the picks associated with the
+   input origin as defined in the input origin as input for
+   the locator or not. If false then all picks associated with
+   the input origin will be forwarded to the locator with full
+   weight.
+
+
+.. confval:: reloc.adoptFixedDepth
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   If the input origin's depth is fixed then it will be fixed
+   during the relocation process as well.
+
+
+.. confval:: reloc.storeSourceOriginID
+
+   Default: ``false``
+
+   Type: *boolean*
+
+   Whether to store the ID of the input origin as comment in the
+   relocated origin or not.
+
+
+.. confval:: reloc.originIDSuffix
+
+   Type: *string*
+
+   Suffix appended to the publicID of the origin to be relocated
+   to form the new publicID. This
+   helps to identify pairs of origins before and after relocation.
+   However, new publicIDs are unrelated to the time of creation.
+   If not defined, a new publicID will be generated automatically.
+
+
+.. note::
+   **picks.\***
+   *Parameters specific to picks.*
+
+
+
+.. confval:: picks.streamsSetUnused
+
+   Type: *list:string*
+
+   List of streams from which picks are set to unsed by their
+   referencing arrivals before locating. The concerned arrivals
+   are kept but the picks will not be used for locating.
+   Streams take the format NET.STA.LOC.CHA. Wildcards \* and ?
+   are supported.
+   
+   Example:
+   
+   GE.MOX.\*.HH? : All arrivals on any HH stream of station MOX
+   will be kept but not used for locating.
+
+
+
+Command-Line Options
+====================
+
+.. program:: screloc
+
+
+Generic
+-------
+
+.. option:: -h, --help
+
+   Show help message.
+
+.. option:: -V, --version
+
+   Show version information.
+
+.. option:: --config-file file
+
+   The alternative module configuration file. When this option
+   is used, the module configuration is only read from the
+   given file and no other configuration stage is considered.
+   Therefore, all configuration including the definition of
+   plugins must be contained in that file or given along with
+   other command\-line options such as \-\-plugins.
+
+.. option:: --plugins arg
+
+   Load given plugins.
+
+.. option:: -D, --daemon
+
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
+
+.. option:: --auto-shutdown arg
+
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with
+   \-\-start\-stop\-msg for the master module\).
+
+.. option:: --shutdown-master-module arg
+
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
+
+.. option:: --shutdown-master-username arg
+
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
+
+
+Verbosity
+---------
+
+.. option:: --verbosity arg
+
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
+
+.. option:: -v, --v
+
+   Increase verbosity level \(may be repeated, e.g., \-vv\).
+
+.. option:: -q, --quiet
+
+   Quiet mode: no logging output.
+
+.. option:: --component arg
+
+   Limit the logging to a certain component. This option can
+   be given more than once.
+
+.. option:: -s, --syslog
+
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
+
+.. option:: -l, --lockfile arg
+
+   Path to lock file.
+
+.. option:: --console arg
+
+   Send log output to stdout.
+
+.. option:: --debug
+
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
+
+.. option:: --log-file arg
+
+   Use alternative log file.
+
+
+Messaging
+---------
+
+.. option:: -u, --user arg
+
+   Overrides configuration parameter :confval:`connection.username`.
+
+
+.. option:: -H, --host arg
+
+   Overrides configuration parameter :confval:`connection.server`.
+
+
+.. option:: -t, --timeout arg
+
+   Overrides configuration parameter :confval:`connection.timeout`.
+
+
+.. option:: -g, --primary-group arg
+
+   Overrides configuration parameter :confval:`connection.primaryGroup`.
+
+
+.. option:: -S, --subscribe-group arg
+
+   A group to subscribe to.
+   This option can be given more than once.
+
+.. option:: --content-type arg
+
+   Overrides configuration parameter :confval:`connection.contentType`.
+
+   Default: ``binary``
+
+
+.. option:: --start-stop-msg arg
+
+   Default: ``0``
+
+   Set sending of a start and a stop message.
+
+
+Database
+--------
+
+.. option:: --db-driver-list
+
+   List all supported database drivers.
+
+.. option:: -d, --database arg
+
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
+
+.. option:: --config-module arg
+
+   The config module to use.
+
+.. option:: --inventory-db arg
+
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
+
+.. option:: --db-disable
+
+   Do not use the database at all
+
+
+Mode
+----
+
+.. option:: --dump
+
+   Dump processed origins as XML to stdout. Use in combination
+   with \-O.
+
+.. option:: --test
+
+   Test mode, do not send any message.
+
+
+Input
+-----
+
+.. option:: --locator arg
+
+   Overrides configuration parameter :confval:`reloc.locator`.
+
+
+.. option:: --profile arg
+
+   Overrides configuration parameter :confval:`reloc.profile`.
+
+
+.. option:: --ep arg
+
+   Event parameters XML file for offline processing of all
+   contained origins. This option should not be mixed with
+   \-\-dump.
+
+.. option:: -O, --origin-id arg
+
+   Reprocess the origin and send a message unless test mode is
+   activated. This option can be provided multiple times.
+
+.. option:: --use-weight
+
+   Overrides configuration parameter :confval:`reloc.useWeight`.
+
+
+.. option:: --streams-set-unused arg
+
+   Overrides configuration parameter :confval:`picks.streamsSetUnused`.
+
+   Type: *list:string*
+
+   List of streams from which picks are set to unsed by their
+   referencing arrivals before locating. The concerned arrivals
+   are kept but the picks will not be used for locating.
+   Streams take the format NET.STA.LOC.CHA. Wildcards \* and ?
+   are supported.
+
+.. option:: --replace
+
+   Used in combination with \-\-ep. If given then each origin for
+   that an output has been generated is replaced by the result
+   of relocation. In other words: two LocSAT origins in, two
+   NonLinLoc origins out. All other objects are passed through.
+
+
+Output
+------
+
+.. option:: --evaluation-mode
+
+   Evaluation mode of the new origin \(AUTOMATIC or MANUAL\).
+
+.. option:: -f, --formatted
+
+   Use formatted XML output. Otherwise XML is unformatted.
+
+.. option:: --origin-id-suffix
+
+   Create origin ID from that of the input origin plus the
+   specfied suffix.
+
+
+Profiling
+---------
+
+.. option:: --measure-relocation-time
+
+   Measure the time spent in a single relocation
+
+.. option:: --repeated-relocations arg
+
+   Improve measurement of relocation time by running each
+   relocation multiple times. Specify the number of relocations,
+   e.g. 100.
+

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+
+<html  lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NonLinLoc &#8212; SeisComP Release documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/seiscomp.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=72bcf2f2" />
+    <link rel="stylesheet" type="text/css" href="../_static/seiscomp.css?v=c6da7ce6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <script type="text/javascript" src="../_static/seiscomp.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=823bb831"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MLh" href="global_mlh.html" />
+    <link rel="prev" title="Md" href="global_md.html" /> 
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="brand">
+          <img class="logo" src="../_static/brands/seiscomp/text/white.svg"/>
+           <!-- span class="title">SeisComP Release</span -->
+          <span class="version">7.4.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="container">
+        <div class="content"><a class="pull-right" id="sidebar-toggle">TOC</a>
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <ul>
+        <li class="right">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">
+            index
+          </a>
+        </li>
+        <li class="right">
+          <a href="global_mlh.html" title="MLh"
+             accesskey="N">
+            next
+          </a>
+        </li>
+        <li class="right">
+          <a href="global_md.html" title="Md"
+             accesskey="P">
+            previous
+          </a>
+        </li>
+        <li class="nav-item nav-item-0">
+          <a href="../index.html">Home</a>
+        </li>
+        <li class="nav-item nav-item-1">
+          <a href="../toc/extensions.html" >Extensions</a>
+        </li>
+        <li class="nav-item nav-item-2">
+          <a href="../toc/extensions/global.html" accesskey="U">global</a>
+        </li> 
+      </ul>
+    </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="fitted content" id="anchors-container">
+        <div class="body" role="main">
+          
+  <section id="nonlinloc">
+<span id="global-nonlinloc"></span><h1>NonLinLoc<a class="headerlink" href="#nonlinloc" title="Permalink to this heading">¶</a></h1>
+<p>NonLinLoc locator wrapper plugin for SeisComP.
+NonLinLoc was written by Anthony Lomax (<a class="reference external" href="http://alomax.free.fr/nlloc">http://alomax.free.fr/nlloc</a>).</p>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
+<p>Funded by <a class="reference external" href="http://www.seismo.ethz.ch/">SED/ETH Zurich</a>, developed by
+<span id="id1">[<a class="reference internal" href="../base/references.html#id149" title="gempa GmbH. The SeisComP development and maintenance company. URL: https://www.gempa.de.">32</a>]</span>.
+This plugin is available from SeisComP version Release Potsdam 2010 and later.</p>
+<p>The <a class="reference external" href="http://alomax.free.fr/nlloc">NonLinLoc (NLL)</a> locator algorithm has been
+implemented into SeisComP through the plugin mechanism. A new plugin locnll
+contains the LocatorInterface implementation for NonLinLoc.</p>
+<p>The implementation bundles the NonLinLoc source files required to use the library
+function calls. The following source files are included:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">GridLib.c</span>
+<span class="na">GridLib.h</span>
+<span class="na">GridMemLib.c</span>
+<span class="na">GridMemLib.h</span>
+<span class="na">NLLocLib.h</span>
+<span class="na">NLLoc1.c</span>
+<span class="na">NLLocLib.c</span>
+<span class="na">calc_crust_corr.c</span>
+<span class="na">calc_crust_corr.h</span>
+<span class="na">crust_corr_model.h</span>
+<span class="na">crust_type_key.h</span>
+<span class="na">crust_type.h</span>
+<span class="na">loclist.c</span>
+<span class="na">octtree.h</span>
+<span class="na">octtree.c</span>
+<span class="na">phaseloclist.h</span>
+<span class="na">phaselist.c</span>
+<span class="na">geo.c</span>
+<span class="na">geo.h</span>
+<span class="na">geometry.h</span>
+<span class="na">map_project.c</span>
+<span class="na">map_project.h</span>
+<span class="na">otime_limit.c</span>
+<span class="na">otime_limit.h</span>
+<span class="na">ran1.c</span>
+<span class="na">ran1.h</span>
+<span class="na">velmod.c</span>
+<span class="na">velmod.h</span>
+<span class="na">util.h</span>
+<span class="na">util.c</span>
+<span class="na">alomax_matrix/alomax_matrix.c</span>
+<span class="na">alomax_matrix/alomax_matrix.h</span>
+<span class="na">alomax_matrix/alomax_matrix_svd.c</span>
+<span class="na">alomax_matrix/alomax_matrix_svd.h</span>
+</pre></div>
+</div>
+</section>
+<section id="error-measures">
+<h2>Error measures<a class="headerlink" href="#error-measures" title="Permalink to this heading">¶</a></h2>
+<p>After running NonLinLoc the output is converted into a SeisComP (QuakeML) origin
+object including all available error measures. The following table shows how
+the NLL error measures are mapped to the SeisComP data model:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>SeisComP</p></th>
+<th class="head"><p>NLL</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Origin.latitude.uncertainty</p></td>
+<td><p>sqrt(phypo-&gt;cov.yy)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Origin.longitude.uncertainty</p></td>
+<td><p>sqrt(phypo-&gt;cov.xx)</p></td>
+</tr>
+<tr class="row-even"><td><p>Origin.depth.uncertainty</p></td>
+<td><p>sqrt(phypo-&gt;cov.zz)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Origin.originQuality.standardError</p></td>
+<td><p>phypo-&gt;rms</p></td>
+</tr>
+<tr class="row-even"><td><p>Origin.originQuality.secondaryAzimuthalGap</p></td>
+<td><p>phypo-&gt;gap_secondary</p></td>
+</tr>
+<tr class="row-odd"><td><p>Origin.originQuality.usedStationCount</p></td>
+<td><p>phypo-&gt;usedStationCount</p></td>
+</tr>
+<tr class="row-even"><td><p>Origin.originQuality.associatedStationCount</p></td>
+<td><p>phypo-&gt;associatedStationCount</p></td>
+</tr>
+<tr class="row-odd"><td><p>Origin.originQuality.associatedPhaseCount</p></td>
+<td><p>phypo-&gt;associatedPhaseCount</p></td>
+</tr>
+<tr class="row-even"><td><p>Origin.originQuality.usedPhaseCount</p></td>
+<td><p>phypo-&gt;nreadings</p></td>
+</tr>
+<tr class="row-odd"><td><p>Origin.originQuality.depthPhaseCount</p></td>
+<td><p>phypo-&gt;depthPhaseCount</p></td>
+</tr>
+<tr class="row-even"><td><p>Origin.originQuality.minimumDistance</p></td>
+<td><p>km2deg(phypo-&gt;minimumDistance)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Origin.originQuality.maximumDistance</p></td>
+<td><p>km2deg(phypo-&gt;maximumDistance)</p></td>
+</tr>
+<tr class="row-even"><td><p>Origin.originQuality.medianDistance</p></td>
+<td><p>km2deg(phypo-&gt;medianDistance)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Origin.originQuality.groundTruthLevel</p></td>
+<td><p>phypo-&gt;groundTruthLevel</p></td>
+</tr>
+<tr class="row-even"><td><p>Origin.originUncertainty.horizontalUncertainty</p></td>
+<td><p>phypo-&gt;ellipse.len2</p></td>
+</tr>
+<tr class="row-odd"><td><p>Origin.originUncertainty.minHorizontalUncertainty</p></td>
+<td><p>phypo-&gt;ellipse.len1</p></td>
+</tr>
+<tr class="row-even"><td><p>Origin.originUncertainty.maxHorizontalUncertainty</p></td>
+<td><p>phypo-&gt;ellipse.len2</p></td>
+</tr>
+<tr class="row-odd"><td><p>Origin.originUncertainty.azimuthMaxHorizontalUncertainty</p></td>
+<td><p>phypo-&gt;ellipse.az1 + 90</p></td>
+</tr>
+<tr class="row-even"><td><p>ConfidenceEllipsoid.semiMajorAxisLength</p></td>
+<td><p>phypo-&gt;ellipsoid.len3</p></td>
+</tr>
+<tr class="row-odd"><td><p>ConfidenceEllipsoid.semiMinorAxisLength</p></td>
+<td><p>phypo-&gt;ellipsoid.len1</p></td>
+</tr>
+<tr class="row-even"><td><p>ConfidenceEllipsoid.semiIntermediateAxisLength</p></td>
+<td><p>phypo-&gt;ellipsoid.len2</p></td>
+</tr>
+<tr class="row-odd"><td><p>ConfidenceEllipsoid.majorAxisPlunge</p></td>
+<td><p>(phypo-&gt;ellipsoid.axis1 x phypo-&gt;ellipsoid.axis2).dip</p></td>
+</tr>
+<tr class="row-even"><td><p>ConfidenceEllipsoid.majorAxisAzimuth</p></td>
+<td><p>(phypo-&gt;ellipsoid.axis1 x phypo-&gt;ellipsoid.axis2).az</p></td>
+</tr>
+<tr class="row-odd"><td><p>ConfidenceEllipsoid.majorAxisRotation</p></td>
+<td><p>T.B.D.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="plugin">
+<h2>Plugin<a class="headerlink" href="#plugin" title="Permalink to this heading">¶</a></h2>
+<p>The NonLinLoc plugin is installed under <code class="file docutils literal notranslate"><span class="pre">share/plugins/locnll.so</span></code>.
+It provides a new implementation of the LocatorInterface with the name NonLinLoc.</p>
+<p>To add the plugin to a module add it to the modules configuration, either
+<code class="file docutils literal notranslate"><span class="pre">modulename.cfg</span></code> or <code class="file docutils literal notranslate"><span class="pre">global.cfg</span></code>:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">${plugins}, locnll</span>
+</pre></div>
+</div>
+<p>Basically it can be used by two modules: <a class="reference internal" href="screloc.html#screloc"><span class="std std-ref">screloc</span></a> and <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a>.</p>
+</section>
+<section id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this heading">¶</a></h2>
+<p>All output is stored in the configured <a class="reference internal" href="#confval-NonLinLoc.outputPath"><code class="xref std std-confval docutils literal notranslate"><span class="pre">NonLinLoc.outputPath</span></code></a>.
+The file prefix for a location is the originID (<a class="reference internal" href="#confval-NonLinLoc.publicID"><code class="xref std std-confval docutils literal notranslate"><span class="pre">NonLinLoc.publicID</span></code></a>).</p>
+<p>The following file are stored:</p>
+<ul class="simple">
+<li><p>Input observations (.obs)</p></li>
+<li><p>Input configuration (.conf)</p></li>
+<li><p>NLL location (.loc.hyp)</p></li>
+<li><p>NLL 3D grid header (.loc.hdr)</p></li>
+<li><p>NLL octree (.loc.octree)</p></li>
+<li><p>NLL scatter file (.loc.scat)</p></li>
+</ul>
+<p>In addition to the native NLL output a SeisComP origin object is created and
+returned to the calling instance. Usually this object is then sent via messaging.</p>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">¶</a></h2>
+<section id="profiles">
+<h3>Profiles<a class="headerlink" href="#profiles" title="Permalink to this heading">¶</a></h3>
+<p>The plugin allows to specify multiple configuration profiles (<a class="reference internal" href="#confval-NonLinLoc.profiles"><code class="xref std std-confval docutils literal notranslate"><span class="pre">NonLinLoc.profiles</span></code></a>).
+The profile to use can selected both in <cite>scolv</cite> and <cite>screloc</cite>, however a
+virtual profile automatic is also provided, which selects the best matching
+configured profile based on the initial location. For this reason each profile
+contains some configuration parameters that defines where the profile is valid
+(<cite>transform</cite>, <cite>region</cite>, <cite>origin</cite>, <cite>rotation</cite>). The <cite>transform</cite> profile
+configuration parameter supports only <cite>GLOBAL</cite> or <cite>SIMPLE</cite> at the moment: only the
+profile has this limitation, not the NonLinLoc control file, which supports
+all transformations available in NonLinLoc.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If a profile <cite>transform</cite> is set as <cite>GLOBAL</cite> and the <cite>region</cite> parameter is
+left <cite>empty</cite>, then the plugin adds the line <cite>TRANS GLOBAL</cite> to the control
+file, forcing a global transformation.</p>
+</div>
+</section>
+<section id="configuration-example">
+<h3>Configuration example<a class="headerlink" href="#configuration-example" title="Permalink to this heading">¶</a></h3>
+<p>To add the plugin to an application such as scolv or screloc, add the plugin
+name to the list of plugins that are loaded (e.g. <code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="si">${</span><span class="nv">plugins</span><span class="si">}</span>,<span class="w"> </span>locnll
+</pre></div>
+</div>
+<p>Futhermore add the plugin configuration (e.g. <code class="file docutils literal notranslate"><span class="pre">scolv.cfg</span></code>):</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1">########################################################</span>
+<span class="c1">################ NonLinLoc configuration################</span>
+<span class="c1">########################################################</span>
+<span class="na">NLLROOT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">${HOME}/nll/data</span>
+
+<span class="na">NonLinLoc.outputPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">${NLLROOT}/output/</span>
+
+<span class="c1"># Define the default control file if no profile specific</span>
+<span class="c1"># control file is defined.</span>
+<span class="na">NonLinLoc.controlFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">${NLLROOT}/NLL.default.conf</span>
+
+<span class="c1"># Set the default pick error in seconds passed to NonLinLoc</span>
+<span class="c1"># if no SeisComP pick uncertainty is available.</span>
+<span class="na">NonLinLoc.defaultPickError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.1</span>
+
+<span class="c1"># Define the available NonLinLoc location profiles. The order</span>
+<span class="c1"># implicitly defines the priority for overlapping regions</span>
+<span class="c1">#NonLinLoc.profiles = swiss_3d, swiss_1d, global</span>
+<span class="na">NonLinLoc.profiles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">swiss_3d, global</span>
+
+<span class="c1"># The earthModelID is copied to earthModelID attribute of the</span>
+<span class="c1"># resulting origin</span>
+<span class="na">NonLinLoc.profile.swiss_1d.earthModelID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;swiss regional 1D&quot;</span>
+
+<span class="c1"># Specify the velocity model table path as used by NonLinLoc</span>
+<span class="na">NonLinLoc.profile.swiss_1d.tablePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">${NLLROOT}/time_1d_regio/regio</span>
+
+<span class="c1"># Specify the region valid for this profile</span>
+<span class="c1"># Without this parameter the plugin will add an additional</span>
+<span class="c1"># TRANS GLOBAL statement in the NLL control file</span>
+<span class="na">NonLinLoc.profile.swiss_1d.region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">41.2, 3.8, 50.1, 16.8</span>
+
+<span class="c1"># The NonLinLoc  control file to use for this profile</span>
+<span class="na">NonLinLoc.profile.swiss_1d.controlFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">${NLLROOT}/NLL.swiss_1d.conf</span>
+
+<span class="c1"># Configure the swiss_3d profile</span>
+<span class="na">NonLinLoc.profile.swiss_3d.earthModelID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;swiss regional 3D&quot;</span>
+<span class="na">NonLinLoc.profile.swiss_3d.tablePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">${NLLROOT}/time_3d/ch</span>
+<span class="na">NonLinLoc.profile.swiss_3d.region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">45.15, 5.7, 48.3, 11.0</span>
+<span class="na">NonLinLoc.profile.swiss_3d.controlFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">${NLLROOT}/NLL.swiss_3d.conf</span>
+
+<span class="c1"># And the global profile</span>
+<span class="na">NonLinLoc.profile.global.earthModelID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">iaspei91</span>
+<span class="na">NonLinLoc.profile.global.tablePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">${NLLROOT}/iasp91/iasp91</span>
+<span class="na">NonLinLoc.profile.global.controlFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">${NLLROOT}/NLL.global.conf</span>
+</pre></div>
+</div>
+<p>An example of a NonLinLoc control file configuration that contains all the
+required statements, but it must be adapted to the specific use case. The
+missing statements are generated by the plugin (LOCFILES, LOCHYPOUT, LOCSRCE):</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># -1 = no logs, useful for playback with screloc --ep option</span>
+<span class="na">CONTROL</span><span class="w"> </span><span class="s">-1 123456</span>
+<span class="c1"># This must be the same TRANS used for generating the grid files</span>
+<span class="na">TRANS</span><span class="w"> </span><span class="s">SDC 46.51036987 8.47575546 0.0</span>
+<span class="na">LOCSIG</span><span class="w"> </span><span class="s">Swiss Seismological Service, ETHZ</span>
+<span class="na">LOCCOM</span><span class="w"> </span><span class="s">location using my local velocity model</span>
+<span class="na">LOCSEARCH</span><span class="w"> </span><span class="s">OCT 20 20 20 0.001 10000 1000</span>
+<span class="c1"># This grid origin is relative to the TRANS statement. The grid</span>
+<span class="c1"># must be wholly contained in the grid files</span>
+<span class="na">LOCGRID</span><span class="w"> </span><span class="s">101 101 101 -0.5 -0.5 -1.8  0.01 0.01 0.01 PROB_DENSITY SAVE</span>
+<span class="na">LOCMETH</span><span class="w"> </span><span class="s">EDT_OT_WT 9999.0 4 -1 -1 -1 0 -1 1</span>
+<span class="na">LOCGAU</span><span class="w"> </span><span class="s">0.001 0.0</span>
+<span class="na">LOCPHASEID</span><span class="w">  </span><span class="s">P   P p G Pn Pg P1</span>
+<span class="na">LOCPHASEID</span><span class="w">  </span><span class="s">S   S s G Sn Sg S1</span>
+<span class="na">LOCQUAL2ERR</span><span class="w"> </span><span class="s">0.025 0.050 0.100 0.200 0.400 99999.9</span>
+<span class="na">LOCANGLES</span><span class="w"> </span><span class="s">ANGLES_YES 5</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The LOCHYPOUT parameter statement is always generated by the plugin.
+By default it outputs <cite>LOCHYPOUT NONE</cite>.  If <cite>enableSEDParameters</cite> is enabled
+or if the original control file contains <cite>CALC_SED_ORIGIN</cite>, it will append
+<cite>CALC_SED_ORIGIN</cite>.  If the original control file contains
+<cite>SAVE_NLLOC_EXPECTATION</cite>, that flag will also be preserved. Currently, only
+<cite>CALC_SED_ORIGIN</cite> and <cite>SAVE_NLLOC_EXPECTATION</cite> are supported by the plugin.
+Any other options are omitted and will not be forwarded to NonLinLoc.</p>
+</div>
+</section>
+<section id="testing">
+<h3>Testing<a class="headerlink" href="#testing" title="Permalink to this heading">¶</a></h3>
+<p>After setting the <cite>SeisComP</cite> module configuration parameters for NonLinLoc you may
+test your settings by selecting NonLinLoc in <a class="reference internal" href="scolv.html#scolv"><span class="std std-ref">scolv</span></a>. The configuration
+along with errors and missing files will be reported in the log output. In case
+of issues adjust your configuration or the file/directory structure
+accordingly. Example:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scolv<span class="w"> </span>--debug<span class="w"> </span>--olv.locator<span class="o">=</span>NonLinLoc
+
+...
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w"> </span>NonLinLoc<span class="w"> </span>profile<span class="w"> </span>configurations
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w"> </span><span class="o">================================</span>
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w"> </span>Parameters<span class="w"> </span><span class="k">for</span><span class="w"> </span>profile<span class="w"> </span><span class="s1">&#39;global&#39;</span>
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w">   </span>+<span class="w"> </span>Earth<span class="w"> </span>model<span class="w">                              </span>:<span class="w"> </span>iasp91
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w">   </span>+<span class="w"> </span>method<span class="w">                                   </span>:<span class="w"> </span>NonLinLoc
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w">   </span>+<span class="w"> </span>table<span class="w"> </span>path<span class="w">                               </span>:<span class="w"> </span>/home/sysop/seiscomp/share/nonlinloc/iasp91/iasp91_1
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w">   </span>+<span class="w"> </span>testing<span class="w"> </span>existence<span class="w"> </span>of<span class="w"> </span>files<span class="w"> </span><span class="k">in</span><span class="w"> </span>directory<span class="w">  </span>:<span class="w"> </span>/home/sysop/seiscomp/share/nonlinloc/iasp91
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>error<span class="o">]</span><span class="w">     </span>+<span class="w"> </span>found<span class="w"> </span>no<span class="w"> </span>files<span class="w"> </span>starting<span class="w"> </span>with<span class="w">           </span>:<span class="w"> </span>/home/sysop/seiscomp/share/nonlinloc/iasp91/iasp91_1
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>warning<span class="o">]</span><span class="w"> </span>+<span class="w"> </span>ignoring<span class="w"> </span>NonLinLoc<span class="w"> </span>profile<span class="w"> </span><span class="s1">&#39;global&#39;</span>
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w"> </span>Parameters<span class="w"> </span><span class="k">for</span><span class="w"> </span>profile<span class="w"> </span><span class="s1">&#39;m1&#39;</span>
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w">   </span>+<span class="w"> </span>Earth<span class="w"> </span>model<span class="w">                              </span>:<span class="w"> </span>led1
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w">   </span>+<span class="w"> </span>method<span class="w">                                   </span>:<span class="w"> </span>NonLinLoc
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w">   </span>+<span class="w"> </span>table<span class="w"> </span>path<span class="w">                               </span>:<span class="w"> </span>/home/sysop/seiscomp/share/nonlinloc/m1/layer
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>error<span class="o">]</span><span class="w">   </span>+<span class="w"> </span>path<span class="w"> </span>to<span class="w"> </span>travel-time<span class="w"> </span>tables<span class="w"> </span>does<span class="w"> </span>not<span class="w"> </span>exist:<span class="w"> </span>/home/sysop/seiscomp/share/nonlinloc/m1
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>warning<span class="o">]</span><span class="w"> </span>+<span class="w"> </span>ignoring<span class="w"> </span>NonLinLoc<span class="w"> </span>profile<span class="w"> </span><span class="s1">&#39;m1&#39;</span>
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w"> </span>Parameters<span class="w"> </span><span class="k">for</span><span class="w"> </span>profile<span class="w"> </span><span class="s1">&#39;m2&#39;</span>
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w">   </span>+<span class="w"> </span>Earth<span class="w"> </span>model<span class="w">                              </span>:<span class="w"> </span>led2
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w">   </span>+<span class="w"> </span>method<span class="w">                                   </span>:<span class="w"> </span>NonLinLoc
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w">   </span>+<span class="w"> </span>table<span class="w"> </span>path<span class="w">                               </span>:<span class="w"> </span>/home/sysop/seiscomp/share/nonlinloc/m2/layer
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w">   </span>+<span class="w"> </span>testing<span class="w"> </span>existence<span class="w"> </span>of<span class="w"> </span>files<span class="w"> </span><span class="k">in</span><span class="w"> </span>directory<span class="w">  </span>:<span class="w"> </span>/home/sysop/seiscomp/share/nonlinloc/m2
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>debug<span class="o">]</span><span class="w">     </span>+<span class="w"> </span>found<span class="w">     </span><span class="m">8</span><span class="w"> </span>files<span class="w"> </span>starting<span class="w"> </span>with<span class="w">        </span>:<span class="w"> </span>/home/sysop/seiscomp/share/nonlinloc/m2/layer
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>error<span class="o">]</span><span class="w">   </span>+<span class="w"> </span>missing<span class="w"> </span>NonLinLoc.profile.m2.controlFile<span class="w"> </span>:<span class="w"> </span>/home/dirk/PROJEKTE/HLNUG/support/6803/NLL.LED2.conf2
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>warning<span class="o">]</span><span class="w"> </span>+<span class="w"> </span>ignoring<span class="w"> </span>NonLinLoc<span class="w"> </span>profile<span class="w"> </span><span class="s1">&#39;m2&#39;</span>
+<span class="m">15</span>:48:05<span class="w"> </span><span class="o">[</span>warning<span class="o">]</span><span class="w"> </span>NonLinLoc:<span class="w"> </span>Found<span class="w"> </span>no<span class="w"> </span>profiles
+...
+</pre></div>
+</div>
+</section>
+</section>
+<section id="stations-names">
+<h2>Stations names<a class="headerlink" href="#stations-names" title="Permalink to this heading">¶</a></h2>
+<p>When generating the grid files the station names used in the GTSRCE statement
+must match the rule set in the plugin configuration. E.g.</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1"># Format of the station name used to select the right travel time table (grid)</span>
+<span class="c1"># file for a station. By default only the station code is used (e.g.</span>
+<span class="c1"># tablePath.P.@STA@.time.*), but that doesn&#39;t allow to distinguish between</span>
+<span class="c1"># multiple network codes or location codes that use the same station code. To</span>
+<span class="c1"># overcome this limitation this parameter could be set in a more general way,</span>
+<span class="c1"># for example @NET@_@STA@_@LOC@. In this way NonLinLoc will look for travel</span>
+<span class="c1"># time table (grid) files of the form: tablePath.P.@NET@_@STA@_@LOC@.time.*</span>
+<span class="c1"># Where @NET@ @STA@ @LOC@ are just placeholder for the actual codes</span>
+<span class="na">NonLinLoc.profile.MYPROFILE.stationNameFormat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@NET@_@STA@_@LOC@</span>
+</pre></div>
+</div>
+<p>Given the above plugin configuration, the GTSRCE statement should be something
+like this:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">GTSRCE</span><span class="w"> </span><span class="s">CH_STA01_   LATLON  46.519  8.474  0.0  1.295</span>
+<span class="na">GTSRCE</span><span class="w"> </span><span class="s">CH_STA02_01 LATLON  46.456  8.474  0.0  1.323</span>
+<span class="na">GTSRCE</span><span class="w"> </span><span class="s">CH_STA03_AA LATLON  46.784  8.474  0.0  1.292</span>
+</pre></div>
+</div>
+<p>Alternatively the names could just contain the station code:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">NonLinLoc.profile.MYPROFILE.stationNameFormat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@STA@</span>
+</pre></div>
+</div>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">GTSRCE</span><span class="w"> </span><span class="s">STA01 LATLON  46.519  8.474  0.0  1.295</span>
+<span class="na">GTSRCE</span><span class="w"> </span><span class="s">STA02 LATLON  46.456  8.474  0.0  1.323</span>
+<span class="na">GTSRCE</span><span class="w"> </span><span class="s">STA03 LATLON  46.784  8.474  0.0  1.292</span>
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
+<section id="locator">
+<h3>Locator<a class="headerlink" href="#locator" title="Permalink to this heading">¶</a></h3>
+<p>The usage of the new NLL plugin is straight forward. Once loaded successfully the
+new locator shows up in the lower left corners combo box.</p>
+<figure class="align-default">
+<img alt="../_images/locator_selection_small1.png" src="../_images/locator_selection_small1.png" />
+</figure>
+<p>Select the new NonLinLoc locator and the configured profiles will be loaded into
+the combo box right of it.</p>
+<figure class="align-default">
+<img alt="../_images/locator_profile_selection_small1.png" src="../_images/locator_profile_selection_small1.png" />
+</figure>
+<p>The NonLinLoc implementation provides a virtual profile automatic. This emulates
+the complete automatic case and selects the best matching configured profiles
+based on the initial location.</p>
+<p>If an origin has been relocated the method should be set to “NonLinLoc” and
+the earth model contains the string NonLinLoc.profile.[name].earthModelID
+configured for the selected profile.</p>
+<figure class="align-default">
+<img alt="../_images/origin_information1.png" src="../_images/origin_information1.png" />
+</figure>
+</section>
+<section id="settings">
+<h3>Settings<a class="headerlink" href="#settings" title="Permalink to this heading">¶</a></h3>
+<p>The NLL locator implementation supports to override configured settings or
+control parameters for a session. Those changes are not persistent and lost if
+the locator is changed to another one or the profile has been changed.  However
+this feature is particularly useful when trying differnt settings on a particular
+origin or for enabling the NonLinLoc logs (<cite>CONTROL</cite> statement) that becomes
+visible on the console.</p>
+<p>To open the settings dialog press the button right to the locator selection
+combo box.</p>
+<figure class="align-default">
+<img alt="../_images/locator_settings1.png" src="../_images/locator_settings1.png" />
+</figure>
+<p>Then the NLL specific parameters show up.</p>
+<figure class="align-default">
+<img alt="../_images/NLL_settings.png" src="../_images/NLL_settings.png" />
+</figure>
+</section>
+<section id="seismicity-viewer">
+<h3>Seismicity Viewer<a class="headerlink" href="#seismicity-viewer" title="Permalink to this heading">¶</a></h3>
+<p>scolv provides two additional configurable buttons. To bind
+<a class="reference external" href="http://alomax.free.fr/seismicity">Seismicity Viewer</a> to the first one the
+following configuration can be used:</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">button0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Seismicity Viewer&quot;</span>
+<span class="na">scripts.script0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@CONFIGDIR@/scripts/sv</span>
+</pre></div>
+</div>
+<p>A small wrapper script sv has been created that calls Seismicity Viewer based
+on the origin ID passed to the script.</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c1">#!/bin/sh</span>
+<span class="na">FILE</span><span class="o">=</span><span class="s">$HOME/nll/data/output/$1.loc.hyp</span>
+<span class="na">java</span><span class="w"> </span><span class="s">-classpath $HOME/nll/bin/SeismicityViewer50.jar </span><span class="se">\</span>
+<span class="w">     </span><span class="s">net.alomax.seismicity.Seismicity $FILE</span>
+</pre></div>
+</div>
+<p>This examples assumes that Seismicity Viewer has been installed in $HOME/nll/bin.</p>
+</section>
+</section>
+<section id="module-configuration">
+<span id="global-nonlinloc-configuration"></span><h2>Module Configuration<a class="headerlink" href="#module-configuration" title="Permalink to this heading">¶</a></h2>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.publicID">
+<span class="sig-name descname"><span class="pre">NonLinLoc.publicID</span></span><a class="headerlink" href="#confval-NonLinLoc.publicID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">NLL.&#64;time/%Y%m%d%H%M%S.%f&#64;.&#64;id&#64;</span></code></p>
+<p>Type: <em>string</em></p>
+<p>PublicID creation pattern for an origin created by NonLinLoc.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.outputPath">
+<span class="sig-name descname"><span class="pre">NonLinLoc.outputPath</span></span><a class="headerlink" href="#confval-NonLinLoc.outputPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">/tmp/sc3.nll</span></code></p>
+<p>Type: <em>directory</em></p>
+<p>Defines the output directory for all native NonLinLoc input and output files.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.saveInput">
+<span class="sig-name descname"><span class="pre">NonLinLoc.saveInput</span></span><a class="headerlink" href="#confval-NonLinLoc.saveInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Save input files *.obs in outputPath for later processing.
+Setting to false reduces file i/o and saves disk space.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.saveIntermediateOutput">
+<span class="sig-name descname"><span class="pre">NonLinLoc.saveIntermediateOutput</span></span><a class="headerlink" href="#confval-NonLinLoc.saveIntermediateOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Save output files in outputPath for later processing or
+for viewing by the Seismicity Viewer.
+Setting to false reduces file i/o and saves disk space.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.controlFile">
+<span class="sig-name descname"><span class="pre">NonLinLoc.controlFile</span></span><a class="headerlink" href="#confval-NonLinLoc.controlFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>file</em></p>
+<p>The default NonLinLoc control file to use. Parameters
+therein are overridden per profile.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.defaultPickError">
+<span class="sig-name descname"><span class="pre">NonLinLoc.defaultPickError</span></span><a class="headerlink" href="#confval-NonLinLoc.defaultPickError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.5</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>s</em></p>
+<p>The default pick error in seconds passed to NonLinLoc if a SeisComP pick
+object does not provide pick time uncertainties.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.fixedDepthGridSpacing">
+<span class="sig-name descname"><span class="pre">NonLinLoc.fixedDepthGridSpacing</span></span><a class="headerlink" href="#confval-NonLinLoc.fixedDepthGridSpacing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">0.1</span></code></p>
+<p>Type: <em>double</em></p>
+<p>Unit: <em>km</em></p>
+<p>Since NLL does not support fixing the depth natively so this
+feature is emulated by settings the Z grid very tight around
+the depth to be fixed. This value sets the Z grid spacing.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.allowMissingStations">
+<span class="sig-name descname"><span class="pre">NonLinLoc.allowMissingStations</span></span><a class="headerlink" href="#confval-NonLinLoc.allowMissingStations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<p>Type: <em>boolean</em></p>
+<p>Picks from stations with missing configuration will be
+ignored. The origin will be relocated without that pick
+if possible.</p>
+<p>If set to false, the plug-in throws
+an excepection without locating.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.profiles">
+<span class="sig-name descname"><span class="pre">NonLinLoc.profiles</span></span><a class="headerlink" href="#confval-NonLinLoc.profiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:string</em></p>
+<p>Defines a list of active profiles to be used by the plugin.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>NonLinLoc.profile.$name.*</strong>
+<em>Defines a regional profile that is used if a prelocation falls</em>
+<em>inside the configured region.</em>
+$name is a placeholder for the name to be used and needs to be added to <a class="reference internal" href="#confval-NonLinLoc.profiles"><code class="xref std std-confval docutils literal notranslate"><span class="pre">NonLinLoc.profiles</span></code></a> to become active.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>NonLinLoc.profiles<span class="w"> </span><span class="o">=</span><span class="w"> </span>a,b
+NonLinLoc.profile.a.value1<span class="w"> </span><span class="o">=</span><span class="w"> </span>...
+NonLinLoc.profile.b.value1<span class="w"> </span><span class="o">=</span><span class="w"> </span>...
+<span class="c1"># c is not active because it has not been added</span>
+<span class="c1"># to the list of NonLinLoc.profiles</span>
+NonLinLoc.profile.c.value1<span class="w"> </span><span class="o">=</span><span class="w"> </span>...
+</pre></div>
+</div>
+</div>
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.profile.-name.earthModelID">
+<span class="sig-name descname"><span class="pre">NonLinLoc.profile.$name.earthModelID</span></span><a class="headerlink" href="#confval-NonLinLoc.profile.-name.earthModelID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>string</em></p>
+<p>Earth model ID stored in the created origin.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.profile.-name.methodID">
+<span class="sig-name descname"><span class="pre">NonLinLoc.profile.$name.methodID</span></span><a class="headerlink" href="#confval-NonLinLoc.profile.-name.methodID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">NonLinLoc</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Method ID stored in the created origin.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.profile.-name.tablePath">
+<span class="sig-name descname"><span class="pre">NonLinLoc.profile.$name.tablePath</span></span><a class="headerlink" href="#confval-NonLinLoc.profile.-name.tablePath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>path</em></p>
+<p>Path to travel time tables (grids) including the
+full path and the names of the table files before
+the phase name.</p>
+<p>Example:</p>
+<p>&#64;DATADIR&#64;/nonlinloc/iasp91/iasp91 for P and S tables
+files
+seiscomp/share/nonlinloc/iasp91/iasp91.[PS].*</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.profile.-name.stationNameFormat">
+<span class="sig-name descname"><span class="pre">NonLinLoc.profile.$name.stationNameFormat</span></span><a class="headerlink" href="#confval-NonLinLoc.profile.-name.stationNameFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">&#64;STA&#64;</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Format of the station name used to select the right travel time table (grid) file
+for a station.
+By default only the station code is used (e.g. tablePath.P.&#64;STA&#64;.time.*), but
+that doesn’t allow to distinguish between multiple network codes or location codes
+that use the same station code.
+To overcome this limitation this parameter could be set in a more general way, for
+example &#64;NET&#64;_&#64;STA&#64;_&#64;LOC&#64;. In this way NonLinLoc will look for
+travel time table (grid) files of the form: tablePath.P.&#64;NET&#64;_&#64;STA&#64;_&#64;LOC&#64;.time.*
+Where &#64;NET&#64; &#64;STA&#64; &#64;LOC&#64; are just placeholder for the actual codes.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.profile.-name.controlFile">
+<span class="sig-name descname"><span class="pre">NonLinLoc.profile.$name.controlFile</span></span><a class="headerlink" href="#confval-NonLinLoc.profile.-name.controlFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>file</em></p>
+<p>Control file of the current profile overriding
+parameters of the default control file.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.profile.-name.transform">
+<span class="sig-name descname"><span class="pre">NonLinLoc.profile.$name.transform</span></span><a class="headerlink" href="#confval-NonLinLoc.profile.-name.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: <code class="docutils literal notranslate"><span class="pre">GLOBAL</span></code></p>
+<p>Type: <em>string</em></p>
+<p>Transformation type of the configured region.
+Supported are SIMPLE and GLOBAL.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.profile.-name.region">
+<span class="sig-name descname"><span class="pre">NonLinLoc.profile.$name.region</span></span><a class="headerlink" href="#confval-NonLinLoc.profile.-name.region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Defines the 4 corner values of the epicentral region for selecting the profile.
+The original epicentre must be within the region.</p>
+<p>If transform is GLOBAL: min_lat, min_lon, max_lat, max_lon.
+The values define the geographic corner coordinates.
+Unit: degree.</p>
+<p>If transform is SIMPLE: min_x, min_y, max_x, max_y.
+The values define the region relative to the origin
+configured with &quot;origin&quot;.
+Unit: km.</p>
+<p>When this parameter is empty, the generated NonLinLoc
+configuration is automatically overwritten with
+TRANS GLOBAL.
+Otherwise TRANS from &quot;controlFile&quot; applies.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.profile.-name.origin">
+<span class="sig-name descname"><span class="pre">NonLinLoc.profile.$name.origin</span></span><a class="headerlink" href="#confval-NonLinLoc.profile.-name.origin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>list:double</em></p>
+<p>Unit: <em>deg</em></p>
+<p>Only used for transformation SIMPLE. Expects 2 values: latitude, longitude.
+The value define the geographic origin of the area spanned by region.</p>
+</dd></dl>
+
+<dl class="std confval">
+<dt class="sig sig-object std" id="confval-NonLinLoc.profile.-name.rotation">
+<span class="sig-name descname"><span class="pre">NonLinLoc.profile.$name.rotation</span></span><a class="headerlink" href="#confval-NonLinLoc.profile.-name.rotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <em>double</em></p>
+<p>Unit: <em>deg</em></p>
+<p>Only used for transformation SIMPLE. Defines the
+rotation around the origin of the defined region.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+          <div id="anchors-bottom"></div>
+        </div>
+        
+      <div class="sidebar" role="navigation" aria-label="main navigation">
+        <div id="anchors-top"></div>
+        <div id="anchors" class="content">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">NonLinLoc</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#error-measures">Error measures</a></li>
+<li><a class="reference internal" href="#plugin">Plugin</a></li>
+<li><a class="reference internal" href="#output">Output</a></li>
+<li><a class="reference internal" href="#setup">Setup</a><ul>
+<li><a class="reference internal" href="#profiles">Profiles</a></li>
+<li><a class="reference internal" href="#configuration-example">Configuration example</a></li>
+<li><a class="reference internal" href="#testing">Testing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stations-names">Stations names</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#locator">Locator</a></li>
+<li><a class="reference internal" href="#settings">Settings</a></li>
+<li><a class="reference internal" href="#seismicity-viewer">Seismicity Viewer</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-configuration">Module Configuration</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="global_md.html"
+                          title="previous chapter">Md</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="global_mlh.html"
+                          title="next chapter">MLh</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/apps/global_nonlinloc.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="horizontal layout content">
+        <a class="fade-in" href="https://www.gempa.de" target="_blank">
+          <img class="brand" src="../_static/brands/gempa.svg"/>
+        </a>
+        <div class="stretched align-center fitted content">
+          <div>
+		  Version <b>7.4.0</b> Release
+          </div>
+            <div class="copyright">
+              Copyright &copy; gempa GmbH, GFZ Potsdam.
+            </div>
+        </div>
+        <a class="fade-in" href="https://www.gfz-potsdam.de" target="_blank">
+          <img class="brand" src="../_static/brands/gfz.svg"/>
+        </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

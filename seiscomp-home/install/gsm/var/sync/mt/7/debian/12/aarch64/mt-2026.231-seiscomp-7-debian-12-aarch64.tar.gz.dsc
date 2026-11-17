@@ -1,0 +1,17 @@
+pkgname=mt
+pkgver=2026.231
+pkgrel=7
+pkgdesc=('Automatic and interactive moment tensor analysis (commercial)')
+pkgkeywords=('decision support earthquake monitoring Greens function intensity moment tensor teleseismic monitoring tsunami simulation MT')
+pkgchangelog=('share/doc/MT/CHANGELOG')
+arch=('aarch64')
+license=('Gempa')
+sha256=('5894fef0724c80c3ef24986e560a159aa848f4da4d1489fa31b3a9c79b3fd1b4')
+pkgsize=('20436179')
+pkginstallsize=('28472676')
+filename=('mt-2026.231-seiscomp-7-debian-12-aarch64.tar.gz')
+builddate=('2026-10-13 05:56:06')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')
+osinstallscripts=('install-mt.sh')

@@ -1,0 +1,17 @@
+pkgname=gds
+pkgver=2026.285
+pkgrel=7
+pkgdesc=('Modular expandable dissemination and publication server (commercial)')
+pkgkeywords=('decision support dissemination EEW induced earthquake local monitoring microseismic monitoring teleseismic monitoring web')
+pkgchangelog=('share/doc/gds/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('3bbde12bcd0070a5e3e4fa6f86c1a080431b9d2e045829f6e7918d80f4040bb5')
+pkgsize=('18357887')
+pkginstallsize=('25190175')
+pkgfilecount=('486')
+filename=('gds-2026.285-seiscomp-7-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-11-06 21:54:57')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

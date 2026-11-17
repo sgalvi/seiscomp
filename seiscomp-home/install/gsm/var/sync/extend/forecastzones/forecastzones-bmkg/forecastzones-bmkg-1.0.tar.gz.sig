@@ -1,0 +1,1 @@
+../../../forecastzones-bmkg/noarch/forecastzones-bmkg-1.0.tar.gz.sig

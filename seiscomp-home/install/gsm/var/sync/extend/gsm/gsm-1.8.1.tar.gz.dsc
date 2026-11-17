@@ -1,0 +1,17 @@
+pkgname=gsm
+pkgver=1.8.1
+pkgrel=gsm-gsm
+pkgdesc=('gempa Software Management tool (public)')
+pkgkeywords=('[]')
+pkgchangelog=('gsm/share/doc/gsm/CHANGELOG')
+arch=('noarch')
+license=('None')
+sha256=('6ee7d33d61a9912972230c44be77baaa8c1f687b65fbc5ce56897d3109e554d3')
+pkgsize=('103645')
+pkginstallsize=('449814')
+pkgfilepath=('gsm')
+filename=('gsm-1.8.1.tar.gz')
+builddate=('2026-10-28 14:53:38')
+pkgos=('any')
+pkgosversion=('')
+pkgfileversion=('0.1')

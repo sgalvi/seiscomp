@@ -1,0 +1,16 @@
+pkgname=gdisp
+pkgver=2023.004
+pkgrel=7
+pkgdesc=('Get events from messaging and compute GNSS displacements. (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/gdisp/CHANGELOG')
+arch=('x86_64')
+license=('None')
+sha256=('5c387dc7835757b272d7da622d60001548a9ae08caf571b389597dd015efd316')
+pkgsize=('11181')
+pkginstallsize=('46845')
+filename=('gdisp-2023.004-7-7.0.3-ubuntu-22.04-x86_64.tar.gz')
+builddate=('2026-02-11 23:25:04')
+pkgos=('ubuntu')
+pkgosversion=('22.04')
+pkgfileversion=('0.1')

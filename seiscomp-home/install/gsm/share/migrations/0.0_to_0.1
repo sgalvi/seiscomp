@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+
+############################################################################
+# Copyright (C) 2019 by gempa GmbH                                         #
+#                                                                          #
+# All Rights Reserved.                                                     #
+#                                                                          #
+# NOTICE: All information contained herein is, and remains                 #
+# the property of gempa GmbH and its suppliers, if any. The intellectual   #
+# and technical concepts contained herein are proprietary to gempa GmbH    #
+# and its suppliers.                                                       #
+# Dissemination of this information or reproduction of this material       #
+# is strictly forbidden unless prior written permission is obtained        #
+# from gempa GmbH.                                                         #
+#                                                                          #
+#  Author: Enrico Ellguth, Ralph Henneberger                               #
+#  Email: enrico.ellguth@gempa.de, ralix@gempa.de                          #
+############################################################################
+
+
+import os
+import sys
+import signal
+import pathlib
+import fileinput
+
+
+gsmBaseDir, _ = os.path.split(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(os.path.dirname(gsmBaseDir))
+
+from lib import config
+
+class App(object):
+
+    def __init__(self, argc, argv):
+        self.argv = argv
+        self.argc = argc
+
+        self.command = None
+
+        baseDir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        self.config = config.Config(os.path.dirname(baseDir))
+
+
+    def init(self):
+        # configuration file exits
+        if os.path.isfile(self.config.fileName):
+            self.config.read()
+        else:
+            print(f"Configuration file {self.config.fileName} not found. Please run " \
+                      "'./gsm setup' to create an initial configuration")
+        return True
+
+    def handleCommand(self):
+        modules = [
+            name for name in os.listdir(self.config.localDir)
+            if os.path.isdir(os.path.join(self.config.localDir, name)) and not name.startswith('.')
+        ]
+        for filename in modules:
+            filesFile = os.path.join(self.config.localDir, filename, "files")
+            print(f"* Migrating {filename} package")
+            for l in fileinput.input(filesFile, inplace=1):
+                text = l.strip()
+                if text.startswith(self.config.rootDir):
+                    p = pathlib.Path(text)
+                    rep =  str(p.relative_to(*p.parts[:1]))
+                    if rep != ".":
+                        l = l.replace(text, rep)
+                        sys.stdout.write(l)
+                else:
+                    sys.stdout.write(l)
+        return True
+
+    def run(self):
+        return self.init() and self.handleCommand()
+
+
+
+def main():
+    app = App(len(sys.argv), sys.argv)
+    return not app.run()
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except KeyboardInterrupt:
+        print("Interrupted (Ctrl+C)")
+        sys.exit(signal.SIGINT)

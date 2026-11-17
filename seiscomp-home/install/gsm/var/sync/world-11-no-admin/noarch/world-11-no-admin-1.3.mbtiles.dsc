@@ -1,0 +1,16 @@
+pkgname=world-11-no-admin
+pkgver=1.3
+pkgdesc=('gempa map tiles in Pseudo-Mercator projection up to zoom level 11 without administrative borders and names (76 m/pixel, 46.6 GiB) (commercial)')
+pkgkeywords=('map world-11-no-admin.mbtiles')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('c60048b19e25236d35fa04d9764cce2791116c6163d1b962ed0fbeed493541ce')
+pkgsize=('49869516800')
+pkginstallsize=('49869516800')
+filename=('world-11-no-admin-1.3.mbtiles')
+pkgfilepath=('maps/world-11-no-admin')
+builddate=('2021-08-30 08:44:56')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=data

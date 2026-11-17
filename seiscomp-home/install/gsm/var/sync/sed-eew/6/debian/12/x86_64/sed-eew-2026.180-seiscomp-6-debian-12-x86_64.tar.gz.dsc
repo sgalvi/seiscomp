@@ -1,0 +1,17 @@
+pkgname=sed-eew
+pkgver=2026.180
+pkgrel=6
+pkgdesc=('Software package provided for ETH Zurich (https://www.seismo.ethz.ch) (public)')
+pkgkeywords=('sed eew')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('87f95d387228c94be42ee9a0b3bbe2b9140fdee55621410dc49072d2f2afedb0')
+pkgsize=('11190134')
+pkginstallsize=('33514692')
+pkgfilecount=('146')
+filename=('sed-eew-2026.180-seiscomp-6-debian-12-x86_64.tar.gz')
+builddate=('2026-11-17 00:06:24')
+pkgos=('debian')
+pkgosversion=('12')
+pkgfileversion=('0.1')

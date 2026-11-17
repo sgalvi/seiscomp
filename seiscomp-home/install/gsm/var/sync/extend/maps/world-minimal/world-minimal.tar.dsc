@@ -1,0 +1,16 @@
+pkgname=world-minimal
+pkgver=2025.328
+pkgdesc=('gempa map in Pseudo-Mercator projection up to zoom level 6 (2.4 km/pixel, 127.9 MiB) (public)')
+pkgkeywords=('map world-minimal')
+arch=('noarch')
+license=('None')
+depends=('')
+sha256=('49dc4c654d764ae23a93a7557a8481e13eff2dc6df8a4c6175e134d97713030f')
+pkgsize=('132730880')
+pkginstallsize=('128671439')
+filename=('world-minimal.tar')
+pkgfilepath=('maps/world-minimal')
+builddate=('2025-11-24 15:03:56')
+pkgos=('any')
+pkgosversion=('any')
+pkgtype=app

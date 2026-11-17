@@ -1,0 +1,16 @@
+pkgname=quakelink
+pkgver=2026.250
+pkgrel=6
+pkgdesc=('Real-time streaming of event information and inventory (commercial)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/quakelink/CHANGELOG')
+arch=('x86_64')
+license=('Gempa')
+sha256=('fb8b9d953dd19b9ec2ed7122df4bcf4a447ddba48d8b98674982029b6d964308')
+pkgsize=('16358433')
+pkginstallsize=('27835749')
+filename=('quakelink-2026.250-seiscomp-6-debian-13-x86_64.tar.gz')
+builddate=('2026-10-14 22:18:21')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')

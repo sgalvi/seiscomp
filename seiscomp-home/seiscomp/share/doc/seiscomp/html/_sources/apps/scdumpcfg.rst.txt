@@ -1,0 +1,253 @@
+.. highlight:: rst
+
+.. _scdumpcfg:
+
+#########
+scdumpcfg
+#########
+
+**Dump bindings or module configurations used by a specific module or global
+for particular stations.**
+
+
+Description
+===========
+
+scdumpcfg reads and prints the
+:ref:`module or bindings configuration <concepts_configuration>`
+for a specific module or for global. It even prints the global bindings for modules
+which do not have module bindings, such as :ref:`scmv`.
+
+This command-line utility is therefore useful for debugging configuration parameters.
+
+Instead of printing parameters and values for stations, the option :option:`--nlsc`
+allows printing a list of the channel considering bindings. The output may be
+used, e.g., for
+
+* filtering inventory by :ref:`invextr`
+* miniSEED records by :ref:`scart` or :ref:`scmssort`
+* event information by :ref:`scevtstreams`.
+
+Related to :program:`scdumpcfg` is :ref:`bindings2cfg` which dumps the bindings
+configuration to :term:`SCML`.
+
+
+Examples
+========
+
+#. Dump the global bindings configuration for all stations which have global bindings:
+
+   .. code-block:: sh
+
+      scdumpcfg global -d mysql://sysop:sysop@localhost/seiscomp -B
+
+#. Dump the bindings configuration for all stations which have bindings to a
+   :ref:`scautopick` profile. Additionally use *-G* as :ref:`scautopick` inherits global
+   bindings:
+
+   .. code-block:: sh
+
+      scdumpcfg scautopick -d localhost -GB
+
+#. Dump the module global module configuration specifcally searching for the map
+   zoom sensitivity and output the result in the format of the |scname| module
+   configuration:
+
+   .. code-block:: sh
+
+      scdumpcfg global -d localhost --cfg -P map.zoom.sensitivity
+
+#. Dump the module configuration of scautopick and output in the format of the
+   |scname| module configuration:
+
+   .. code-block:: sh
+
+      scdumpcfg scautopick -d localhost --cfg
+
+#. Dump global bindings configuration considerd by scmv:
+
+   .. code-block:: sh
+
+      scdumpcfg scmv -d localhost -BG
+
+#. Dump the channel codes defined by scautopick binding as a list of NET.STA.LOC.CHA:
+
+   .. code-block:: sh
+
+      scdumpcfg scautopick -d localhost -B --nslc
+
+
+.. _scdumpcfg_configuration:
+
+Module Configuration
+====================
+
+| :file:`etc/defaults/global.cfg`
+| :file:`etc/defaults/scdumpcfg.cfg`
+| :file:`etc/global.cfg`
+| :file:`etc/scdumpcfg.cfg`
+| :file:`~/.seiscomp/global.cfg`
+| :file:`~/.seiscomp/scdumpcfg.cfg`
+
+scdumpcfg inherits :ref:`global options<global-configuration>`.
+
+
+
+
+Command-Line Options
+====================
+
+.. program:: scdumpcfg
+
+:program:`scdumpcfg [options]`
+
+
+Generic
+-------
+
+.. option:: -h, --help
+
+   Show help message.
+
+.. option:: -V, --version
+
+   Show version information.
+
+.. option:: --config-file file
+
+   The alternative module configuration file. When this option
+   is used, the module configuration is only read from the
+   given file and no other configuration stage is considered.
+   Therefore, all configuration including the definition of
+   plugins must be contained in that file or given along with
+   other command\-line options such as \-\-plugins.
+
+.. option:: --plugins arg
+
+   Load given plugins.
+
+.. option:: -D, --daemon
+
+   Run as daemon. This means the application will fork itself
+   and doesn't need to be started with \&.
+
+.. option:: --auto-shutdown arg
+
+   Enable\/disable self\-shutdown because a master module shutdown.
+   This only works when messaging is enabled and the master
+   module sends a shutdown message \(enabled with
+   \-\-start\-stop\-msg for the master module\).
+
+.. option:: --shutdown-master-module arg
+
+   Set the name of the master\-module used for auto\-shutdown.
+   This is the application name of the module actually
+   started. If symlinks are used, then it is the name of
+   the symlinked application.
+
+.. option:: --shutdown-master-username arg
+
+   Set the name of the master\-username of the messaging
+   used for auto\-shutdown. If \"shutdown\-master\-module\" is
+   given as well, this parameter is ignored.
+
+
+Verbosity
+---------
+
+.. option:: --verbosity arg
+
+   Verbosity level [0..4]. 0:quiet, 1:error, 2:warning, 3:info,
+   4:debug.
+
+.. option:: -v, --v
+
+   Increase verbosity level \(may be repeated, e.g., \-vv\).
+
+.. option:: -q, --quiet
+
+   Quiet mode: no logging output.
+
+.. option:: --component arg
+
+   Limit the logging to a certain component. This option can
+   be given more than once.
+
+.. option:: -s, --syslog
+
+   Use syslog logging backend. The output usually goes to
+   \/var\/lib\/messages.
+
+.. option:: -l, --lockfile arg
+
+   Path to lock file.
+
+.. option:: --console arg
+
+   Send log output to stdout.
+
+.. option:: --debug
+
+   Execute in debug mode.
+   Equivalent to \-\-verbosity\=4 \-\-console\=1 .
+
+.. option:: --log-file arg
+
+   Use alternative log file.
+
+
+Database
+--------
+
+.. option:: --db-driver-list
+
+   List all supported database drivers.
+
+.. option:: -d, --database arg
+
+   The database connection string, format:
+   service:\/\/user:pwd\@host\/database.
+   \"service\" is the name of the database driver which
+   can be queried with \"\-\-db\-driver\-list\".
+
+.. option:: --config-module arg
+
+   The config module to use.
+
+.. option:: --inventory-db arg
+
+   Load the inventory from the given database or file, format:
+   [service:\/\/]location .
+
+.. option:: --config-db arg
+
+   Load the configuration from the given database or file,
+   format: [service:\/\/]location .
+
+
+Dump
+----
+
+.. option:: -B, --bindings arg
+
+   Dump bindings instead of module configuration.
+
+.. option:: -G, --allow-global arg
+
+   Print global bindings if no module binding is available.
+
+.. option:: -P, --param arg
+
+   Specify the parameter name\(s\) to filter for. Use comma
+   separation of multiple parameters.
+
+.. option:: --cfg
+
+   Print output in .cfg format. Does not work along with \-B.
+
+.. option:: --nslc
+
+   Print the list of channels which have bindings of the given
+   module. Requires to set \-B. Can be used by other modules,
+   e.g., invextr, scart, scmssort, scevtstreams.
+

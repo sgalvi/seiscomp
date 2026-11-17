@@ -1,0 +1,19 @@
+pkgname=seiscomp-debug
+pkgver=nightly
+pkgrel=nightly
+pkgdesc=('SeisComP including data acquisition, processing, distribution and interactive analysis, version >=4.0.0 (public)')
+pkgkeywords=('[]')
+pkgchangelog=('share/doc/seiscomp/CHANGELOG')
+arch=('aarch64')
+license=('None')
+sha256=('30e0877c40dd817bac7f0ad3f311acb1d3d63b606062be18783d4a6d033c7ac2')
+pkgsize=('242337740')
+pkginstallsize=('720745447')
+pkgfilecount=('2458')
+filename=('seiscomp-debug-nightly-debian-13-aarch64-debug.tar.gz')
+builddate=('2026-11-17 00:15:45')
+pkgos=('debian')
+pkgosversion=('13')
+pkgfileversion=('0.1')
+conflicts=('seiscomp-headless' 'seiscomp-acqui' 'seiscomp')
+osinstallscripts=('install-base.sh' 'install-fdsnws.sh' 'install-gui.sh' 'install-iloc.sh' 'install-mariadb-server.sh' 'install-postgresql-server.sh')

@@ -1,0 +1,17 @@
+pkgname=ga-addons
+pkgver=2026.177
+pkgrel=7
+pkgdesc=('Custom package used by GA (commercial)')
+pkgkeywords=('web')
+pkgchangelog=('None')
+arch=('x86_64')
+license=('None')
+sha256=('7dafd82b58af1a15854896377eded63c04fc542bd0c53709e8069866eb1e2c25')
+pkgsize=('122103')
+pkginstallsize=('412250')
+pkgfilecount=('7')
+filename=('ga-addons-2026.177-seiscomp-7-rhel-8-x86_64.tar.gz')
+builddate=('2026-11-17 00:03:42')
+pkgos=('rhel')
+pkgosversion=('8')
+pkgfileversion=('0.1')
