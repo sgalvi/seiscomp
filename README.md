@@ -1,5 +1,13 @@
 # SeisComP in Docker
 
+> [!WARNING]
+> **Progetto non ufficiale.**
+> Questa è una distribuzione non ufficiale di [SeisComP](https://www.seiscomp.de) in un container Docker. Non è creata, approvata né supportata dagli autori di SeisComP né da gempa GmbH.
+>
+> Abbiamo deciso di tenerla pubblica perché pensiamo possa essere utile a più persone.
+>
+> Se gli autori o i detentori dei diritti hanno obiezioni alla pubblicazione di questo materiale, sono pregati di contattarci (apri una *issue* su questo repository oppure scrivi a sgalvi@ogs.it): rimuoveremo tutto il prima possibile.
+
 SeisComP 7 con interfaccia grafica accessibile dal browser (noVNC). Funziona su Windows, macOS e Linux.
 
 ## Prerequisiti
